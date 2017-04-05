@@ -1,2 +1,2 @@
-# acornmon
+# acomon
 mini project : Hommage for Pokemon
