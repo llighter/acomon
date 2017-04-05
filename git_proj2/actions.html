@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type = "text/css">
+/*
+
+*/
+
+</style>
+
+<script src = "http://code.jquery.com/jquery-1.10.2.js">
+</script>
+<script type = "text/javascript">
+$(document).ready(function(){	
+});
+
+///////////////// world attributes
+
+pokemons =[];
+pokemons.push(new Pokemon(0, "jbMon", 50, 19, 3));  // pokemonNo name health attackStr shield
+pokemons.push(new Pokemon(1, "ynMon", 60, 18, 6));  // 포켓몬번호 이름 체력 기본공격력 기본방어력
+pokemons.push(new Pokemon(2, "gyMon", 43, 20, 3));  
+pokemons.push(new Pokemon(3, "jwMon", 54, 16, 4));  
+pokemons.push(new Pokemon(4, "jhMon", 45, 22, 2));  
+
+///////////////// Working Functions
+var 
+var 
+function walkInWild(){  // 야생에서 몬스터만날 확률...
+	var encountChance = Math.random();
+	if(encountChance < 0.4){ // 40%확률로 야생포켓몬과 만남. 
+		var randPokemon = parseInt(Math.random()*4 +1);
+		turnMoves(0,randPokemon);   // 일단 0번포켓몬 주인공, 상대는 랜덤으로..(추후에 추가)
+	}
+	else{
+		// 캐릭터 픽셀 움직임.
+	}
+}
+
+
+
+function turnMoves( pokemonNo1, pokemonNo2  ){
+
+	var coolTime01 = 0; //유저쿨타임.
+	var coolTime02 = 0;	
+	
+	this.name01 = pokemons[pokemonNo1].name; // 이름 선언
+	this.name02 = pokemons[pokemonNo2].name;
+	this.health01 = pokemons[pokemonNo1].health; // 체력 선언
+	this.health02 = pokemons[pokemonNo2].health;
+	this.attackStr01 = pokemons[pokemonNo1].attackStr; // 공격력 선언
+	this.attackStr02 = pokemons[pokemonNo2].attackStr;
+	this.shield01 = pokemons[pokemonNo1].shield;  // 방어력선언
+	this.shield02 = pokemons[pokemonNo2].shield;
+	
+	this.tackle = function(who){  // 몸통박치기
+		if(who == false){			//상대방턴인경우
+			this.health01 -= this.attackStr02;
+			coolTime02 +=2;
+			//who = true;
+		}
+		else{
+			this.health02 -= this.attackStr01;
+			coolTime01 +=2;
+			//who = false;
+		}
+		
+	}
+	this.skillAttack = function(who){  // 스킬공격 
+		if(who == false){			//상대방턴인경우
+			this.health01 -= (this.attackStr02 * (1+Math.random()) );
+			coolTime02 +=3;
+			//who = true;
+		}
+		else{
+			this.health02 -= (this.attackStr01 * (1+Math.random()) );
+			coolTime01 +=3;
+			//who = false;
+		}
+	}
+	this.checkBaggage = function(who, toDo){ // 가방뒤지기 - turn소모없이 체력회복, 몬스터볼 등..
+		if(toDo =="mint"){
+			this.health01 += 25;  //민트먹고 체력 25회복.
+		}
+		else if(toDo == "pokemonBall"){
+			//function call.
+			var chanceToCatch = Math.random();
+			if( (this.health02 / pokemons[pokemonNo2].health) < chanceToCatch ){
+				// 체력백분율보다 random이 더 클경우 잡기가능.
+				this.health01 = 0 ;
+			}
+			else{  // 못잡을경우.
+				console.log("잡기 실패!");
+			}
+		}	// pokemonBall END.
+			
+			
+	}
+	this.meditation = function(){ // 명상. 턴소모하며 체력회복.
+		this.health01 += 13;
+		coolTime01 +=1;
+	}
+	
+	
+} //turnMoves END
+
+/*
+걷다가 랜덤>0.6이면 만나고..
+상대방출연하면 공격버튼 활성화.. 턴쉴떄는 비활성화..
+	공격패턴으로.. 1.기본공격(몸통박치기) 3.스킬공격 4.명상(체력소량회복- 하지만 공격력보다는 적은..)
+도망가도 지고..어느쪽이던 체력0 이하면 지고. 
+
+*/
+
+
+////////////////////////////
+////////////////////////////playing game.
+////////////////////////////
+
+
+
+
+
+
+
+</script>
+
+</head>
+<body>
+<h3 onclick = "walkInWild();">걷기</h3>
+<h3>공격하기</h3>
+<h3></h3>
+<h3></h3>
+<h3></h3>
+</body>
+</html>
+
+
+
+
