@@ -16,20 +16,20 @@
 $(document).ready(function(){	
 });
 
-///////////////// world attributes
-
-pokemons =[];
-pokemons.push(new Pokemon(0, "jbMon", 50, 19, 3));  // pokemonNo name health attackStr shield
-pokemons.push(new Pokemon(1, "ynMon", 60, 18, 6));  // 포켓몬번호 이름 체력 기본공격력 기본방어력
-pokemons.push(new Pokemon(2, "gyMon", 43, 20, 3));  
-pokemons.push(new Pokemon(3, "jwMon", 54, 16, 4));  
-pokemons.push(new Pokemon(4, "jhMon", 45, 22, 2));  
 
 ///////////////// Working Functions
-var 
-var 
-function walkInWild(){  // 야생에서 몬스터만날 확률...
+
+function Pokemon(pokemonNo, name, health, attackStr, shield){
+	this.pokemonNo = pokemonNo;
+	this.name = name; 
+	this.health = health;
+	this.attackStr = attackStr;
+	this.shield = shield;
+}
+
+function walkInWild(){    // 야생에서 몬스터만날 확률...
 	var encountChance = Math.random();
+	console.log(encountChance);
 	if(encountChance < 0.4){ // 40%확률로 야생포켓몬과 만남. 
 		var randPokemon = parseInt(Math.random()*4 +1);
 		turnMoves(0,randPokemon);   // 일단 0번포켓몬 주인공, 상대는 랜덤으로..(추후에 추가)
@@ -41,12 +41,12 @@ function walkInWild(){  // 야생에서 몬스터만날 확률...
 
 
 
-function turnMoves( pokemonNo1, pokemonNo2  ){
-
+function TurnMoves( pokemonNo1, pokemonNo2  ){
+	console.log("move 돌입!");
 	var coolTime01 = 0; //유저쿨타임.
 	var coolTime02 = 0;	
 	
-	this.name01 = pokemons[pokemonNo1].name; // 이름 선언
+	this.name01 = pokemons[pokemonNo1].name;  // 이름 선언
 	this.name02 = pokemons[pokemonNo2].name;
 	this.health01 = pokemons[pokemonNo1].health; // 체력 선언
 	this.health02 = pokemons[pokemonNo2].health;
@@ -55,10 +55,21 @@ function turnMoves( pokemonNo1, pokemonNo2  ){
 	this.shield01 = pokemons[pokemonNo1].shield;  // 방어력선언
 	this.shield02 = pokemons[pokemonNo2].shield;
 	
-	this.tackle = function(who){  // 몸통박치기
-		if(who == false){			//상대방턴인경우
+	var userTurn = true;
+	this.coolTimeCalc = function(){
+		(coolTime01> coolTime02)? userTurn = false : userTurn = true;// 내 쿨타임이 더 큰경우 ; 상대턴.
+		console.log("유저턴 확인하기: " + userTurn );
+	}
+	
+	var showMove ="";
+	console.log("나: "+ pokemons[pokemonNo1].name + "상대: "+pokemons[pokemonNo2].name );
+	
+	/*  
+	 this.tackle = function(this.coolTimeCalc()){  // 몸통박치기
+		if(who){			//상대방턴인경우
 			this.health01 -= this.attackStr02;
 			coolTime02 +=2;
+			console.log("현재 내몬스터의 체력: "+this.health01 +" 쿨탐: "+ coolTime02);
 			//who = true;
 		}
 		else{
@@ -66,7 +77,7 @@ function turnMoves( pokemonNo1, pokemonNo2  ){
 			coolTime01 +=2;
 			//who = false;
 		}
-		
+		showMove = "몸통박치기!";
 	}
 	this.skillAttack = function(who){  // 스킬공격 
 		if(who == false){			//상대방턴인경우
@@ -79,6 +90,8 @@ function turnMoves( pokemonNo1, pokemonNo2  ){
 			coolTime01 +=3;
 			//who = false;
 		}
+		showMove = "스킬공격!";
+	
 	}
 	this.checkBaggage = function(who, toDo){ // 가방뒤지기 - turn소모없이 체력회복, 몬스터볼 등..
 		if(toDo =="mint"){
@@ -95,17 +108,19 @@ function turnMoves( pokemonNo1, pokemonNo2  ){
 				console.log("잡기 실패!");
 			}
 		}	// pokemonBall END.
+		showMove = "~~를 잡았다!";
 			
 			
 	}
 	this.meditation = function(){ // 명상. 턴소모하며 체력회복.
 		this.health01 += 13;
 		coolTime01 +=1;
-	}
-	
+		showMove = "명상하기!";
+	} */
+	 
 	
 } //turnMoves END
-
+ 
 /*
 걷다가 랜덤>0.6이면 만나고..
 상대방출연하면 공격버튼 활성화.. 턴쉴떄는 비활성화..
@@ -121,6 +136,12 @@ function turnMoves( pokemonNo1, pokemonNo2  ){
 
 
 
+pokemons =[];
+pokemons.push(new Pokemon(0, "jbMon", 50, 19, 3));  // pokemonNo name health attackStr shield
+pokemons.push(new Pokemon(1, "ynMon", 60, 18, 6));  // 포켓몬번호 이름 체력 기본공격력 기본방어력
+pokemons.push(new Pokemon(2, "gyMon", 43, 20, 3));  
+pokemons.push(new Pokemon(3, "jwMon", 54, 16, 4));  
+pokemons.push(new Pokemon(4, "jhMon", 45, 22, 2));  
 
 
 
@@ -130,8 +151,8 @@ function turnMoves( pokemonNo1, pokemonNo2  ){
 </head>
 <body>
 <h3 onclick = "walkInWild();">걷기</h3>
-<h3>공격하기</h3>
-<h3></h3>
+<h3 onclick = "turnMoves.tackle()">공격하기</h3>
+<h3 onclick = "turnMoves.coolTimeCalc();">턴 확인하기</h3>
 <h3></h3>
 <h3></h3>
 </body>
