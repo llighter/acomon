@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type = "text/css">
+/*
+
+*/
+
+</style>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+<script type="text/javascript">
+
+function bodyCaller(){
+	console.log("##this is bodycaller!")
+	
+}
+
+
+$(function() {         
+	$(window).load( function() {   
+		console.log("$(func) $(window).load console..!");   
+		} );     
+	}); 
+
+window.onload = function() { console.log("window.onload= #1"); }; //중복불가.
+window.onload = function() { console.log("window.onload= #2"); }; // 2순위
+/*
+ <body onload = ""> 사용 시
+
+script> window.onload(){ 내용 } /script> 실행되지 않는다.
+
+이에 대한 방안으로 window::onload() { 내용 } 을 사용할 수 있다.
+ 
+ */
+
+$(window).load(function() {
+    console.log("$(window).load #1"); //쿼리라서 중복가능. 진퉁onload 아래에있어서 3순위
+});
+$(window).load(function() {
+    console.log("$(window).load #2");
+});
+
+$(document).ready(function() { console.log("$(document).ready #1"); }); //쿼리라서 중복가능. 1순위
+$(document).ready(function() { console.log("$(document).ready #2"); });
+
+$(function() {         
+	console.log("$(func) console..!");   
+	     
+}); 
+
+bodyCaller();
+
+
+</script>
+
+
+</head>
+<body >
+
+</body>
+</html>
