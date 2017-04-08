@@ -7,6 +7,11 @@
 /*
 
 */
+*{
+border : 1px dotted red;
+
+}
+
 
 </style>
 
@@ -27,15 +32,15 @@ function Pokemon(pokemonNo, name, health, attackStr, shield){
 	this.shield = shield;
 }
 
-function walkInWild(){    // 야생에서 몬스터만날 확률...
+function walkInWild(){    // 야생에서 몬스터만남주선...
 	var encountChance = Math.random();
 	console.log(encountChance);
 	if(encountChance < 0.4){ // 40%확률로 야생포켓몬과 만남. 
 		var randPokemon = parseInt(Math.random()*4 +1);
-		turnMoves(0,randPokemon);   // 일단 0번포켓몬 주인공, 상대는 랜덤으로..(추후에 추가)
+		turnMoves(0,randPokemon);   // 일단 0번포켓몬 주인공, 상대는 랜덤으로..########추후에 추가변동
 	}
 	else{
-		// 캐릭터 픽셀 움직임.z
+		//캐릭터 픽셀 움직임. ########## 이건 추후에 캔버스나 css파일보고 판단..
 	}
 }
 
@@ -44,35 +49,35 @@ function coolTimeCalc(){
 	console.log("유저턴 확인하기: " + userTurn );
 }
 
-function tackle(){  // 몸통박치기
+function tackle(){  	// 몸통박치기
 	this.coolTimeCalc();
-	if(userTurn==false){			//상대방턴인경우
+	if(userTurn==false){		//상대방턴인경우
 		this.health01 -= this.attackStr02;
 		coolTime02 +=2;
 		console.log("현재 내몬스터의 체력: "+this.health01 +" 쿨탐: "+ coolTime02);
-		//who = true;
 	}
-	else{
+	else{	// 왠만하면 주인공 턴으로... 같거나 쿨탐적을경우.
 		this.health02 -= this.attackStr01;
 		coolTime01 +=2;
 		console.log("현재 상대몬스터의 체력: "+this.health02 +" 쿨탐: "+ coolTime01);
-		//who = false;
 	}
 	showMove = "몸통박치기!";
+	console.log(showMove);
 }
 
 function skillAttack(){  // 스킬공격 
 	this.coolTimeCalc();
 	var criticalAttack01 = Math.trunc(this.attackStr01*(1+Math.random()*0.5)*100)/100 ; 
 	var criticalAttack02 = Math.trunc(this.attackStr02*(1+Math.random()*0.5)*100)/100 ; 
-	
+						// 스킬공격은 최대 1.5배 크리공격으로 할당. 소수점 2자리까지.
 	if(userTurn==false){			//상대방턴인경우
 		console.log( "깍이기전 체력: "+ this.health01);
 		this.health01 -= (criticalAttack02 - this.shield01);  
-			// 최대 1.5배 크리공격. 소수점 2자리까지.
+			
 		coolTime02 +=3;
 		console.log("상대공격량"+criticalAttack02 + "내 방어량"+ this.shield01
 				+"\n현재 내몬스터의 체력: "+this.health01 +" 쿨탐: "+ coolTime02);
+		showMove = this.name02+"의 스킬공격!";
 	}
 	else{
 		console.log( "깍이기전 체력: "+ this.health02);
@@ -80,40 +85,47 @@ function skillAttack(){  // 스킬공격
 		coolTime01 +=3;
 		console.log("내공격량"+criticalAttack01 + "상대 방어량"+this.shield02
 				+"\n현재 상대몬스터의 체력: "+this.health02 +" 쿨탐: "+ coolTime01);
+		showMove = this.name01+"의 스킬공격!";
 	}
-	showMove = "스킬공격!";
 	console.log(showMove);
 }
 
-function checkBaggage(){ // 가방뒤지기 - turn소모없이 체력회복, 몬스터볼 등..
+function checkBaggage(toDo){ // 가방뒤지기 - turn소모없이 체력회복, 몬스터볼던지기, 명상하기 등..
 	this.coolTimeCalc();
-	$("#bagMint_jb").unbind().click(function(){
+	if(toDo =="mint"){
 		console.log("민트먹기전: "+ this.health01);
-		this.health01 += 25;  //민트먹고 체력 25회복.
-		console.log("민트먹고나서..: "+ this.health01);
-	});
-	
-	$("#throwBall_jb").unbind().click(function(){ 
-		//function call.
-		var chanceToCatch = Math.trunc(Math.random()*0.5*100)/100;			
-		/*
-		console.log(pokemons[this.name02].health);
-		 console.log("잡을확률"+chanceToCatch + 
-				"\n체력비율" + (this.health02 / pokemons[this.name02].health));
-		if( (this.health02 / pokemons[this.name02].health) < chanceToCatch ){
+		this.health01 += 25;  //민트먹고 체력 25회복. 아이템소모대신 쿨타임소모X
+		coolTime01 +=2;
+		showMove = this.name01 +"가 25만큼 회복!  현재체력:"+ this.health01;
+	}
+	else if(toDo =="catchWild"){
+		var chanceToCatch = Math.trunc(Math.random()*0.6*100)/100;	
+			//상대체력60%이하일때 운좋으면 잡기형식.	
+		console.log("잡을확률"+chanceToCatch + 
+				"\n체력비율" + (this.health02 / this.initEnemyHealth));
+		if( (this.health02 / this.initEnemyHealth ) < chanceToCatch ){
 			// 체력백분율보다 random이 더 클경우 잡기가능.
-			this.health01 = 0 ;
+			this.health02 = 0 ;
 			showMove = this.name02+"를 잡았다!";
 		}
 		else{  // 못잡을경우.
 			showMove = this.name02+" 잡기 실패!";
 		} 
-		console.log(showMove);*/
-	});	// pokemonBall END.
+	}// catchWild END.
+	else if(toDo =="meditation"){ // 명상하고 체력 13회복. 쿨타임+1대신 아이템소모X 소량회복. 
+		this.health01 += 13;
+		coolTime01 +=1;
+		showMove = this.name01+"명상하기! 현재체력: "+ this.health01;
+	}
+	console.log(showMove);
+
 	
-}
+}// checkBaggage END.
+
+
 
 ////////////////////
+//////////////////// main action functions.
 ////////////////////
 var userTurn = true;
 var coolTime01 = 0; //유저쿨타임.
@@ -126,38 +138,75 @@ function turnMoves( pokemonNo1, pokemonNo2  ){   // ###야생 포켓몬 만난�
 	this.name02 = pokemons[pokemonNo2].name;
 	this.health01 = pokemons[pokemonNo1].health; // 체력 선언
 	this.health02 = pokemons[pokemonNo2].health;
+	this.initEnemyHealth = pokemons[pokemonNo2].health;  // 상대초기체력할당.
 	this.attackStr01 = pokemons[pokemonNo1].attackStr; // 공격력 선언
 	this.attackStr02 = pokemons[pokemonNo2].attackStr;
 	this.shield01 = pokemons[pokemonNo1].shield;  // 방어력선언
 	this.shield02 = pokemons[pokemonNo2].shield;
 	
 	coolTime01 > coolTime02 ? userTurn =false : userTurn =true;
-	
 
 	console.log("나: "+ pokemons[pokemonNo1].name + "상대: "+pokemons[pokemonNo2].name );
 	
-	
 	$("#attack_jb").unbind().click(function(){ tackle(); });
 	$("#skillAttack_jb").unbind().click(function(){ skillAttack(); });
-	$("#throwBall_jb").unbind().click(function(){ checkBaggage(); });
-	
+
+	$("#bagMint_jb").css("display","none");
+	$("#throwBall_jb").css("display","none");
+	$("#clickBaggage_jb").unbind().click(function(){ 
+		var divMint = document.createElement("div");  // createElement로 동적 div만들기. -민트먹기
+		divMint.innerHTML =" 민트먹기 ";
+		divMint.setAttribute("id","bagMint_jb");
+		document.body.appendChild(divMint);
+		divMint.onclick = function(){ checkBaggage("mint"); }
+	 	var divPkBall = document.createElement("div"); // createElement로 동적 div만들기. -포켓볼던지기
+	 	divPkBall.innerHTML =" 포켓볼 던지기 ";
+		divPkBall.setAttribute("id","throwBall_jb");
+		document.body.appendChild(divPkBall);
+		divPkBall.onclick = function(){ checkBaggage("catchWild"); }
+		var divMeditation = document.createElement("div"); // createElement로 동적 div만들기. -명상하기
+		divMeditation.innerHTML =" 명상하기 ";
+		divMeditation.setAttribute("id","meditation_jb");
+		document.body.appendChild(divMeditation);
+		divMeditation.onclick = function(){ checkBaggage("meditation"); }
+		$("#bagMint_jb, #throwBall_jb, #meditation_jb").css({
+			"display":"table-cell",
+			"background":"lightblue",
+			"width":"150px", 
+			"height": "50px", 
+			"text-align":"center", 
+			"vertical-align": "middle",
+		});
+		$(this).css("display","none"); // <가방뒤지기> display:none
 		
-		/*			
+		
+	});
 	
-	this.meditation = function(){ // 명상. 턴소모하며 체력회복.
-		this.health01 += 13;
-		coolTime01 +=1;
-		showMove = "명상하기!";
-	} */
 	 
 	
 } //turnMoves END
  
 /*
+  
+ 
+ 
+ 
 걷다가 랜덤>0.6이면 만나고..
 상대방출연하면 공격버튼 활성화.. 턴쉴떄는 비활성화..
 	공격패턴으로.. 1.기본공격(몸통박치기) 3.스킬공격 4.명상(체력소량회복- 하지만 공격력보다는 적은..)
 도망가도 지고..어느쪽이던 체력0 이하면 지고. gg
+
+
+###############
+	현재 진행작업.
+	1. 
+	2. 
+	
+	
+	추가예정
+	1. 시나리오 - 클릭이나 엔터, 스페이스 누를때(keyup) 다음 시나리오각본으로 이동.
+	2. keyup으로 주인공 px값을 이동. 끝지점일때는 현재->다음맵img으로 전환.
+	3. 상대턴일경우 자동선택? 아니면 1p 2p형태?
 
 */
 
@@ -177,7 +226,6 @@ pokemons.push(new Pokemon(4, "jhMon", 45, 22, 2));
 
 
 
-
 </script>
 
 </head>
@@ -185,8 +233,7 @@ pokemons.push(new Pokemon(4, "jhMon", 45, 22, 2));
 <h3 onclick = "walkInWild();">걷기</h3>
 <h3 id= "attack_jb">공격하기</h3>
 <h3 id= "skillAttack_jb">스킬공격하기</h3>
-<h3 id= "bagMint_jb" >민트먹기</h3> 
-<h3 id= "throwBall_jb">포켓볼던지기</h3>
+<h3 id= "clickBaggage_jb">가방뒤져보기</h3>
 </body>
 </html>
 

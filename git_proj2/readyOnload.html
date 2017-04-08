@@ -14,12 +14,6 @@
 </script>
 <script type="text/javascript">
 
-  
-  
-
-window.onload = function() {
-	 console.log("AAA1");
-}
 
 function gogogo() {
 	console.log("BBB1");
@@ -27,13 +21,17 @@ function gogogo() {
 
 
 
-$(document).ready(function() {
-    console.log("$(document).ready(function()");
-});
 
 $(document).ready(gogogo());
 
 
+window.onload = function() {
+	 console.log("AAA1");
+}
+
+$(document).ready(function() {
+    console.log("$(document).ready(function()");
+});
 </script>
 
 
