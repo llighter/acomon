@@ -33,6 +33,9 @@ function Pokemon(pokemonNo, name, health, attackStr, shield){
 }
 
 function walkInWild(){    // 야생에서 몬스터만남주선...
+	//캐릭터 픽셀 움직임. ########## 이건 추후에 캔버스나 css파일보고 판단..
+	
+	
 	var encountChance = Math.random();
 	console.log(encountChance);
 	if(encountChance < 0.4){ // 40%확률로 야생포켓몬과 만남. 
@@ -40,7 +43,8 @@ function walkInWild(){    // 야생에서 몬스터만남주선...
 		turnMoves(0,randPokemon);   // 일단 0번포켓몬 주인공, 상대는 랜덤으로..########추후에 추가변동
 	}
 	else{
-		//캐릭터 픽셀 움직임. ########## 이건 추후에 캔버스나 css파일보고 판단..
+ 		//이벤트x. 단지 움직일수있는동작
+	
 	}
 }
 
@@ -67,8 +71,8 @@ function tackle(){  	// 몸통박치기
 
 function skillAttack(){  // 스킬공격 
 	this.coolTimeCalc();
-	var criticalAttack01 = Math.trunc(this.attackStr01*(1+Math.random()*0.5)*100)/100 ; 
-	var criticalAttack02 = Math.trunc(this.attackStr02*(1+Math.random()*0.5)*100)/100 ; 
+	var criticalAttack01 = Math.trunc(this.attackStr01*(1+(Math.random()*0.5 + 0.2))*100)/100 ; 
+	var criticalAttack02 = Math.trunc(this.attackStr02*(1+(Math.random()*0.5 + 0.2))*100)/100 ; 
 						// 스킬공격은 최대 1.5배 크리공격으로 할당. 소수점 2자리까지.
 	if(userTurn==false){			//상대방턴인경우
 		console.log( "깍이기전 체력: "+ this.health01);
@@ -90,7 +94,69 @@ function skillAttack(){  // 스킬공격
 	console.log(showMove);
 }
 
-function checkBaggage(toDo){ // 가방뒤지기 - turn소모없이 체력회복, 몬스터볼던지기, 명상하기 등..
+function createAttOptionsOnce(){
+	
+	var normalAtt = document.createElement("div");
+	var skillAtt = document.createElement("div");
+	if( $("#normalAtt_jb").html() == null){
+		normalAtt.innerHTML = "몸통박치기!";
+		normalAtt.setAttribute("id","normalAtt_jb");
+		document.body.insertBefore(normalAtt, document.getElementById("bagOptions_jb"));	
+		skillAtt.innerHTML = "스킬공격!";
+		skillAtt.setAttribute("id", "skillAtt_jb");
+		document.body.insertBefore(skillAtt, document.getElementById("bagOptions_jb"));	
+	}
+
+	normalAtt.onclick = function(){ tackle(); };
+	skillAtt.onclick = function(){ skillAttack(); };
+	
+	$("#normalAtt_jb, #skillAtt_jb").css({
+		"display":"table-cell",
+		"background":"#883050",
+		"width":"150px", 
+		"height": "50px", 
+		"text-align":"center", 
+		"vertical-align": "middle",
+	});
+}
+
+
+function createBagOptionsOnce(){
+	var divMint = document.createElement("div");  // createElement로 동적 div만들기. -민트먹기
+	var divPkBall = document.createElement("div"); // createElement로 동적 div만들기. -포켓볼던지기
+	var divMeditation = document.createElement("div"); // createElement로 동적 div만들기. -명상하기
+
+	if( $("#bagMint_jb").html() == null){
+		divMint.innerHTML =" 민트먹기 ";
+		divMint.setAttribute("id","bagMint_jb");
+		document.body.insertBefore(divMint, document.getElementById("runAway_jb") );	
+	 	divPkBall.innerHTML =" 포켓볼 던지기 ";
+		divPkBall.setAttribute("id","throwBall_jb");
+		document.body.insertBefore(divPkBall, document.getElementById("runAway_jb") );	
+		divMeditation.innerHTML =" 명상하기 ";
+		divMeditation.setAttribute("id","meditation_jb");
+		document.body.insertBefore(divMeditation, document.getElementById("runAway_jb") );	
+	}
+	
+	divMint.onclick = function(){ checkBaggage("mint"); }
+	divPkBall.onclick = function(){ checkBaggage("catchWild"); }
+	divMeditation.onclick = function(){ checkBaggage("meditation"); }
+	
+	$("#bagMint_jb, #throwBall_jb, #meditation_jb").css({
+		"display":"table-cell",
+		"background":"lightblue",
+		"width":"150px", 
+		"height": "50px", 
+		"text-align":"center", 
+		"vertical-align": "middle",
+	});
+	
+}
+
+
+
+
+function checkBaggage(toDo){ // (일단 주인공만)가방뒤지기 - turn소모없이 체력회복, 몬스터볼던지기, 명상하기 등..
 	this.coolTimeCalc();
 	if(toDo =="mint"){
 		console.log("민트먹기전: "+ this.health01);
@@ -109,6 +175,7 @@ function checkBaggage(toDo){ // 가방뒤지기 - turn소모없이 체력회복,
 			showMove = this.name02+"를 잡았다!";
 		}
 		else{  // 못잡을경우.
+			coolTime01 +=3;
 			showMove = this.name02+" 잡기 실패!";
 		} 
 	}// catchWild END.
@@ -118,14 +185,17 @@ function checkBaggage(toDo){ // 가방뒤지기 - turn소모없이 체력회복,
 		showMove = this.name01+"명상하기! 현재체력: "+ this.health01;
 	}
 	console.log(showMove);
-
-	
 }// checkBaggage END.
+
+function escapeFromEnemy(){
+	
+}
+
 
 
 
 ////////////////////
-//////////////////// main action functions.
+//////////////////// main action options.
 ////////////////////
 var userTurn = true;
 var coolTime01 = 0; //유저쿨타임.
@@ -145,41 +215,24 @@ function turnMoves( pokemonNo1, pokemonNo2  ){   // ###야생 포켓몬 만난�
 	this.shield02 = pokemons[pokemonNo2].shield;
 	
 	coolTime01 > coolTime02 ? userTurn =false : userTurn =true;
-
-	console.log("나: "+ pokemons[pokemonNo1].name + "상대: "+pokemons[pokemonNo2].name );
 	
-	$("#attack_jb").unbind().click(function(){ tackle(); });
-	$("#skillAttack_jb").unbind().click(function(){ skillAttack(); });
+	console.log("나: "+ pokemons[pokemonNo1].name + "상대: "+pokemons[pokemonNo2].name );
 
-	$("#bagMint_jb").css("display","none");
-	$("#throwBall_jb").css("display","none");
-	$("#clickBaggage_jb").unbind().click(function(){ 
-		var divMint = document.createElement("div");  // createElement로 동적 div만들기. -민트먹기
-		divMint.innerHTML =" 민트먹기 ";
-		divMint.setAttribute("id","bagMint_jb");
-		document.body.appendChild(divMint);
-		divMint.onclick = function(){ checkBaggage("mint"); }
-	 	var divPkBall = document.createElement("div"); // createElement로 동적 div만들기. -포켓볼던지기
-	 	divPkBall.innerHTML =" 포켓볼 던지기 ";
-		divPkBall.setAttribute("id","throwBall_jb");
-		document.body.appendChild(divPkBall);
-		divPkBall.onclick = function(){ checkBaggage("catchWild"); }
-		var divMeditation = document.createElement("div"); // createElement로 동적 div만들기. -명상하기
-		divMeditation.innerHTML =" 명상하기 ";
-		divMeditation.setAttribute("id","meditation_jb");
-		document.body.appendChild(divMeditation);
-		divMeditation.onclick = function(){ checkBaggage("meditation"); }
-		$("#bagMint_jb, #throwBall_jb, #meditation_jb").css({
-			"display":"table-cell",
-			"background":"lightblue",
-			"width":"150px", 
-			"height": "50px", 
-			"text-align":"center", 
-			"vertical-align": "middle",
-		});
+	$("#attackOptions_jb").unbind().click(function(){ 
+		createAttOptionsOnce();
+		$(this).css("display","none"); // <공격하기> display:none
+	});
+
+	$("#bagOptions_jb").unbind().click(function(){ 
+		createBagOptionsOnce();  //createElement 한번만 부르기위한...
 		$(this).css("display","none"); // <가방뒤지기> display:none
+	});
+	
+	$("#runAway_jb").unbind().click(function(){
+		$("#normalAtt_jb, #skillAtt_jb, #bagMint_jb, #throwBall_jb, #meditation_jb").css("display","none");
+		$("#attackOptions_jb, #bagOptions_jb").css("display","block");
 		
-		
+		console.log(" 성공적으로 도망쳤다! ");
 	});
 	
 	 
@@ -198,13 +251,12 @@ function turnMoves( pokemonNo1, pokemonNo2  ){   // ###야생 포켓몬 만난�
 
 
 ###############
-	현재 진행작업.
-	1. 싸우다 - 노말. 스킬공격 같이넣어야할듯.
-	2. 도망가기- escape로 싸움에서 도망.
+	내일 진행작업.
 	3. 이길때마다 경험치상승 - 레벨업 공+4, 방+1, 체+10 상승 등등.
-	
+	4.optional > 현재 상태와 지점 저장.
 	
 	추가예정
+	0. 도망가기- 미완)화면연동. 도망쳐서 어떻게 도망치는 화면과 연동할수잇나.
 	1. 시나리오 - 클릭이나 엔터, 스페이스 누를때(keyup) 다음 시나리오각본으로 이동.
 	2. keyup으로 주인공 px값을 이동. 끝지점일때는 현재->다음맵img으로 전환.
 	3. 상대턴일경우 자동선택? 아니면 1p 2p형태?
@@ -221,7 +273,7 @@ function turnMoves( pokemonNo1, pokemonNo2  ){   // ###야생 포켓몬 만난�
 pokemons =[];
 pokemons.push(new Pokemon(0, "jbMon", 50, 19, 3));  // pokemonNo name health attackStr shield
 pokemons.push(new Pokemon(1, "ynMon", 60, 18, 6));  // 포켓몬번호 이름 체력 기본공격력 기본방어력
-pokemons.push(new Pokemon(2, "gyMon", 43, 20, 3));  // 일반공격이 1이면 스킬공격은 최소 1 최대1.5랜덤
+pokemons.push(new Pokemon(2, "gyMon", 43, 20, 3));  // 일반공격이 1이면 스킬공격은 최소 1.2 최대1.7랜덤
 pokemons.push(new Pokemon(3, "jwMon", 54, 16, 4));  
 pokemons.push(new Pokemon(4, "jhMon", 45, 22, 2));  
 
@@ -232,9 +284,9 @@ pokemons.push(new Pokemon(4, "jhMon", 45, 22, 2));
 </head>
 <body>
 <h3 onclick = "walkInWild();">걷기</h3>
-<h3 id= "attack_jb">공격하기</h3>
-<h3 id= "skillAttack_jb">스킬공격하기</h3>
-<h3 id= "clickBaggage_jb">가방뒤져보기</h3>
+<h3 id= "attackOptions_jb">공격하기</h3>
+<h3 id= "bagOptions_jb">가방뒤져보기</h3>
+<h3 id= "runAway_jb">도망치기!</h3>
 </body>
 </html>
 
