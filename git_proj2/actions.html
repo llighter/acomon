@@ -5,12 +5,15 @@
 <title>Insert title here</title>
 <style type = "text/css">
 /*
-	Apr 12,2017 18:12
+	Apr 13,2017 02:09
 	dev by JB.
 */
 *{
 border : 1px dotted red;
 
+}
+div{
+	clear: right;
 }
 
 
@@ -20,22 +23,13 @@ border : 1px dotted red;
 </script>
 <script type = "text/javascript">
 $(document).ready(function(){	
-
-	pokemons =[];
-	pokemons.push(new Pokemon(0, "jbMon", 50, 19, 3));  // pokemonNo name health attackStr shield
-	pokemons.push(new Pokemon(1, "ynMon", 60, 18, 6));  // 포켓몬번호 이름 체력 기본공격력 기본방어력
-	pokemons.push(new Pokemon(2, "gyMon", 43, 20, 3));  // 일반공격이 1이면 스킬공격은 최소 1.2 최대1.7랜덤
-	pokemons.push(new Pokemon(3, "jwMon", 54, 16, 4));  
-	pokemons.push(new Pokemon(4, "jhMon", 45, 22, 2));  
-
+	
+	
 
 	
 	
 });
 
-
-
-///////////////// Working Functions
 
 function Pokemon(pokemonNo, name, health, attackStr, shield){
 	this.pokemonNo = pokemonNo;
@@ -43,7 +37,19 @@ function Pokemon(pokemonNo, name, health, attackStr, shield){
 	this.health = health;
 	this.attackStr = attackStr;
 	this.shield = shield;
+	
+	
 }
+
+var pokemons =[];
+pokemons.push(new Pokemon(0, "jbMon", 50, 19, 3));  // pokemonNo name health attackStr shield
+pokemons.push(new Pokemon(1, "ynMon", 60, 18, 6));  // 포켓몬번호 이름 체력 기본공격력 기본방어력
+pokemons.push(new Pokemon(2, "gyMon", 43, 20, 3));  // 일반공격이 1이면 스킬공격은 최소 1.2 최대1.7랜덤
+pokemons.push(new Pokemon(3, "jwMon", 54, 16, 4));  
+pokemons.push(new Pokemon(4, "jhMon", 45, 22, 2));  
+
+///////////////// Working Functions
+
 
 function coolTimeCalc(){
 	(coolTime01> coolTime02)? userTurn = false : userTurn = true;// 내 쿨타임이 더 큰경우 ; 상대턴.
@@ -51,7 +57,7 @@ function coolTimeCalc(){
 }
 
 function tackle(){  	// 몸통박치기
-	this.coolTimeCalc();
+	coolTimeCalc();
 	if(userTurn==false){		//상대방턴인경우
 		this.health01 -= this.attackStr02;
 		coolTime02 +=2;
@@ -67,7 +73,7 @@ function tackle(){  	// 몸통박치기
 }
 
 function skillAttack(){  // 스킬공격 
-	this.coolTimeCalc();
+	coolTimeCalc();
 	var criticalAttack01 = Math.trunc(this.attackStr01*(1+(Math.random()*0.5 + 0.2))*100)/100 ; 
 	var criticalAttack02 = Math.trunc(this.attackStr02*(1+(Math.random()*0.5 + 0.2))*100)/100 ; 
 						// 스킬공격은 최대 1.5배 크리공격으로 할당. 소수점 2자리까지.
@@ -91,10 +97,15 @@ function skillAttack(){  // 스킬공격
 	console.log(showMove);
 }
 
+var divBr00;
 function createAttOptionsOnce(){
 	
 	var normalAtt = document.createElement("div");
 	var skillAtt = document.createElement("div");
+		divBr00 = document.createElement("div"); // insertBefore 순서거꾸로햇을경우 bug해결사.
+	
+	if( (((divBr00) == null) == false) )
+		document.body.insertBefore(divBr00, document.getElementById("bagOptions_jb") );	
 	if( $("#normalAtt_jb").html() == null){
 		normalAtt.innerHTML = "몸통박치기!";
 		normalAtt.setAttribute("id","normalAtt_jb");
@@ -117,18 +128,20 @@ function createAttOptionsOnce(){
 		"clear":"both"
 	});
 }
-
-
+var divBr01;
 function createBagOptionsOnce(){
 	var divMint = document.createElement("div");  // createElement로 동적 div만들기. -민트먹기
 	var divPkBall = document.createElement("div"); // createElement로 동적 div만들기. -포켓볼던지기
 	var divMeditation = document.createElement("div"); // createElement로 동적 div만들기. -명상하기
-	var divBr = document.createElement("div"); // createElement로 동적 div만들기. -명상하기
-
-	if( $("#bagMint_jb").html() == null){
+		divBr01 = document.createElement("div"); // insertBefore 순서거꾸로햇을경우 bug해결사.
+		console.log( "divBr01 : " +(((divBr01) == null) == false) );
+	
+	if( (((divBr01) == null) == false) )
+		document.body.insertBefore(divBr01, document.getElementById("pokeBookOptions_jb") );	
+		
+	if( ($("#bagMint_jb").html() == null) ){
 		divMint.innerHTML =" 민트먹기 ";
 		divMint.setAttribute("id","bagMint_jb");
-		document.body.insertBefore(divBr, document.getElementById("pokeBookOptions_jb") );	
 		document.body.insertBefore(divMint, document.getElementById("pokeBookOptions_jb") );	
 	 	divPkBall.innerHTML =" 포켓볼 던지기 ";
 		divPkBall.setAttribute("id","throwBall_jb");
@@ -157,7 +170,7 @@ function createBagOptionsOnce(){
 
 
 function checkBaggage(toDo){ // (일단 주인공만)가방뒤지기 - turn소모없이 체력회복, 몬스터볼던지기, 명상하기 등..
-	this.coolTimeCalc();
+	coolTimeCalc();
 	if(toDo =="mint"){
 		console.log("민트먹기전: "+ this.health01);
 		this.health01 += 25;  //민트먹고 체력 25회복. 아이템소모대신 쿨타임소모X
@@ -191,30 +204,58 @@ function escapeFromEnemy(){
 	
 }
 
-function checkPokemonStatus(){
+function checkPokemonStatus(idNum){
 	
-	
-}
-//jb yn gy jw jh
-function createPokemonStatusOnce(){
-	var divJB = document.createElement("div"); //
-	var divYN = document.createElement("div"); // 
-	var divGY = document.createElement("div"); // 
-	var divJW = document.createElement("div"); // 
-	var divJH = document.createElement("div"); // 
+	console.log("idNom: "+ typeof(idNum) );/* 
+	console.log("pokemonNo: "+ this.pokemonNo);
+	console.log("name: "+ pokemons[idNum].name);
+	console.log("health: "+ pokemons[idNum].health);
+	console.log("attackStr: "+ pokemons[idNum].attackStr);
+	console.log("shield: "+ pokemons[idNum].shield); */
 
-	if( $("#bagMint_jb").html() == null){
-		divMint.innerHTML =" 배재몬! ";
-		divMint.setAttribute("id","");
-		document.body.insertBefore(divMint, document.getElementById("") );	
-	 	divPkBall.innerHTML =" 포켓볼 던지기 ";
-		divPkBall.setAttribute("id","");
-		document.body.insertBefore(divPkBall, document.getElementById("") );	
-		divMeditation.innerHTML =" 명상하기 ";
-		divMeditation.setAttribute("id","");
-		document.body.insertBefore(divMeditation, document.getElementById("") );	
+}
+
+//jb yn gy jw jh
+var divBr02;
+function createPokemonStatusOnce(){
+	var pokeIniList = ["divJB","divYN","divGY","divJW","divJH"];
+	var pokeIniListName = ["배재몬!","유나몬!","과뇽몬!","질문몬!","요다몬!"];
+	var pokeIniListId = ["","","","",""];
+		divBr02 = document.createElement("div");  // insertBefore 순서거꾸로햇을경우 bug해결사.
+
+	console.log( "divBr02 : " +(((divBr02) == null) == false) );
+	if( (((divBr02) == null) == false) )
+		document.body.insertBefore(divBr02, document.getElementById("runAway_jb") );	
+	if($("#pokeId00").html() == null ){
+		for(var inx = 0; inx <pokeIniList.length; inx++){  // inx = divJB, divYN....
+			pokeIniList[inx] = document.createElement("div");
+			pokeIniList[inx].innerHTML = pokeIniListName[inx];
+			pokeIniList[inx].setAttribute("id","pokeId0"+pokemons[inx].pokemonNo);
+			document.body.insertBefore(pokeIniList[inx], document.getElementById("runAway_jb") );
+			
+		}
+		
 	}
+
+////////////////////////////////////////////////////////////////////////////
+	$("#pokeId00").unbind().click(function(){  });    //////////////////////////////////////
+	$("#pokeId01").unbind().click(function(){  });
+	$("#pokeId02").unbind().click(function(){  });
+	$("#pokeId03").unbind().click(function(){  });
+	$("#pokeId04").unbind().click(function(){  });
+////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////여기여기!!//////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////
 	
+	$("#pokeId00,#pokeId01,#pokeId02,#pokeId03,#pokeId04").css({
+		"display":"table-cell",
+		"background":"limegreen",
+		"width":"100px", 
+		"height": "50px", 
+		"text-align":"center", 
+		"vertical-align": "middle",
+	});
+
 	/* divMint.onclick = function(){ checkBaggage("mint"); }
 	divPkBall.onclick = function(){ checkBaggage("catchWild"); }
 	divMeditation.onclick = function(){ checkBaggage("meditation"); }
@@ -268,9 +309,19 @@ function turnMoves( pokemonNo1, pokemonNo2  ){   // ###야생 포켓몬 만난�
 		$(this).css("display","none"); // <가방뒤지기> display:none
 	});
 	
+	$("#pokeBookOptions_jb").unbind().click(function(){ 
+		createPokemonStatusOnce();  //createElement 한번만 부르기위한...
+		$(this).css("display","none"); // <가방뒤지기> display:none
+	});
+	
 	$("#runAway_jb").unbind().click(function(){
-		$("#normalAtt_jb, #skillAtt_jb, #bagMint_jb, #throwBall_jb, #meditation_jb").css("display","none");
-		$("#attackOptions_jb, #bagOptions_jb").css("display","block");
+		$("#normalAtt_jb, #skillAtt_jb, #bagMint_jb, #throwBall_jb, #meditation_jb," 
+				+"#pokeId00, #pokeId01, #pokeId02, #pokeId03, #pokeId04").css("display","none");
+		$("#attackOptions_jb, #bagOptions_jb, #pokeBookOptions_jb").css("display","block");
+		
+		document.body.removeChild(divBr00), document.body.removeChild(divBr01), document.body.removeChild(divBr02);
+		
+		  //위에서 아래로읽는바람에... 셋다 한번에 읽게 만드는방법???
 		
 		console.log(" 성공적으로 도망쳤다! ");
 	});
