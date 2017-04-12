@@ -5,7 +5,7 @@
 <title>Insert title here</title>
 <style type = "text/css">
 /*
-	Apr 9,2017 22:13
+	Apr 12,2017 18:12
 	dev by JB.
 */
 *{
@@ -20,7 +20,19 @@ border : 1px dotted red;
 </script>
 <script type = "text/javascript">
 $(document).ready(function(){	
+
+	pokemons =[];
+	pokemons.push(new Pokemon(0, "jbMon", 50, 19, 3));  // pokemonNo name health attackStr shield
+	pokemons.push(new Pokemon(1, "ynMon", 60, 18, 6));  // 포켓몬번호 이름 체력 기본공격력 기본방어력
+	pokemons.push(new Pokemon(2, "gyMon", 43, 20, 3));  // 일반공격이 1이면 스킬공격은 최소 1.2 최대1.7랜덤
+	pokemons.push(new Pokemon(3, "jwMon", 54, 16, 4));  
+	pokemons.push(new Pokemon(4, "jhMon", 45, 22, 2));  
+
+
+	
+	
 });
+
 
 
 ///////////////// Working Functions
@@ -31,22 +43,6 @@ function Pokemon(pokemonNo, name, health, attackStr, shield){
 	this.health = health;
 	this.attackStr = attackStr;
 	this.shield = shield;
-}
-
-function walkInWild(){    // 야생에서 몬스터만남주선...
-	//캐릭터 픽셀 움직임. ########## 이건 추후에 캔버스나 css파일보고 판단..
-	
-	
-	var encountChance = Math.random();
-	console.log(encountChance);
-	if(encountChance < 0.4){ // 40%확률로 야생포켓몬과 만남. 
-		var randPokemon = parseInt(Math.random()*4 +1);
-		turnMoves(0,randPokemon);   // 일단 0번포켓몬 주인공, 상대는 랜덤으로..########추후에 추가변동
-	}
-	else{
- 		//이벤트x. 단지 움직일수있는동작
-	
-	}
 }
 
 function coolTimeCalc(){
@@ -118,6 +114,7 @@ function createAttOptionsOnce(){
 		"height": "50px", 
 		"text-align":"center", 
 		"vertical-align": "middle",
+		"clear":"both"
 	});
 }
 
@@ -126,18 +123,20 @@ function createBagOptionsOnce(){
 	var divMint = document.createElement("div");  // createElement로 동적 div만들기. -민트먹기
 	var divPkBall = document.createElement("div"); // createElement로 동적 div만들기. -포켓볼던지기
 	var divMeditation = document.createElement("div"); // createElement로 동적 div만들기. -명상하기
+	var divBr = document.createElement("div"); // createElement로 동적 div만들기. -명상하기
 
 	if( $("#bagMint_jb").html() == null){
 		divMint.innerHTML =" 민트먹기 ";
 		divMint.setAttribute("id","bagMint_jb");
-		document.body.insertBefore(divMint, document.getElementById("runAway_jb") );	
+		document.body.insertBefore(divBr, document.getElementById("pokeBookOptions_jb") );	
+		document.body.insertBefore(divMint, document.getElementById("pokeBookOptions_jb") );	
 	 	divPkBall.innerHTML =" 포켓볼 던지기 ";
 		divPkBall.setAttribute("id","throwBall_jb");
-		document.body.insertBefore(divPkBall, document.getElementById("runAway_jb") );	
+		document.body.insertBefore(divPkBall, document.getElementById("pokeBookOptions_jb") );	
 		divMeditation.innerHTML =" 명상하기 ";
 		divMeditation.setAttribute("id","meditation_jb");
-		document.body.insertBefore(divMeditation, document.getElementById("runAway_jb") );	
-	}
+		document.body.insertBefore(divMeditation, document.getElementById("pokeBookOptions_jb") );	
+	}  //############# .nextSibling 잘쓰면..?
 	
 	divMint.onclick = function(){ checkBaggage("mint"); }
 	divPkBall.onclick = function(){ checkBaggage("catchWild"); }
@@ -191,6 +190,46 @@ function checkBaggage(toDo){ // (일단 주인공만)가방뒤지기 - turn소�
 function escapeFromEnemy(){
 	
 }
+
+function checkPokemonStatus(){
+	
+	
+}
+//jb yn gy jw jh
+function createPokemonStatusOnce(){
+	var divJB = document.createElement("div"); //
+	var divYN = document.createElement("div"); // 
+	var divGY = document.createElement("div"); // 
+	var divJW = document.createElement("div"); // 
+	var divJH = document.createElement("div"); // 
+
+	if( $("#bagMint_jb").html() == null){
+		divMint.innerHTML =" 배재몬! ";
+		divMint.setAttribute("id","");
+		document.body.insertBefore(divMint, document.getElementById("") );	
+	 	divPkBall.innerHTML =" 포켓볼 던지기 ";
+		divPkBall.setAttribute("id","");
+		document.body.insertBefore(divPkBall, document.getElementById("") );	
+		divMeditation.innerHTML =" 명상하기 ";
+		divMeditation.setAttribute("id","");
+		document.body.insertBefore(divMeditation, document.getElementById("") );	
+	}
+	
+	/* divMint.onclick = function(){ checkBaggage("mint"); }
+	divPkBall.onclick = function(){ checkBaggage("catchWild"); }
+	divMeditation.onclick = function(){ checkBaggage("meditation"); }
+	
+	$("#bagMint_jb, #throwBall_jb, #meditation_jb").css({
+		"display":"table-cell",
+		"background":"lightblue",
+		"width":"150px", 
+		"height": "50px", 
+		"text-align":"center", 
+		"vertical-align": "middle",
+	}); */
+	
+}
+
 
 
 
@@ -252,9 +291,18 @@ function turnMoves( pokemonNo1, pokemonNo2  ){   // ###야생 포켓몬 만난�
 
 
 ###############
-	내일 진행작업.
-	3. 이길때마다 경험치상승 - 레벨업 공+4, 방+1, 체+10 상승 등등.
-	4.optional > 현재 상태와 지점 저장.
+	오늘(0412~) 진행작업.
+	0.체력0이하일경우 -> 이겻다 졌다
+	1.주인공캐릭터- 객체.(재화, 레벨-진입구간설정.)
+	2.몬스터 객체 += 레벨, 건강상태(빈사, 출혈..등), 
+	3.몬스터- 레벨링. 공+4, 방+1, 체+10 상승..  // optional) 주인공 버프?
+	4. 
+	
+	버그픽스: 가방-> 공격누르면 append // 가방은 위로insert, 공격은 아래에서 insert.
+	
+	optional) 
+	1. 주인공 버프? 상대몬스터의 공방 30% 절감상태.
+	4. 현재 상태와 지점 저장.
 	
 	추가예정
 	0. 도망가기- 미완)화면연동. 도망쳐서 어떻게 도망치는 화면과 연동할수잇나.
@@ -269,14 +317,23 @@ function turnMoves( pokemonNo1, pokemonNo2  ){   // ###야생 포켓몬 만난�
 ////////////////////////////playing game.
 ////////////////////////////
 
+window.onload = function(){
+
+	var encountChance = Math.random();
+	encountChance = 0.3;  //######### 지금만설정
+
+	console.log(encountChance);
+	if(encountChance < 0.4){ // 40%확률로 야생포켓몬과 만남. 
+		var randPokemon = parseInt(Math.random()*4 +1);
+		turnMoves(0,randPokemon);   // 일단 0번포켓몬 주인공, 상대는 랜덤으로..### 전투모드 돌입!!!
+	}
+
+		
+		
+		
+}
 
 
-pokemons =[];
-pokemons.push(new Pokemon(0, "jbMon", 50, 19, 3));  // pokemonNo name health attackStr shield
-pokemons.push(new Pokemon(1, "ynMon", 60, 18, 6));  // 포켓몬번호 이름 체력 기본공격력 기본방어력
-pokemons.push(new Pokemon(2, "gyMon", 43, 20, 3));  // 일반공격이 1이면 스킬공격은 최소 1.2 최대1.7랜덤
-pokemons.push(new Pokemon(3, "jwMon", 54, 16, 4));  
-pokemons.push(new Pokemon(4, "jhMon", 45, 22, 2));  
 
 
 
@@ -284,9 +341,9 @@ pokemons.push(new Pokemon(4, "jhMon", 45, 22, 2));
 
 </head>
 <body>
-<h3 onclick = "walkInWild();">걷기</h3>
 <h3 id= "attackOptions_jb">공격하기</h3>
 <h3 id= "bagOptions_jb">가방뒤져보기</h3>
+<h3 id= "pokeBookOptions_jb">포켓몬도감 살펴보기</h3>
 <h3 id= "runAway_jb">도망치기!</h3>
 </body>
 </html>
