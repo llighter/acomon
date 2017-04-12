@@ -1,2 +1,2 @@
 # acomon
-mini project : Hommage for Pokemon
+mini project : Homepage for Pokemon
