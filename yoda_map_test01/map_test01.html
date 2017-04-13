@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.2.0.min.js">
+</script>
+
+<style type="text/css">
+	canvas{border:1px solid black;}
+</style>
+
+</head>
+<body onkeydown="javascipt:key()">
+	<canvas id="canvas01" width="640" height="640"></canvas>
+	<div style="display:none;">
+		<img id="tile" src='img/tile01.png'>
+		<img id="player" src='img/pokemon.png'>
+	</div>
+</body>
+<script type="text/javascript"> 
+// 가장 핵심적인 내용. 이미지파일에서 원하는 부분 불러오기
+// void ctx .drawImage (image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+// dx, dy 캔버스좌표. sx,sy 이미지좌표.
+
+	var canvas = document.getElementById("canvas01");
+	var ctx=canvas.getContext("2d");
+	function makeMap(){
+	var mapArray =[
+		[1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2],
+		[2,2,2,2,2,2,1,1,1,1,1,2,2,2,2,2,2,2,2,2],
+		[2,2,2,2,2,2,1,2,1,2,1,2,2,2,1,1,1,2,2,2],
+		[2,2,2,2,1,1,1,2,1,2,1,2,2,2,1,2,1,2,2,2],
+		[2,2,2,2,1,2,2,2,1,1,1,2,2,2,1,2,1,2,2,2],
+		[2,2,2,2,1,1,2,2,2,2,2,2,2,2,1,2,1,2,2,2],
+		[2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,2,1,2,2,2],
+		[2,2,2,2,1,1,2,2,1,2,2,2,2,2,2,2,1,2,2,2],
+		[2,1,1,2,1,2,2,2,1,2,2,2,2,2,2,2,1,2,2,2],
+		[2,1,2,2,1,2,2,2,1,1,1,1,2,2,2,2,1,2,2,2],
+		[2,1,2,2,1,2,2,2,1,2,2,1,2,2,1,1,1,2,2,2],
+		[2,1,2,2,1,2,2,1,1,2,2,1,2,2,1,2,2,2,2,2],
+		[2,1,2,2,1,2,2,1,2,2,2,1,2,2,1,1,1,1,1,2],
+		[2,1,2,2,1,2,1,1,2,2,2,1,2,2,2,2,2,2,1,2],
+		[2,1,1,1,1,2,1,2,2,2,2,1,1,1,1,2,2,2,2,2],
+		[2,2,2,2,2,2,1,2,2,2,2,2,2,2,1,1,2,2,2,2],
+		[2,1,1,1,1,1,1,1,1,1,2,2,2,2,1,1,2,1,2,2],
+		[2,1,1,1,2,2,2,2,2,1,1,1,2,2,2,2,2,1,2,2],
+		[2,1,1,1,2,2,1,1,1,1,2,1,1,1,1,1,1,1,2,2],
+		[2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2]
+	];
+	var posX=0;
+	var posY=0;
+	var tile = new Image();
+	var player = new Image();
+	tile.src='img/tile01.png';
+	player.src='img/pokemon.png';
+	for(var i=0; i<mapArray.length; i++){
+		for(var j=0; j<mapArray.length; j++){
+			if(mapArray[i][j]==1){
+				ctx.drawImage(tile,32,64,32,32,posX,posY,32,32);
+			}
+			if(mapArray[i][j]==2){
+				ctx.drawImage(tile,96,32,32,32,posX,posY,32,32);
+			}
+			posX+=32;
+		}
+		posX=0;
+		posY+=32;
+	}
+	};
+	ctx.drawImage(player,0,64,32,32,0,0,32,32);
+	var x=0;
+	var y=0;
+
+
+	function key(){
+		if(event.keyCode===39){
+				x+=10;
+		}
+		if(event.keyCode==37){
+			x-=10;
+		}
+		if(event.keyCode==38){
+			y-=10;
+		}
+		if(event.keyCode==40){
+			y+=10;
+		}
+		if(y>=620){
+			y=620;
+		}
+		if(x<=0){
+			x=0;
+		}
+		if(x>=620){
+			x=620;
+		}
+		if(y<=0){
+			y=0;
+		}
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		makeMap();
+		ctx.drawImage(player,0,64,32,32,x,y,32,32);
+	}	
+	
+
+
+
+
+</script>
+</html>
