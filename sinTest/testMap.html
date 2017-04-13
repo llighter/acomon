@@ -5,21 +5,25 @@
 <title>Insert title here</title>
 <style type="text/css">
 
+#sinCanvas{
+border:1px solid black;
+}
 </style>
-<script src="http://code.jquery.com/jquery-3.2.0.min.js">
-</script>
-<script type="text/javascript">
+
+
+</head>
+<body onkeydown="javascipt:key();">
+<canvas id="sinCanvas" width="1280px" height="640px"></canvas>
+
+<script>
 /**/
-$(document).ready(function(){
 
-
-});
 
 var canvas = document.getElementById('sinCanvas');
 var context = canvas.getContext('2d');
 
-var mapArray=[
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0],
+var map=[
+	[0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0],
 	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0],
 	[1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0],
 	[0,0,0,0,1,1,0,0,0,0,0,0,0,0,2,2,0,0,0,0],
@@ -29,43 +33,144 @@ var mapArray=[
 	[0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0],
 	[0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1],
 	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-	
+
 ];
 
-var grass=new image();
-var road=new image();
-var rockRoad=new image();
+var grass=new Image();
+var road01=new Image();
+var rock=new Image();
+var player = new Image();
 
-grass.src='tile00';
-road.src='tile01';
-rockRoad.src='tile02';
 
-var posX=0;
-var posY=0;
+grass.src='tileImage.png';
+road01.src='tileImage.png';
+rock.src='tileImage.png';
+player.src='mon01.png';
 
-for(var i=0 ; i < mapArray.length ; i++){
-	for(var j=0 ; j < mapArray[i].length ; j++){
-	
-		if(mapArray[i][j]==0){
-			context.drawImage(grass, posX, posY, 32, 32);
-		}
-		if(mapArray[i][j]==1){
-			context.drawImage(road, posX, posY, 32, 32);
-		}
-		if(mapArray[i][j]==2){
-			context.drawImage(rockRoad, posX, posY, 32, 32);
+var mapX=0; // ¸ÊÁÂÇ¥
+var mapY=0;
+var charX=0; // Ä³¸¯ÁÂÇ¥
+var charY=0;
+var charPos = 3; // Ä³¸¯ÅÍ¹æÇâ
+
+
+function key(){
+	if(event.keyCode==37){
+		if( map[(charY/64)][((charX-64)/64)]==2 || (charX<=0) ){
+			charPos=0;
+		}else{
+			charX-=64;
+			charPos=0;
 		}
 	}
+	if(event.keyCode==38){
+		if( map[((charY-64)/64)][(charX/64)]==2 || (charY<=0) ){
+			charPos=1;
+		}else{
+			charY-=64;
+			charPos=1;
+		}
+	}
+	if(event.keyCode==39){
+		if( map[(charY/64)][((charX+64)/64)]==2 || (charX>=1216) ){
+			// ¸·ÇûÀ»¶§ ÀÌÆÑÆ®(Áøµ¿?)
+			charPos=2;
+		}else{
+			charX+=64;
+			charPos=2;
+		}
+	}
+	if(event.keyCode==40){
+		if( (charY>=576) || map[((charY+64)/64)][(charX/64)]==2 ){
+			charPos=3;
+		}else{
+			charY+=64;
+			charPos=3;
+		}
+	}
+	
+
+
+	
+}
+
+
+
+function drawMap(){
+	mapX=0;
+	mapY=0;
+	
+	for(var i=0 ; i < map.length ; i++){
+		for(var j=0 ; j < map[i].length ; j++){
+		
+			if(map[i][j]==0){
+				context.drawImage(grass, 0, 32, 64, 64, mapX, mapY, 64, 64);
+			}
+			if(map[i][j]==1){
+				context.drawImage(road01, 64, 32, 64, 64, mapX, mapY, 64, 64);
+			}
+			if(map[i][j]==2){
+				context.drawImage(rock, 192, 32, 64, 64, mapX, mapY, 64, 64);
+			}
+			mapX+=64;
+		}
+		mapX=0;
+		mapY+=64;
+	}
+	
+	
+	
+	
+	
+	
+	if(charPos==0){
+		context.drawImage(player, 0, 64, 64, 64, charX, charY, 64, 64);
+	}
+	if(charPos==1){
+		context.drawImage(player, 0, 192, 64, 64, charX, charY, 64, 64);
+	}
+	if(charPos==2){
+		context.drawImage(player, 0, 128, 64, 64, charX, charY, 64, 64);
+	}
+	if(charPos==3){
+		context.drawImage(player, 0, 0, 64, 64, charX, charY, 64, 64);
+	}
+	
 	
 }
 
 
 
 
+
+
+
+
+
+setInterval(function fps(){
+
+	
+	
+	
+	
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	
+	drawMap();
+
+	
+	
+	
+	
+}, 50);
+
+
+
+
+
+
 </script>
-</head>
-<body>
-<canvas id="sinCanvas"></canvas>
+
+
 
 
 </body>
