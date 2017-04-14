@@ -164,22 +164,6 @@ function drawMap(){
 		}
 		mapY += UNIT;
 	}
-
-    // switch(charDirection) {
-    //     case SOUTH_DIRECTION:
-	// 		context.drawImage(player, IMG_U*motionIdx, IMG_U*0, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
-    //         break;
-    //     case WEST_DIRECTION:
-	// 		context.drawImage(player, IMG_U*motionIdx, IMG_U*1, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
-    //         break;
-    //     case EAST_DIRECTION:
-	// 		context.drawImage(player, IMG_U*motionIdx, IMG_U*2, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
-    //         break;
-    //     case NORTH_DIRECTION:
-	// 		context.drawImage(player, IMG_U*motionIdx, IMG_U*3, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
-    //         break;
-    // }
-
 	context.drawImage(player, IMG_U*motionIdx, IMG_U*charDirection, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
 
 }
