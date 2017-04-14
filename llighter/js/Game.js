@@ -12,8 +12,20 @@ var map=[
 	[0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
 	[0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0],
 	[0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+	[0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,2,0,0,0,0,0,1,0,0,0,0,0,0,2,0,0,0,0],
+	[0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,2,0,0,0,0],
+	[1,1,1,1,1,0,0,0,1,0,0,0,0,0,0,2,0,0,0,0],
+	[0,0,0,0,1,1,0,0,1,0,0,0,0,0,2,2,0,0,0,0],
+	[0,0,0,0,0,1,1,1,1,0,0,0,0,0,2,0,0,0,0,0],
+	[0,0,2,0,0,0,0,1,1,2,2,2,2,2,2,0,0,0,0,0],
+	[0,0,2,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,2,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0],
+	[0,0,2,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1],
+	[0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 ];
+
+const UNIT = 64;
 
 const ARROW_LEFT = 37;
 const ARROW_UP = 38;
@@ -24,6 +36,11 @@ const EAST_DIRECTION = 0;
 const WEST_DIRECTION = 1;
 const SOUTH_DIRECTION = 2;
 const NORTH_DIRECTION = 3;
+
+// map[] : value 2 -> stone
+const MAP_GRASS = 0;
+const MAP_ROAD01 = 1;
+const MAP_STONE = 2;
 
 var grass=new Image();
 var road01=new Image();
@@ -47,71 +64,118 @@ var charY=0;
 var charDirection = EAST_DIRECTION;
 
 function key(){
-	if(event.keyCode==ARROW_LEFT){
-		if( map[(charY/64)][((charX-64)/64)]==2 || (charX<=0) ){
+	if(event.keyCode == ARROW_LEFT){
+		if( map[(charY / UNIT)][((charX - UNIT) / UNIT)] == MAP_STONE || (charX <= 0) ){
 		}else{
-			charX-=64;
+			charX -= UNIT;
 		}
-        charDirection=WEST_DIRECTION;
+        charDirection = WEST_DIRECTION;
+
 	}
-	if(event.keyCode==ARROW_UP){
-		if( map[((charY-64)/64)][(charX/64)]==2 || (charY<=0) ){
+	if(event.keyCode == ARROW_UP){
+		if( map[((charY - UNIT) / UNIT)][(charX / UNIT)] == MAP_STONE || (charY <= 0) ){
 		}else{
-			charY-=64;
+			charY -= UNIT;
 		}
-        charDirection=NORTH_DIRECTION;
+        charDirection = NORTH_DIRECTION;
 	}
-	if(event.keyCode==ARROW_RIGHT){
-		if( map[(charY/64)][((charX+64)/64)]==2 || (charX>=1216) ){
+	if(event.keyCode == ARROW_RIGHT){
+		if( map[(charY / UNIT)][((charX + UNIT) / UNIT)] == MAP_STONE || (charX >= 1216) ){
 		}else{
-			charX+=64;
+			charX += UNIT;
 		}
-        charDirection=EAST_DIRECTION;
+        charDirection = EAST_DIRECTION;
 	}
-	if(event.keyCode==ARROW_DOWN){
-		if( (charY>=576) || map[((charY+64)/64)][(charX/64)]==2 ){
+	if(event.keyCode == ARROW_DOWN){
+		if( (charY >= 1216) || map[((charY + UNIT) / UNIT)][(charX / UNIT)] == MAP_STONE ){
 		}else{
-			charY+=64;
+			charY += UNIT;
 		}
-        charDirection=SOUTH_DIRECTION;
-	}	
+        charDirection = SOUTH_DIRECTION;
+	}
+
+    console.log(`[Absolute coordinate] (X, Y) = (${charX / UNIT}, ${charY / UNIT})`);
     
 }
 
 function drawMap(){
 	mapX=0;
 	mapY=0;
+
+    let x_start = 0;
+    let x_end = 0;
+    let x_char = 0;
+
+    let y_start = 0;
+    let y_end = 0;
+    let y_char = 0;
+
+    if(charX/UNIT <= 4) {
+        // 0,0 부터 그린다.
+        x_start = 0;
+        x_end = x_start + 10;
+        x_char = charX;
+    } else if( charX/UNIT >= 5 && charX/UNIT < 16) {
+        // X를 기준으로 왼쪽은 4열 오른쪽은 5열 그린다.
+        x_start = charX/UNIT - 5
+        x_end = charX/UNIT + 5
+        x_char = 5 * UNIT;
+    } else {    // X >= 16
+        // 10 부터 그린다.
+        x_start = 10;
+        x_end = 20;
+        x_char = charX - 10 * UNIT;
+    }
+
+    if(charY/UNIT <= 4) {
+        // 0,0 부터 그린다.
+        y_start = 0;
+        y_end = y_start + 10;
+        y_char = charY;
+    } else if( charY/UNIT >= 5 && charY/UNIT < 16) {
+        // Y를 기준으로 위는 4열 아래는 5열 그린다.
+        y_start = charY/UNIT - 5
+        y_end = charY/UNIT + 5
+        y_char = 5 * UNIT;
+    } else {    // Y >= 16
+        // 10 부터 그린다.
+        y_start = 10;
+        y_end = 20;
+        y_char = charY - 10 * UNIT;
+    }
 	
-	for(var i=0 ; i < map.length ; i++){
-		for(var j=0 ; j < map[i].length ; j++){
-		
-			if(map[i][j]==0){
-				context.drawImage(grass, 0, 32, 64, 64, mapX, mapY, 64, 64);
-			}
-			if(map[i][j]==1){
-				context.drawImage(road01, 64, 32, 64, 64, mapX, mapY, 64, 64);
-			}
-			if(map[i][j]==2){
-				context.drawImage(rock, 192, 32, 64, 64, mapX, mapY, 64, 64);
-			}
-			mapX+=64;
+	for(var i = y_start; i < y_end ; i++){
+		for(var j=x_start, mapX = 0; j < x_end ; j++){
+            switch(map[i][j]) {
+                case MAP_GRASS:
+                    context.drawImage(grass, 0, 32, UNIT, UNIT, mapX, mapY, UNIT, UNIT);
+                    break;
+                case MAP_ROAD01:
+                    context.drawImage(road01, UNIT, 32, UNIT, UNIT, mapX, mapY, UNIT, UNIT);
+                    break;
+                case MAP_STONE:
+                    context.drawImage(rock, 192, 32, UNIT, UNIT, mapX, mapY, UNIT, UNIT);
+                    break;
+            }
+            mapX += UNIT;
 		}
-		mapX=0;
-		mapY+=64;
+		mapY += UNIT;
 	}
 
-    if(charDirection==SOUTH_DIRECTION){
-		context.drawImage(player, 0, 0, 64, 64, charX, charY, 64, 64);
-	}		
-	if(charDirection==WEST_DIRECTION){
-		context.drawImage(player, 0, 64, 64, 64, charX, charY, 64, 64);
-	}
-	if(charDirection==EAST_DIRECTION){
-		context.drawImage(player, 0, 128, 64, 64, charX, charY, 64, 64);
-	}
-	if(charDirection==NORTH_DIRECTION){
-		context.drawImage(player, 0, 192, 64, 64, charX, charY, 64, 64);
-	}
+    switch(charDirection) {
+        case SOUTH_DIRECTION:
+            context.drawImage(player, 0, 0, UNIT, UNIT, x_char, y_char, UNIT, UNIT);
+            break;
+        case WEST_DIRECTION:
+            context.drawImage(player, 0, UNIT, UNIT, UNIT, x_char, y_char, UNIT, UNIT);
+            break;
+        case EAST_DIRECTION:
+            context.drawImage(player, 0, 128, UNIT, UNIT, x_char, y_char, UNIT, UNIT);
+            break;
+        case NORTH_DIRECTION:
+            context.drawImage(player, 0, 192, UNIT, UNIT, x_char, y_char, UNIT, UNIT);
+            break;
+    }
 
 }
 
