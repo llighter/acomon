@@ -122,34 +122,28 @@ function drawMap(){
     let y_char = 0;
 
     if(charX/UNIT <= 4) {
-        // 0,0 遺��꽣 洹몃┛�떎.
         x_start = 0;
         x_end = x_start + 10;
         x_char = charX;
     } else if( charX/UNIT >= 5 && charX/UNIT < 16) {
-        // X瑜� 湲곗��쑝濡� �쇊履쎌� 4�뿴 �삤瑜몄そ�� 5�뿴 洹몃┛�떎.
         x_start = charX/UNIT - 5
         x_end = charX/UNIT + 5
         x_char = 5 * UNIT;
     } else {    // X >= 16
-        // 10 遺��꽣 洹몃┛�떎.
         x_start = 10;
         x_end = 20;
         x_char = charX - 10 * UNIT;
     }
 
     if(charY/UNIT <= 4) {
-        // 0,0 遺��꽣 洹몃┛�떎.
         y_start = 0;
         y_end = y_start + 10;
         y_char = charY;
     } else if( charY/UNIT >= 5 && charY/UNIT < 16) {
-        // Y瑜� 湲곗��쑝濡� �쐞�뒗 4�뿴 �븘�옒�뒗 5�뿴 洹몃┛�떎.
         y_start = charY/UNIT - 5
         y_end = charY/UNIT + 5
         y_char = 5 * UNIT;
     } else {    // Y >= 16
-        // 10 遺��꽣 洹몃┛�떎.
         y_start = 10;
         y_end = 20;
         y_char = charY - 10 * UNIT;
@@ -175,43 +169,16 @@ function drawMap(){
 
     switch(charDirection) {
         case SOUTH_DIRECTION:
-        	switch(motionIdx){
-        		case MOTION00: context.drawImage(player, IMG_U*0, IMG_U*0, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
-        		case MOTION01: context.drawImage(player, IMG_U*1, IMG_U*0, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
-        		case MOTION02: context.drawImage(player, IMG_U*2, IMG_U*0, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
-        		case MOTION03: context.drawImage(player, IMG_U*3, IMG_U*0, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
-        	}
+			context.drawImage(player, IMG_U*motionIdx, IMG_U*0, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
             break;
         case WEST_DIRECTION:
-        	switch(motionIdx){
-        		case MOTION00: context.drawImage(player, IMG_U*0, IMG_U*1, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
-        		case MOTION01: context.drawImage(player, IMG_U*1, IMG_U*1, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
-        		case MOTION02: context.drawImage(player, IMG_U*2, IMG_U*1, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
-        		case MOTION03: context.drawImage(player, IMG_U*3, IMG_U*1, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
-        	}
+			context.drawImage(player, IMG_U*motionIdx, IMG_U*1, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
             break;
         case EAST_DIRECTION:
-<<<<<<< HEAD
-            context.drawImage(player, 0, 2 * UNIT, UNIT, UNIT, x_char, y_char, UNIT, UNIT);
+			context.drawImage(player, IMG_U*motionIdx, IMG_U*2, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
             break;
         case NORTH_DIRECTION:
-            context.drawImage(player, 0, 3 * UNIT, UNIT, UNIT, x_char, y_char, UNIT, UNIT);
-=======
-        	switch(motionIdx){
-        		case MOTION00: context.drawImage(player, IMG_U*0, IMG_U*2, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
-        		case MOTION01: context.drawImage(player, IMG_U*1, IMG_U*2, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
-        		case MOTION02: context.drawImage(player, IMG_U*2, IMG_U*2, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
-        		case MOTION03: context.drawImage(player, IMG_U*3, IMG_U*2, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
-        	}
-            break;
-        case NORTH_DIRECTION:
-        	switch(motionIdx){
-	    		case MOTION00: context.drawImage(player, IMG_U*0, IMG_U*3, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
-	    		case MOTION01: context.drawImage(player, IMG_U*1, IMG_U*3, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
-	    		case MOTION02: context.drawImage(player, IMG_U*2, IMG_U*3, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
-	    		case MOTION03: context.drawImage(player, IMG_U*3, IMG_U*3, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
-	    	}
->>>>>>> 359b74c1520a98ca4658d4bb9d6ff2bc0e4d6e5b
+			context.drawImage(player, IMG_U*motionIdx, IMG_U*3, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
             break;
     }
 
