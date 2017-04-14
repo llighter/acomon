@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.2.0.min.js">
+</script>
+
+<style type="text/css">
+	canvas{border:1px solid black;}
+</style>
+
+</head>
+<body onkeydown="javascipt:key()">
+	<canvas id="canvas01" width="640" height="640">
+	</canvas>
+	<div style="display:none;">
+		<img id="tile" src='img/tile01.png'>
+		<img id="player" src='img/pokemon.png'>
+	</div>
+</body>
+<script type="text/javascript"> 
+// 관용이 형꺼로 했어야 했는데 이게 어제 학원에서부터 했더거라 일단 내가 했던거로 진행함
+// 어제 관용이 형소스하고 별차이가 없으니 보는건 별로 다르지 않을듯
+// 구현 방식은
+// 1) 다른 캔버스를 새로 띄우는 형식이 아니고 캔버스 하나만으로 맵간 이동을 구현하려고 함
+// 2) 캐릭터가 출구(맵 array값 : 3)로 가면 맵01을 계속 그리는 인터벌을 멈추고 맵02를 계속 그리는 인터벌을 시작하게 만듬.
+// 3) 그래서 출구로 가면 맵이 전환되지만 이동할때 맵01에서 적용한 충돌효과가 그대로 맵02에도 적용되면서 화면은 맵02인데 맵01의 블럭이 있던 자리는 이동을 못하게 됨.
+// 4) 그래서 개빡침. 
+
+// 내 생각으로는 맵전환을 이따위로 하면 안되고 다른 방식을 찾아야 할 듯... 시작부터 글러먹은 듯.
+
+	var canvas = document.getElementById("canvas01")
+	var ctx=canvas.getContext("2d");
+	// 맵1
+	var map=[
+		[1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2],
+		[2,2,2,2,2,2,1,1,1,1,1,2,2,2,2,2,2,2,2,2],
+		[2,2,2,2,2,2,1,2,1,2,1,2,2,2,1,1,1,2,2,2],
+		[2,2,2,2,1,1,1,2,1,2,1,2,2,2,1,2,1,2,2,2],
+		[2,2,2,2,1,2,2,2,1,1,1,2,2,2,1,2,1,2,2,2],
+		[2,2,2,2,1,1,2,2,2,2,2,2,2,2,1,2,1,2,2,2],
+		[2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,2,1,2,2,2],
+		[2,2,2,2,1,1,2,2,1,2,2,2,2,2,2,2,1,2,2,2],
+		[2,1,1,2,1,2,2,2,1,2,2,2,2,2,2,2,1,2,2,2],
+		[2,1,2,2,1,2,2,2,1,1,1,1,2,2,2,2,1,2,2,2],
+		[2,1,2,2,1,2,2,2,1,2,2,1,2,2,1,1,1,2,2,2],
+		[2,1,2,2,1,2,2,1,1,2,2,1,2,2,1,2,2,2,2,2],
+		[2,1,2,2,1,2,2,1,2,2,2,1,2,2,1,1,1,1,1,2],
+		[2,1,2,2,1,2,1,1,2,2,2,1,2,2,2,2,2,2,1,2],
+		[2,1,1,1,1,2,1,2,2,2,2,1,1,1,1,2,2,2,2,2],
+		[2,2,2,2,2,2,1,2,2,2,2,2,2,2,1,1,2,2,2,2],
+		[2,1,1,1,1,1,1,1,1,1,2,2,2,2,1,1,2,1,2,2],
+		[2,1,1,1,2,2,2,2,2,1,1,1,2,2,2,2,2,1,2,2],
+		[2,1,1,1,2,2,1,1,1,1,2,1,1,1,1,1,1,1,2,2],
+		[2,2,2,2,2,2,3,2,2,2,2,2,2,2,2,2,2,2,2,2]
+	];
+	// 맵2
+	var map02=[
+		[3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4],
+		[3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4],
+		[3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4],
+		[3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4],
+		[3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4],
+		[3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4],
+		[3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4],
+		[3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4],
+		[3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4],
+		[3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4],
+		[3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4],
+		[3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4],
+		[3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4],
+		[3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4],
+		[3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4],
+		[4,3,4,4,4,4,3,3,3,3,3,3,3,3,3,3,4,4,4,4],
+		[4,3,3,3,3,3,3,3,3,3,4,4,4,4,3,3,4,3,4,4],
+		[4,3,3,3,4,4,3,4,4,3,3,3,4,4,4,4,4,3,4,4],
+		[4,3,3,3,4,4,3,3,3,3,3,3,4,4,4,3,3,3,4,4],
+		[4,4,4,4,4,4,3,4,4,4,4,4,4,4,4,4,4,4,4,4]
+	];	
+	var tile = new Image();
+	var player = new Image();
+	tile.src='img/tile01.png';
+	player.src='img/pokemon.png';
+	// 맵 타일 및 캐릭터 이미지 설정
+	
+	var mapX=0;
+	var mapY=0;
+	// 맵 x,y좌표 설정
+	var charX=0;
+	var charY=0;
+	// 캐릭터 x,y좌표 설정
+	var charPos="S";
+	// 캐릭터 방향 포지션 설정
+	
+	// 방향키 입력시 설정. 3항 연산자 사용
+	function key(){
+		if(event.keyCode==40){
+			( (charY>=608) || map[(charY+32)/32][charX/32]==2 )?
+				charPos="S" : charY+=32, charPos="S";
+		}
+		if(event.keyCode==39){
+			( (charX>=640) || map[charY/32][(charX+32)/32]==2 )?
+				charPos="E" : charX+=32, charPos="E";
+		}
+		if(event.keyCode==38){
+			( (charY<=0) || map[(charY-32)/32][charX/32]==2 )?
+				charPos="N" : charY-=32, charPos="N";
+		}
+		if(event.keyCode==37){
+			( (charX<=0) || map[charY/32][(charX-32)/32]==2 )?
+				charPos="W" : charX-=32, charPos="W";
+		}
+		// 맵 변화
+		if(map[charY/32][charX/32]==3){
+		// 만약 출구(값: 3)로 가면
+			clearInterval(stage01);
+			// 스테이지01 그리는걸 멈춤
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			// 캔버스 초기화
+			stage02();
+			// stage02를 그리겠다
+			if(event.keyCode==40){
+				( (charY>=608) || map02[(charY+32)/32][charX/32]==4 )?
+						charPos="S" : charY+=32, charPos="S";
+			}
+			if(event.keyCode==39){
+				( (charX>=640) || map02[charY/32][(charX+32)/32]==4 )?
+					charPos="E" : charX+=32, charPos="E";
+			}
+			if(event.keyCode==38){
+				( (charY<=0) || map02[(charY-32)/32][charX/32]==4)?
+					charPos="N" : charY-=32, charPos="N";
+			}
+			if(event.keyCode==37){
+				( (charX<=0) || map02[charY/32][(charX-32)/32]==4 )?
+					charPos="W" : charX-=32, charPos="W";
+			}
+		}
+	}	
+
+	// 맵01 제작 함수
+	function makeMap(){
+		mapX=0;
+		mapY=0;
+		for(var i=0; i<map.length; i++){
+			for(var j=0; j<map[i].length; j++){
+				if(map[i][j]==1){
+					ctx.drawImage(tile,32,64,32,32,mapX,mapY,32,32);
+				}
+				if(map[i][j]==2){
+					ctx.drawImage(tile,96,32,32,32,mapX,mapY,32,32);
+				}
+				mapX+=32;
+			}
+			mapX=0;
+			mapY+=32;
+		}
+	};
+	// 캐릭터 생성 함수. switch case문 사용
+	function makePlayer(){
+		switch(charPos){
+		case("S"):
+			ctx.drawImage(player,0,0,32,32,charX,charY,32,32);
+			break;
+		case("E"):
+			ctx.drawImage(player,0,64,32,32,charX,charY,32,32);
+			break;
+		case("N"):
+			ctx.drawImage(player,0,96,32,32,charX,charY,32,32);
+			break;
+		case("W"):
+			ctx.drawImage(player,0,32,32,32,charX,charY,32,32);
+			break;
+		};
+	}
+
+	// 스테이지 01 setInterva 맵 계속 그리기
+	var stage01 = setInterval(function(){
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		makeMap();
+		makePlayer();
+	}, 50);
+	
+	// 맵02 제작 함수
+	function makeMap02(){
+		mapX=0;
+		mapY=0;
+		for(var i=0; i<map02.length; i++){
+			for(var j=0; j<map02[i].length; j++){
+				if(map02[i][j]==3){
+					ctx.drawImage(tile,32,64,32,32,mapX,mapY,32,32);
+				}
+				if(map02[i][j]==4){
+					ctx.drawImage(tile,96,32,32,32,mapX,mapY,32,32);
+				}
+				mapX+=32;
+			}
+			mapX=0;
+			mapY+=32;
+		}
+	};
+	
+	// 스테이지 02  setInterval 맵 계속 그리기
+	function stage02(){
+	var stage02 = setInterval(function(){
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		makeMap02();
+		makePlayer();
+	}, 50);		
+	};
+		
+	
+
+
+</script>
+</html>
