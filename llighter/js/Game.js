@@ -170,10 +170,10 @@ function drawMap(){
             context.drawImage(player, 0, UNIT, UNIT, UNIT, x_char, y_char, UNIT, UNIT);
             break;
         case EAST_DIRECTION:
-            context.drawImage(player, 0, 128, UNIT, UNIT, x_char, y_char, UNIT, UNIT);
+            context.drawImage(player, 0, 2 * UNIT, UNIT, UNIT, x_char, y_char, UNIT, UNIT);
             break;
         case NORTH_DIRECTION:
-            context.drawImage(player, 0, 192, UNIT, UNIT, x_char, y_char, UNIT, UNIT);
+            context.drawImage(player, 0, 3 * UNIT, UNIT, UNIT, x_char, y_char, UNIT, UNIT);
             break;
     }
 
