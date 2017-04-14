@@ -26,6 +26,8 @@ var map=[
 ];
 
 const UNIT = 64;
+const IMG_U = 96;
+const MAPIMG_U = 64;
 
 const ARROW_LEFT = 37;
 const ARROW_UP = 38;
@@ -47,10 +49,19 @@ var road01 = new Image();
 var rock = new Image();
 var player = new Image();
 
+// 캐릭터 모션값
+
+const MOTION00 = 0;
+const MOTION01 = 1;
+const MOTION02 = 2;
+const MOTION03 = 3;
+var motionIdx = MOTION00;
+
+
 grass.src = './img/tileImage.png';
 road01.src = './img/tileImage.png';
 rock.src = './img/tileImage.png';
-player.src = './img/mon01.png';
+player.src = './img/eagle.png';
 
 // Map coordinate
 var mapX = 0;
@@ -61,7 +72,7 @@ var charX = 0;
 var charY = 0;
 
 // Charactor direction
-var charDirection = EAST_DIRECTION;
+var charDirection = SOUTH_DIRECTION;
 
 function key(){
 	if(event.keyCode == ARROW_LEFT){
@@ -111,34 +122,34 @@ function drawMap(){
     let y_char = 0;
 
     if(charX/UNIT <= 4) {
-        // 0,0 부터 그린다.
+        // 0,0 遺��꽣 洹몃┛�떎.
         x_start = 0;
         x_end = x_start + 10;
         x_char = charX;
     } else if( charX/UNIT >= 5 && charX/UNIT < 16) {
-        // X를 기준으로 왼쪽은 4열 오른쪽은 5열 그린다.
+        // X瑜� 湲곗��쑝濡� �쇊履쎌� 4�뿴 �삤瑜몄そ�� 5�뿴 洹몃┛�떎.
         x_start = charX/UNIT - 5
         x_end = charX/UNIT + 5
         x_char = 5 * UNIT;
     } else {    // X >= 16
-        // 10 부터 그린다.
+        // 10 遺��꽣 洹몃┛�떎.
         x_start = 10;
         x_end = 20;
         x_char = charX - 10 * UNIT;
     }
 
     if(charY/UNIT <= 4) {
-        // 0,0 부터 그린다.
+        // 0,0 遺��꽣 洹몃┛�떎.
         y_start = 0;
         y_end = y_start + 10;
         y_char = charY;
     } else if( charY/UNIT >= 5 && charY/UNIT < 16) {
-        // Y를 기준으로 위는 4열 아래는 5열 그린다.
+        // Y瑜� 湲곗��쑝濡� �쐞�뒗 4�뿴 �븘�옒�뒗 5�뿴 洹몃┛�떎.
         y_start = charY/UNIT - 5
         y_end = charY/UNIT + 5
         y_char = 5 * UNIT;
     } else {    // Y >= 16
-        // 10 부터 그린다.
+        // 10 遺��꽣 洹몃┛�떎.
         y_start = 10;
         y_end = 20;
         y_char = charY - 10 * UNIT;
@@ -148,13 +159,13 @@ function drawMap(){
 		for(var j=x_start, mapX = 0; j < x_end ; j++){
             switch(map[i][j]) {
                 case MAP_GRASS:
-                    context.drawImage(grass, 0, 32, UNIT, UNIT, mapX, mapY, UNIT, UNIT);
+                    context.drawImage(grass, 0, 32, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
                     break;
                 case MAP_ROAD01:
-                    context.drawImage(road01, UNIT, 32, UNIT, UNIT, mapX, mapY, UNIT, UNIT);
+                    context.drawImage(road01, 64, 32, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
                     break;
                 case MAP_STONE:
-                    context.drawImage(rock, 192, 32, UNIT, UNIT, mapX, mapY, UNIT, UNIT);
+                    context.drawImage(rock, 192, 32, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
                     break;
             }
             mapX += UNIT;
@@ -164,16 +175,36 @@ function drawMap(){
 
     switch(charDirection) {
         case SOUTH_DIRECTION:
-            context.drawImage(player, 0, 0, UNIT, UNIT, x_char, y_char, UNIT, UNIT);
+        	switch(motionIdx){
+        		case MOTION00: context.drawImage(player, IMG_U*0, IMG_U*0, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
+        		case MOTION01: context.drawImage(player, IMG_U*1, IMG_U*0, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
+        		case MOTION02: context.drawImage(player, IMG_U*2, IMG_U*0, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
+        		case MOTION03: context.drawImage(player, IMG_U*3, IMG_U*0, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
+        	}
             break;
         case WEST_DIRECTION:
-            context.drawImage(player, 0, UNIT, UNIT, UNIT, x_char, y_char, UNIT, UNIT);
+        	switch(motionIdx){
+        		case MOTION00: context.drawImage(player, IMG_U*0, IMG_U*1, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
+        		case MOTION01: context.drawImage(player, IMG_U*1, IMG_U*1, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
+        		case MOTION02: context.drawImage(player, IMG_U*2, IMG_U*1, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
+        		case MOTION03: context.drawImage(player, IMG_U*3, IMG_U*1, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
+        	}
             break;
         case EAST_DIRECTION:
-            context.drawImage(player, 0, 128, UNIT, UNIT, x_char, y_char, UNIT, UNIT);
+        	switch(motionIdx){
+        		case MOTION00: context.drawImage(player, IMG_U*0, IMG_U*2, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
+        		case MOTION01: context.drawImage(player, IMG_U*1, IMG_U*2, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
+        		case MOTION02: context.drawImage(player, IMG_U*2, IMG_U*2, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
+        		case MOTION03: context.drawImage(player, IMG_U*3, IMG_U*2, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
+        	}
             break;
         case NORTH_DIRECTION:
-            context.drawImage(player, 0, 192, UNIT, UNIT, x_char, y_char, UNIT, UNIT);
+        	switch(motionIdx){
+	    		case MOTION00: context.drawImage(player, IMG_U*0, IMG_U*3, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
+	    		case MOTION01: context.drawImage(player, IMG_U*1, IMG_U*3, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
+	    		case MOTION02: context.drawImage(player, IMG_U*2, IMG_U*3, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
+	    		case MOTION03: context.drawImage(player, IMG_U*3, IMG_U*3, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT); break;
+	    	}
             break;
     }
 
@@ -182,4 +213,7 @@ function drawMap(){
 setInterval(function fps(){
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	drawMap();
-}, 50);
+}, 51);
+setInterval(function motionFps(){
+	motionIdx=(motionIdx+1)%4
+}, 150);
