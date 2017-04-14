@@ -47,39 +47,35 @@ var charY=0;
 var charDirection = EAST_DIRECTION;
 
 function key(){
-	if(event.keyCode==37){
+	if(event.keyCode==ARROW_LEFT){
 		if( map[(charY/64)][((charX-64)/64)]==2 || (charX<=0) ){
-			charDirection=0;
 		}else{
 			charX-=64;
-			charDirection=0;
 		}
+        charDirection=WEST_DIRECTION;
 	}
-	if(event.keyCode==38){
+	if(event.keyCode==ARROW_UP){
 		if( map[((charY-64)/64)][(charX/64)]==2 || (charY<=0) ){
-			charDirection=1;
 		}else{
 			charY-=64;
-			charDirection=1;
 		}
+        charDirection=NORTH_DIRECTION;
 	}
-	if(event.keyCode==39){
+	if(event.keyCode==ARROW_RIGHT){
 		if( map[(charY/64)][((charX+64)/64)]==2 || (charX>=1216) ){
-			// �������� ����Ʈ(����?)
-			charDirection=2;
 		}else{
 			charX+=64;
-			charDirection=2;
 		}
+        charDirection=EAST_DIRECTION;
 	}
-	if(event.keyCode==40){
+	if(event.keyCode==ARROW_DOWN){
 		if( (charY>=576) || map[((charY+64)/64)][(charX/64)]==2 ){
-			charDirection=3;
 		}else{
 			charY+=64;
-			charDirection=3;
 		}
+        charDirection=SOUTH_DIRECTION;
 	}	
+    
 }
 
 function drawMap(){
