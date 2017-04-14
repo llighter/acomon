@@ -34,12 +34,11 @@ const ARROW_UP = 38;
 const ARROW_RIGHT = 39;
 const ARROW_DOWN = 40;
 
-const EAST_DIRECTION = 0;
+const SOUTH_DIRECTION = 0;
 const WEST_DIRECTION = 1;
-const SOUTH_DIRECTION = 2;
+const EAST_DIRECTION = 2;
 const NORTH_DIRECTION = 3;
 
-// map[] : value 2 -> stone
 const MAP_GRASS = 0;
 const MAP_ROAD01 = 1;
 const MAP_STONE = 2;
@@ -50,7 +49,6 @@ var rock = new Image();
 var player = new Image();
 
 // 캐릭터 모션값
-
 const MOTION00 = 0;
 const MOTION01 = 1;
 const MOTION02 = 2;
@@ -167,20 +165,22 @@ function drawMap(){
 		mapY += UNIT;
 	}
 
-    switch(charDirection) {
-        case SOUTH_DIRECTION:
-			context.drawImage(player, IMG_U*motionIdx, IMG_U*0, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
-            break;
-        case WEST_DIRECTION:
-			context.drawImage(player, IMG_U*motionIdx, IMG_U*1, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
-            break;
-        case EAST_DIRECTION:
-			context.drawImage(player, IMG_U*motionIdx, IMG_U*2, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
-            break;
-        case NORTH_DIRECTION:
-			context.drawImage(player, IMG_U*motionIdx, IMG_U*3, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
-            break;
-    }
+    // switch(charDirection) {
+    //     case SOUTH_DIRECTION:
+	// 		context.drawImage(player, IMG_U*motionIdx, IMG_U*0, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
+    //         break;
+    //     case WEST_DIRECTION:
+	// 		context.drawImage(player, IMG_U*motionIdx, IMG_U*1, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
+    //         break;
+    //     case EAST_DIRECTION:
+	// 		context.drawImage(player, IMG_U*motionIdx, IMG_U*2, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
+    //         break;
+    //     case NORTH_DIRECTION:
+	// 		context.drawImage(player, IMG_U*motionIdx, IMG_U*3, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
+    //         break;
+    // }
+
+	context.drawImage(player, IMG_U*motionIdx, IMG_U*charDirection, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
 
 }
 
