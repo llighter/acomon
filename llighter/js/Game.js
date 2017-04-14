@@ -42,30 +42,30 @@ const MAP_GRASS = 0;
 const MAP_ROAD01 = 1;
 const MAP_STONE = 2;
 
-var grass=new Image();
-var road01=new Image();
-var rock=new Image();
+var grass = new Image();
+var road01 = new Image();
+var rock = new Image();
 var player = new Image();
 
-grass.src='./img/tileImage.png';
-road01.src='./img/tileImage.png';
-rock.src='./img/tileImage.png';
-player.src='./img/mon01.png';
+grass.src = './img/tileImage.png';
+road01.src = './img/tileImage.png';
+rock.src = './img/tileImage.png';
+player.src = './img/mon01.png';
 
 // Map coordinate
-var mapX=0;
-var mapY=0;
+var mapX = 0;
+var mapY = 0;
 
 // Charactor coordinate
-var charX=0;
-var charY=0;
+var charX = 0;
+var charY = 0;
 
 // Charactor direction
 var charDirection = EAST_DIRECTION;
 
 function key(){
 	if(event.keyCode == ARROW_LEFT){
-		if( map[(charY / UNIT)][((charX - UNIT) / UNIT)] == MAP_STONE || (charX <= 0) ){
+		if( (charX <= 0) || map[(charY / UNIT)][((charX - UNIT) / UNIT)] == MAP_STONE ){
 		}else{
 			charX -= UNIT;
 		}
@@ -73,21 +73,21 @@ function key(){
 
 	}
 	if(event.keyCode == ARROW_UP){
-		if( map[((charY - UNIT) / UNIT)][(charX / UNIT)] == MAP_STONE || (charY <= 0) ){
+		if( (charY <= 0) || map[((charY - UNIT) / UNIT)][(charX / UNIT)] == MAP_STONE ){
 		}else{
 			charY -= UNIT;
 		}
         charDirection = NORTH_DIRECTION;
 	}
 	if(event.keyCode == ARROW_RIGHT){
-		if( map[(charY / UNIT)][((charX + UNIT) / UNIT)] == MAP_STONE || (charX >= 1216) ){
+		if( (charX >= 19 * UNIT) || map[(charY / UNIT)][((charX + UNIT) / UNIT)] == MAP_STONE ){
 		}else{
 			charX += UNIT;
 		}
         charDirection = EAST_DIRECTION;
 	}
 	if(event.keyCode == ARROW_DOWN){
-		if( (charY >= 1216) || map[((charY + UNIT) / UNIT)][(charX / UNIT)] == MAP_STONE ){
+		if( (charY >= 19 * UNIT) || map[((charY + UNIT) / UNIT)][(charX / UNIT)] == MAP_STONE ){
 		}else{
 			charY += UNIT;
 		}
