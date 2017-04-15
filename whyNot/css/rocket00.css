@@ -1,0 +1,123 @@
+body{display:block;}
+body{box-sizing:border-box;}
+*, *:after, *:before{box-sizing:inherit;}
+
+*{margin:0; padding:0;}
+
+.whyContain:after,
+.whyContain:before{content:"";display:table;clear:both;}
+
+.whyMainBox{
+	width:99vmin;
+	height:99vmin;
+	background:#f2f2f2;
+}
+.whyTopbox{
+	width:100%;
+	height:74.999%;
+	background:#e6e6e6;
+}
+.whyBottombox{
+	width:100%;
+	height:24.999%;
+	background:#d9d9d9;
+}
+
+
+.whyTopView{
+	width:100%;
+	height:100%;
+	background:#cccccc;
+}
+.whyLeftupWindow{
+	width:40%;
+	background:#bfbfbf;
+	display:inline-block;
+	float:left;
+}
+.whyRightupWindow{
+	width:40%;
+	background:#b3b3b3;
+	display:inline-block;
+	float:right;
+}
+
+.whyLuwMenu{
+	width:90%;
+	color:white;
+}
+.whyLuwMenu:NTH-CHILD(1){
+	background:darkred;
+}
+.whyLuwMenu:NTH-CHILD(2){
+	background:darkblue;
+}
+.whyLuwMenu:NTH-CHILD(3){
+	background:darkgreen;
+}
+.whyLuwMenu:NTH-CHILD(4){
+	background:darkorange;
+}
+.whyRuwMenu{
+	width:90%;
+	color:white;
+}
+.whyRuwMenu:NTH-CHILD(1){
+	background:darkred;
+}
+.whyRuwMenu:NTH-CHILD(2){
+	background:darkblue;
+}
+.whyRuwMenu:NTH-CHILD(3){
+	background:darkgreen;
+}
+.whyRuwMenu:NTH-CHILD(4){
+	background:darkorange;
+}
+
+
+
+/*	전투화면 진행창	*/
+.whyBottomCommand{
+	background:white;
+	padding:10px;
+	display:none;
+}
+.whyBcList{
+	background:gold;
+}
+.whyBcFight{
+	display:none;
+	width:90%;
+	float:right;
+	background:#999999;
+}
+.whyBcSkill{
+	color:white;
+}
+.whyBcSkill:NTH-CHILD(1){
+	background:darkred;
+}
+.whyBcSkill:NTH-CHILD(2){
+	background:darkblue;	
+}
+.whyBcSkill:NTH-CHILD(3){
+	background:darkgreen;
+}
+.whyBcSkill:NTH-CHILD(4){
+	background:darkorange;	
+}
+
+.whyBcAcomon{
+	display:none;
+}
+.whyBcItem{
+	display:none;
+}
+.whyBcRun{
+	display:none;
+}
+
+
+
+*{border: 1px dotted red;}
