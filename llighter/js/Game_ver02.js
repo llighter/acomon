@@ -50,7 +50,7 @@ var map01=[
 
 
 
-// 현재위치한 맵선언
+// 현재맵 선언
 var nowMap;
 nowMap = map00;
 
@@ -59,6 +59,7 @@ nowMap = map00;
 const UNIT = 64;
 const IMG_U = 96;
 const MAPIMG_U = 64;
+const MOVE_U = 16;
 
 const ARROW_LEFT = 37;
 const ARROW_UP = 38;
@@ -87,7 +88,7 @@ var sandStone = new Image();
 
 var player = new Image();
 
-// 筌�癒��봼占쎄숲 筌뤴뫁�▼첎占�
+// character motion
 
 const MOTION00 = 0;
 const MOTION01 = 1;
@@ -117,50 +118,53 @@ var y_start = 0;
 var y_end = 0;
 var y_char = 0;
 
-// Charactor coordinate
+// Character coordinate
 var charX = 0;
 var charY = 0;
+//var nowX = charX-(charX%UNIT);
+//var nowY = charY-(charY%UNIT);
 
 
 
 
 
 
-// Charactor direction
+// Character direction
 var charDirection = SOUTH_DIRECTION;
 
 function key(){
 	if(event.keyCode == ARROW_LEFT){
-		if( (charX <= 0) || nowMap[(charY / UNIT)][((charX - UNIT) / UNIT)] > 100 ){
+		if( (charX <= 0) || nowMap[((charY-(charY%UNIT)) / UNIT)][ ((charX-UNIT) / UNIT) ] > 100 ){
 		}else{
-			charX -= UNIT;
+			charX -= MOVE_U;
 		}
         charDirection = WEST_DIRECTION;
 
 	}
 	if(event.keyCode == ARROW_UP){
-		if( (charY <= 0) || nowMap[((charY - UNIT) / UNIT)][(charX / UNIT)] > 100 ){
+		if( (charY <= 0) || nowMap[((charY-(charY%UNIT)) / UNIT)][((charX-(charX%UNIT)) / UNIT)] > 100 ){
 		}else{
-			charY -= UNIT;
+			charY -= MOVE_U;
 		}
         charDirection = NORTH_DIRECTION;
 	}
 	if(event.keyCode == ARROW_RIGHT){
-		if( (charX >= 19 * UNIT) || nowMap[(charY / UNIT)][((charX + UNIT) / UNIT)] > 100 ){
+		if( (charX >= 19 * UNIT) || nowMap[((charY-(charY%UNIT)) / UNIT)][((charX-(charX%UNIT) + UNIT) / UNIT)] > 100 ){
 		}else{
-			charX += UNIT;
+			charX += MOVE_U;
 		}
         charDirection = EAST_DIRECTION;
 	}
+	// 수정중
 	if(event.keyCode == ARROW_DOWN){
-		if( (charY >= 19 * UNIT) || nowMap[((charY + UNIT) / UNIT)][(charX / UNIT)] > 100 ){
+		if( (charY >= 19 * UNIT) || nowMap[((charY-(charY%UNIT)+UNIT) / UNIT)][((charX+UNIT) / UNIT)] > 100 ){
 		}else{
-			charY += UNIT;
+			charY += MOVE_U;
 		}
         charDirection = SOUTH_DIRECTION;
 	}
 	
-	// 맵이동
+	// map01로 이동
 	if( nowMap[(charY / UNIT)][(charX / UNIT)]==99 ){
 		nowMap=map01;
 		charX= (0*UNIT);
@@ -179,42 +183,42 @@ function drawMap(){
 	mapX=0;
 	mapY=0;
 
-    // 10x10留뚰겮 蹂댁뿬吏� 留듭“嫄� �뙆�븙,�꽕�젙
-    if(charX/UNIT <= 4) {
-        // 0,0 占쎄껀�뜝�룞�삕�땻占� �윜諛몄굡占쎈탿�뜝�럥堉�.
+    // 10x10筌띾슦寃� 癰귣똻肉э쭪占� 筌띾벊�쒎쳞占� 占쎈솁占쎈툢,占쎄퐬占쎌젟
+    if( charX/UNIT < 5) {
+        // 0,0 �뜝�럡猿�占쎈쐻占쎈짗占쎌굲占쎈빝�뜝占� 占쎌쐺獄쏅챷援▼뜝�럥�꺙占쎈쐻占쎈윥�젆占�.
         x_start = 0;
         x_end = x_start + 10;
         x_char = charX;
     } else if( charX/UNIT >= 5 && charX/UNIT < 16) {
-        // X占쎈ご�뜝占� �뼨轅명�ｅ뜝�룞�삕占쎈さ�슖�댙�삕 �뜝�럩�눁嶺뚯옕�윪�뜝占� 4�뜝�럥�� �뜝�럩沅롳옙紐댐쭗袁좉국�뜝�룞�삕 5�뜝�럥�� �윜諛몄굡占쎈탿�뜝�럥堉�.
-        x_start = charX/UNIT - 5
-        x_end = charX/UNIT + 5
-        x_char = 5 * UNIT;
+        // X�뜝�럥�걫占쎈쐻�뜝占� 占쎈섀饔낅챸占쏙퐛�쐻占쎈짗占쎌굲�뜝�럥�걬占쎌뒙占쎈뙔占쎌굲 占쎈쐻占쎈윪占쎈늸癲ル슣�삎占쎌쑋占쎈쐻�뜝占� 4占쎈쐻占쎈윥占쏙옙 占쎈쐻占쎈윪亦낅〕�삕筌뤿뙋彛쀨쥈醫됯뎅占쎈쐻占쎈짗占쎌굲 5占쎈쐻占쎈윥占쏙옙 占쎌쐺獄쏅챷援▼뜝�럥�꺙占쎈쐻占쎈윥�젆占�.
+        x_start = (charX-(charX%UNIT))/UNIT - 5
+        x_end = (charX-(charX%UNIT))/UNIT + 5
+        x_char = (charX%UNIT) + 5 * UNIT;
     } else {    // X >= 16
-        // 10 占쎄껀�뜝�룞�삕�땻占� �윜諛몄굡占쎈탿�뜝�럥堉�.
+        // 10 �뜝�럡猿�占쎈쐻占쎈짗占쎌굲占쎈빝�뜝占� 占쎌쐺獄쏅챷援▼뜝�럥�꺙占쎈쐻占쎈윥�젆占�.
         x_start = 10;
         x_end = 20;
         x_char = charX - 10 * UNIT;
     }
 
-    if(charY/UNIT <= 4) {
-        // 0,0 占쎄껀�뜝�룞�삕�땻占� �윜諛몄굡占쎈탿�뜝�럥堉�.
+    if(charY/UNIT < 5) {
+        // 0,0 �뜝�럡猿�占쎈쐻占쎈짗占쎌굲占쎈빝�뜝占� 占쎌쐺獄쏅챷援▼뜝�럥�꺙占쎈쐻占쎈윥�젆占�.
         y_start = 0;
         y_end = y_start + 10;
         y_char = charY;
     } else if( charY/UNIT >= 5 && charY/UNIT < 16) {
-        // Y占쎈ご�뜝占� �뼨轅명�ｅ뜝�룞�삕占쎈さ�슖�댙�삕 �뜝�럩留꾢뜝�럥裕� 4�뜝�럥�� �뜝�럥�닡�뜝�럩�굥�뜝�럥裕� 5�뜝�럥�� �윜諛몄굡占쎈탿�뜝�럥堉�.
-        y_start = charY/UNIT - 5
-        y_end = charY/UNIT + 5
-        y_char = 5 * UNIT;
+        // Y�뜝�럥�걫占쎈쐻�뜝占� 占쎈섀饔낅챸占쏙퐛�쐻占쎈짗占쎌굲�뜝�럥�걬占쎌뒙占쎈뙔占쎌굲 占쎈쐻占쎈윪筌띻쐼�쐻占쎈윥獒뺧옙 4占쎈쐻占쎈윥占쏙옙 占쎈쐻占쎈윥占쎈떋占쎈쐻占쎈윪占쎄데占쎈쐻占쎈윥獒뺧옙 5占쎈쐻占쎈윥占쏙옙 占쎌쐺獄쏅챷援▼뜝�럥�꺙占쎈쐻占쎈윥�젆占�.
+        y_start = (charY-(charY%UNIT))/UNIT - 5
+        y_end = (charY-(charY%UNIT))/UNIT + 5
+        y_char = (charY%UNIT) + (5 * UNIT);
     } else {    // Y >= 16
-        // 10 占쎄껀�뜝�룞�삕�땻占� �윜諛몄굡占쎈탿�뜝�럥堉�.
+        // 10 �뜝�럡猿�占쎈쐻占쎈짗占쎌굲占쎈빝�뜝占� 占쎌쐺獄쏅챷援▼뜝�럥�꺙占쎈쐻占쎈윥�젆占�.
         y_start = 10;
         y_end = 20;
         y_char = charY - 10 * UNIT;
     }
 	
-    // 議곌굔�뿉 �뵲�씪 留듯��씪 洹몃━湲�
+    // 鈺곌퀗援뷂옙肉� 占쎈뎡占쎌뵬 筌띾벏占쏙옙�뵬 域밸챶�봺疫뀐옙
 	for(var i = y_start; i < y_end ; i++){
 		for(var j=x_start, mapX = 0; j < x_end ; j++){
             switch(nowMap[i][j]) {
@@ -282,10 +286,6 @@ function drawChar(){
     	}
         break;
 	}
-	
-	
-	
-	
 
 }
 
