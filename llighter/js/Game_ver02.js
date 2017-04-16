@@ -134,7 +134,9 @@ var charDirection = SOUTH_DIRECTION;
 
 function key(){
 	if(event.keyCode == ARROW_LEFT){
-		if( (charX <= 0) || nowMap[((charY-(charY%UNIT)) / UNIT)][ ((charX-UNIT) / UNIT) ] > 100 ){
+		if( (charX <= 0)
+			|| nowMap[((charY-(charY%UNIT)) / UNIT)][ Math.ceil((charX-UNIT) / UNIT) ] > 100
+			|| nowMap[ Math.ceil(charY / UNIT) ][ Math.ceil((charX-UNIT) / UNIT)] > 100 ){
 		}else{
 			charX -= MOVE_U;
 		}
@@ -142,22 +144,27 @@ function key(){
 
 	}
 	if(event.keyCode == ARROW_UP){
-		if( (charY <= 0) || nowMap[((charY-(charY%UNIT)) / UNIT)][((charX-(charX%UNIT)) / UNIT)] > 100 ){
+		if( (charY < MOVE_U )
+			|| nowMap[ Math.ceil( (charY - UNIT) / UNIT) ][((charX-(charX%UNIT)) / UNIT)] > 100
+			|| nowMap[ Math.ceil( (charY - UNIT) / UNIT) ][ Math.ceil(charX / UNIT) ] > 100 ){
 		}else{
 			charY -= MOVE_U;
 		}
         charDirection = NORTH_DIRECTION;
 	}
 	if(event.keyCode == ARROW_RIGHT){
-		if( (charX >= 19 * UNIT) || nowMap[((charY-(charY%UNIT)) / UNIT)][((charX-(charX%UNIT) + UNIT) / UNIT)] > 100 ){
+		if( (charX > (19 * UNIT - MOVE_U) )
+			|| nowMap[((charY-(charY%UNIT)) / UNIT)][((charX-(charX%UNIT) + UNIT) / UNIT)] > 100
+			|| nowMap[ Math.ceil(charY / UNIT) ][((charX-(charX%UNIT) + UNIT) / UNIT)] > 100 ){
 		}else{
 			charX += MOVE_U;
 		}
         charDirection = EAST_DIRECTION;
 	}
-	// 수정중
 	if(event.keyCode == ARROW_DOWN){
-		if( (charY >= 19 * UNIT) || nowMap[((charY-(charY%UNIT)+UNIT) / UNIT)][((charX+UNIT) / UNIT)] > 100 ){
+		if( (charY > (19 * UNIT - MOVE_U) )
+			|| nowMap[ ( (charY-(charY%UNIT)+UNIT) / UNIT) ][ ( (charX - (charX%UNIT) ) / UNIT)] > 100 
+			|| nowMap[ ( (charY-(charY%UNIT)+UNIT) / UNIT) ][ Math.ceil( charX / UNIT ) ] > 100 ){
 		}else{
 			charY += MOVE_U;
 		}
