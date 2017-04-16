@@ -2,59 +2,53 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>GCopy_0415afternoon</title>
+<title>Insert title here</title>
 <style type = "text/css">
 /*
-	Apr 16,2017 10:12
+	Apr 15,2017 02:53
 	dev by JB.
 	
+	지금 하다 끊긴것.	
+	-	insertBefore forloop화.  // 이유: 보유 포켓몬이 증가할때마다 일일히 안되고 loop로 지속되야함.
+    -	/////   ///// 사이에 까리하게 만들어보기.
 	
-################################
-	(목) 이후 구현상황
+	################################aaqq
+	저번(목) 이후 구현상황
 	1. x키로 전투메뉴창으로 돌아가기.
 	2. 몬스터도감시스템 (미완/ 상태이상, 체력상황 등등 update되지않음..(prototype, pointing문제인듯.))
 	3. 몬스터태그 시스템 - 포켓몬도감 -> 클릭후 confirm에서 확인누르면 현재 나가잇는몬스터와 선택몬스터와 태그.
  
-	(금) 이후 구현상황
+	어제(금) 이후 구현상황
 	0.체력0이하일경우 -> 이겻다 졌다
-	1. 몬스터 레벨, 경험치축적. (레벨링 -미완// 레벨오를시  공체방++ 아직 구현안됨.)
+	1.몬스터 레벨, 경험치축적. (레벨링 -미완// 레벨오를시  공체방++ 아직 구현안됨.)
 	2. 공격할때마다 비교하기위한 console정리.  + health -> healthPoint로 가독성증가.
-	3. pokemonBook update.(단, 전투 종료할때 update가 되어야함. - 악용가능성있음.)
+	3. pokemonBook update.
+	4.
 	
-	(토) 구현상황
-	1. 레벨++ 에따라 몬스터육성. 레벨업하고 다음 전투때엔 풀피.
-	2. 상성(+데미지, -데미지)효과 부여.
-	3. createPokemonStatusOnce loop화- 새로운 몬스터 생겨도 같은효과.
-	4. pokemonBook update.( 전투중에서도 update되게 처리.)
+	################################
 	
-	(일) 구현상황
-	1. 민트,명상 갯수제한, 원래체력이상으로 못나가게 설정..
-	
-	
-################################
+*/
+/*
 
 ###############
 ###	오늘내일(토,일) 진행작업.
-	1.주인공캐릭터- 객체.(이름, 레벨-진입구간설정.)
-	2.몬스터 상태(빈사, 출혈, 흡혈, 독, 방깍..등)에따른 효과부여. 
-	3. 상대방턴 자동화(랜덤으로 일반,스킬공격).
+	1.주인공캐릭터- 객체.(재화, 레벨-진입구간설정.)
+	2.몬스터 객체 += 건강상태(빈사, 출혈..등), 
+	3.몬스터- 레벨링. 공+4, 방+1, 체+10 상승..  // optional) 주인공 버프?
+	4.도망치기전 확인 div만들엇으면 좋겟다..
 	
-##	버그픽스: 
-	1.가방뒤져보기 -> 공격하기 -> 가방뒤져보기 누르면... 메뉴로 돌아가기가 맨 첫 div로 display. 
+##	버그픽스: 가방뒤져보기 -> 공격하기 -> 가방뒤져보기 누르면... 메뉴로 돌아가기가 맨 첫 div로 display. 
 	(아래메뉴 -> 윗메뉴 ->아래메뉴 식은 모두다 그럼..)
-	2.tag 했을때 상대포켓몬도 이어서 플레이 - 상대포켓몬도 저장해야함 (현재는 내포켓몬만 저장됨).
+	
 	
 	optional) 
 	1. 주인공 버프? 상대몬스터의 공방 30% 절감상태.
-	2. 상대몬의 레벨에따른 회득경험치 차별화.
-	3. 레벨이 높을수록 당연히 채워야할 경치max도 늘어나야함.
 	4. 현재 상태와 지점 저장 (save load)
-	5. 도망치기전 확인 div만들엇으면 좋겟다..
 	
 	추가예정
 	0. 도망가기- 미완)화면연동. 도망쳐서 어떻게 도망치는 화면과 연동할수잇나.
 	1. 시나리오 - 클릭이나 엔터, 스페이스 누를때(keyup) 다음 시나리오각본으로 이동.
-	
+
 */
 
 
@@ -62,6 +56,9 @@
 *{
 border : 1px dotted red;
 
+}
+div{
+	clear: right;
 }
 
 
@@ -82,12 +79,11 @@ $(document).ready(function(){
 });
 
 
-function Pokemon(pokemonNo, name, monLevel, monExperience, monPropNo, healthPoint, attackStr, shield, status){
+function Pokemon(pokemonNo, name, monLevel, monExperience, healthPoint, attackStr, shield, status){
 	this.pokemonNo = pokemonNo;
 	this.name = name; 
 	this.monLevel = monLevel; 
 	this.monExperience = monExperience; 
-	this.monPropNo = monPropNo;
 	this.healthPoint = healthPoint;
 	this.attackStr = attackStr;
 	this.shield = shield;
@@ -95,70 +91,21 @@ function Pokemon(pokemonNo, name, monLevel, monExperience, monPropNo, healthPoin
 
 }
 
-function BagConsumerables( mintNo, pokeBallNo, golds  ){
-	this.mintNo = mintNo; 
-	this.pokeBallNo = pokeBallNo;
-	this.golds = golds;
-//	var consumerableItems = ["mint", "pokeBall", "golds"];
-	this.consumingItem = function(item){
-		if(item == "mint"){
-			if(this.mintNo >0){
-				this.mintNo--;
-				console.log("system- "+ item +" " + this.mintNo + "개 남았습니다.");
-			}
-			if(this.mintNo ==0){
-				console.log("system- mint 없다 ㅜㅜ");
-			}
-		}
 
-		if(item == "pokeBall"){
-			if(this.pokeBallNo >0){
-				this.pokeBallNo--;
-				console.log("system- "+ item +" " + this.pokeBallNo + "개 남았습니다.");
-			}
-			if(this.pokeBallNo ==0){
-				console.log("system- pokeBallNo 없다 ㅜㅜ");
-			}
-		}
-		/* if(item == "golds"){
-			if(this.golds >0){
-				console.log("system- "+ item +" " + this.golds + "골드 남았...");
-				this.mintNo--;
-			}
-			if(this.mintNo ==0)
-				console.log("system- mint 없다 ㅜㅜ");
-		} */
-	};
-	
-	
-}
-/* function itemAvailable(item){
-	if(item ==1){
-		console.log("하나남으셨습니다! 상점에서 refill해주세요! ");
-	}
-	if(item ==0){
-		console.log("아이템이 없습니다!");
-	}	
-} */
-
-
-
-
+/*
+	2.몬스터 객체 += 레벨, 건강상태(빈사, 출혈..등), 
+	3.몬스터- 레벨링. 공+4, 방+1, 체+15 상승..  // optional) 주인공 버프?  
+ 
+*/
 var pokemons =[];
-var monProps = ["물","바람","풀","불","흙"];
-	// pokemonNo name monLevel monExperience monPropNo healthPoint attackStr shield status
-	//monProps = ["물","바람","풀","불","흙"]  "물"<"바람"<"풀"<"불"<"흙"<"물"
-	// jb < yn < jb < gy < jw < jb  ... 먹이사슬 외에는 평범하게고우.
-pokemons.push(new Pokemon(0, "jbMon", 1, 0, 0, 50, 19, 3 ,"이상없음"));  
-pokemons.push(new Pokemon(1, "ynMon", 1, 0, 1, 60, 18, 6 ,"이상없음"));  // 포켓몬번호 이름 체력 기본공격력 기본방어력
-pokemons.push(new Pokemon(2, "gyMon", 1, 0, 3, 43, 20, 3 ,"이상없음"));  // 일반공격이 1이면 스킬공격은 최소 1.2 최대1.7랜덤
-pokemons.push(new Pokemon(3, "jwMon", 1, 0, 4, 54, 16, 4 ,"이상없음"));  //  pokemons[].pokemonNo
-pokemons.push(new Pokemon(4, "jhMon", 1, 0, 2, 45, 22, 2 ,"이상없음"));  
-
-var bagConsumerables = new BagConsumerables( 5, 4, 30000); //초기: 민트5개, 몬볼4개, 3만골드.
+	// pokemonNo monLevel monExperience name healthPoint attackStr shield status
+pokemons.push(new Pokemon(0, "jbMon", 1, 0, 50, 19, 3 ,"이상없음"));  
+pokemons.push(new Pokemon(1, "ynMon", 1, 0, 60, 18, 6 ,"이상없음"));  // 포켓몬번호 이름 체력 기본공격력 기본방어력
+pokemons.push(new Pokemon(2, "gyMon", 1, 0, 43, 20, 3 ,"이상없음"));  // 일반공격이 1이면 스킬공격은 최소 1.2 최대1.7랜덤
+pokemons.push(new Pokemon(3, "jwMon", 1, 0, 54, 16, 4 ,"이상없음"));  //  pokemons[].pokemonNo
+pokemons.push(new Pokemon(4, "jhMon", 1, 0, 45, 22, 2 ,"이상없음"));  
 
 
-//////////////////////////////
 ///////////////// Working Functions
 var divGoBackToMenu = document.createElement("div");
 divGoBackToMenu.innerHTML = "메뉴창으로";
@@ -173,41 +120,42 @@ function goBackToMenu(){
 
 function coolTimeCalc(){
 	userTurn = (coolTime01> coolTime02)?  false : true;// 내 쿨타임이 더 큰경우 ; 상대턴.
-	console.log("==== 유저턴 확인하기: " + userTurn );
+	console.log("유저턴 확인하기: " + userTurn );
 }
 
 function winOrLose(){     // 이기거나 졋을떄 display 확인후-> 모든것 초기화.
 	if( this.healthPoint02 <= 0){
 		console.log(" enemy loses ");
-		this.status02 = "notAvailable!ㅠㅠ";
 		
 		if((this.monExperience01 +30) >= 100){
 			this.monExperience01 -= 70;
 			this.monLevel01++;
-			console.log("LEVEL UP! 체20, 공5, 방1 씩 증가!!");
-			this.initMyHealthPoint += 20; 
-			this.attackStr01 += 5;
-			this.shield01 += 1;
-			updatePokemons();
 		}
 		else{
 			this.monExperience01 += 30;
-			updatePokemons();  
 		}
-		console.log("경험치 오르나?  현재 나의 몬스터"+pokemons[this.pokemonNo01].name
+		pokemons[this.pokemonNo01].monExperience = this.monExperience01;
+		pokemons[this.pokemonNo01].monLevel = this.monLevel01;
+		pokemons[this.pokemonNo01].healthPoint += 30; 
+		pokemons[this.pokemonNo01].attackStr += 5;
+		pokemons[this.pokemonNo01].shield += 1;
+		
+		
+		
+		console.log("경험치 떨어지나?  현재 나의 몬스터"+pokemons[this.pokemonNo01].name
 				+"\n레벨: " +pokemons[this.pokemonNo01].monLevel 
 				+ " 경험치: "+ pokemons[this.pokemonNo01].monExperience + " /100 "
-				+ "\n 체: "+pokemons[this.pokemonNo01].healthPoint
-				+ " 공: "+pokemons[this.pokemonNo01].attackStr
-				+ " 방: "+pokemons[this.pokemonNo01].shield
+				+ "\n 공: "+pokemons[this.pokemonNo01].healthPoint
+				+ " 방: "+pokemons[this.pokemonNo01].healthPoint
+				+ " 체: "+pokemons[this.pokemonNo01].healthPoint
 				);
+		updatePokemons();
 		return goBackToMenu();
 		
 	}
 		
 	if( this.healthPoint01 <= 0){
 		console.log(" user loses ");
-		this.status01 = "notAvailable!ㅠㅠ";
 		pokemons[this.pokemonNo01].monExperience = (this.monExperience01 -10 < 0)? this.monExperience01 : this.monExperience01 -10;
 		
 		console.log("경험치 떨어지나?  현재 나의 몬스터"+pokemons[this.pokemonNo01].name
@@ -220,125 +168,60 @@ function winOrLose(){     // 이기거나 졋을떄 display 확인후-> 모든�
 }
 
 function updatePokemons(){
-	propBonusAttRelease(this.monPropNo01, this.monPropNo02); // 원상태로 복귀.
-	
 	pokemons[this.pokemonNo01].pokemonNo = this.pokemonNo01;
 	pokemons[this.pokemonNo01].name = this.name01;
 	pokemons[this.pokemonNo01].attackStr = this.attackStr01;
 	pokemons[this.pokemonNo01].shield = this.shield01;      
 	/////////위에것들은 글쎄... 안변할텐데. 일단 놔두기로..
 	
-	if(pokemons[this.pokemonNo01].monLevel == this.monLevel01){
-		pokemons[this.pokemonNo01].healthPoint = this.healthPoint01;
-	}
-	else{
-		pokemons[this.pokemonNo01].monLevel++;
-		pokemons[this.pokemonNo01].healthPoint = this.initMyHealthPoint;
-	}
-	pokemons[this.pokemonNo01].monExperience = this.monExperience01;
-	console.log("내상태요? "+this.status01);
-	console.log("적상태요? "+this.status02);
+	pokemons[this.pokemonNo01].monLevel = this.monLevel01; 
+	pokemons[this.pokemonNo01].monExperience = this.monExperience01; 
+	pokemons[this.pokemonNo01].healthPoint = this.healthPoint01;
 	pokemons[this.pokemonNo01].status = this.status01;
 	
 	coolTime01 =0;
 	coolTime02 =0;
-	propBonusOnce = true;
-
-}
-
-var propBonusOnce;
-function propBonusAtt(prop01, prop02){
-	
-	if(propBonusOnce ){
-		if((prop01+1)%5 == prop02){
-			console.log("prop02우세.");
-			this.attackStr01 *= 0.9;
-			this.attackStr02 *= 1.1;
-			console.log("내 감소된 공격력: "+this.attackStr01);
-			console.log("상대 증가된 공격력: "+this.attackStr02);
-		}
-		if((prop02+1)%5 == prop01){
-			console.log("prop01우세.");
-			this.attackStr01 *= 1.1;
-			this.attackStr02 *= 0.9;
-			console.log("내 증가된 공격력: "+this.attackStr01);
-			console.log("상대 감소된 공격력: "+this.attackStr02);
-		}
-	}
-	propBonusOnce = false;
 	
 }
 
-function propBonusAttRelease(prop01, prop02){   // update전  원상태로 복귀.
-	if(propBonusOnce== false ){
-		if(prop01 == prop02){
-			console.log("평범하게 고우.");
-		}	
-		if((prop01+1)%5 == prop02){
-			console.log("prop02우세해제.");
-			this.attackStr01 /= 0.9;
-			this.attackStr02 /= 1.1;
-			console.log("내 증가된 공격력 해제: "+this.attackStr01 );
-			console.log("상대 감소된 공격력 해제: "+this.attackStr02 );
-		}
-		if((prop02+1)%5 == prop01){
-			console.log("prop01우세해제.");
-			this.attackStr01 /= 1.1;
-			this.attackStr02 /= 0.9;
-			console.log("내 감소된 공격력 해제: "+this.attackStr01 );
-			console.log("상대 증가된 공격력 해제: "+this.attackStr02 );
-		}
-	}
-}
+
+
+
 
 
 function tackle(){  	// 몸통박치기
-	var showMove ="";
 	if(userTurn==false){		//상대방턴인경우
-		console.log("원래 내몬스터의 체력: " + this.healthPoint01 
-				+ " 속성: "+ monProps[this.monPropNo02]
-				+ "\n상대.공:"+this.attackStr02 
-				+" 내.방:"+this.shield01 );
+		console.log("원래 내몬스터의 체력: " + this.healthPoint01 + "  상대.공:"+this.attackStr02 +" 내.방:"+this.shield01 );
 		this.healthPoint01 -= (this.attackStr02 - this.shield01);
 		coolTime02 +=2;
 		console.log("현재 내몬스터의 체력: "+this.healthPoint01 +"  쿨탐: "+ coolTime02);
-		showMove = this.name02+"의 몸통박치기!";
 	}
 	else{	// 왠만하면 주인공 턴으로... 같거나 쿨탐적을경우.
-		console.log("원래 상대몬스터의 체력: " + this.healthPoint02 
-				+ " 속성: "+ monProps[this.monPropNo01]
-				+ "\n내.공:"+this.attackStr01 
-				+" 상대.방:"+this.shield02 );
+		console.log("원래 상대몬스터의 체력: " + this.healthPoint02+ "  내.공:"+this.attackStr01 +" 상대.방:"+this.shield02 );
 		this.healthPoint02 -= (this.attackStr01 - this.shield02);
 		coolTime01 +=2;
 		console.log("현재 상대몬스터의 체력: "+this.healthPoint02 +"  쿨탐: "+ coolTime01);
-		showMove = this.name01+"의 몸통박치기!";
 	}
+	showMove = "몸통박치기!";
 	console.log(showMove);
 	winOrLose();
 	coolTimeCalc();
+	
 }
 
 function skillAttack(){  // 스킬공격 
-	var showMove ="";
 	var criticalAttack01 = this.attackStr01*(1+(Math.random()*0.5 + 0.2)).toFixed(2) ; 
 	var criticalAttack02 = this.attackStr02*(1+(Math.random()*0.5 + 0.2)).toFixed(2); 
 						// 스킬공격은 최대 1.5배 크리공격으로 할당. 소수점 2자리까지.
 	if(userTurn==false){			//상대방턴인경우
-		console.log("원래 내몬스터의 체력: " + this.healthPoint01 
-				+ " 속성: "+ monProps[this.monPropNo02]
-				+ "\n상대.공:"+criticalAttack02 
-				+" 내.방:"+this.shield01 );
+		console.log("원래 내몬스터의 체력: " + this.healthPoint01 + "  상대.공:"+criticalAttack02 +" 내.방:"+this.shield01 );
 		this.healthPoint01 -= (criticalAttack02 - this.shield01);  
 		coolTime02 +=3;
 		console.log("현재 내몬스터의 체력: "+this.healthPoint01 +"  쿨탐: "+ coolTime02);
 		showMove = this.name02+"의 스킬공격!";
 	}
 	else{
-		console.log("원래 상대몬스터의 체력: " + this.healthPoint02
-				+ " 속성: "+ monProps[this.monPropNo01]
-				+ "\n내.공:"+criticalAttack01 
-				+" 상대.방:"+this.shield02 );
+		console.log("원래 상대몬스터의 체력: " + this.healthPoint02+ "  내.공:"+criticalAttack01 +" 상대.방:"+this.shield02 );
 		this.healthPoint02 -= (criticalAttack01 - this.shield02);
 		coolTime01 +=3;
 		console.log("현재 상대몬스터의 체력: "+this.healthPoint02 +"  쿨탐: "+ coolTime01);
@@ -390,42 +273,30 @@ function createAttOptionsOnce(){
 
 
 function checkBaggage(toDo){ // (일단 주인공만)가방뒤지기 - turn소모없이 체력회복, 몬스터볼던지기, 명상하기 등..
-	var showMove ="";
 	if(toDo =="mint"){
 		console.log("민트먹기전: "+ this.healthPoint01);
-		showMove = "먹을수 없습니다. \n\t(설명: 민트먹을시 원래체력보다 많아질경우, 민트없는경우.)"
-		if(bagConsumerables.mintNo > 0 && (this.healthPoint01+25) < this.initMyHealthPoint ){
-			bagConsumerables.consumingItem("mint");
-			this.healthPoint01 += 25;  //민트먹고 체력 25회복. 아이템소모대신 쿨타임소모X
-			showMove = this.name01 +" 현재체력:"+ this.healthPoint01;	
-		}
+		this.healthPoint01 += 25;  //민트먹고 체력 25회복. 아이템소모대신 쿨타임소모X
+		showMove = this.name01 +"가 25만큼 회복!  현재체력:"+ this.healthPoint01;
 	}
 	else if(toDo =="catchWild"){
 		var chanceToCatch = Math.trunc(Math.random()*0.6*100)/100;	
 			//상대체력60%이하일때 운좋으면 잡기형식.	
 		console.log("잡을확률"+chanceToCatch + 
-					"\n체력비율" + (this.healthPoint02 / this.initEnemyHealthPoint));
-		bagConsumerables.consumingItem("pokeBall");
-		if(bagConsumerables.pokeBallNo > 0){
-						
-			if( (this.healthPoint02 / this.initEnemyHealthPoint ) < chanceToCatch ){
-				// 체력백분율보다 random이 더 클경우 잡기가능.
-				this.healthPoint02 = 0 ;
-				showMove = "#### "+this.name02+"를 잡았다!";
-			}
-			else{  // 못잡을경우.
-				coolTime01 +=3;
-				showMove = "#### "+this.name02+" 잡기 실패!";
-			}
+				"\n체력비율" + (this.healthPoint02 / this.initEnemyHealthPoint));
+		if( (this.healthPoint02 / this.initEnemyHealthPoint ) < chanceToCatch ){
+			// 체력백분율보다 random이 더 클경우 잡기가능.
+			this.healthPoint02 = 0 ;
+			showMove = this.name02+"를 잡았다!";
 		}
+		else{  // 못잡을경우.
+			coolTime01 +=3;
+			showMove = this.name02+" 잡기 실패!";
+		} 
 	}// catchWild END.
 	else if(toDo =="meditation"){ // 명상하고 체력 13회복. 쿨타임+1대신 아이템소모X 소량회복. 
-		showMove = "명상을 할수없습니다. \n\t(설명: 명상하면 전체체력보다 많아질경우.)"
-		if((this.healthPoint01+13) < this.initMyHealthPoint){
-			this.healthPoint01 += 13;
-			coolTime01 +=1;
-			showMove = this.name01+"명상하기! 현재체력: "+ this.healthPoint01;
-		}
+		this.healthPoint01 += 13;
+		coolTime01 +=1;
+		showMove = this.name01+"명상하기! 현재체력: "+ this.healthPoint01;
 	}
 	console.log(showMove);
 	coolTimeCalc();
@@ -476,6 +347,8 @@ function createBagOptionsOnce(){
 }
 
 
+
+
 function escapeFromEnemy(){
 	
 }
@@ -496,30 +369,23 @@ function tagMyMon(obj){
 	}
 	
 }
-
-
+///////////////////////////////////////////////////////////////////////////////
 function checkPokemonStatus(idNum){
-	// pokemonNo name monLevel monExperience monPropNo healthPoint attackStr shield status
-	//monProps = ["물","바람","풀","불","흙"]  "물"<"바람"<"풀"<"불"<"흙"<"물"
+	// pokemonNo monLevel monExperience name healthPoint attackStr shield status
+	
 	console.log("=================");
-	console.log("pokemonNo: "+ pokemons[idNum].pokemonNo 
-			+ " pokemon prop: " + monProps[pokemons[idNum].monPropNo]);
-	console.log("name: "+ pokemons[idNum].name);
+	
+	console.log("pokemonNo: "+ pokemons[idNum].pokemonNo);
 	console.log("monLevel: "+ pokemons[idNum].monLevel);
 	console.log("monExperience: "+ pokemons[idNum].monExperience);
+	console.log("name: "+ pokemons[idNum].name);
 	console.log("healthPoint: "+ pokemons[idNum].healthPoint);
 	console.log("attackStr: "+ pokemons[idNum].attackStr);
 	console.log("shield: "+ pokemons[idNum].shield);
 	console.log("status: "+ pokemons[idNum].status);
 	console.log("=================");
-
-	console.log("===== 가방검사 ======  // 나중에 분리할예정.");
-	console.log("bagConsumerables.mintNo: " + bagConsumerables.mintNo);
-	console.log("bagConsumerables.pokeBallNo: " + bagConsumerables.pokeBallNo);
-	console.log("bagConsumerables.golds: " + bagConsumerables.golds);
-	console.log("====== END ======");
-	
 }
+////////////////////////////////////////////////////////////////
 
 //jb yn gy jw jh
 function createPokemonStatusOnce(){
@@ -551,79 +417,107 @@ function createPokemonStatusOnce(){
 		}
 		document.body.insertBefore(divGoBackToMenu, document.getElementById("runAway_jb") );	
 	}
+ 
+ 
+////////////////////////////////////////////////////////////////////////////
+ /* 	for(var inx = 0; inx <pokeIniList.length; inx++){  // inx = divJB, divYN....
+		$("#pokeId0"+pokemons[inx].pokemonNo+"").unbind().click(function(){ 
+ 		$(this).css("background","black");
+			
 
- 	updatePokemons();
- 	for(var ind = 0; ind <pokeIniList.length; ind++){  // inx = divJB, divYN....
-		$("#pokeId0"+pokemons[ind].pokemonNo+"").unbind().click(function(ind){
-			checkPokemonStatus(parseInt(this.getAttribute("id").substr(this.getAttribute("id").length -2))); 
-			tagMyMon(this);
+ 		});     // 이건또 왜 돼는가..??  
+ 	} */ 
+/* 	for(var inx = 0; inx <pokeIniList.length; inx++){  // inx = divJB, divYN....
 
- 		});
- 		$("#pokeId0"+pokemons[ind].pokemonNo+"").css({
- 			"display":"table-cell",
- 			"background":"limegreen",
- 			"width":"100px", 
- 			"height": "50px", 
- 			"text-align":"center", 
- 			"vertical-align": "middle",
- 		});
- 	} // createPokemonStatusOnce - forloop END
+	  	$("#pokeId0"+inx).unbind().click(function(){ checkPokemonStatus(inx); });  
+		
+
+	} */ ///// 이건또 왜 안돼는가..??
  	
- 	$("#goBackToMenu_jb").unbind().click(function(){ 
+			
+/* 		console.log( parseInt(this.getAttribute("id").substr(this.getAttribute("id").length -2)) );
+		console.log( window.name02 ); */
+
+   	$("#pokeId00").unbind().click(function(){ 
+  		checkPokemonStatus(0); 
+  		tagMyMon(this);
+  	});   
+	$("#pokeId01").unbind().click(function(){ 
+		checkPokemonStatus(1); 
+  		tagMyMon(this);
+		});
+	$("#pokeId02").unbind().click(function(){ 
+		checkPokemonStatus(2); 
+  		tagMyMon(this);
+		});
+	$("#pokeId03").unbind().click(function(){ 
+		checkPokemonStatus(3); 
+  		tagMyMon(this);
+		});
+	$("#pokeId04").unbind().click(function(){ 
+		checkPokemonStatus(4); 
+  		tagMyMon(this);
+		});   
+	$("#goBackToMenu_jb").unbind().click(function(){ 
 		goBackToMenu(); 
-		propBonusAtt(window.monPropNo01, window.monPropNo02);
-	}); 
- 	$(" #goBackToMenu_jb").css({
-			"display":"table-cell",
-			"background":"limegreen",
-			"width":"100px", 
-			"height": "50px", 
-			"text-align":"center", 
-			"vertical-align": "middle",
-	});
+		}); 
 	
-}  //createPokemonStatusOnce END
+	
+	$("#pokeId00,#pokeId01,#pokeId02,#pokeId03,#pokeId04, #goBackToMenu_jb").css({
+		"display":"table-cell",
+		"background":"limegreen",
+		"width":"100px", 
+		"height": "50px", 
+		"text-align":"center", 
+		"vertical-align": "middle",
+	});
+	 ////////////////////////##################### 불량: 나중에 몬스터볼로 잡고 div생겨야하므로 loop화가 필수!!
+	 ////////////////////////////////////////////////////////////////////////////
+
+		//jb yn gy jw jh
+ 
+ 
+	
+}
 
 
 ////////////////////
-//////////////////// main battle options.
+//////////////////// main action options.
 ////////////////////
 var userTurn = true;
 var coolTime01 = 0; //유저쿨타임.
 var coolTime02 = 0;	
+var showMove ="";
 
 function turnMoves( myMon, enemyMon  ){   // ###야생 포켓몬 만난후 메인콘솔창.
 	
 // 이것들은 누적됨!! 체력, 레벨, 상태이상  쭉쭉!
-// pokemonNo name monLevel monExperience monPropNo healthPoint attackStr shield status
-//monProps = ["물","바람","풀","불","흙"]  "물"<"바람"<"풀"<"불"<"흙"<"물"
+// pokemonNo monLevel monExperience name healthPoint attackStr shield status
+
 	this.pokemonNo01 = pokemons[myMon].pokemonNo;  // 몬스터번호 선언
 	this.pokemonNo02 = pokemons[enemyMon].pokemonNo;  
-	this.name01 = pokemons[myMon].name;  // 이름 선언
-	this.name02 = pokemons[enemyMon].name;
 	this.monLevel01 = pokemons[myMon].monLevel;  // 몬스터레벨 선언
 	this.monLevel02 = pokemons[enemyMon].monLevel;  
 	this.monExperience01 = pokemons[myMon].monExperience;  // 몬스터경험치 선언
-	this.monPropNo01 = pokemons[myMon].monPropNo  //몬스터 속성선언.
-	this.monPropNo02 = pokemons[enemyMon].monPropNo
+
+	this.name01 = pokemons[myMon].name;  // 이름 선언
+	this.name02 = pokemons[enemyMon].name;
 	this.healthPoint01 = pokemons[myMon].healthPoint; // 체력 선언
 	this.healthPoint02 = pokemons[enemyMon].healthPoint;
-	this.initMyHealthPoint = pokemons[myMon].healthPoint;  // 내 초기체력할당. ->렙업할때 refresh...
 	this.initEnemyHealthPoint = pokemons[enemyMon].healthPoint;  // 상대초기체력할당. ->몬볼로 잡을떄 체력%구하려고..
 	this.attackStr01 = pokemons[myMon].attackStr; // 공격력 선언
 	this.attackStr02 = pokemons[enemyMon].attackStr;
 	this.shield01 = pokemons[myMon].shield;  // 방어력선언
 	this.shield02 = pokemons[enemyMon].shield;
+	
 	this.status01 = pokemons[myMon].status;  // 몬스터상태 선언
 	this.status02 = pokemons[enemyMon].status;  
-	
-	
+
 	userTurn = coolTime01 > coolTime02 ? false : true;
 	
 	console.log("나: "+ pokemons[myMon].name + "상대: "+pokemons[enemyMon].name );
 	console.log("내 포켓몬 체력: "+ pokemons[myMon].healthPoint + "  상대포켓몬 체력: "+pokemons[enemyMon].healthPoint );
-	propBonusOnce = true;
-	propBonusAtt(this.monPropNo01, this.monPropNo02);
+
 	$("#attackOptions_jb").unbind().click(function(){ 
 		createAttOptionsOnce();
 	});
@@ -639,10 +533,11 @@ function turnMoves( myMon, enemyMon  ){   // ###야생 포켓몬 만난후 메�
 	$("#runAway_jb").unbind().click(function(){
 		
 		////#### 도망치기전 확인 div만들엇으면 좋겟다..
+		
+		
 		goBackToMenu();
 		console.log(" 성공적으로 도망쳤다! ");
 		
-		/////////////////////////////////////////###### 여기에서 전투 전화면으로 빠져나가기 연동.
 		
 		console.log(" 새로운 몬스터를 만났다!!!======== ");
 		
@@ -654,15 +549,19 @@ function turnMoves( myMon, enemyMon  ){   // ###야생 포켓몬 만난후 메�
 			coolTime01 =0;
 			coolTime02 =0;
 		}
+		
+
+		
+		  //위에서 아래로읽는바람에... 셋다 한번에 읽게 만드는방법???###### null if elseif check!!
 
 	});
+	
+	 
 	
 } //turnMoves END
  
 
- 
- 
- 
+
 ////////////////////////////
 ////////////////////////////playing game.
 ////////////////////////////
@@ -692,9 +591,6 @@ window.onload = function(){
 <h3 id= "bagOptions_jb">가방뒤져보기</h3>
 <h3 id= "pokeBookOptions_jb">포켓몬도감 살펴보기</h3>
 <h3 id= "runAway_jb">도망치기!</h3>
-
-<!-- 전투종료후에 이용가능하게끔.. -->
-<h3 id= "pokeStore_jb">상점가기</h3>
 </body>
 </html>
 
