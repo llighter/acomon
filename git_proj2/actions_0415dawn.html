@@ -136,10 +136,19 @@ function winOrLose(){     // 이기거나 졋을떄 display 확인후-> 모든�
 		}
 		pokemons[this.pokemonNo01].monExperience = this.monExperience01;
 		pokemons[this.pokemonNo01].monLevel = this.monLevel01;
+		pokemons[this.pokemonNo01].healthPoint += 30; 
+		pokemons[this.pokemonNo01].attackStr += 5;
+		pokemons[this.pokemonNo01].shield += 1;
+		
+		
 		
 		console.log("경험치 떨어지나?  현재 나의 몬스터"+pokemons[this.pokemonNo01].name
 				+"\n레벨: " +pokemons[this.pokemonNo01].monLevel 
-				+ " 경험치: "+ pokemons[this.pokemonNo01].monExperience + " /100 " );
+				+ " 경험치: "+ pokemons[this.pokemonNo01].monExperience + " /100 "
+				+ "\n 공: "+pokemons[this.pokemonNo01].healthPoint
+				+ " 방: "+pokemons[this.pokemonNo01].healthPoint
+				+ " 체: "+pokemons[this.pokemonNo01].healthPoint
+				);
 		updatePokemons();
 		return goBackToMenu();
 		
