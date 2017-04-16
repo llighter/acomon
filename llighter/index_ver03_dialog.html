@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <title>Acomon start map</title>
+        <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+       
+        <style>
+            * { padding: 0; margin:0 }
+            canvas {
+                background: #eee;
+                display: block;
+                margin: 0 auto;
+            }
+           	/* dialog div css -yoda- */ 
+            #dialog {
+  				height: 170px;
+				background: black;
+				border-radius: 5px;
+				box-shadow: 0 0 0 6px white, 0 0 0 12px black;
+				color: white;
+				font-size: 18px;
+				font-weight: bold;
+				position: relative;
+				top:-200px;
+				width: 610px;
+				margin:0 auto;
+			}
+            
+        </style>
+    </head>
+    <body onkeydown="key()">
+        <!--<canvas id="startVillage" width="1280px" height="640px"></canvas>-->
+        <canvas id="startVillage" width="640px" height="640px"></canvas>
+        <!-- dialog div 히든처리 yoda -->
+        <div id="dialog" style="display:none"></div> 
+        <script type="text/javascript" src="./js/Game_ver03_dialog.js"></script>
+   </body>        
+</html>
