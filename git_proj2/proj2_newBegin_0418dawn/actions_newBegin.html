@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Battle side// actions_newBegin</title>
+<style type = "text/css">
+/*
+*/
+</style>
+    <script
+        src="http://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous">
+        // http://code.jquery.com
+    </script>
+<script src="mapBattleFunctions.js"></script>  
+    
+<script type = "text/javascript">
+/* XX
+ 
+XX */
+
+
+$(document).ready(function(){	
+	this.keyup = function(event){
+		if(event.keyCode = 88)
+			goBackToMunu();
+			
+		
+	}
+
+});
+var myMonid = myMon.id;
+var enemyMonid = enemyMon.id;
+console.log(myMon.id);
+console.log(enemyMon.id);
+
+var pokemons =[];
+var propertyNames = ["물","바람","풀","불","흙"];
+var skills = ["물폭탄던지기!","바람베기!","덩쿨채찍!","화염폭탄!","도툰!"]
+function Pokemon(id, name, lv, exp, hp, att, property){
+	this.id = id;
+	this.name = name; 
+	this.lv = lv; 
+	this.exp = exp; 
+	this.property = property;
+	this.hp = hp;
+	this.att = att;
+	
+	this.initHp = hp;
+}
+pokemons.push(new Pokemon(0, "jbMon", 1, 0, 50, 13, 0 ));  
+pokemons.push(new Pokemon(1, "ynMon", 1, 0, 52, 12, 1 ));  // 포켓몬번호 이름 체력 기본공격력 기본방어력
+pokemons.push(new Pokemon(2, "gyMon", 1, 0, 54, 11, 2 ));  // 일반공격이 1이면 스킬공격은 최소 1.2 최대1.7랜덤
+pokemons.push(new Pokemon(3, "jwMon", 1, 0, 56, 10, 3 ));  //  pokemons[].id
+pokemons.push(new Pokemon(4, "jhMon", 1, 0, 58, 9, 4 ));  
+	// mapPokemons    // id:0, name:"aa", lv:1, exp:0, hp: 50, att:13, property:"물"
+	// aa < bb < cc < dd < ee < aa  ... 먹이사슬 외에는 평범하게고우.
+
+	
+propertyNames = ["물","바람","풀","불","흙"];
+function checkPokemonBook(idNum){
+			// mapPokemons// id:0, name:"aa", lv:1, exp:0, hp: 50, att:13, property:"물"
+			//propertyNames = ["물","바람","풀","불","흙"]  "물"<"바람"<"풀"<"불"<"흙"<"물"
+			console.log("=================");
+			console.log("id: "+ pokemons[idNum].id 
+					+ " property: " + propertyNames[pokemons[idNum].property]);
+			console.log("name: "+ pokemons[idNum].name);
+			console.log("lv: "+ pokemons[idNum].lv);
+			console.log("exp: "+ pokemons[idNum].exp);
+			console.log("hp: "+ pokemons[idNum].hp);
+			console.log("att: "+ pokemons[idNum].att);
+			console.log("skill: "+ skills[pokemons[idNum].property]);
+			console.log("=================");
+		
+		/* 	console.log("===== 가방검사 ======  // 나중에 분리할예정.");
+			console.log("bagConsumerables.mintNo: " + bagConsumerables.mintNo);
+			console.log("bagConsumerables.pokeBallNo: " + bagConsumerables.pokeBallNo);
+			console.log("bagConsumerables.golds: " + bagConsumerables.golds);
+			console.log("====== END ======"); */
+}
+// checkPokemonBook(myMonid);
+// checkPokemonBook(enemyMonid);
+/* 
+
+this.pokemonNo01 = pokemons[myMon].pokemonNo;  // 몬스터번호 선언
+this.pokemonNo02 = pokemons[enemyMon].pokemonNo;  
+this.name01 = pokemons[myMon].name;  // 이름 선언
+this.name02 = pokemons[enemyMon].name;
+this.monLevel01 = pokemons[myMon].monLevel;  // 몬스터레벨 선언
+this.monLevel02 = pokemons[enemyMon].monLevel;  
+this.monExperience01 = pokemons[myMon].monExperience;  // 몬스터경험치 선언
+this.monPropNo01 = pokemons[myMon].monPropNo  //몬스터 속성선언.
+this.monPropNo02 = pokemons[enemyMon].monPropNo
+this.healthPoint01 = pokemons[myMon].healthPoint; // 체력 선언
+this.healthPoint02 = pokemons[enemyMon].healthPoint;
+this.initMyHealthPoint = pokemons[myMon].healthPoint;  // 내 초기체력할당. ->렙업할때 refresh...
+this.initEnemyHealthPoint = pokemons[enemyMon].healthPoint;  // 상대초기체력할당. ->몬볼로 잡을떄 체력%구하려고..
+this.attackStr01 = pokemons[myMon].attackStr; // 공격력 선언
+this.attackStr02 = pokemons[enemyMon].attackStr;
+this.shield01 = pokemons[myMon].shield;  // 방어력선언
+this.shield02 = pokemons[enemyMon].shield;
+this.status01 = pokemons[myMon].status;  // 몬스터상태 선언
+this.status02 = pokemons[enemyMon].status;
+ */
+
+var onetimeTackle = false;
+function tackle(attacker, defender){
+	console.log(pokemons[attacker].name+"이 공격력 "+pokemons[attacker].att+"로공격.");
+	pokemons[defender].hp -= pokemons[attacker].att;
+	console.log(pokemons[defender].name + "의 체력 "+pokemons[defender].hp+" 남음.");
+	if(!onetimeTackle){
+		onetimeTackle = true;
+		tackle(defender, attacker);  // 컴퓨터 턴 자동전환.  // 근데 이건  두번쨰 클릭부터는 한번씩 부르더라...;;
+	}
+}
+	
+var onetimeSkill = false;
+function skillAttack(attacker, defender){
+	console.log(pokemons[attacker].name+"이 스킬 "+skills[pokemons[attacker].id]+"로공격.");
+	pokemons[defender].hp -= pokemons[attacker].att;
+	console.log(pokemons[defender].name + "의 체력 "+pokemons[defender].hp+" 남음.");
+	if(!onetimeSkill){
+		onetimeSkill = true;
+		skillAttack(defender, attacker);  // 컴퓨터 턴 자동전환.
+	}
+}
+ 
+function meditation(myself){
+	showMsg = "명상을 할수없습니다. \n\t(설명: 명상하면 전체체력보다 많아질경우.)"
+	if((pokemons[myself].hp +13) < pokemons[myself].initHp){
+		pokemons[myself].hp += 13;
+		showMsg = "체력회복 (+13)!" +pokemons[myself].hp;
+	}
+	console.log(showMsg)
+}
+ 
+ 
+function goBackToMenu( ){
+	$("#attackOptions_jb, #bagOptions_jb, #pokeBookOptions_jb, #runAway_jb").css("display","block");
+	$("#skill_normalAtt_jb, #skill_Att_jb, #skill_Medi_jb, #skill_goBackToMenu_jb,"  
+			+"#bagMint_jb, #throwBall_jb, #meditation_jb," 
+			+"#pokeId00, #pokeId01, #pokeId02, #pokeId03, #pokeId04").css("display","none");	
+}
+
+
+</script>
+
+</head>
+<body>
+<h5 id = attackOptions_jb  > 공격하기(보기) </h5>
+<h5 id = skill_normalAtt_jb onclick = "tackle(myMonid, enemyMonid);" > 노말공격하기1 </h5>
+<h5 id = skill_Att_jb onclick = "skillAttack(myMonid, enemyMonid);" > 스킬공격하기2 </h5>
+<h5 id = skill_Medi_jb onclick = "meditation(myMonid);" > 명상하기 </h5>
+<h5 id = skill_goBackToMenu_jb onclick = "goBackToMenu();"> 메뉴로 돌아가기 </h5>
+<br/>
+<h5 id = bagOptions_jb> 가방(보기) </h5>
+<h5 > 먹기 </h5>
+<h5> 볼던지기 </h5>
+<h5 id = goBackToMenu_jb> 메뉴로 돌아가기 </h5>
+<br/>
+<h5 id = pokeBookOptions_jb> 몬스터도감(보기) </h5>
+<h5> jb </h5>
+<h5> yn </h5>
+<h5> gy </h5>
+<h5> jw </h5>
+<h5> jh </h5>
+<h5 id = goBackToMenu_jb> 메뉴로 돌아가기 </h5>
+<br/>
+<h5 id = runAway_jb> 도망치기 </h5>
+
+
+
+
+
+
+
+
+</body>
+
+</html>
