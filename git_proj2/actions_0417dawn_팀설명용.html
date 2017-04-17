@@ -5,7 +5,7 @@
 <title>GCopy_0415afternoon</title>
 <style type = "text/css">
 /*
-	Apr 16,2017 22:45
+	Apr 17,2017 00:45
 	dev by JB.
 	
 	
@@ -29,7 +29,8 @@
 	
 	(일) 구현상황
 	1. 민트,명상 갯수제한, 원래체력이상으로 못나가게 설정..
-	
+	## 종원팀장님과 카톡. 코딩합치기.
+	============
 	
 ################################
 
@@ -71,6 +72,8 @@ border : 1px dotted red;
 </script>
 <script type = "text/javascript">
 $(document).ready(function(){	
+//	console.log(this);
+//	console.log(window.document);
 	this.onkeyup = function(event){  //
 		 if(event.keyCode)
 			console.log( String.fromCharCode(event.keyCode) +" : "+event.keyCode);
@@ -148,7 +151,7 @@ var pokemons =[];
 var monProps = ["물","바람","풀","불","흙"];
 	// pokemonNo name monLevel monExperience monPropNo healthPoint attackStr shield status
 	//monProps = ["물","바람","풀","불","흙"]  "물"<"바람"<"풀"<"불"<"흙"<"물"
-	// jb < yn < jb < gy < jw < jb  ... 먹이사슬 외에는 평범하게고우.
+	// jb < yn < jh < gy < jw < jb  ... 먹이사슬 외에는 평범하게고우.
 pokemons.push(new Pokemon(0, "jbMon", 1, 0, 0, 50, 19, 3 ,"이상없음"));  
 pokemons.push(new Pokemon(1, "ynMon", 1, 0, 1, 60, 18, 6 ,"이상없음"));  // 포켓몬번호 이름 체력 기본공격력 기본방어력
 pokemons.push(new Pokemon(2, "gyMon", 1, 0, 3, 43, 20, 3 ,"이상없음"));  // 일반공격이 1이면 스킬공격은 최소 1.2 최대1.7랜덤
@@ -166,7 +169,7 @@ divGoBackToMenu.setAttribute("id", "goBackToMenu_jb");
 
 function goBackToMenu(){
 	$("#attackOptions_jb, #bagOptions_jb, #pokeBookOptions_jb, #runAway_jb").css("display","block");
-	$("#normalAtt_jb, #skillAtt_jb, #goBackToMenu_jb,  #bagMint_jb, #throwBall_jb, #meditation_jb," 
+	$("#normalAtt_jb, #skillAtt_jb, #skillMedi_jb, #goBackToMenu_jb,  #bagMint_jb, #throwBall_jb, #meditation_jb," 
 			+"#pokeId00, #pokeId01, #pokeId02, #pokeId03, #pokeId04").css("display","none");	
 	
 }
@@ -294,6 +297,7 @@ function propBonusAttRelease(prop01, prop02){   // update전  원상태로 복�
 
 function tackle(){  	// 몸통박치기
 	var showMove ="";
+	////////////@@@@@@@@@@@@@@ 상대턴 자동화   //////////	
 	if(userTurn==false){		//상대방턴인경우
 		console.log("원래 내몬스터의 체력: " + this.healthPoint01 
 				+ " 속성: "+ monProps[this.monPropNo02]
@@ -304,6 +308,8 @@ function tackle(){  	// 몸통박치기
 		console.log("현재 내몬스터의 체력: "+this.healthPoint01 +"  쿨탐: "+ coolTime02);
 		showMove = this.name02+"의 몸통박치기!";
 	}
+	////////////@@@@@@@@@@@@@@ 상대턴 자동화  END //////////	
+	
 	else{	// 왠만하면 주인공 턴으로... 같거나 쿨탐적을경우.
 		console.log("원래 상대몬스터의 체력: " + this.healthPoint02 
 				+ " 속성: "+ monProps[this.monPropNo01]
@@ -324,6 +330,8 @@ function skillAttack(){  // 스킬공격
 	var criticalAttack01 = this.attackStr01*(1+(Math.random()*0.5 + 0.2)).toFixed(2) ; 
 	var criticalAttack02 = this.attackStr02*(1+(Math.random()*0.5 + 0.2)).toFixed(2); 
 						// 스킬공격은 최대 1.5배 크리공격으로 할당. 소수점 2자리까지.
+	
+	////////////@@@@@@@@@@@@@@ 상대턴 자동화  //////////					
 	if(userTurn==false){			//상대방턴인경우
 		console.log("원래 내몬스터의 체력: " + this.healthPoint01 
 				+ " 속성: "+ monProps[this.monPropNo02]
@@ -333,6 +341,7 @@ function skillAttack(){  // 스킬공격
 		coolTime02 +=3;
 		console.log("현재 내몬스터의 체력: "+this.healthPoint01 +"  쿨탐: "+ coolTime02);
 		showMove = this.name02+"의 스킬공격!";
+		////////////@@@@@@@@@@@@@@ 상대턴 자동화  END //////////		
 	}
 	else{
 		console.log("원래 상대몬스터의 체력: " + this.healthPoint02
@@ -349,6 +358,21 @@ function skillAttack(){  // 스킬공격
 	coolTimeCalc();
 }
 
+function skillMeditation(){
+	showMove = "명상을 할수없습니다. \n\t(설명: 유저턴이 아닌경우, 명상하면 전체체력보다 많아질경우.)"
+	if(userTurn){
+		if((this.healthPoint01+13) < this.initMyHealthPoint){
+			this.healthPoint01 += 13;
+			coolTime01 +=1;
+			showMove = this.name01+"명상하기! 현재체력: "+ this.healthPoint01;
+		}
+	}
+	console.log(showMove);
+	coolTimeCalc();
+}// checkBaggage END.
+
+
+
 function createAttOptionsOnce(){
 	coolTimeCalc();
 	if(userTurn == false){
@@ -356,10 +380,13 @@ function createAttOptionsOnce(){
 				+"\n내 쿨탐= "+coolTime01+ " : 상대방쿨탐 = "+ coolTime02 );
 		return;
 	}
+	
+	////////////////$$$$$$$$$$$$$$$$$////////////////////
 	$("#attackOptions_jb, #bagOptions_jb,#pokeBookOptions_jb,#runAway_jb").css("display","none"); 
 	
 	var normalAtt = document.createElement("div");
 	var skillAtt = document.createElement("div");
+	var skillMedi = document.createElement("div");
 	
 //	normalAtt skillAtt
 	if( $("#normalAtt_jb").html() == null){
@@ -369,13 +396,21 @@ function createAttOptionsOnce(){
 		skillAtt.innerHTML = "스킬공격!";
 		skillAtt.setAttribute("id", "skillAtt_jb");
 		document.body.insertBefore(skillAtt, document.getElementById("bagOptions_jb"));	
+		skillMedi.innerHTML = "명상하기!";
+		skillMedi.setAttribute("id", "skillMedi_jb");
+		document.body.insertBefore(skillMedi, document.getElementById("bagOptions_jb"));	
 		document.body.insertBefore(divGoBackToMenu, document.getElementById("bagOptions_jb"));	
 	}
+	////////////////$$$$$$$$$$$$$$$$$ END ////////////////////
+	
 
 	normalAtt.onclick = function(){ tackle(); }
 	skillAtt.onclick = function(){ skillAttack(); }
+	skillMedi.onclick = function(){ skillMeditation(); }
 	divGoBackToMenu.onclick = function(){ goBackToMenu(); }  //divGoBackToMenu   , #goBackToMenu_jb 
-	$("#normalAtt_jb, #skillAtt_jb, #goBackToMenu_jb").css({
+	
+	////////////////$$$$$$$$$$$$$$$$$////////////////////
+	$("#normalAtt_jb, #skillAtt_jb, #skillMedi_jb, #goBackToMenu_jb").css({
 		"display":"table-cell",
 		"background":"#883050",
 		"width":"150px", 
@@ -385,7 +420,7 @@ function createAttOptionsOnce(){
 		"clear":"both"
 	});
 	$("#bagOptions_jb,#pokeBookOptions_jb,#runAway_jb").css("display","none");
-
+	////////////////$$$$$$$$$$$$$$$$$  END ////////////////////
 }
 
 
@@ -419,14 +454,14 @@ function checkBaggage(toDo){ // (일단 주인공만)가방뒤지기 - turn소�
 			}
 		}
 	}// catchWild END.
-	else if(toDo =="meditation"){ // 명상하고 체력 13회복. 쿨타임+1대신 아이템소모X 소량회복. 
+	/* else if(toDo =="meditation"){ // 명상하고 체력 13회복. 쿨타임+1대신 아이템소모X 소량회복. 
 		showMove = "명상을 할수없습니다. \n\t(설명: 명상하면 전체체력보다 많아질경우.)"
 		if((this.healthPoint01+13) < this.initMyHealthPoint){
 			this.healthPoint01 += 13;
 			coolTime01 +=1;
 			showMove = this.name01+"명상하기! 현재체력: "+ this.healthPoint01;
 		}
-	}
+	} */
 	console.log(showMove);
 	coolTimeCalc();
 }// checkBaggage END.
@@ -441,7 +476,8 @@ function createBagOptionsOnce(){
  		return;
  	}
  	$("#attackOptions_jb, #bagOptions_jb,#pokeBookOptions_jb,#runAway_jb").css("display","none"); 
- 	
+
+	////////////////$$$$$$$$$$$$$$$$$  ////////////////////
 	var divMint = document.createElement("div");  // createElement로 동적 div만들기. -민트먹기
 	var divPkBall = document.createElement("div"); // createElement로 동적 div만들기. -포켓볼던지기
 	var divMeditation = document.createElement("div"); // createElement로 동적 div만들기. -명상하기
@@ -452,19 +488,16 @@ function createBagOptionsOnce(){
 	 	divPkBall.innerHTML =" 포켓볼 던지기 ";
 		divPkBall.setAttribute("id","throwBall_jb");
 		document.body.insertBefore(divPkBall, document.getElementById("pokeBookOptions_jb") );	
-		divMeditation.innerHTML =" 명상하기 ";
-		divMeditation.setAttribute("id","meditation_jb");
-		document.body.insertBefore(divMeditation, document.getElementById("pokeBookOptions_jb") );	
 		document.body.insertBefore(divGoBackToMenu, document.getElementById("pokeBookOptions_jb") );	
 	}  
-	
+	////////////////$$$$$$$$$$$$$$$$$  END ////////////////////
 
 	divMint.onclick = function(){ checkBaggage("mint"); }
 	divPkBall.onclick = function(){ checkBaggage("catchWild"); }
-	divMeditation.onclick = function(){ checkBaggage("meditation"); }
 	divGoBackToMenu.onclick = function(){ goBackToMenu(); }  //  divGoBackToMenu    , #goBackToMenu_jb  
-	
-	$("#bagMint_jb, #throwBall_jb, #meditation_jb, #goBackToMenu_jb").css({
+
+	////////////////$$$$$$$$$$$$$$$$$ ////////////////////
+	$("#bagMint_jb, #throwBall_jb, #goBackToMenu_jb").css({
 		"display":"table-cell",
 		"background":"lightblue",
 		"width":"150px", 
@@ -472,6 +505,7 @@ function createBagOptionsOnce(){
 		"text-align":"center", 
 		"vertical-align": "middle",
 	});
+	////////////////$$$$$$$$$$$$$$$$$  END ////////////////////
 	
 }
 
@@ -522,6 +556,8 @@ function checkPokemonStatus(idNum){
 }
 
 //jb yn gy jw jh
+
+	//////////////// *******####중요####******* ////////////////////
 function createPokemonStatusOnce(){
 	 coolTimeCalc();
  	if(userTurn == false){
@@ -559,6 +595,7 @@ function createPokemonStatusOnce(){
 			tagMyMon(this);
 
  		});
+		////////////////$$$$$$$$$$$$$$$$$ ////////////////////
  		$("#pokeId0"+pokemons[ind].pokemonNo+"").css({
  			"display":"table-cell",
  			"background":"limegreen",
@@ -581,8 +618,13 @@ function createPokemonStatusOnce(){
 			"text-align":"center", 
 			"vertical-align": "middle",
 	});
+	////////////////$$$$$$$$$$$$$$$$$  END ////////////////////
 	
 }  //createPokemonStatusOnce END
+
+////////////////*******####중요####******* END ////////////////////
+
+
 
 
 ////////////////////
