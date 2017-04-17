@@ -5,7 +5,7 @@
 <title>GCopy_0415afternoon</title>
 <style type = "text/css">
 /*
-	Apr 17,2017 15:50
+	Apr 17,2017 00:45
 	dev by JB.
 	
 	
@@ -77,7 +77,7 @@ $(document).ready(function(){
 	this.onkeyup = function(event){  //
 		 if(event.keyCode)
 			console.log( String.fromCharCode(event.keyCode) +" : "+event.keyCode);
-		 if(event.keyCode == 88){ // X누를때  전투메뉴창으로 가기.
+		 if(event.keyCode == 88){ // X누를때.
 			 goBackToMenu();
 		 }  
 	}
@@ -85,7 +85,6 @@ $(document).ready(function(){
 });
 
 
-// 포켓몬 객체함수. pokemons[].push로 사용됨.
 function Pokemon(pokemonNo, name, monLevel, monExperience, monPropNo, healthPoint, attackStr, shield, status){
 	this.pokemonNo = pokemonNo;
 	this.name = name; 
@@ -99,14 +98,13 @@ function Pokemon(pokemonNo, name, monLevel, monExperience, monPropNo, healthPoin
 
 }
 
-// 가방 객체함수. bagConsumerables.~~ 으로 사용됨.
-function BagConsumerables( mintNo, pokeBallNo, golds  ){  // 객체:가방내 소모품들.
+function BagConsumerables( mintNo, pokeBallNo, golds  ){
 	this.mintNo = mintNo; 
 	this.pokeBallNo = pokeBallNo;
 	this.golds = golds;
 //	var consumerableItems = ["mint", "pokeBall", "golds"];
 	this.consumingItem = function(item){
-		if(item == "mint"){  // 민트먹기 부를때.
+		if(item == "mint"){
 			if(this.mintNo >0){
 				this.mintNo--;
 				console.log("system- "+ item +" " + this.mintNo + "개 남았습니다.");
@@ -116,8 +114,8 @@ function BagConsumerables( mintNo, pokeBallNo, golds  ){  // 객체:가방내 �
 			}
 		}
 
-		if(item == "pokeBall"){ // 포켓볼 소비할떄.
-			if(this.pokeBallNo >0){ 
+		if(item == "pokeBall"){
+			if(this.pokeBallNo >0){
 				this.pokeBallNo--;
 				console.log("system- "+ item +" " + this.pokeBallNo + "개 남았습니다.");
 			}
@@ -148,7 +146,7 @@ function BagConsumerables( mintNo, pokeBallNo, golds  ){  // 객체:가방내 �
 
 
 
-// 초기에 내 몬북에 존재하는 몬스터들.. 후에 상대 포켓몬 객체 만들고 몬볼로 잡는건 후에 만들예정.
+
 var pokemons =[];
 var monProps = ["물","바람","풀","불","흙"];
 	// pokemonNo name monLevel monExperience monPropNo healthPoint attackStr shield status
@@ -169,24 +167,18 @@ var divGoBackToMenu = document.createElement("div");
 divGoBackToMenu.innerHTML = "메뉴창으로";
 divGoBackToMenu.setAttribute("id", "goBackToMenu_jb");
 
-////////////$$$$$$$ css, html 병합하면서 없앨것들 $$$$$$///////////////
-
-// 전투메뉴창으로 가기위함. display설정.
 function goBackToMenu(){
 	$("#attackOptions_jb, #bagOptions_jb, #pokeBookOptions_jb, #runAway_jb").css("display","block");
 	$("#normalAtt_jb, #skillAtt_jb, #skillMedi_jb, #goBackToMenu_jb,  #bagMint_jb, #throwBall_jb, #meditation_jb," 
 			+"#pokeId00, #pokeId01, #pokeId02, #pokeId03, #pokeId04").css("display","none");	
 	
 }
-////////////$$$$$$$ css, html 병합하면서 없앨것들 $$$$$$$ ///////////////
 
-// 쿨타임 계산제. 유저는 같거나 적을떄 턴이 오게됨. Websocket할때는 반대로 설정.
 function coolTimeCalc(){
 	userTurn = (coolTime01> coolTime02)?  false : true;// 내 쿨타임이 더 큰경우 ; 상대턴.
 	console.log("==== 유저턴 확인하기: " + userTurn );
 }
 
-// 체력 비교해서 0이하일때 승패 결과로 몬스터북에 저장. 승리할떄 경험치나..레벨속성등 조정.
 function winOrLose(){     // 이기거나 졋을떄 display 확인후-> 모든것 초기화.
 	if( this.healthPoint02 <= 0){
 		console.log(" enemy loses ");
@@ -230,7 +222,6 @@ function winOrLose(){     // 이기거나 졋을떄 display 확인후-> 모든�
 	}
 }
 
-//몬스터북에 현재상태 업데이트. 태그하기전, 배틀끝나고도 update가되게끔 설정됨.
 function updatePokemons(){
 	propBonusAttRelease(this.monPropNo01, this.monPropNo02); // 원상태로 복귀.
 	
@@ -258,7 +249,6 @@ function updatePokemons(){
 
 }
 
-// 상성 몬스터들의 보너스공격값설정. 상성 우위: 1.1배, 상성 하위: 0.9배*공격력
 var propBonusOnce;
 function propBonusAtt(prop01, prop02){
 	
@@ -282,7 +272,6 @@ function propBonusAtt(prop01, prop02){
 	
 }
 
-//위에 몬북에 update할때 정상값으로 돌려주고 업데이트하게끔..
 function propBonusAttRelease(prop01, prop02){   // update전  원상태로 복귀.
 	if(propBonusOnce== false ){
 		if(prop01 == prop02){
@@ -308,7 +297,7 @@ function propBonusAttRelease(prop01, prop02){   // update전  원상태로 복�
 
 function tackle(){  	// 몸통박치기
 	var showMove ="";
-	////////////@@@@@@ 따로 떼어낼것들  @@@@@@@ 상대턴 자동화   //////////	
+	////////////@@@@@@@@@@@@@@ 상대턴 자동화   //////////	
 	if(userTurn==false){		//상대방턴인경우
 		console.log("원래 내몬스터의 체력: " + this.healthPoint01 
 				+ " 속성: "+ monProps[this.monPropNo02]
@@ -319,7 +308,7 @@ function tackle(){  	// 몸통박치기
 		console.log("현재 내몬스터의 체력: "+this.healthPoint01 +"  쿨탐: "+ coolTime02);
 		showMove = this.name02+"의 몸통박치기!";
 	}
-	////////////@@@@ 나중에 자동화로 써야할것들 @@@@@@@@ 상대턴 자동화  END //////////	
+	////////////@@@@@@@@@@@@@@ 상대턴 자동화  END //////////	
 	
 	else{	// 왠만하면 주인공 턴으로... 같거나 쿨탐적을경우.
 		console.log("원래 상대몬스터의 체력: " + this.healthPoint02 
@@ -342,7 +331,7 @@ function skillAttack(){  // 스킬공격
 	var criticalAttack02 = this.attackStr02*(1+(Math.random()*0.5 + 0.2)).toFixed(2); 
 						// 스킬공격은 최대 1.5배 크리공격으로 할당. 소수점 2자리까지.
 	
-	////////////@@@@ 나중에 자동화로 써야할것들 @@@@@@@@ 상대턴 자동화  //////////					
+	////////////@@@@@@@@@@@@@@ 상대턴 자동화  //////////					
 	if(userTurn==false){			//상대방턴인경우
 		console.log("원래 내몬스터의 체력: " + this.healthPoint01 
 				+ " 속성: "+ monProps[this.monPropNo02]
@@ -352,7 +341,7 @@ function skillAttack(){  // 스킬공격
 		coolTime02 +=3;
 		console.log("현재 내몬스터의 체력: "+this.healthPoint01 +"  쿨탐: "+ coolTime02);
 		showMove = this.name02+"의 스킬공격!";
-		////////////@@@@ 나중에 자동화로 써야할것들 @@@@@@@@ 상대턴 자동화  END //////////		
+		////////////@@@@@@@@@@@@@@ 상대턴 자동화  END //////////		
 	}
 	else{
 		console.log("원래 상대몬스터의 체력: " + this.healthPoint02
@@ -369,7 +358,6 @@ function skillAttack(){  // 스킬공격
 	coolTimeCalc();
 }
 
-// 명상하기- 스킬로 옮김.
 function skillMeditation(){
 	showMove = "명상을 할수없습니다. \n\t(설명: 유저턴이 아닌경우, 명상하면 전체체력보다 많아질경우.)"
 	if(userTurn){
@@ -384,6 +372,7 @@ function skillMeditation(){
 }// checkBaggage END.
 
 
+
 function createAttOptionsOnce(){
 	coolTimeCalc();
 	if(userTurn == false){
@@ -392,7 +381,7 @@ function createAttOptionsOnce(){
 		return;
 	}
 	
-	////////////////$$$$$$$ css, html 병합하면서 없앨것들 $$$$$$$$$$////////////////////
+	////////////////$$$$$$$$$$$$$$$$$////////////////////
 	$("#attackOptions_jb, #bagOptions_jb,#pokeBookOptions_jb,#runAway_jb").css("display","none"); 
 	
 	var normalAtt = document.createElement("div");
@@ -412,7 +401,7 @@ function createAttOptionsOnce(){
 		document.body.insertBefore(skillMedi, document.getElementById("bagOptions_jb"));	
 		document.body.insertBefore(divGoBackToMenu, document.getElementById("bagOptions_jb"));	
 	}
-	////////////////$$$$$$$ css, html 병합하면서 없앨것들 $$$$$$$$$$ END ////////////////////
+	////////////////$$$$$$$$$$$$$$$$$ END ////////////////////
 	
 
 	normalAtt.onclick = function(){ tackle(); }
@@ -420,7 +409,7 @@ function createAttOptionsOnce(){
 	skillMedi.onclick = function(){ skillMeditation(); }
 	divGoBackToMenu.onclick = function(){ goBackToMenu(); }  //divGoBackToMenu   , #goBackToMenu_jb 
 	
-	////////////////$$$$$$$ css, html 병합하면서 없앨것들 $$$$$$$$$$////////////////////
+	////////////////$$$$$$$$$$$$$$$$$////////////////////
 	$("#normalAtt_jb, #skillAtt_jb, #skillMedi_jb, #goBackToMenu_jb").css({
 		"display":"table-cell",
 		"background":"#883050",
@@ -431,7 +420,7 @@ function createAttOptionsOnce(){
 		"clear":"both"
 	});
 	$("#bagOptions_jb,#pokeBookOptions_jb,#runAway_jb").css("display","none");
-	////////////////$$$$$$$ css, html 병합하면서 없앨것들 $$$$$$$$$$  END ////////////////////
+	////////////////$$$$$$$$$$$$$$$$$  END ////////////////////
 }
 
 
@@ -488,7 +477,7 @@ function createBagOptionsOnce(){
  	}
  	$("#attackOptions_jb, #bagOptions_jb,#pokeBookOptions_jb,#runAway_jb").css("display","none"); 
 
-	////////////////$$$$$$$ css, html 병합하면서 없앨것들 $$$$$$$$$$  ////////////////////
+	////////////////$$$$$$$$$$$$$$$$$  ////////////////////
 	var divMint = document.createElement("div");  // createElement로 동적 div만들기. -민트먹기
 	var divPkBall = document.createElement("div"); // createElement로 동적 div만들기. -포켓볼던지기
 	var divMeditation = document.createElement("div"); // createElement로 동적 div만들기. -명상하기
@@ -501,13 +490,13 @@ function createBagOptionsOnce(){
 		document.body.insertBefore(divPkBall, document.getElementById("pokeBookOptions_jb") );	
 		document.body.insertBefore(divGoBackToMenu, document.getElementById("pokeBookOptions_jb") );	
 	}  
-	////////////////$$$$$$$ css, html 병합하면서 없앨것들 $$$$$$$$$$  END ////////////////////
+	////////////////$$$$$$$$$$$$$$$$$  END ////////////////////
 
 	divMint.onclick = function(){ checkBaggage("mint"); }
 	divPkBall.onclick = function(){ checkBaggage("catchWild"); }
 	divGoBackToMenu.onclick = function(){ goBackToMenu(); }  //  divGoBackToMenu    , #goBackToMenu_jb  
 
-	////////////////$$$$$$$ css, html 병합하면서 없앨것들 $$$$$$$$$$ ////////////////////
+	////////////////$$$$$$$$$$$$$$$$$ ////////////////////
 	$("#bagMint_jb, #throwBall_jb, #goBackToMenu_jb").css({
 		"display":"table-cell",
 		"background":"lightblue",
@@ -516,7 +505,7 @@ function createBagOptionsOnce(){
 		"text-align":"center", 
 		"vertical-align": "middle",
 	});
-	////////////////$$$$$$$ css, html 병합하면서 없앨것들 $$$$$$$$$$  END ////////////////////
+	////////////////$$$$$$$$$$$$$$$$$  END ////////////////////
 	
 }
 
@@ -525,7 +514,7 @@ function escapeFromEnemy(){
 	
 }
 
-// 다른몬스터와 태그형식...
+
 function tagMyMon(obj){	
 	/* console.log( parseInt(this.getAttribute("id").substr(this.getAttribute("id").length -2)) );
 	console.log( window.pokemonNo02  ); */
@@ -543,7 +532,6 @@ function tagMyMon(obj){
 }
 
 
-// 도감 열어보기 -- 전투하고나서도, 하면서도 현재 상태창 확인가능.
 function checkPokemonStatus(idNum){
 	// pokemonNo name monLevel monExperience monPropNo healthPoint attackStr shield status
 	//monProps = ["물","바람","풀","불","흙"]  "물"<"바람"<"풀"<"불"<"흙"<"물"
@@ -600,14 +588,14 @@ function createPokemonStatusOnce(){
 		document.body.insertBefore(divGoBackToMenu, document.getElementById("runAway_jb") );	
 	}
 
- 	updatePokemons();  // 태그하기전 현재상태 저장.
+ 	updatePokemons();
  	for(var ind = 0; ind <pokeIniList.length; ind++){  // inx = divJB, divYN....
 		$("#pokeId0"+pokemons[ind].pokemonNo+"").unbind().click(function(ind){
 			checkPokemonStatus(parseInt(this.getAttribute("id").substr(this.getAttribute("id").length -2))); 
 			tagMyMon(this);
 
  		});
-		////////////////$$$$$$$ css, html 병합하면서 없앨것들 $$$$$$$$$$ ////////////////////
+		////////////////$$$$$$$$$$$$$$$$$ ////////////////////
  		$("#pokeId0"+pokemons[ind].pokemonNo+"").css({
  			"display":"table-cell",
  			"background":"limegreen",
@@ -616,11 +604,8 @@ function createPokemonStatusOnce(){
  			"text-align":"center", 
  			"vertical-align": "middle",
  		});
-		////////////////$$$$$$$ css, html 병합하면서 없앨것들 $$$$$$$$$$  END ////////////////////
  	} // createPokemonStatusOnce - forloop END
-
-	
- 	////////////////$$$$$$$ css, html 병합하면서 없앨것들 $$$$$$$$$$ ////////////////////
+ 	
  	$("#goBackToMenu_jb").unbind().click(function(){ 
 		goBackToMenu(); 
 		propBonusAtt(window.monPropNo01, window.monPropNo02);
@@ -633,7 +618,7 @@ function createPokemonStatusOnce(){
 			"text-align":"center", 
 			"vertical-align": "middle",
 	});
-	////////////////$$$$$$$ css, html 병합하면서 없앨것들 $$$$$$$$$$  END ////////////////////
+	////////////////$$$$$$$$$$$$$$$$$  END ////////////////////
 	
 }  //createPokemonStatusOnce END
 
@@ -649,8 +634,7 @@ var userTurn = true;
 var coolTime01 = 0; //유저쿨타임.
 var coolTime02 = 0;	
 
-//###야생 포켓몬 만난후 메인콘솔창.
-function turnMoves( myMon, enemyMon  ){  
+function turnMoves( myMon, enemyMon  ){   // ###야생 포켓몬 만난후 메인콘솔창.
 	
 // 이것들은 누적됨!! 체력, 레벨, 상태이상  쭉쭉!
 // pokemonNo name monLevel monExperience monPropNo healthPoint attackStr shield status
