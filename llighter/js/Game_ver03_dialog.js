@@ -177,11 +177,43 @@ function key(){
 			}
 	        charDirection = SOUTH_DIRECTION;
 		}
-		// npc 앞에 있다는 가정하에 npc를 보고 엔터 누르면 dialog 생성
+		// npc를 바라보고 앞으로 간 후 엔터 키 누르면 dialog창이 뜸. 아직 npc가 없기에 맵에 npc가 있다고 가정하고    				       p (플레이어)
+		// 강사님은 10, 상점 11, 미션1npc 12, 미션2npc 13, 미션3npc 14, 최종보스 15로 맵에다 임의로 설정. 방향또한 그냥 남쪽을 바라보는 형태로 설정 --> 	npc  
 		if(event.keyCode==13){
-			if(nowMap[charY/UNIT][charX/UNIT]==55 && charDirection == SOUTH_DIRECTION){
+			// 강사님
+			if(nowMap[charY/UNIT][charX/UNIT]==10 && charDirection == SOUTH_DIRECTION){
 				chat.style="block";
-				createDiag( individual );
+				createDiag( individual[0] );
+				keyValue = TEXTKEY;
+			}
+			// 상점
+			if(nowMap[charY/UNIT][charX/UNIT]==11 && charDirection == SOUTH_DIRECTION){
+				chat.style="block";
+				createDiag( individual[1] );
+				keyValue = TEXTKEY;
+			}
+			// 미션1
+			if(nowMap[charY/UNIT][charX/UNIT]==12 && charDirection == SOUTH_DIRECTION){
+				chat.style="block";
+				createDiag( individual[2] );
+				keyValue = TEXTKEY;
+			}
+			// 미션2
+			if(nowMap[charY/UNIT][charX/UNIT]==13 && charDirection == SOUTH_DIRECTION){
+				chat.style="block";
+				createDiag( individual[3] );
+				keyValue = TEXTKEY;
+			}
+			// 미션3
+			if(nowMap[charY/UNIT][charX/UNIT]==14 && charDirection == SOUTH_DIRECTION){
+				chat.style="block";
+				createDiag( individual[4] );
+				keyValue = TEXTKEY;
+			}
+			// 최종보스
+			if(nowMap[charY/UNIT][charX/UNIT]==15 && charDirection == SOUTH_DIRECTION){
+				chat.style="block";
+				createDiag( individual[5] );
 				keyValue = TEXTKEY;
 			}
 		}
@@ -324,9 +356,6 @@ function drawChar(){
 
 }
 
-
-
-
 	setInterval(function fps(){
 		context.clearRect(0, 0, canvas.width, canvas.height);
 		drawMap();
@@ -336,11 +365,19 @@ function drawChar(){
 		motionIdx=(motionIdx+1)%4
 	}, 150);
 
-	// dialog 정의 -yoda-
- 	var text = '피곤피곤 피피피피피피피피피곤피피곤 관용이형 짱짱맨인듯 다하셨네 퍄퍄퍄 윤하도 짱짱.주말동안 도움이 안되서 미안합니다 사랑합니다.       확인'; 
-	// (1) text를 한단어씩 쪼갠다.
- 	individual = text.split('');
-
+	// npc 대화 정의. 임의로 박사님(강사님), 상점, 던전1 미션주는npc, 던전2, 던전3, 짱짱보스jquery몬
+ 	var talk = ['짱짱개발자가 되서 돌아와라!', '상점입니다.', 'h1몬 5마리 잡아오세요', 'div몬 10마리 잡아와라', '뒤지기시름 table몬5마리 잡아와라', '안녕? 난짱짱강한 최종보스 jquery몬이라고 한다!'];
+ 	
+ 	// 대화 한단어로 분할한 것 배열 정의
+ 	var individual=[];
+ 	
+ 	// for문으로 각 npc별 대화를 모조리 한단어씩 쪼개버림.
+ 	// 강사님은 index 0, 상점 index 1, 던전1미션 index2, 던전2미션 index3, 던전3미션 index4, 최종보스 index5
+ 	for(z=0; z<talk.length; z++){
+ 		individual[z] = talk[z].split('');
+ 	};
+	
+	// dialog창에 text 출력
 	function createDiag ( dialog ) {
 		for(k = 0; k < dialog.length; k++) {
 			(function(k){
