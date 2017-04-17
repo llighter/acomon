@@ -121,8 +121,12 @@ var y_char = 0;
 // Character coordinate
 var charX = 0;
 var charY = 0;
-//var nowX = charX-(charX%UNIT);
-//var nowY = charY-(charY%UNIT);
+
+// 맵이동, 메뉴 키값
+var keyValue = 0;
+const MOVEKEY = 0;
+const TEXTKEY = 1;
+const MENUKEY = 2;
 
 
 
@@ -135,64 +139,76 @@ var charDirection = SOUTH_DIRECTION;
 var chat=document.getElementById("dialog");
 
 function key(){
-	if(event.keyCode == ARROW_LEFT){
-		if( (charX <= 0)
-			|| nowMap[((charY-(charY%UNIT)) / UNIT)][ Math.ceil((charX-UNIT) / UNIT) ] > 100
-			|| nowMap[ Math.ceil(charY / UNIT) ][ Math.ceil((charX-UNIT) / UNIT)] > 100 ){
-		}else{
-			charX -= MOVE_U;
+	if(keyValue==MOVEKEY){
+		if(event.keyCode == ARROW_LEFT){
+			if( (charX <= 0)
+				|| nowMap[((charY-(charY%UNIT)) / UNIT)][ Math.ceil((charX-UNIT) / UNIT) ] > 100
+				|| nowMap[ Math.ceil(charY / UNIT) ][ Math.ceil((charX-UNIT) / UNIT)] > 100 ){
+			}else{
+				charX -= MOVE_U;
+			}
+	        charDirection = WEST_DIRECTION;
+	
 		}
-        charDirection = WEST_DIRECTION;
+		if(event.keyCode == ARROW_UP){
+			if( (charY < MOVE_U )
+				|| nowMap[ Math.ceil( (charY - UNIT) / UNIT) ][((charX-(charX%UNIT)) / UNIT)] > 100
+				|| nowMap[ Math.ceil( (charY - UNIT) / UNIT) ][ Math.ceil(charX / UNIT) ] > 100 ){
+			}else{
+				charY -= MOVE_U;
+			}
+	        charDirection = NORTH_DIRECTION;
+		}
+		if(event.keyCode == ARROW_RIGHT){
+			if( (charX > (19 * UNIT - MOVE_U) )
+				|| nowMap[((charY-(charY%UNIT)) / UNIT)][((charX-(charX%UNIT) + UNIT) / UNIT)] > 100
+				|| nowMap[ Math.ceil(charY / UNIT) ][((charX-(charX%UNIT) + UNIT) / UNIT)] > 100 ){
+			}else{
+				charX += MOVE_U;
+			}
+	        charDirection = EAST_DIRECTION;
+		}
+		if(event.keyCode == ARROW_DOWN){
+			if( (charY > (19 * UNIT - MOVE_U) )
+				|| nowMap[ ( (charY-(charY%UNIT)+UNIT) / UNIT) ][ ( (charX - (charX%UNIT) ) / UNIT)] > 100 
+				|| nowMap[ ( (charY-(charY%UNIT)+UNIT) / UNIT) ][ Math.ceil( charX / UNIT ) ] > 100 ){
+			}else{
+				charY += MOVE_U;
+			}
+	        charDirection = SOUTH_DIRECTION;
+		}
+		// npc 앞에 있다는 가정하에 npc를 보고 엔터 누르면 dialog 생성
+		if(event.keyCode==13){
+			if(nowMap[charY/UNIT][charX/UNIT]==55 && charDirection == SOUTH_DIRECTION){
+				chat.style="block";
+				createDiag( individual );
+				keyValue = TEXTKEY;
+			}
+		}
 
-	}
-	if(event.keyCode == ARROW_UP){
-		if( (charY < MOVE_U )
-			|| nowMap[ Math.ceil( (charY - UNIT) / UNIT) ][((charX-(charX%UNIT)) / UNIT)] > 100
-			|| nowMap[ Math.ceil( (charY - UNIT) / UNIT) ][ Math.ceil(charX / UNIT) ] > 100 ){
-		}else{
-			charY -= MOVE_U;
-		}
-        charDirection = NORTH_DIRECTION;
-	}
-	if(event.keyCode == ARROW_RIGHT){
-		if( (charX > (19 * UNIT - MOVE_U) )
-			|| nowMap[((charY-(charY%UNIT)) / UNIT)][((charX-(charX%UNIT) + UNIT) / UNIT)] > 100
-			|| nowMap[ Math.ceil(charY / UNIT) ][((charX-(charX%UNIT) + UNIT) / UNIT)] > 100 ){
-		}else{
-			charX += MOVE_U;
-		}
-        charDirection = EAST_DIRECTION;
-	}
-	if(event.keyCode == ARROW_DOWN){
-		if( (charY > (19 * UNIT - MOVE_U) )
-			|| nowMap[ ( (charY-(charY%UNIT)+UNIT) / UNIT) ][ ( (charX - (charX%UNIT) ) / UNIT)] > 100 
-			|| nowMap[ ( (charY-(charY%UNIT)+UNIT) / UNIT) ][ Math.ceil( charX / UNIT ) ] > 100 ){
-		}else{
-			charY += MOVE_U;
-		}
-        charDirection = SOUTH_DIRECTION;
-	}
-	// npc 앞에 있다는 가정하에 npc를 보고 엔터 누르면 dialog 생성
-	if(event.keyCode==13){
-		if(nowMap[charY/UNIT][charX/UNIT]==55 && charDirection == SOUTH_DIRECTION){
-			chat.style="block";
-			createDiag( individual );
-		}
-}
 	
-	// map01濡� �씠�룞
-	if( nowMap[(charY / UNIT)][(charX / UNIT)]==99 ){
-		nowMap=map01;
-		charX= (0*UNIT);
-		charY= (0*UNIT);
+		// map01濡� �씠�룞
+		if( nowMap[(charY / UNIT)][(charX / UNIT)]==99 ){
+			nowMap=map01;
+			charX= (0*UNIT);
+			charY= (0*UNIT);
+				
+		}		
+	    console.log(`[Absolute coordinate] (X, Y) = (${charX / UNIT}, ${charY / UNIT})`);
+	}else if(keyValue==TEXTKEY){
+		if(event.keyCode == 13){
+			// 정효야 여기서 텍스트창 지우면 된다!
 			
+			keyValue = MOVEKEY;
+		}
+		
 	}
-	
-	
-	
-	
-    console.log(`[Absolute coordinate] (X, Y) = (${charX / UNIT}, ${charY / UNIT})`);
-    
+
+
+
+
+
+
 }
 
 function drawMap(){
@@ -318,7 +334,7 @@ function drawChar(){
 	}, 150);
 
 	// dialog 정의 -yoda-
- 	var text = '피곤피곤 피피피피피피피피피곤피피곤 관용이형 짱짱맨인듯 다하셨네 퍄퍄퍄 윤하도 짱짱. 주말동안 도움이 안되서 미안합니다 사랑합니다.  '; 
+ 	var text = '피곤피곤 피피피피피피피피피곤피피곤 관용이형 짱짱맨인듯 다하셨네 퍄퍄퍄 윤하도 짱짱.주말동안 도움이 안되서 미안합니다 사랑합니다.       확인'; 
 	// (1) text를 한단어씩 쪼갠다.
  	individual = text.split('');
 
@@ -328,7 +344,8 @@ function drawChar(){
 	  			setTimeout(function(){
 	  			// (2) 50*k시간 마다 글자 하나를 dialog에 표시하겠다. 	
 	   			 	$('#dialog').text($('#dialog').text()+dialog[k]);
-	  			}, 50*k);  
+	  			}, 50*k);
 			}(k));
 		}
+		
 	}	
