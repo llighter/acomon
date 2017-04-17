@@ -198,7 +198,10 @@ function key(){
 	}else if(keyValue==TEXTKEY){
 		if(event.keyCode == 13){
 			// 정효야 여기서 텍스트창 지우면 된다!
-			
+			$('#dialog').html("");
+			chat.style.display="none";
+			//  이렇게 하면 창은 지워지긴하는데 좀 더 손 봐야함
+			// 아직 작업중이라
 			keyValue = MOVEKEY;
 		}
 		
