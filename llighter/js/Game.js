@@ -49,11 +49,11 @@ var rock = new Image();
 var player = new Image();
 
 // 캐릭터 모션값
-const MOTION00 = 0;
-const MOTION01 = 1;
-const MOTION02 = 2;
-const MOTION03 = 3;
-var motionIdx = MOTION00;
+// const MOTION00 = 0;
+// const MOTION01 = 1;
+// const MOTION02 = 2;
+// const MOTION03 = 3;
+var motionIdx = 0;
 
 
 grass.src = './img/tileImage.png';
@@ -69,43 +69,111 @@ var mapY = 0;
 var charX = 0;
 var charY = 0;
 
-// Charactor direction
-var charDirection = SOUTH_DIRECTION;
+// EAST IS DEFAULT DIRECTION
+var charDirection = EAST_DIRECTION;
 
-function key(){
-	if(event.keyCode == ARROW_LEFT){
-		if( (charX <= 0) || map[(charY / UNIT)][((charX - UNIT) / UNIT)] == MAP_STONE ){
-		}else{
-			charX -= UNIT;
-		}
-        charDirection = WEST_DIRECTION;
+var upPressed = false;
+var downPressed = false;
+var leftPressed = false;
+var rightPressed = false;
 
-	}
-	if(event.keyCode == ARROW_UP){
-		if( (charY <= 0) || map[((charY - UNIT) / UNIT)][(charX / UNIT)] == MAP_STONE ){
-		}else{
-			charY -= UNIT;
-		}
-        charDirection = NORTH_DIRECTION;
-	}
-	if(event.keyCode == ARROW_RIGHT){
-		if( (charX >= 19 * UNIT) || map[(charY / UNIT)][((charX + UNIT) / UNIT)] == MAP_STONE ){
-		}else{
-			charX += UNIT;
-		}
-        charDirection = EAST_DIRECTION;
-	}
-	if(event.keyCode == ARROW_DOWN){
-		if( (charY >= 19 * UNIT) || map[((charY + UNIT) / UNIT)][(charX / UNIT)] == MAP_STONE ){
-		}else{
-			charY += UNIT;
-		}
-        charDirection = SOUTH_DIRECTION;
-	}
+document.addEventListener("keyup", keyUpHandler, false);
+document.addEventListener("keydown", keyDownHandler, false);
 
-    console.log(`[Absolute coordinate] (X, Y) = (${charX / UNIT}, ${charY / UNIT})`);
-    
+function keyDownHandler(e) {
+	switch(e.keyCode) {
+		case ARROW_LEFT:
+			leftPressed = true;
+			break;
+		case ARROW_UP:
+			upPressed = true;
+			break;
+		case ARROW_RIGHT:
+			rightPressed = true;
+			break;
+		case ARROW_DOWN:
+			downPressed = true;
+			break;
+	}
 }
+
+function keyUpHandler(e) {
+    switch(e.keyCode) {
+		case ARROW_LEFT:
+			leftPressed = false;
+			break;
+		case ARROW_UP:
+			upPressed = false;
+			break;
+		case ARROW_RIGHT:
+			rightPressed = false;
+			break;
+		case ARROW_DOWN:
+			downPressed = false;
+			break;
+	}
+}
+
+// Check whether next move is blocked
+function collisionDetection() {
+	let detector = false;
+
+	if(upPressed == true) {
+		if((charY <= 0) || map[(charY / UNIT) - 1][(charX / UNIT)] == MAP_STONE) {
+			detector = true;
+		}
+		console.log("upPressed : " + detector)
+	}
+
+	if(downPressed == true) {
+		if((charY >= 19 * UNIT) || map[(charY / UNIT) + 1][(charX / UNIT)] == MAP_STONE) {
+			detector = true;
+		}
+		console.log("downPressed : " + detector)
+	}
+
+	if(leftPressed == true) {
+		if((charX <= 0) || map[(charY / UNIT)][(charX / UNIT) - 1] == MAP_STONE) {
+			detector = true;
+		}
+		console.log("leftPressed : " + detector)
+	}
+
+	if(rightPressed = true) {
+		if((charX >= 19 * UNIT) || map[(charY / UNIT)][(charX / UNIT) + 1] == MAP_STONE) {
+			detector = true;
+		}
+		console.log("rightPressed : " + detector)
+	}
+
+	return detector;
+
+}
+
+function move() {
+	if(upPressed == true) {
+		charY -= collisionDetection() ? 0 : UNIT;
+		charDirection = NORTH_DIRECTION;
+	}
+
+	if(downPressed == true) {
+		charY += collisionDetection() ? 0 : UNIT;
+		charDirection = SOUTH_DIRECTION;
+	}
+
+	if(leftPressed == true) {
+		charX -= collisionDetection() ? 0 : UNIT;
+		charDirection = WEST_DIRECTION;
+	}
+
+	if(rightPressed = true) {
+		charX += collisionDetection() ? 0 : UNIT;
+		charDirection = EAST_DIRECTION;
+	}
+
+	console.log(`[Absolute coordinate] (X, Y) = (${charX / UNIT}, ${charY / UNIT})`);
+}
+
 
 function drawMap(){
 	mapX=0;
@@ -118,6 +186,8 @@ function drawMap(){
     let y_start = 0;
     let y_end = 0;
     let y_char = 0;
+
+	move();
 
     if(charX/UNIT <= 4) {
         x_start = 0;
@@ -172,6 +242,7 @@ setInterval(function fps(){
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	drawMap();
 }, 51);
+
 setInterval(function motionFps(){
 	motionIdx=(motionIdx+1)%4
 }, 150);
