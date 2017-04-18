@@ -7,15 +7,15 @@ var map00=[
 	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,101,0,0,0,0],
 	[1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 	[0,0,0,0,1,1,0,0,0,0,0,0,0,0,101,101,0,0,0,0],
-	[0,0,0,0,0,1,1,1,0,55,0,0,0,0,101,0,0,0,0,0],
-	[0,0,0,0,0,0,0,1,1,101,101,101,101,101,101,0,0,0,0,0],
+	[0,0,0,0,0,1,1,1,0,0,0,0,0,0,101,0,0,0,0,0],
+	[0,0,0,0,0,0,0,1,1,0,101,101,101,101,101,0,0,0,0,0],
 	[0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,99],
-	[0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,101,0,0,0,0,0,1,0,0,0,0,0,0,101,0,0,0,0],
-	[0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,101,0,0,0,0],
-	[1,1,1,1,1,0,0,0,1,0,0,0,0,0,0,101,0,0,0,0],
+	[0,0,0,0,0,10,0,0,1,1,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,11,0,0,1,1,1,1,1,1,1,1,1,1,1,99],
+	[0,0,0,0,0,12,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,101,0,13,0,0,0,1,0,0,0,0,0,0,101,0,0,0,0],
+	[0,0,0,0,0,14,0,0,1,0,0,0,0,0,0,101,0,0,0,0],
+	[1,1,1,1,1,15,0,0,1,0,0,0,0,0,0,101,0,0,0,0],
 	[0,0,0,0,1,1,0,0,1,0,0,0,0,0,101,101,0,0,0,0],
 	[0,0,0,0,0,1,1,1,1,0,0,0,0,0,101,0,0,0,0,0],
 	[0,0,101,0,0,0,0,1,1,101,101,101,101,101,101,0,0,0,0,0],
@@ -121,8 +121,12 @@ var y_char = 0;
 // Character coordinate
 var charX = 0;
 var charY = 0;
-//var nowX = charX-(charX%UNIT);
-//var nowY = charY-(charY%UNIT);
+
+// 맵이동, 메뉴 키값
+var keyValue = 0;
+const MOVEKEY = 0;
+const TEXTKEY = 1;
+const MENUKEY = 2;
 
 
 
@@ -135,64 +139,111 @@ var charDirection = SOUTH_DIRECTION;
 var chat=document.getElementById("dialog");
 
 function key(){
-	if(event.keyCode == ARROW_LEFT){
-		if( (charX <= 0)
-			|| nowMap[((charY-(charY%UNIT)) / UNIT)][ Math.ceil((charX-UNIT) / UNIT) ] > 100
-			|| nowMap[ Math.ceil(charY / UNIT) ][ Math.ceil((charX-UNIT) / UNIT)] > 100 ){
-		}else{
-			charX -= MOVE_U;
+	if(keyValue==MOVEKEY){
+		if(event.keyCode == ARROW_LEFT){
+			if( (charX <= 0)
+				|| nowMap[((charY-(charY%UNIT)) / UNIT)][ Math.ceil((charX-UNIT) / UNIT) ] > 100
+				|| nowMap[ Math.ceil(charY / UNIT) ][ Math.ceil((charX-UNIT) / UNIT)] > 100 ){
+			}else{
+				charX -= MOVE_U;
+			}
+	        charDirection = WEST_DIRECTION;
+	
 		}
-        charDirection = WEST_DIRECTION;
+		if(event.keyCode == ARROW_UP){
+			if( (charY < MOVE_U )
+				|| nowMap[ Math.ceil( (charY - UNIT) / UNIT) ][((charX-(charX%UNIT)) / UNIT)] > 100
+				|| nowMap[ Math.ceil( (charY - UNIT) / UNIT) ][ Math.ceil(charX / UNIT) ] > 100 ){
+			}else{
+				charY -= MOVE_U;
+			}
+	        charDirection = NORTH_DIRECTION;
+		}
+		if(event.keyCode == ARROW_RIGHT){
+			if( (charX > (19 * UNIT - MOVE_U) )
+				|| nowMap[((charY-(charY%UNIT)) / UNIT)][((charX-(charX%UNIT) + UNIT) / UNIT)] > 100
+				|| nowMap[ Math.ceil(charY / UNIT) ][((charX-(charX%UNIT) + UNIT) / UNIT)] > 100 ){
+			}else{
+				charX += MOVE_U;
+			}
+	        charDirection = EAST_DIRECTION;
+		}
+		if(event.keyCode == ARROW_DOWN){
+			if( (charY > (19 * UNIT - MOVE_U) )
+				|| nowMap[ ( (charY-(charY%UNIT)+UNIT) / UNIT) ][ ( (charX - (charX%UNIT) ) / UNIT)] > 100 
+				|| nowMap[ ( (charY-(charY%UNIT)+UNIT) / UNIT) ][ Math.ceil( charX / UNIT ) ] > 100 ){
+			}else{
+				charY += MOVE_U;
+			}
+	        charDirection = SOUTH_DIRECTION;
+		}
+		// npc를 바라보고 앞으로 간 후 엔터 키 누르면 dialog창이 뜸. 아직 npc가 없기에 맵에 npc가 있다고 가정하고    				       p (플레이어)
+		// 강사님은 10, 상점 11, 미션1npc 12, 미션2npc 13, 미션3npc 14, 최종보스 15로 맵에다 임의로 설정. 방향또한 그냥 남쪽을 바라보는 형태로 설정 --> 	npc  
+		if(event.keyCode==13){
+			// 강사님
+			if(nowMap[charY/UNIT][charX/UNIT]==10 && charDirection == SOUTH_DIRECTION){
+				chat.style="block";
+				createDiag( individual[0] );
+				keyValue = TEXTKEY;
+			}
+			// 상점
+			if(nowMap[charY/UNIT][charX/UNIT]==11 && charDirection == SOUTH_DIRECTION){
+				chat.style="block";
+				createDiag( individual[1] );
+				keyValue = TEXTKEY;
+			}
+			// 미션1
+			if(nowMap[charY/UNIT][charX/UNIT]==12 && charDirection == SOUTH_DIRECTION){
+				chat.style="block";
+				createDiag( individual[2] );
+				keyValue = TEXTKEY;
+			}
+			// 미션2
+			if(nowMap[charY/UNIT][charX/UNIT]==13 && charDirection == SOUTH_DIRECTION){
+				chat.style="block";
+				createDiag( individual[3] );
+				keyValue = TEXTKEY;
+			}
+			// 미션3
+			if(nowMap[charY/UNIT][charX/UNIT]==14 && charDirection == SOUTH_DIRECTION){
+				chat.style="block";
+				createDiag( individual[4] );
+				keyValue = TEXTKEY;
+			}
+			// 최종보스
+			if(nowMap[charY/UNIT][charX/UNIT]==15 && charDirection == SOUTH_DIRECTION){
+				chat.style="block";
+				createDiag( individual[5] );
+				keyValue = TEXTKEY;
+			}
+		}
 
-	}
-	if(event.keyCode == ARROW_UP){
-		if( (charY < MOVE_U )
-			|| nowMap[ Math.ceil( (charY - UNIT) / UNIT) ][((charX-(charX%UNIT)) / UNIT)] > 100
-			|| nowMap[ Math.ceil( (charY - UNIT) / UNIT) ][ Math.ceil(charX / UNIT) ] > 100 ){
-		}else{
-			charY -= MOVE_U;
+	
+		// map01濡� �씠�룞
+		if( nowMap[(charY / UNIT)][(charX / UNIT)]==99 ){
+			nowMap=map01;
+			charX= (0*UNIT);
+			charY= (0*UNIT);
+				
+		}		
+	    console.log(`[Absolute coordinate] (X, Y) = (${charX / UNIT}, ${charY / UNIT})`);
+	}else if(keyValue==TEXTKEY){
+		if(event.keyCode == 13){
+			// 정효야 여기서 텍스트창 지우면 된다!
+			$('#dialog').html("");
+			chat.style.display="none";
+			//  이렇게 하면 창은 지워지긴하는데 좀 더 손 봐야함
+			// 아직 작업중이라
+			keyValue = MOVEKEY;
 		}
-        charDirection = NORTH_DIRECTION;
+		
 	}
-	if(event.keyCode == ARROW_RIGHT){
-		if( (charX > (19 * UNIT - MOVE_U) )
-			|| nowMap[((charY-(charY%UNIT)) / UNIT)][((charX-(charX%UNIT) + UNIT) / UNIT)] > 100
-			|| nowMap[ Math.ceil(charY / UNIT) ][((charX-(charX%UNIT) + UNIT) / UNIT)] > 100 ){
-		}else{
-			charX += MOVE_U;
-		}
-        charDirection = EAST_DIRECTION;
-	}
-	if(event.keyCode == ARROW_DOWN){
-		if( (charY > (19 * UNIT - MOVE_U) )
-			|| nowMap[ ( (charY-(charY%UNIT)+UNIT) / UNIT) ][ ( (charX - (charX%UNIT) ) / UNIT)] > 100 
-			|| nowMap[ ( (charY-(charY%UNIT)+UNIT) / UNIT) ][ Math.ceil( charX / UNIT ) ] > 100 ){
-		}else{
-			charY += MOVE_U;
-		}
-        charDirection = SOUTH_DIRECTION;
-	}
-	// npc 앞에 있다는 가정하에 npc를 보고 엔터 누르면 dialog 생성
-	if(event.keyCode==13){
-		if(nowMap[charY/UNIT][charX/UNIT]==55 && charDirection == SOUTH_DIRECTION){
-			chat.style="block";
-			createDiag( individual );
-		}
-}
-	
-	// map01濡� �씠�룞
-	if( nowMap[(charY / UNIT)][(charX / UNIT)]==99 ){
-		nowMap=map01;
-		charX= (0*UNIT);
-		charY= (0*UNIT);
-			
-	}
-	
-	
-	
-	
-    console.log(`[Absolute coordinate] (X, Y) = (${charX / UNIT}, ${charY / UNIT})`);
-    
+
+
+
+
+
+
 }
 
 function drawMap(){
@@ -305,9 +356,6 @@ function drawChar(){
 
 }
 
-
-
-
 	setInterval(function fps(){
 		context.clearRect(0, 0, canvas.width, canvas.height);
 		drawMap();
@@ -317,18 +365,27 @@ function drawChar(){
 		motionIdx=(motionIdx+1)%4
 	}, 150);
 
-	// dialog 정의 -yoda-
- 	var text = '피곤피곤 피피피피피피피피피곤피피곤 관용이형 짱짱맨인듯 다하셨네 퍄퍄퍄 윤하도 짱짱. 주말동안 도움이 안되서 미안합니다 사랑합니다.  '; 
-	// (1) text를 한단어씩 쪼갠다.
- 	individual = text.split('');
-
+	// npc 대화 정의. 임의로 박사님(강사님), 상점, 던전1 미션주는npc, 던전2, 던전3, 짱짱보스jquery몬
+ 	var talk = ['짱짱개발자가 되서 돌아와라!', '상점입니다.', 'h1몬 5마리 잡아오세요', 'div몬 10마리 잡아와라', '뒤지기시름 table몬5마리 잡아와라', '안녕? 난짱짱강한 최종보스 jquery몬이라고 한다!'];
+ 	
+ 	// 대화 한단어로 분할한 것 배열 정의
+ 	var individual=[];
+ 	
+ 	// for문으로 각 npc별 대화를 모조리 한단어씩 쪼개버림.
+ 	// 강사님은 index 0, 상점 index 1, 던전1미션 index2, 던전2미션 index3, 던전3미션 index4, 최종보스 index5
+ 	for(z=0; z<talk.length; z++){
+ 		individual[z] = talk[z].split('');
+ 	};
+	
+	// dialog창에 text 출력
 	function createDiag ( dialog ) {
 		for(k = 0; k < dialog.length; k++) {
 			(function(k){
 	  			setTimeout(function(){
 	  			// (2) 50*k시간 마다 글자 하나를 dialog에 표시하겠다. 	
 	   			 	$('#dialog').text($('#dialog').text()+dialog[k]);
-	  			}, 50*k);  
+	  			}, 50*k);
 			}(k));
 		}
+		
 	}	
