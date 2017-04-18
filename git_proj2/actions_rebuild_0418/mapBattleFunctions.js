@@ -11,7 +11,7 @@ $(document).ready(function(){
 
 });
 
-// 포켓몬세계 전체 몬스터리스트.aa
+// 포켓몬세계 전체 몬스터리스트.aaaa
 
 
 
