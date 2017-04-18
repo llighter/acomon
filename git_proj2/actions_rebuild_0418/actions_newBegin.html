@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Battle side// actions_newBegin</title>
+<style type = "text/css">
+/*
+*/
+</style>
+    <script
+        src="http://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous">
+        // http://code.jquery.com
+    </script>
+<script src="mapBattleFunctions.js"></script>  
+    
+<script type = "text/javascript">
+/* XX
+ 
+XX */
+
+
+$("document").ready(function(){	
+	goBackToMenu();
+	this.onkeyup = function(event){
+		if(event.keyCode = 88){
+			console.log("x키도 작용. 메뉴돌아가기대신.");
+			goBackToMenu();
+		}
+	}
+
+});
+var myMonid = myMon.id;
+var enemyMonid = enemyMon.id;
+console.log(myMon.id);
+console.log(enemyMon.id);
+
+
+
+// 가져온 id값으로 몬스터객체 만들어내기
+var pokemons =[];
+var propertyNames = ["물","바람","풀","불","흙"];
+var skills = ["물폭탄던지기!","바람베기!","덩쿨채찍!","화염폭탄!","도툰!"]
+
+function myPokemon(id, name, lv, exp, hp, att, property){
+	this.id = id;
+	this.name = name; 
+	this.lv = lv; 
+	this.exp = exp; 
+	this.property = property;
+	this.hp = hp;
+	this.att = att;
+	
+	this.initHp = hp;
+}
+pokemons.push(new myPokemon(0, "jbMon", 1, 0, 50, 13, 0 ));  
+pokemons.push(new myPokemon(1, "ynMon", 1, 0, 52, 15, 1 ));  // 포켓몬번호 이름 체력 기본공격력 기본방어력
+pokemons.push(new myPokemon(2, "gyMon", 1, 0, 54, 17, 2 ));  // 일반공격이 1이면 스킬공격은 최소 1.2 최대1.7랜덤
+pokemons.push(new myPokemon(3, "jwMon", 1, 0, 56, 15, 3 ));  //  pokemons[].id
+pokemons.push(new myPokemon(4, "jhMon", 1, 0, 58, 14, 4 ));  
+	// mapPokemons    // id:0, name:"aa", lv:1, exp:0, hp: 50, att:13, property:"물"
+	// aa < bb < cc < dd < ee < aa  ... 먹이사슬 외에는 평범하게고우.
+
+
+
+/* 
+
+this.pokemonNo01 = pokemons[myMon].pokemonNo;  // 몬스터번호 선언
+this.pokemonNo02 = pokemons[enemyMon].pokemonNo;  
+this.name01 = pokemons[myMon].name;  // 이름 선언
+this.name02 = pokemons[enemyMon].name;
+this.monLevel01 = pokemons[myMon].monLevel;  // 몬스터레벨 선언
+this.monLevel02 = pokemons[enemyMon].monLevel;  
+this.monExperience01 = pokemons[myMon].monExperience;  // 몬스터경험치 선언
+this.monPropNo01 = pokemons[myMon].monPropNo  //몬스터 속성선언.
+this.monPropNo02 = pokemons[enemyMon].monPropNo
+this.healthPoint01 = pokemons[myMon].healthPoint; // 체력 선언
+this.healthPoint02 = pokemons[enemyMon].healthPoint;
+this.initMyHealthPoint = pokemons[myMon].healthPoint;  // 내 초기체력할당. ->렙업할때 refresh...
+this.initEnemyHealthPoint = pokemons[enemyMon].healthPoint;  // 상대초기체력할당. ->몬볼로 잡을떄 체력%구하려고..
+this.attackStr01 = pokemons[myMon].attackStr; // 공격력 선언
+this.attackStr02 = pokemons[enemyMon].attackStr;
+this.shield01 = pokemons[myMon].shield;  // 방어력선언
+this.shield02 = pokemons[enemyMon].shield;
+this.status01 = pokemons[myMon].status;  // 몬스터상태 선언
+this.status02 = pokemons[enemyMon].status;
+ */
+ 
+ 
+///////$$$$ CSS라서 rocket00에는 역시 필요없다 $$$$///// 
+function goBackToMenu(){
+	$("#attackOptions_jb, #bagOptions_jb, #pokeBookOptions_jb, #runAway_jb").css("display","block");
+	$("#skill_normalAtt_jb, #skill_Att_jb, #skill_Medi_jb, #skill_goBackToMenu_jb,"  
+			+"#bag_Mint_jb, #bag_PokeBall_jb, #bag_goBackToMenu_jb," 
+			+"#book_pokeId00, #book_pokeId01, #book_pokeId02, #book_pokeId03, #book_pokeId04, #book_goBackToMenu_jb").css("display","none");	
+}
+
+function seeSkill(){  // 이런느낌으로? 버튼 숨겻다 보엿다가.
+ $("#skill_normalAtt_jb, #skill_Att_jb, #skill_Medi_jb, #skill_goBackToMenu_jb").css("display","block");		 
+}
+
+function seeBag(){
+	 $("#bag_Mint_jb, #bag_PokeBall_jb, #bag_goBackToMenu_jb").css("display","block");;		 
+}
+
+function seeMonBook(){
+	$("#book_pokeId00, #book_pokeId01, #book_pokeId02, #book_pokeId03, #book_pokeId04").css("display","block");	
+}
+///////$$$$ CSS라서 rocket00에는 역시 필요없다 END  $$$$/////
+
+
+function tackle(attacker, defender){
+	console.log(pokemons[attacker].name+"이 공격력 "+pokemons[attacker].att+"로공격.");
+	pokemons[defender].hp -= pokemons[attacker].att;
+	console.log(pokemons[defender].name + "의 체력 "+pokemons[defender].hp+" 남음.");
+	console.log(pokemons[defender].name+"이 공격력 "+pokemons[defender].att+"로공격.");
+	pokemons[attacker].hp -= pokemons[defender].att;
+	console.log(pokemons[attacker].name + "의 체력 "+pokemons[attacker].hp+" 남음.");
+	goBackToMenu();
+}
+	
+function skillAttack(attacker, defender){
+	console.log(pokemons[attacker].name+"이 스킬 "+skills[pokemons[attacker].id]+"로공격.");
+	pokemons[defender].hp -= pokemons[attacker].att;
+	console.log(pokemons[defender].name + "의 체력 "+pokemons[defender].hp+" 남음.");
+	console.log(pokemons[defender].name+"이 스킬 "+skills[pokemons[defender].id]+"로공격.");
+	pokemons[defender].hp -= pokemons[attacker].att;
+	console.log(pokemons[attacker].name + "의 체력 "+pokemons[attacker].hp+" 남음.");
+	goBackToMenu();
+}
+ 
+function meditation(myself){
+	showMsg = "명상을 할수없습니다. \n\t(설명: 명상하면 전체체력보다 많아질경우.)"
+	if((pokemons[myself].hp +13) < pokemons[myself].initHp){
+		pokemons[myself].hp += 13;
+		showMsg = "체력회복 (+13)!" +pokemons[myself].hp;
+	}
+	console.log(showMsg);
+	goBackToMenu();
+}
+
+
+
+var mint = jiwoo.mint;  // JAVA에서 당연시 되겟지만 보안상 getter나 setter를 쓰는게 좋다.
+var pokeBall = jiwoo.pokeBall;
+function useItem(item){
+	if(item == "mint"){
+		if(mint >0){
+			mint--;
+			console.log("system- "+ item +" " + mint + "개 남았습니다.");
+		}
+		if(mint ==0){
+			console.log("system- mint 없다 ㅜㅜ");
+		}
+		goBackToMenu();
+	}
+
+	if(item == "pokeBall"){
+		if(this.pokeBall >0){
+			this.pokeBall--;
+			console.log("system- "+ item +" " + pokeBall + "개 남았습니다.");
+		}
+		if(this.pokeBall ==0){
+			console.log("system- pokeBallNo 없다 ㅜㅜ");
+		}
+		goBackToMenu();
+	}
+	jiwoo.mint = mint;
+	jiwoo.pokeBall = pokeBall ;
+	console.log("jiwoo.mint "+jiwoo.mint +" jiwoo.pokeBall "+ jiwoo.pokeBall);
+} 
+
+// 내가 소유한 몬스터와 태그하기.
+function tagMyMon(obj){	
+	/* console.log( parseInt(this.getAttribute("id").substr(this.getAttribute("id").length -2)) );
+	console.log( window.pokemonNo02  ); */
+	if(confirm("태그하시겟습니까?")){
+//		turnMoves(parseInt(obj.getAttribute("id").substr(obj.getAttribute("id").length -2)), window.pokemonNo02);
+		encounter(obj.getAttribute("id"))
+	
+	}
+	goBackToMenu();
+	
+}
+
+// 내가 소유한 몬스터북 확인하기.
+function checkPokemonBook(obj){
+	idNum = parseInt(obj.getAttribute("id").substr(obj.getAttribute("id").length-2));
+	console.log(idNum);
+	// mapPokemons// id:0, name:"aa", lv:1, exp:0, hp: 50, att:13, property:"물"
+	//propertyNames = ["물","바람","풀","불","흙"]  "물"<"바람"<"풀"<"불"<"흙"<"물"
+	console.log("=================");
+	console.log("id: "+ pokemons[idNum].id 
+			+ " property: " + propertyNames[pokemons[idNum].property]);
+	console.log("name: "+ pokemons[idNum].name);
+	console.log("lv: "+ pokemons[idNum].lv);
+	console.log("exp: "+ pokemons[idNum].exp);
+	console.log("hp: "+ pokemons[idNum].hp);
+	console.log("att: "+ pokemons[idNum].att);
+	console.log("skill: "+ skills[pokemons[idNum].property]);
+	console.log("=================");
+
+/* 	console.log("===== 가방검사 ======  // 나중에 분리할예정.");
+	console.log("bagConsumerables.mintNo: " + bagConsumerables.mintNo);
+	console.log("bagConsumerables.pokeBallNo: " + bagConsumerables.pokeBallNo);
+	console.log("bagConsumerables.golds: " + bagConsumerables.golds);
+	console.log("====== END ======"); */
+}
+//checkPokemonBook(myMonid);
+//checkPokemonBook(enemyMonid);
+
+function runAway(){
+	//맵단으로 다시이동.
+	$("#runAway_jb").html("\n맵단으로 다시이동!");
+	
+	
+}
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<div id = attackOptions_jb onclick = "seeSkill();"  ><h5  > 공격하기(보기) </h5></div>
+<div id = skill_normalAtt_jb onclick = "tackle(myMonid, enemyMonid);" ><h5> 노말공격하기1 </h5></div>
+<div id = skill_Att_jb onclick = "skillAttack(myMonid, enemyMonid);" ><h5> 스킬공격하기2 </h5></div>
+<div id = skill_Medi_jb onclick = "meditation(myMonid);" ><h5> 명상하기 </h5></div>
+<div id = skill_goBackToMenu_jb onclick = "goBackToMenu();"><h5> skill_메뉴로 돌아가기 </h5></div>
+<br/>
+<div id = bagOptions_jb onclick = "seeBag();"><h5> 가방(보기) </h5></div>
+<div id = bag_Mint_jb onclick = "useItem('mint');"><h5 > 먹기 </h5></div>
+<div id = bag_PokeBall_jb onclick = "useItem('pokeBall');"><h5> 볼던지기 </h5></div>
+<div id = bag_goBackToMenu_jb onclick = "goBackToMenu();"><h5> bag_메뉴로 돌아가기 </h5></div>
+<br/>
+<div id = pokeBookOptions_jb onclick = "seeMonBook();"><h5> 몬스터도감(보기) </h5></div>
+<div id = book_pokeId00 onclick = "checkPokemonBook(this);"><h5> jb </h5></div>
+<div id = book_pokeId01 onclick = "checkPokemonBook(this);"><h5> yn </h5></div>
+<div id = book_pokeId02 onclick = "checkPokemonBook(this);"><h5> gy </h5></div>
+<div id = book_pokeId03 onclick = "checkPokemonBook(this);"><h5> jw </h5></div>
+<div id = book_pokeId04 onclick = "checkPokemonBook(this);"><h5> jh </h5></div>
+<div id = book_goBackToMenu_jb onclick = "goBackToMenu();"><h5> book_메뉴로 돌아가기 </h5></div>
+<br/>
+<div id = runAway_jb onclick = ""><h5> 도망치기 </h5></div>
+
+
+
+
+
+
+
+
+</body>
+
+</html>
