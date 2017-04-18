@@ -212,6 +212,10 @@ function move() {
 		charDirection = EAST_DIRECTION;
 	}
 
+	
+	
+	
+	
 	// console.log(`[Absolute coordinate] (X, Y) = (${charX / UNIT}, ${charY / UNIT})`);
 }
 
@@ -243,6 +247,15 @@ function setMap() {
         y_end = 20;
         y_char = charY - 10 * UNIT;
     }
+}
+
+function moveMap(){
+	// map01에서 맵이동
+	if( nowMap[(charY / UNIT)][(charX / UNIT)]==99 ){
+		nowMap=map01;
+		charX= (0*UNIT);
+		charY= (0*UNIT);
+	}
 }
 
 function draw(){
@@ -281,14 +294,15 @@ function draw(){
 
 	context.drawImage(player, IMG_U*motionIdx, IMG_U*charDirection, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
 
-	// requestAnimationFrame(draw);
+//	 requestAnimationFrame(draw);
 }
 
 setInterval(function fps(){
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	draw();
+	moveMap();
 }, 51);
-// draw();
+ draw();
 
 setInterval(function motionFps(){
 	motionIdx=(motionIdx+1) % 4
