@@ -48,11 +48,7 @@ var road01 = new Image();
 var rock = new Image();
 var player = new Image();
 
-// 캐릭터 모션값
-// const MOTION00 = 0;
-// const MOTION01 = 1;
-// const MOTION02 = 2;
-// const MOTION03 = 3;
+// Charactor's direction
 var motionIdx = 0;
 
 
@@ -68,6 +64,14 @@ var mapY = 0;
 // Charactor coordinate
 var charX = 0;
 var charY = 0;
+
+// Current map index
+var x_start = 0;
+var x_end = 0;
+var x_char = 0;
+var y_start = 0;
+var y_end = 0;
+var y_char = 0; 
 
 // EAST IS DEFAULT DIRECTION
 var charDirection = EAST_DIRECTION;
@@ -122,28 +126,24 @@ function collisionDetection() {
 		if((charY <= 0) || map[(charY / UNIT) - 1][(charX / UNIT)] == MAP_STONE) {
 			detector = true;
 		}
-		console.log("upPressed : " + detector)
 	}
 
 	if(downPressed == true) {
 		if((charY >= 19 * UNIT) || map[(charY / UNIT) + 1][(charX / UNIT)] == MAP_STONE) {
 			detector = true;
 		}
-		console.log("downPressed : " + detector)
 	}
 
 	if(leftPressed == true) {
 		if((charX <= 0) || map[(charY / UNIT)][(charX / UNIT) - 1] == MAP_STONE) {
 			detector = true;
 		}
-		console.log("leftPressed : " + detector)
 	}
 
-	if(rightPressed = true) {
+	if(rightPressed == true) {
 		if((charX >= 19 * UNIT) || map[(charY / UNIT)][(charX / UNIT) + 1] == MAP_STONE) {
 			detector = true;
 		}
-		console.log("rightPressed : " + detector)
 	}
 
 	return detector;
@@ -166,30 +166,16 @@ function move() {
 		charDirection = WEST_DIRECTION;
 	}
 
-	if(rightPressed = true) {
+	if(rightPressed == true) {
 		charX += collisionDetection() ? 0 : UNIT;
 		charDirection = EAST_DIRECTION;
 	}
 
-	console.log(`[Absolute coordinate] (X, Y) = (${charX / UNIT}, ${charY / UNIT})`);
+	// console.log(`[Absolute coordinate] (X, Y) = (${charX / UNIT}, ${charY / UNIT})`);
 }
 
-
-function drawMap(){
-	mapX=0;
-	mapY=0;
-
-    let x_start = 0;
-    let x_end = 0;
-    let x_char = 0;
-
-    let y_start = 0;
-    let y_end = 0;
-    let y_char = 0;
-
-	move();
-
-    if(charX/UNIT <= 4) {
+function setMap() {
+	if(charX/UNIT <= 4) {
         x_start = 0;
         x_end = x_start + 10;
         x_char = charX;
@@ -216,6 +202,14 @@ function drawMap(){
         y_end = 20;
         y_char = charY - 10 * UNIT;
     }
+}
+
+function draw(){
+	mapX=0;
+	mapY=0;
+
+	move();
+	setMap();
 	
 	for(var i = y_start; i < y_end ; i++){
 		for(var j=x_start, mapX = 0; j < x_end ; j++){
@@ -236,13 +230,15 @@ function drawMap(){
 	}
 	context.drawImage(player, IMG_U*motionIdx, IMG_U*charDirection, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
 
+	// requestAnimationFrame(draw);
 }
 
 setInterval(function fps(){
 	context.clearRect(0, 0, canvas.width, canvas.height);
-	drawMap();
+	draw();
 }, 51);
+// draw();
 
 setInterval(function motionFps(){
-	motionIdx=(motionIdx+1)%4
+	motionIdx=(motionIdx+1) % 4
 }, 150);
