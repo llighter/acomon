@@ -82,6 +82,9 @@ var sandRoad01 = new Image();
 // Charactor's direction
 var motionIdx = 0;
 
+// Monster's direction
+var monsterIdx = 0;
+
 player.src = './img/eagle.png';
 monster.src = './img/mon00.png';
 sand.src = './img/tileImage.png';
@@ -107,6 +110,12 @@ var x_char = 0;
 var y_start = 0;
 var y_end = 0;
 var y_char = 0; 
+
+/**
+ * Monster 
+ */
+var x_mon = 100;
+var y_mon = 100;
 
 // EAST IS DEFAULT DIRECTION
 var charDirection = EAST_DIRECTION;
@@ -295,6 +304,7 @@ function draw(){
 	}
 
 	context.drawImage(player, IMG_U*motionIdx, IMG_U*charDirection, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
+	context.drawImage(monster, UNIT*motionIdx, UNIT*monsterIdx, UNIT, UNIT, x_mon, y_mon, UNIT, UNIT);
 
 //	 requestAnimationFrame(draw);
 }
@@ -309,3 +319,17 @@ setInterval(function fps(){
 setInterval(function motionFps(){
 	motionIdx=(motionIdx+1) % 4
 }, 150);
+
+setInterval(function motionFps(){
+	monsterIdx=(monsterIdx+1) % 4
+	switch(monsterIdx) {
+		case NORTH_DIRECTION:
+			y_mon += 10;
+		case SOUTH_DIRECTION:
+			y_mon -= 10;
+		case EAST_DIRECTION:
+			x_mon += 10;
+		case WEST_DIRECTION:
+			x_mon -= 10;
+	}
+}, 1000);
