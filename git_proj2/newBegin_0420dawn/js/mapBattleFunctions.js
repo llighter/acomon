@@ -2,7 +2,7 @@
  * 집에서....Apr20,2017
  * 			02:37 
  * 			dev by JB
- * 
+ * aa
  * */
 $(document).ready(function(){
 
