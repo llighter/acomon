@@ -75,6 +75,7 @@ var grass = new Image();
 var stone = new Image();
 var road01 = new Image();
 var player = new Image();
+var monster = new Image();
 var sandStone = new Image();
 var sandRoad01 = new Image();
 
@@ -82,6 +83,7 @@ var sandRoad01 = new Image();
 var motionIdx = 0;
 
 player.src = './img/eagle.png';
+monster.src = './img/mon00.png';
 sand.src = './img/tileImage.png';
 grass.src = './img/tileImage.png';
 stone.src = './img/tileImage.png';
@@ -153,13 +155,13 @@ function keyUpHandler(e) {
 
 // Check whether next move is blocked
 function collisionDetection() {
-	let detector = false;
+	let isCollide = false;
 
 	if(upPressed == true) {
 		if( (charY < MOVE_U )
 			|| nowMap[ Math.ceil( (charY - UNIT) / UNIT) ][((charX-(charX%UNIT)) / UNIT)] > 100
 			|| nowMap[ Math.ceil( (charY - UNIT) / UNIT) ][ Math.ceil(charX / UNIT) ] > 100 ){
-			detector = true;
+			isCollide = true;
 		}
 	}
 
@@ -167,7 +169,7 @@ function collisionDetection() {
 		if( (charY > (19 * UNIT - MOVE_U) )
 			|| nowMap[ ( (charY-(charY%UNIT)+UNIT) / UNIT) ][ ( (charX - (charX%UNIT) ) / UNIT)] > 100 
 			|| nowMap[ ( (charY-(charY%UNIT)+UNIT) / UNIT) ][ Math.ceil( charX / UNIT ) ] > 100 ){
-			detector = true;
+			isCollide = true;
 		}
 	}
 
@@ -175,7 +177,7 @@ function collisionDetection() {
 		if( (charX <= 0)
 			|| nowMap[((charY-(charY%UNIT)) / UNIT)][ Math.ceil((charX-UNIT) / UNIT) ] > 100
 			|| nowMap[ Math.ceil(charY / UNIT) ][ Math.ceil((charX-UNIT) / UNIT)] > 100 ){
-			detector = true;
+			isCollide = true;
 		}
 	}
 
@@ -183,11 +185,11 @@ function collisionDetection() {
 		if( (charX > (19 * UNIT - MOVE_U) )
 			|| nowMap[((charY-(charY%UNIT)) / UNIT)][((charX-(charX%UNIT) + UNIT) / UNIT)] > 100
 			|| nowMap[ Math.ceil(charY / UNIT) ][((charX-(charX%UNIT) + UNIT) / UNIT)] > 100 ){
-			detector = true;
+			isCollide = true;
 		}
 	}
 
-	return detector;
+	return isCollide;
 
 }
 
