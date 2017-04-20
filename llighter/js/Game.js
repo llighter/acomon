@@ -243,6 +243,7 @@ function npcDetection() {
 
 	if(spacePressed == true) {
 		switch(charDirection) {
+			// TODO : add detail detection logic
 			case NORTH_DIRECTION:
 			case SOUTH_DIRECTION:
 			case WEST_DIRECTION:
@@ -313,7 +314,8 @@ function setMap() {
 
 function moveMap(){
 	// map01에서 맵이동
-	if( nowMap[(charY / UNIT)][(charX / UNIT)]==99 ){
+	// TODO : Need to find obscure location to move next map
+	if( nowMap[Math.ceil(charY / UNIT)][Math.ceil(charX / UNIT)]==99 ){
 		nowMap=map01;
 		charX= (0*UNIT);
 		charY= (0*UNIT);
@@ -325,8 +327,17 @@ function draw(){
 	mapY=0;
 
 	if(npcDetection()) {
-		alert("aa");
 		clearInterval(runMap);
+
+		chat.style="block";
+		createDiag( individual[0] );
+
+		runMap = setInterval(function fps(){
+			context.clearRect(0, 0, canvas.width, canvas.height);
+			draw();
+			moveMap();
+		}, 51);
+		
 	}
 
 	move();
@@ -380,6 +391,32 @@ function draw(){
 	context.drawImage(player, IMG_U*motionIdx, IMG_U*charDirection, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
 
 //	 requestAnimationFrame(draw);
+}
+
+
+// npc 대화 정의. 임의로 박사님(강사님), 상점, 던전1 미션주는npc, 던전2, 던전3, 짱짱보스jquery몬
+var talk = ['짱짱개발자가 되서 돌아와라!', '상점입니다.', 'h1몬 5마리 잡아오세요', 'div몬 10마리 잡아와라', '뒤지기시름 table몬5마리 잡아와라', '안녕? 난짱짱강한 최종보스 jquery몬이라고 한다!'];
+
+// 대화 한단어로 분할한 것 배열 정의
+var individual=[];
+
+// for문으로 각 npc별 대화를 모조리 한단어씩 쪼개버림.
+// 강사님은 index 0, 상점 index 1, 던전1미션 index2, 던전2미션 index3, 던전3미션 index4, 최종보스 index5
+for(z=0; z<talk.length; z++){
+	individual[z] = talk[z].split('');
+};
+
+// dialog창에 text 출력
+function createDiag ( dialog ) {
+	for(k = 0; k < dialog.length; k++) {
+		(function(k){
+			setTimeout(function(){
+			// (2) 50*k시간 마다 글자 하나를 dialog에 표시하겠다. 	
+				$('#dialog').text($('#dialog').text()+dialog[k]);
+			}, 50*k);
+		}(k));
+	}
+	
 }
 
 var runMap = setInterval(function fps(){
