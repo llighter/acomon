@@ -80,6 +80,7 @@ const ARROW_LEFT = 37;
 const ARROW_UP = 38;
 const ARROW_RIGHT = 39;
 const ARROW_DOWN = 40;
+const SPACE_BAR = 32;
 
 const SOUTH_DIRECTION = 0;
 const WEST_DIRECTION = 1;
@@ -144,10 +145,15 @@ var y_char = 0;
 // EAST IS DEFAULT DIRECTION
 var charDirection = EAST_DIRECTION;
 
+// dialog창 -yoda-
+var chat=document.getElementById("dialog");
+
 var upPressed = false;
 var downPressed = false;
 var leftPressed = false;
 var rightPressed = false;
+
+var spacePressed = false;
 
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("keydown", keyDownHandler, false);
@@ -166,6 +172,9 @@ function keyDownHandler(e) {
 		case ARROW_DOWN:
 			downPressed = true;
 			break;
+		case SPACE_BAR:
+			spacePressed = true;
+			break;
 	}
 }
 
@@ -182,6 +191,9 @@ function keyUpHandler(e) {
 			break;
 		case ARROW_DOWN:
 			downPressed = false;
+			break;
+		case SPACE_BAR:
+			spacePressed = false;
 			break;
 	}
 }
@@ -226,6 +238,25 @@ function collisionDetection() {
 
 }
 
+function npcDetection() {
+	let isNpcDetected = false;
+
+	if(spacePressed == true) {
+		switch(charDirection) {
+			case NORTH_DIRECTION:
+			case SOUTH_DIRECTION:
+			case WEST_DIRECTION:
+			case EAST_DIRECTION:
+				if(nowMap_npc[Math.ceil(charY/UNIT)][Math.ceil(charX/UNIT)] > 100) {
+					isNpcDetected = true;
+				}
+				break;
+		}
+	}
+
+	return isNpcDetected;
+}
+
 function move() {
 	if(upPressed == true) {
 		charY -= collisionDetection() ? 0 : MOVE_U;
@@ -247,10 +278,6 @@ function move() {
 		charDirection = EAST_DIRECTION;
 	}
 
-	
-	
-	
-	
 	// console.log(`[Absolute coordinate] (X, Y) = (${charX / UNIT}, ${charY / UNIT})`);
 }
 
@@ -296,6 +323,11 @@ function moveMap(){
 function draw(){
 	mapX=0;
 	mapY=0;
+
+	if(npcDetection()) {
+		alert("aa");
+		clearInterval(runMap);
+	}
 
 	move();
 	setMap();
@@ -350,12 +382,12 @@ function draw(){
 //	 requestAnimationFrame(draw);
 }
 
-setInterval(function fps(){
+var runMap = setInterval(function fps(){
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	draw();
 	moveMap();
 }, 51);
- draw();
+//  draw();
 
 setInterval(function motionFps(){
 	motionIdx=(motionIdx+1) % 4
