@@ -25,6 +25,29 @@ var map00=[
 	[0,0,101,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 ];
 
+var map00_npc=[
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,200,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,201,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+];
+
 var map01=[
 	[3,3,101,0,3,3,3,0,0,0,0,0,0,0,0,101,0,0,0,0],
 	[0,0,102,3,3,0,0,0,0,0,0,0,0,0,0,101,0,0,0,0],
@@ -70,12 +93,16 @@ const MAP_SAND = 3;
 const MAP_SANDROAD01 = 4;
 const MAP_SANDSTONE = 102;
 
+const MAP_NPC_MON = 200;
+const MAP_NPC_MON2 = 201;
+
 var sand = new Image();
 var grass = new Image();
 var stone = new Image();
 var road01 = new Image();
 var player = new Image();
 var monster = new Image();
+var monster2 = new Image();
 var sandStone = new Image();
 var sandRoad01 = new Image();
 
@@ -87,6 +114,7 @@ var monsterIdx = 0;
 
 player.src = './img/eagle.png';
 monster.src = './img/mon00.png';
+monster2.src = './img/mon01.png';
 sand.src = './img/tileImage.png';
 grass.src = './img/tileImage.png';
 stone.src = './img/tileImage.png';
@@ -104,18 +132,14 @@ var charY = 0;
 
 // Current map index
 var nowMap = map00;
+var nowMap_npc = map00_npc;
+
 var x_start = 0;
 var x_end = 0;
 var x_char = 0;
 var y_start = 0;
 var y_end = 0;
 var y_char = 0; 
-
-/**
- * Monster 
- */
-var x_mon = 100;
-var y_mon = 100;
 
 // EAST IS DEFAULT DIRECTION
 var charDirection = EAST_DIRECTION;
@@ -303,8 +327,25 @@ function draw(){
 		mapY += UNIT;
 	}
 
+	mapX=0;
+	mapY=0;
+
+	for(var i = y_start; i < y_end ; i++){
+		for(var j=x_start, mapX = 0; j < x_end ; j++){
+            switch(nowMap_npc[i][j]) {
+                case MAP_NPC_MON:
+                    context.drawImage(monster, UNIT*motionIdx, UNIT*monsterIdx, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
+                    break;
+				case MAP_NPC_MON2:
+                    context.drawImage(monster2, UNIT*motionIdx, UNIT*monsterIdx, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
+                    break;
+            }
+            mapX += UNIT;
+		}
+		mapY += UNIT;
+	}
+
 	context.drawImage(player, IMG_U*motionIdx, IMG_U*charDirection, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
-	context.drawImage(monster, UNIT*motionIdx, UNIT*monsterIdx, UNIT, UNIT, x_mon, y_mon, UNIT, UNIT);
 
 //	 requestAnimationFrame(draw);
 }
@@ -322,14 +363,4 @@ setInterval(function motionFps(){
 
 setInterval(function motionFps(){
 	monsterIdx=(monsterIdx+1) % 4
-	switch(monsterIdx) {
-		case NORTH_DIRECTION:
-			y_mon += 10;
-		case SOUTH_DIRECTION:
-			y_mon -= 10;
-		case EAST_DIRECTION:
-			x_mon += 10;
-		case WEST_DIRECTION:
-			x_mon -= 10;
-	}
-}, 1000);
+}, 3000);
