@@ -1,7 +1,8 @@
-/*
- * 집에서....Apr20,2017
- * 			02:37 
+/*ㅁㅁ
+ * 집에서....Apr22,2017
+ * 			04:27 
  * 			dev by JB
+ * 
  * aa
  * */
 $(document).ready(function(){
