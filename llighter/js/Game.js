@@ -1,5 +1,5 @@
 // INIT
-var canvas = document.getElementById("startVillage");
+var canvas = document.getElementById("village");
 var context = canvas.getContext("2d");
 
 var map00=[
@@ -29,7 +29,7 @@ var map00_npc=[
 	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 	[0,0,0,0,0,0,200,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,201,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -74,7 +74,7 @@ var map01=[
 const UNIT = 64;
 const IMG_U = 96;
 const MAPIMG_U = 64;
-const MOVE_U = 8;
+const MOVE_U = 16;
 
 const ARROW_LEFT = 37;
 const ARROW_UP = 38;
@@ -106,7 +106,8 @@ var monster = new Image();
 var monster2 = new Image();
 var sandStone = new Image();
 var sandRoad01 = new Image();
-var startVillage = new Image();
+var currentVillage = new Image();
+var nextVillage = new Image();
 
 // Charactor's direction
 var motionIdx = 0;
@@ -123,11 +124,9 @@ stone.src = './img/tileImage.png';
 road01.src = './img/tileImage.png';
 sandStone.src = './img/tileImage.png';
 sandRoad01.src = './img/tileImage.png';
-startVillage.src = './img/genMap01.png';
+currentVillage.src = './img/genMap01.png';
+nextVillage.src = './img/genMap02.png';
 
-// Map coordinate
-var mapX = 0;
-var mapY = 0;
 
 // Charactor coordinate
 var charX = 0;
@@ -136,16 +135,6 @@ var charY = 0;
 // Current map index
 var nowMap = map00;
 var nowMap_npc = map00_npc;
-
-var x_start = 0;
-var x_end = 0;
-var x_char = 0;
-var y_start = 0;
-var y_end = 0;
-var y_char = 0;
-
-var map_start_x = 0;
-var map_start_y = 0;
 
 // EAST IS DEFAULT DIRECTION
 var charDirection = EAST_DIRECTION;
@@ -253,7 +242,7 @@ function npcDetection() {
 			case SOUTH_DIRECTION:
 			case WEST_DIRECTION:
 			case EAST_DIRECTION:
-				if(nowMap_npc[Math.ceil(charY/UNIT)][Math.ceil(charX/UNIT)] > 100) {
+				if(nowMap_npc[Math.floor(charY/UNIT)][Math.floor(charX/UNIT)] > 100) {
 					isNpcDetected = true;
 				}
 				break;
@@ -283,80 +272,6 @@ function move() {
 		charX += collisionDetection() ? 0 : MOVE_U;
 		charDirection = EAST_DIRECTION;
 	}
-
-	// console.log(`[Absolute coordinate] (X, Y) = (${charX / UNIT}, ${charY / UNIT})`);
-}
-
-function setMap() {
-	if(charX < 5 * UNIT) {
-        x_start = 0;
-        x_end = x_start + 10;
-        x_char = charX;
-
-		map_start_x = 0;
-
-    } else if( charX >= (5 * UNIT) && charX < (16 * UNIT)) {
-        x_start = (charX-(charX%UNIT))/UNIT - 5
-        x_end = (charX-(charX%UNIT))/UNIT + 5
-        x_char = (charX%UNIT) + 5 * UNIT;
-
-		map_start_x = charX - 5*UNIT;
-
-    } else {    // X >= 16
-        x_start = 10;
-        x_end = 20;
-        x_char = charX - 10 * UNIT;
-
-		map_start_x = 10 * UNIT;
-
-    }
-
-	// if(charX/UNIT < 5) {
-    //     x_start = 0;
-    //     x_end = x_start + 10;
-    //     x_char = charX;
-
-	// 	map_start_x = 0;
-
-    // } else if( charX/UNIT >= 5 && charX/UNIT < 16) {
-    //     x_start = (charX-(charX%UNIT))/UNIT - 5
-    //     x_end = (charX-(charX%UNIT))/UNIT + 5
-    //     x_char = (charX%UNIT) + 5 * UNIT;
-
-	// 	map_start_x = charX - 5*UNIT;
-
-    // } else {    // X >= 16
-    //     x_start = 10;
-    //     x_end = 20;
-    //     x_char = charX - 10 * UNIT;
-
-	// 	map_start_x = 10 * UNIT;
-
-    // }
-
-    if(charY/UNIT < 5) {
-        y_start = 0;
-        y_end = y_start + 10;
-        y_char = charY;
-
-		map_start_y = 0;
-
-    } else if( charY/UNIT >= 5 && charY/UNIT < 16) {
-        y_start = (charY-(charY%UNIT))/UNIT - 5
-        y_end = (charY-(charY%UNIT))/UNIT + 5
-        y_char = (charY%UNIT) + (5 * UNIT);
-
-		map_start_y = charY - 5*UNIT;
-
-    } else {    // Y >= 16
-        y_start = 10;
-        y_end = 20;
-        y_char = charY - 10 * UNIT;
-
-		map_start_y = 10 * UNIT;
-
-    }
-
 }
 
 function moveMap(){
@@ -366,79 +281,23 @@ function moveMap(){
 		nowMap=map01;
 		charX= (0*UNIT);
 		charY= (0*UNIT);
+		currentVillage = nextVillage;
 	}
 }
 
 function draw(){
-	mapX=0;
-	mapY=0;
+
+	var x = 640/2 - charX;
+	var y = 640/2 - charY;
+	context.drawImage(currentVillage,0,0,1280,1280,x,y,1280,1280);
+	context.drawImage(player, IMG_U*motionIdx, IMG_U*charDirection, IMG_U, IMG_U, 640/2, 640/2, UNIT, UNIT);
 
 	if(npcDetection()) {
-		clearInterval(runMap);
-
 		chat.style="block";
 		createDiag( individual[0] );
-
-		runMap = setInterval(function fps(){
-			context.clearRect(0, 0, canvas.width, canvas.height);
-			draw();
-			moveMap();
-		}, 51);
-		
-	}
-
-	move();
-	setMap();
-	
-
-	// context.drawImage(startVillage, x_start*UNIT, y_start*UNIT, 640, 640, 0, 0, 640, 640);
-	context.drawImage(startVillage, map_start_x, map_start_y, 640, 640, 0, 0, 640, 640);
-
-	context.drawImage(player, IMG_U*motionIdx, IMG_U*charDirection, IMG_U, IMG_U, x_char, y_char, UNIT, UNIT);
-
-	// for(var i = y_start; i < y_end ; i++){
-	// 	for(var j=x_start, mapX = 0; j < x_end ; j++){
-    //         switch(nowMap[i][j]) {
-    //             case MAP_GRASS:
-    //                 context.drawImage(grass, 0, 32, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
-    //                 break;
-    //             case MAP_ROAD01:
-    //                 context.drawImage(road01, 64, 32, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
-    //                 break;
-    //             case MAP_STONE:
-    //                 context.drawImage(stone, 192, 32, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
-    //                 break;
-    //             case MAP_SAND:
-    //                 context.drawImage(sand, 0, 128, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
-    //                 break;
-    //             case MAP_SANDROAD01:
-    //                 context.drawImage(sandRoad01, 64, 128, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
-    //                 break;
-    //             case MAP_SANDSTONE:
-    //                 context.drawImage(sandStone, 128, 128, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
-    //                 break;
-    //         }
-    //         mapX += UNIT;
-	// 	}
-	// 	mapY += UNIT;
-	// }
-
-	mapX=0;
-	mapY=0;
-
-	for(var i = y_start; i < y_end ; i++){
-		for(var j=x_start, mapX = 0; j < x_end ; j++){
-            switch(nowMap_npc[i][j]) {
-                case MAP_NPC_MON:
-                    context.drawImage(monster, UNIT*motionIdx, UNIT*monsterIdx, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
-                    break;
-				case MAP_NPC_MON2:
-                    context.drawImage(monster2, UNIT*motionIdx, UNIT*monsterIdx, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
-                    break;
-            }
-            mapX += UNIT;
-		}
-		mapY += UNIT;
+	} else {
+		move();
+		console.log(`실제 캐릭터 위치 : (${Math.floor(charX/UNIT)}, ${Math.floor(charY/UNIT)})`);
 	}
 
 	//  requestAnimationFrame(draw);
