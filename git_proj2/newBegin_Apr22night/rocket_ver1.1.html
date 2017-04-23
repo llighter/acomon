@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- 
+/*ㅁㅁ
+ * 집에서....Apr22,2017
+ * 			04:27 
+ * 			dev by JB
+ * 
+ * */ aa
+ -->
+<meta charset="UTF-8">
+<title>♪RocketDAN2♪</title>
+<link rel="stylesheet" type="text/css" href="css/rocket_ver1.1.css"/>
+<script src="js/jquery-3.2.1.js"></script>
+<script src="js/rocket_ver1.1.js"></script>
+<script src="js/mapBattlefunctions.js"></script>
+<script src="js/battleFunctions_apr22_1544.js"></script>
+</head>
+<body>
+	<!-- 메인 기본창전체 -->
+	<div class="whyMainBox whyContain">
+		<!-- 기본창 상단75% -->
+		<div class="whyTopbox">
+			<!-- 전투화면 -->
+			<div class="whyTopBattle whyContain"> 
+				<!-- 이미지 블록1 -->
+				<div class="whyTbDiv">
+					<div class="whyTbHp whyTbEnemyhp">상대hp</div>
+					<div class="whyTbImg whyTbAllyimg">H1(몬)</div>
+				</div>
+				<!-- 이미지 블록2 -->
+				<div class="whyTbDiv">
+					<div class="whyTbImg whyTbEnemyimg">DIV(몬)</div>
+					<div class="whyTbHp whyTbAllyhp">자기hp</div>
+				</div>
+			</div>
+		</div>
+		<!-- 하단25% 창. 크게 2개로 나눔.
+			1. 대화창
+			2. 메뉴 선택(전투커맨드)
+		-->
+		<div class="whyBtmbox">
+			<!-- 하단 대화창 -->
+			<div class="whyBtmTextbox whyContain">
+				<div class="whyBtTalk">
+				</div>
+				<div class="whyBtSkip">skip</div>
+			</div>
+			 <!-- 전투화면 커멘드창 -->
+			<div class="whyBtmCommand whyContain">
+				<!-- 전투 -->
+				<div class="whyBcListbox whyContain">
+					<div class="whyBcList">전투</div>
+					<div class="whyBcList">몬스터</div>
+					<div class="whyBcList">아이템</div>
+					<div class="whyBcList">도망치기</div>
+				</div>
+				<div class="whyBcSkillbox whyContain">
+					<div class="whyBcSkill">
+						기술1(몸통박치기)
+					</div>
+					<div class="whyBcSkill">
+						기술2(스킬공격)
+					</div>
+					<div class="whyBcSkill">
+						기술3(명상하기)
+					</div>
+					<div class="whyBcSkill">
+						기술4
+					</div>
+				</div>
+				<!-- 포켓몬 -->
+				<div class="whyBcAcomonbox">
+					<div class="whyBcAcomon">
+						포켓몬1
+					</div>
+					<div class="whyBcAcomon">
+						포켓몬2
+					</div>
+					<div class="whyBcAcomon">
+						포켓몬3
+					</div>
+					<div class="whyBcAcomon">
+						포켓몬4
+					</div>
+					<div class="whyBcAcomon">
+						포켓몬5
+					</div>
+					<div class="whyBcAcomon">
+						포켓몬6
+					</div>
+					
+				</div>
+				<!-- 아이템 -->
+				<div class="whyBcItembox">
+					<div class="whyBcItem">
+						아이템1(민트먹기)
+					</div>
+					<div class="whyBcItem">
+						아이템2(포켓볼)
+					</div>
+					<div class="whyBcItem">
+						아이템3
+					</div>
+					<div class="whyBcItem">
+						아이템4
+					</div>
+				</div>
+				<!-- 도망가기 -->
+				<div class="whyBcRun">
+					이창이 필요없을듯 바로 대화창으로~
+					function display:none
+					function innerText"도망 쳤습니다.(확률주기?)"
+				</div>
+			</div>
+		</div>
+		<!-- 전체 화면용 박스 100%100% -->
+		<div class="whyAllbox">
+			<div class="whyTopMap">여기는 지금 맵화면 입니다.
+				<div>메뉴(맵)
+					<div>메뉴(포켓몬-상단)</div>
+					<div>메뉴(아이템-상단)</div>
+					<div>메뉴(상태-맵)</div>
+					<div>메뉴(리포트:세이브,로드-맵)</div>
+					<div>메뉴(옵션-맵)</div>
+				</div>
+				<div>상태창
+					<div>주인공이름,돈,시간</div>
+					<div>간단한 설명 등.</div>
+				</div>
+				<div>리포트
+					<div>세이브</div>
+					<div>로드</div>
+				</div>
+				<div>옵션
+					<div>옵션1</div>
+					<div>옵션2</div>
+					<div>옵션3</div>
+					<div>옵션4</div>
+					<div>옵션5</div>
+				</div>
+			</div>
+		</div>
+		<div id="whyMouse">------------커서</div>
+	</div>	
+</body>
+</html>
