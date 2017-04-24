@@ -413,7 +413,7 @@ function draw(){
 }
 
 
-var init_talk = ['Acorn 아카데미에 온 것을 환영하네.. 자네는 이제 개발자가 되기 위한 모험을 떠날 걸세 내가 자그마한 도움을 주려하는데 받아 주겠나?'];
+var init_talk = ['Acorn 아카데미에 온 것을 환영하네.. 자네는 이제 개발자가 되기 위한 모험을 떠날 걸세 내가 바쁜 관계로 지금 바로 출발하게!'];
 var temp = [];
 
 for(var idx = 0; idx < init_talk.length; idx++) {
