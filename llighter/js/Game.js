@@ -87,6 +87,8 @@ const WEST_DIRECTION = 1;
 const EAST_DIRECTION = 2;
 const NORTH_DIRECTION = 3;
 
+const MAP_WIDTH = 640;
+const MAP_HEIGHT = 640;
 const MAP_GRASS = 0;
 const MAP_ROAD01 = 1;
 const MAP_STONE = 101;
@@ -128,16 +130,36 @@ currentVillage.src = './img/genMap01.png';
 nextVillage.src = './img/genMap02.png';
 
 
+function Player(id, name, x, y, img, direction) {
+	this.id = id;
+    this.name = name;
+    this.x = x;
+    this.y = y;
+    this.img = img;
+	this.direction = direction;
+}
+
+function Monster(id, name, x, y, img) {
+	this.id = id;
+    this.name = name;
+    this.x = x;
+    this.y = y;
+    this.img = img;
+}
+
+var myPlayer = new Player('player01', 'yunha', 0,0, player, EAST_DIRECTION);
+
+
 // Charactor coordinate
-var charX = 0;
-var charY = 0;
+myPlayer.x = 0;
+myPlayer.y = 0;
+
+// EAST IS DEFAULT DIRECTION
+myPlayer.direction = EAST_DIRECTION;
 
 // Current map index
 var nowMap = map00;
 var nowMap_npc = map00_npc;
-
-// EAST IS DEFAULT DIRECTION
-var charDirection = EAST_DIRECTION;
 
 // dialog창 -yoda-
 var chat=document.getElementById("dialog");
@@ -197,33 +219,33 @@ function collisionDetection() {
 	let isCollide = false;
 
 	if(upPressed == true) {
-		if( (charY < MOVE_U )
-			|| nowMap[ Math.ceil( (charY - UNIT) / UNIT) ][((charX-(charX%UNIT)) / UNIT)] > 100
-			|| nowMap[ Math.ceil( (charY - UNIT) / UNIT) ][ Math.ceil(charX / UNIT) ] > 100 ){
+		if( (myPlayer.y < MOVE_U )
+			|| nowMap[ Math.ceil( (myPlayer.y - UNIT) / UNIT) ][((myPlayer.x-(myPlayer.x%UNIT)) / UNIT)] > 100
+			|| nowMap[ Math.ceil( (myPlayer.y - UNIT) / UNIT) ][ Math.ceil(myPlayer.x / UNIT) ] > 100 ){
 			isCollide = true;
 		}
 	}
 
 	if(downPressed == true) {
-		if( (charY > (19 * UNIT - MOVE_U) )
-			|| nowMap[ ( (charY-(charY%UNIT)+UNIT) / UNIT) ][ ( (charX - (charX%UNIT) ) / UNIT)] > 100 
-			|| nowMap[ ( (charY-(charY%UNIT)+UNIT) / UNIT) ][ Math.ceil( charX / UNIT ) ] > 100 ){
+		if( (myPlayer.y > (19 * UNIT - MOVE_U) )
+			|| nowMap[ ( (myPlayer.y-(myPlayer.y%UNIT)+UNIT) / UNIT) ][ ( (myPlayer.x - (myPlayer.x%UNIT) ) / UNIT)] > 100 
+			|| nowMap[ ( (myPlayer.y-(myPlayer.y%UNIT)+UNIT) / UNIT) ][ Math.ceil( myPlayer.x / UNIT ) ] > 100 ){
 			isCollide = true;
 		}
 	}
 
 	if(leftPressed == true) {
-		if( (charX <= 0)
-			|| nowMap[((charY-(charY%UNIT)) / UNIT)][ Math.ceil((charX-UNIT) / UNIT) ] > 100
-			|| nowMap[ Math.ceil(charY / UNIT) ][ Math.ceil((charX-UNIT) / UNIT)] > 100 ){
+		if( (myPlayer.x <= 0)
+			|| nowMap[((myPlayer.y-(myPlayer.y%UNIT)) / UNIT)][ Math.ceil((myPlayer.x-UNIT) / UNIT) ] > 100
+			|| nowMap[ Math.ceil(myPlayer.y / UNIT) ][ Math.ceil((myPlayer.x-UNIT) / UNIT)] > 100 ){
 			isCollide = true;
 		}
 	}
 
 	if(rightPressed == true) {
-		if( (charX > (19 * UNIT - MOVE_U) )
-			|| nowMap[((charY-(charY%UNIT)) / UNIT)][((charX-(charX%UNIT) + UNIT) / UNIT)] > 100
-			|| nowMap[ Math.ceil(charY / UNIT) ][((charX-(charX%UNIT) + UNIT) / UNIT)] > 100 ){
+		if( (myPlayer.x > (19 * UNIT - MOVE_U) )
+			|| nowMap[((myPlayer.y-(myPlayer.y%UNIT)) / UNIT)][((myPlayer.x-(myPlayer.x%UNIT) + UNIT) / UNIT)] > 100
+			|| nowMap[ Math.ceil(myPlayer.y / UNIT) ][((myPlayer.x-(myPlayer.x%UNIT) + UNIT) / UNIT)] > 100 ){
 			isCollide = true;
 		}
 	}
@@ -236,13 +258,13 @@ function npcDetection() {
 	let isNpcDetected = false;
 
 	if(spacePressed == true) {
-		switch(charDirection) {
+		switch(myPlayer.direction) {
 			// TODO : add detail detection logic
 			case NORTH_DIRECTION:
 			case SOUTH_DIRECTION:
 			case WEST_DIRECTION:
 			case EAST_DIRECTION:
-				if(nowMap_npc[Math.floor(charY/UNIT)][Math.floor(charX/UNIT)] > 100) {
+				if(nowMap_npc[Math.ceil(myPlayer.y/UNIT)][Math.ceil(myPlayer.x/UNIT)] > 100) {
 					isNpcDetected = true;
 				}
 				break;
@@ -254,51 +276,53 @@ function npcDetection() {
 
 function move() {
 	if(upPressed == true) {
-		charY -= collisionDetection() ? 0 : MOVE_U;
-		charDirection = NORTH_DIRECTION;
+		myPlayer.y -= collisionDetection() ? 0 : MOVE_U;
+		myPlayer.direction = NORTH_DIRECTION;
 	}
 
 	if(downPressed == true) {
-		charY += collisionDetection() ? 0 : MOVE_U;
-		charDirection = SOUTH_DIRECTION;
+		myPlayer.y += collisionDetection() ? 0 : MOVE_U;
+		myPlayer.direction = SOUTH_DIRECTION;
 	}
 
 	if(leftPressed == true) {
-		charX -= collisionDetection() ? 0 : MOVE_U;
-		charDirection = WEST_DIRECTION;
+		myPlayer.x -= collisionDetection() ? 0 : MOVE_U;
+		myPlayer.direction = WEST_DIRECTION;
 	}
 
 	if(rightPressed == true) {
-		charX += collisionDetection() ? 0 : MOVE_U;
-		charDirection = EAST_DIRECTION;
+		myPlayer.x += collisionDetection() ? 0 : MOVE_U;
+		myPlayer.direction = EAST_DIRECTION;
 	}
 }
 
 function moveMap(){
 	// map01에서 맵이동
 	// TODO : Need to find obscure location to move next map
-	if( nowMap[Math.ceil(charY / UNIT)][Math.ceil(charX / UNIT)]==99 ){
+	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==99 ){
 		nowMap=map01;
-		charX= (0*UNIT);
-		charY= (0*UNIT);
+		myPlayer.x= (0*UNIT);
+		myPlayer.y= (0*UNIT);
 		currentVillage = nextVillage;
 	}
 }
 
 function draw(){
 
-	var x = 640/2 - charX;
-	var y = 640/2 - charY;
+	var x = MAP_WIDTH/2 - myPlayer.x;
+	var y = MAP_HEIGHT/2 - myPlayer.y;
 	context.drawImage(currentVillage,0,0,1280,1280,x,y,1280,1280);
-	context.drawImage(player, IMG_U*motionIdx, IMG_U*charDirection, IMG_U, IMG_U, 640/2, 640/2, UNIT, UNIT);
+	context.drawImage(myPlayer.img, IMG_U*motionIdx, IMG_U*myPlayer.direction, IMG_U, IMG_U, MAP_WIDTH/2, MAP_HEIGHT/2, UNIT, UNIT);
 
+	
+	
 	if(npcDetection()) {
 		chat.style="block";
 		createDiag( individual[0] );
 	} else {
 		move();
-		console.log(`실제 캐릭터 위치 : (${Math.floor(charX/UNIT)}, ${Math.floor(charY/UNIT)})`);
-	}
+		console.log(`실제 캐릭터 위치 : (${Math.floor(myPlayer.x/UNIT)}, ${Math.floor(myPlayer.y/UNIT)})`);
+	}	
 
 	//  requestAnimationFrame(draw);
 }
