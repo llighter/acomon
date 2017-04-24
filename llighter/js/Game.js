@@ -4,7 +4,7 @@ var context = canvas.getContext("2d");
 
 var map_init = [
     [ 0, 0, 0,  0,  0,  0, 0, 0, 0, 210],
-    [ 202, 203, 204, 0, 0, 0, 0, 0,205,2101],
+    [ 202, 203, 204, 0, 0, 0, 501, 0,205,2101],
     [ 2021, 2031,2041, 0, 0, 0, 0,206, 206,2102],
     [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 211],
     [207, 0,207, 0,207, 0,207, 0,207, 2111],
@@ -171,7 +171,7 @@ var monsterIdx = 0;
 player.src = './img/eagle.png';
 monster.src = './img/mon00.png';
 monster2.src = './img/mon01.png';
-currentVillage.src = './img/map_academy.png';
+currentVillage.src = './img/map_academy_v2.png';
 academy.src = './img/map_academy.png';
 village00.src = './img/stage00.png';
 village01.src = './img/stage01.png';
@@ -210,6 +210,7 @@ var myPlayer = new Player('player01', 'yunha', UNIT*4 ,UNIT*2, player, EAST_DIRE
 var mapList = [];
 var monsterList = {};
 
+// Not Yet used...
 mapList.push(new Map('00', academy, 640, 640, map_init));
 mapList.push(new Map('01', village00, 1280, 1280, map00));
 mapList.push(new Map('02', village01, 1280, 1280, map01));
@@ -233,6 +234,15 @@ var spacePressed = false;
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("keydown", keyDownHandler, false);
 
+document.addEventListener('keyup', (event) => {
+  if (event.keyCode === 32) {
+    if(npcDetection() == 501) {
+		chat.style="block";
+		createDiag( temp[0] );
+	}
+  }
+}, false);
+
 function keyDownHandler(e) {
 	switch(e.keyCode) {
 		case ARROW_LEFT:
@@ -246,9 +256,6 @@ function keyDownHandler(e) {
 			break;
 		case ARROW_DOWN:
 			downPressed = true;
-			break;
-		case SPACE_BAR:
-			spacePressed = true;
 			break;
 	}
 }
@@ -266,9 +273,6 @@ function keyUpHandler(e) {
 			break;
 		case ARROW_DOWN:
 			downPressed = false;
-			break;
-		case SPACE_BAR:
-			spacePressed = false;
 			break;
 	}
 }
@@ -314,23 +318,12 @@ function collisionDetection() {
 }
 
 function npcDetection() {
-	let isNpcDetected = false;
-
-	if(spacePressed == true) {
-		switch(myPlayer.direction) {
-			// TODO : add detail detection logic
-			case NORTH_DIRECTION:
-			case SOUTH_DIRECTION:
-			case WEST_DIRECTION:
-			case EAST_DIRECTION:
-				if(nowMap_npc[Math.ceil(myPlayer.y/UNIT)][Math.ceil(myPlayer.x/UNIT)] > 100) {
-					isNpcDetected = true;
-				}
-				break;
-		}
+	let npcId = -1;
+	if(nowMap[Math.ceil(myPlayer.y/UNIT)-1][Math.ceil(myPlayer.x/UNIT)] == 501) {
+		npcId = 501;
 	}
 
-	return isNpcDetected;
+	return npcId;
 }
 
 function move() {
@@ -356,8 +349,6 @@ function move() {
 }
 
 function moveMap(){
-	// map01에서 맵이동
-	// TODO : Need to find obscure location to move next map
 
 	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==90 ){
 		nowMap=map00;
@@ -416,38 +407,31 @@ function draw(){
 	context.drawImage(currentVillage,0,0,1280,1280,x,y,1280,1280);
 	context.drawImage(myPlayer.img, IMG_U*motionIdx, IMG_U*myPlayer.direction, IMG_U, IMG_U, MAP_WIDTH/2, MAP_HEIGHT/2, UNIT, UNIT);
 
-	
-	
-	if(npcDetection()) {
-		chat.style="block";
-		createDiag( temp[0] );
-	} else {
-		move();
-		console.log(`실제 캐릭터 위치 : (${Math.floor(myPlayer.x/UNIT)}, ${Math.floor(myPlayer.y/UNIT)})`);
-	}	
-
+	move();
+	console.log(`실제 캐릭터 위치 : (${Math.floor(myPlayer.x/UNIT)}, ${Math.floor(myPlayer.y/UNIT)})`);
 	//  requestAnimationFrame(draw);
 }
 
 
-var init_talk = ['Acorn 아카데미에 온 것을 환영하네..', '자네는 이제 개발자가 되기 위한 모험을 떠날 걸세', '내가 자그마한 도움을 주려하는데 받아 주겠나?'];
+var init_talk = ['Acorn 아카데미에 온 것을 환영하네.. 자네는 이제 개발자가 되기 위한 모험을 떠날 걸세 내가 자그마한 도움을 주려하는데 받아 주겠나?'];
 var temp = [];
 
 for(var idx = 0; idx < init_talk.length; idx++) {
 	temp[idx] = init_talk[idx].split('');
+	console.log(temp[idx]);
 }
 
-// npc 대화 정의. 임의로 박사님(강사님), 상점, 던전1 미션주는npc, 던전2, 던전3, 짱짱보스jquery몬
-var talk = ['짱짱개발자가 되서 돌아와라!', '상점입니다.', 'h1몬 5마리 잡아오세요', 'div몬 10마리 잡아와라', '뒤지기시름 table몬5마리 잡아와라', '안녕? 난짱짱강한 최종보스 jquery몬이라고 한다!'];
+// // npc 대화 정의. 임의로 박사님(강사님), 상점, 던전1 미션주는npc, 던전2, 던전3, 짱짱보스jquery몬
+// var talk = ['짱짱개발자가 되서 돌아와라!', '상점입니다.', 'h1몬 5마리 잡아오세요', 'div몬 10마리 잡아와라', '뒤지기시름 table몬5마리 잡아와라', '안녕? 난짱짱강한 최종보스 jquery몬이라고 한다!'];
 
-// 대화 한단어로 분할한 것 배열 정의
-var individual=[];
+// // 대화 한단어로 분할한 것 배열 정의
+// var individual=[];
 
-// for문으로 각 npc별 대화를 모조리 한단어씩 쪼개버림.
-// 강사님은 index 0, 상점 index 1, 던전1미션 index2, 던전2미션 index3, 던전3미션 index4, 최종보스 index5
-for(z=0; z<talk.length; z++){
-	individual[z] = talk[z].split('');
-};
+// // for문으로 각 npc별 대화를 모조리 한단어씩 쪼개버림.
+// // 강사님은 index 0, 상점 index 1, 던전1미션 index2, 던전2미션 index3, 던전3미션 index4, 최종보스 index5
+// for(z=0; z<talk.length; z++){
+// 	individual[z] = talk[z].split(' ');
+// };
 
 // dialog창에 text 출력
 function createDiag ( dialog ) {
@@ -458,12 +442,17 @@ function createDiag ( dialog ) {
 				$('#dialog').text($('#dialog').text()+dialog[k]);
 			}, 50*k);
 		}(k));
-	}
-	
+	}	
+	setTimeout(function(){
+		$('#dialog').html("");
+      	chat.style.display="none";  
+	}, 50*k);
+
 }
 
 var runMap = setInterval(function fps(){
 	context.clearRect(0, 0, canvas.width, canvas.height);
+	
 	draw();
 	moveMap();
 }, 51);
