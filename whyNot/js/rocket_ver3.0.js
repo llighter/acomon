@@ -24,7 +24,7 @@ function hpDown(){
 		else if(viewHp<25) hpColor = "red";
 		$('.whyAllyBarHp').css({width:viewHp+"%"});
 		$('.whyAllyBarHp').css("background", hpColor);
-			console.log("hp"+attackPoint+"감소"+hpColor);
+			console.log("code:whyNot hp"+attackPoint+"감소"+hpColor);
 		
 			// 공격이펙트 함수
 		
@@ -42,7 +42,6 @@ function hpDown(){
 			}
 			if(blinkCount==11){
 				clearInterval(yBlink)
-				console.log("모든 애니메이션 끝2");
 			}
 		},250);
 	}
@@ -113,15 +112,16 @@ function ykeyRokect(event){
     }
 	else if(event.keyCode == 40){
 		yDownPressed();
-
     }
     if(event.keyCode == 37){
-    	yLeftPressed();
+    //	yLeftPressed();
+    	hpDown();
     }
     else if(event.keyCode == 39){
-    	yRightPressed();
+    //	yRightPressed();
+    	hpUp();    	
     }
-    if(event.keyCode == 65){ 	//a키 : 메뉴키
+    else if(event.keyCode == 65){ 	//a키 : 메뉴키
     	yAkeyPressed();
     }
     else if(event.keyCode == 90){ //z키 : 확인키
@@ -557,7 +557,7 @@ function turnEnd(){
 		$('.whyAllMap').css('z-index','20');
 		$('.whyMenubox').css('z-index','30');
 		$('.whyTextbox').css('z-index','30');
-		yLocClassFun("whyAllMap");
+		yLocClassFun("whyMenu");
 	}
 	else if(yPreView == '.whyBattle'){
 		$('.whyBattle').css('z-index','20');
