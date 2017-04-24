@@ -164,11 +164,11 @@ mon_zone04.src='tileImage01.png'; //54
 rock.src='tileImage.png';
 player.src='mon01.png';
 
-var mapX=0; // ¸ÊÁÂÇ¥
+var mapX=0; // ë§µì¢Œí‘œ
 var mapY=0;
-var charX=640; // Ä³¸¯ÁÂÇ¥
+var charX=640; // ìºë¦­ì¢Œí‘œ
 var charY=640;
-var charPos = 3; // Ä³¸¯ÅÍ¹æÇâ
+var charPos = 3; // ìºë¦­í„°ë°©í–¥
 var nowMap=map00;
 
 
@@ -191,7 +191,7 @@ function key(){
    }
    if(event.keyCode==39){
       if( nowMap[(charY/64)][((charX+64)/64)]>=100 || (charX>=1216) ){
-         // ¸·ÇûÀ»¶§ ÀÌÆÑÆ®(Áøµ¿?)
+         // ë§‰í˜”ì„ë•Œ ì´íŒ©íŠ¸(ì§„ë™?)
          charPos=2;
       }else{
          charX+=64;
@@ -247,7 +247,7 @@ function drawMap(){
    
    for(var i=0 ; i < nowMap.length ; i++){
       for(var j=0 ; j < nowMap[i].length ; j++){
-		// ¸Ê00
+		// ë§µ00
         if(nowMap[i][j]== 0 ){
            context.drawImage(tile00, 0, 32, 64, 64, mapX, mapY, 64, 64);
         }
@@ -258,7 +258,7 @@ function drawMap(){
            context.drawImage(rock, 192, 32, 64, 64, mapX, mapY, 64, 64);
         }
         
-        // ¸Ê01
+        // ë§µ01
         if(nowMap[i][j]==3 ){
             context.drawImage(tile03, 0, 128, 64, 64, mapX, mapY, 64, 64);
         }
@@ -272,7 +272,7 @@ function drawMap(){
             context.drawImage(tile06, 192, 224, 64, 64, mapX, mapY, 64, 64);
         }
         
-        // ¸Ê02
+        // ë§µ02
         if(nowMap[i][j]==7){
             context.drawImage(tile07, 192, 320, 64, 64, mapX, mapY, 64, 64);
         }
@@ -288,7 +288,7 @@ function drawMap(){
       mapX=0;
       mapY+=64;
    }
-   // À§¿¡ ±×·ÁÁö´Â °Ç¹°µî
+   // ìœ„ì— ê·¸ë ¤ì§€ëŠ” ê±´ë¬¼ë“±
    mapX=0;
    mapY=0;
    for(var k=0 ; k < nowMap.length ; k++){
