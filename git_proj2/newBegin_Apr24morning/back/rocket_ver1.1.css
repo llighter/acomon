@@ -1,0 +1,201 @@
+body{display:block;}
+body{box-sizing:border-box;}
+*, *:after, *:before{box-sizing:inherit;}
+
+*{margin:0; padding:0;}
+
+.whyContain:after,
+.whyContain:before{content:"";display:table;clear:both;}
+
+
+/* 16*16(한칸 40px) */
+
+.whyMainBox{
+	width:640px;
+	height:640px;
+	background:#f2f2f2;
+}
+.whyAllbox{
+	display:none;
+	height:100%;
+	height:640px;
+	background:gold;
+	padding:3px;
+}
+.whyTopbox{
+	height:74.999%;
+	height:480px;
+	background:darkblue;
+	padding:3px;
+}
+.whyBtmbox{
+	height:24.999%;
+	height:160px;
+	background:darkgreen;
+	padding:10px;
+}
+
+/*	전투화면 화면창 시작 */
+.whyTopBattle{
+	display:none;
+	height:100%;
+	color:white;
+}
+.whyTbDiv{
+	display:inline-block;
+	float:left;
+	width:49.999%;
+	height:100%;
+}
+.whyTbHp{
+	height:29.999%;
+	font-size:20px;
+}
+.whyTbImg{
+	height:69.999%;
+	font-size:60px;
+}
+.whyTbEnemyhp{
+	background:darkred;
+}
+.whyTbAllyimg{
+	background:darkblue;
+}
+.whyTbEnemyimg{
+	background:darkred;
+}
+.whyTbAllyhp{
+	background:darkblue;
+}
+/*	전투 화면창 끝*/
+
+/*	상단 맵 화면창 */
+.whyTopMap{
+	height:100%;
+	background:darkgrey;
+}
+
+/*	하단 전투화면 커멘드창 시작 */
+.whyBtmCommand{
+	height:100%;
+	background:grey;
+	padding:3px;
+	display:none;
+}
+.whyBcListbox{
+	height:100%;
+	background:black;
+	padding:3px;
+}
+.whyBcList{
+	height:24.99%;
+	background:black;
+	color:gold;	
+}
+.whyBcSkillbox{
+	display:none;
+	height:100%;
+	background:black;
+	color:gold;
+}
+.whyBcSkill{
+	height:24.99%;
+}
+/*
+.whyBcSkill:NTH-CHILD(1){
+	background:darkred;
+}
+.whyBcSkill:NTH-CHILD(2){
+	background:darkblue;	
+}
+.whyBcSkill:NTH-CHILD(3){
+	background:darkgreen;
+}
+.whyBcSkill:NTH-CHILD(4){
+	background:darkorange;	
+}
+*/
+.whyBcAcomonbox{
+	display:none;
+	height:100%;
+	background:black;
+	color:gold;
+}
+.whyBcItembox{
+	display:none;
+	height:100%;
+	background:black;
+	color:gold;
+}
+.whyBcAcomon{
+	height:16.666%;
+}
+/*
+.whyBcAcomon:NTH-CHILD(3n+1){
+	background:darkred;
+}
+.whyBcAcomon:NTH-CHILD(3n+2){
+	background:darkblue;	
+}
+.whyBcAcomon:NTH-CHILD(3+0){
+	background:darkgreen;
+}
+*/
+.whyBcItem{
+	height:24.99%;
+}
+/*
+.whyBcItem:NTH-CHILD(1){
+	background:darkred;
+}
+.whyBcItem:NTH-CHILD(2){
+	background:darkblue;	
+}
+.whyBcItem:NTH-CHILD(3){
+	background:darkgreen;
+}
+.whyBcItem:NTH-CHILD(4){
+	background:darkorange;	
+}
+*/
+.whyBcRun{
+	display:none;
+	height:100%;
+	background:black;
+	color:gold;
+}
+/*	하단 전투화면 커멘드창 끝 */
+
+/*	하단 대화창 시작 */
+.whyBtmTextbox{
+	height:100%;
+	background:grey;
+	padding:10px;
+}
+.whyBtTalk{
+	float:left;
+	width:calc(99.999% - 40px);
+	height:100%;
+	background:#3e3e3e;
+	color:gold;
+}
+.whyBtSkip{
+	float:left;
+	width:40px;
+	height:100%;
+	background:black;
+	color:gold;
+}
+/*	하단 대화창 끝 */
+
+#whyMouse{
+	display:inline-block;
+	position:absolute;
+	top:50px;
+	z-index:12;
+	background:black;
+	color:white;
+	opacity:0.5
+}
+
+*{border: 1px dotted red;}
