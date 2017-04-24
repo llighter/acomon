@@ -149,10 +149,8 @@ const MAP_STONE = 101;
 const MAP_SAND = 3;
 const MAP_SANDROAD01 = 4;
 const MAP_SANDSTONE = 102;
-
 const MAP_NPC_MON = 200;
 const MAP_NPC_MON2 = 201;
-
 
 var player = new Image();
 var monster = new Image();
@@ -208,6 +206,7 @@ function Map(id, img, width, height, mappingArray) {
 }
 
 var myPlayer = new Player('player01', 'yunha', UNIT*4 ,UNIT*2, player, EAST_DIRECTION);
+
 var mapList = [];
 var monsterList = {};
 
@@ -421,7 +420,7 @@ function draw(){
 	
 	if(npcDetection()) {
 		chat.style="block";
-		createDiag( individual[0] );
+		createDiag( temp[0] );
 	} else {
 		move();
 		console.log(`실제 캐릭터 위치 : (${Math.floor(myPlayer.x/UNIT)}, ${Math.floor(myPlayer.y/UNIT)})`);
@@ -430,6 +429,13 @@ function draw(){
 	//  requestAnimationFrame(draw);
 }
 
+
+var init_talk = ['Acorn 아카데미에 온 것을 환영하네..', '자네는 이제 개발자가 되기 위한 모험을 떠날 걸세', '내가 자그마한 도움을 주려하는데 받아 주겠나?'];
+var temp = [];
+
+for(var idx = 0; idx < init_talk.length; idx++) {
+	temp[idx] = init_talk[idx].split('');
+}
 
 // npc 대화 정의. 임의로 박사님(강사님), 상점, 던전1 미션주는npc, 던전2, 던전3, 짱짱보스jquery몬
 var talk = ['짱짱개발자가 되서 돌아와라!', '상점입니다.', 'h1몬 5마리 잡아오세요', 'div몬 10마리 잡아와라', '뒤지기시름 table몬5마리 잡아와라', '안녕? 난짱짱강한 최종보스 jquery몬이라고 한다!'];
