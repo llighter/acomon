@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+'use strict';
+
+// document.addEventListener('keydown', (event) => {
+//   const keyName = event.key;
+
+//   if (keyName === 'Control') {
+//     // not alert when only Control key is pressed.
+//     return;
+//   }
+
+//   if (event.ctrlKey) {
+//     // Even though event.key is not 'Control' (i.e. 'a' is pressed),
+//     // event.ctrlKey may be true if Ctrl key is pressed at the time.
+//     alert(`Combination of ctrlKey + ${keyName}`);
+//   } else {
+//     alert(`Key pressed ${keyName}`);
+//   }
+// }, false);
+
+document.addEventListener('keyup', (event) => {
+//   const keyName = event.key;
+
+  // As the user release the Ctrl key, the key is no longer active.
+  // So event.ctrlKey is false.
+  if (event.keyCode === 32) {
+    alert('Space key was released');
+  }
+}, false);
+
+</script>
+</head>
+
+<body>
+</body>
+</html>
