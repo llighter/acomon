@@ -202,6 +202,9 @@ var nowMap = mapList[0].mappingArray;
 var chat=document.getElementById("dialog");
 var option=document.getElementById("option");
 
+// 현재 모드 (0 : 맵, 1 : 대전)
+var currentMode = 0;
+
 var upPressed = false;
 var downPressed = false;
 var leftPressed = false;
@@ -455,9 +458,8 @@ function draw(){
 		context.textAlign = "center";
 		context.fillText(battleCountDown, MAP_WIDTH/2, MAP_HEIGHT/2);
 	} else if(onPokemonZone && battleCountDown < 0) {
-		alert("Battle Begin");
-		clearInterval(runMap);
-		// TODO : 배틀팀 합치기
+		// 현재 모드 전투 모드로 변경
+		currentMode = 1;
 	}
 	
 
@@ -525,12 +527,25 @@ function clearDiag() {
 	option.style.display="none"
 }
 
-var runMap = setInterval(function fps(){
+var update = setInterval(function fps(){
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	
-	draw();
-	moveMap();
-	pokemonDetction();
+	if(currentMode == 0) {
+		draw();
+		moveMap();
+		pokemonDetction();
+	} else if(currentMode == 1) {
+		// TODO 대전팀 함칠 부분.
+		// TODO 대전팀 끝낸 다음에 currentMode 값 0으로 초기화 해야한다.
+		// 아래는 가상으로 배틀을 했다고 가정하고 배틀을 끝난 경우 [확인]을 누르면 다시 맵으로 돌아온다.
+		if(confirm("배틀이 끝났습니까?")) {
+			currentMode = 0;
+			battleCountDown = 4;
+		} else {
+			currentMode = 1;
+		}
+	}
+	
 
 }, 51);
 //  draw();
