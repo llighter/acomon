@@ -102,28 +102,6 @@ var map02=[
 
 	];	
 
-var map00_npc=[
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,200,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-];
 
 const UNIT = 64;
 const IMG_U = 96;
@@ -219,7 +197,6 @@ mapList.push(new Map('04', bossmap, 640, 640, map_boss));
 
 // Current map index
 var nowMap = mapList[0].mappingArray;
-var nowMap_npc = map00_npc;
 
 // dialog창 -yoda-
 var chat=document.getElementById("dialog");
@@ -229,19 +206,15 @@ var downPressed = false;
 var leftPressed = false;
 var rightPressed = false;
 
-var spacePressed = false;
 var textOn=0;
+var onPokemonZone = false;
+var battleCountDown = 3;
+
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("keydown", keyDownHandler, false);
 
 document.addEventListener('keyup', (event) => {
-  if (event.keyCode === 32 && textOn==0) {
-    // if(npcDetection() == 501) {
-	// 	chat.style="block";
-	// 	createDiag( temp[0] );
-	// 	textOn=1;
-	// }
-
+  if (event.keyCode === 32 && textOn == 0) {
 	switch(npcDetection()) {
 		case 501:
 			chat.style="block";
@@ -281,7 +254,6 @@ document.addEventListener('keyup', (event) => {
 
 	}
   } else if(event.keyCode === 49) {
-	  console.log(textOn);
 	  clearDiag();
   }
 }, false);
@@ -381,6 +353,22 @@ function npcDetection() {
 	return npcId;
 }
 
+function pokemonDetction() {
+	var currentValue = nowMap[Math.ceil(myPlayer.y/UNIT)][Math.ceil(myPlayer.x/UNIT)];
+	
+	if(currentValue >= 50 && currentValue < 60) {
+		onPokemonZone = true;
+		// context.font="30px Comic Sans MS";
+		// context.fillStyle = "red";
+		// context.textAlign = "center";
+		// context.fillText(countDown, MAP_WIDTH/2, MAP_HEIGHT/2);
+	} else {
+		onPokemonZone = false;
+	}
+	return currentValue;
+}
+
+
 function move() {
 	if(upPressed == true) {
 		myPlayer.y -= collisionDetection() ? 0 : MOVE_U;
@@ -408,51 +396,48 @@ function moveMap(){
 	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==90 ){
 		nowMap=map00;
 		currentVillage = village00;
-		myPlayer.x= (5*UNIT);
-		myPlayer.y= (6*UNIT);
+		setPosition(5, 6);
 	}
 	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==91 ){
 		nowMap=map_init;
 		currentVillage = academy;
-		myPlayer.x= (5*UNIT);
-		myPlayer.y= (8*UNIT);
+		setPosition(5, 8);
 	}
 	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==99 ){
 		nowMap=map01;
 		currentVillage = village01;
-		myPlayer.x= (1*UNIT);
-		myPlayer.y= (16*UNIT);
+		setPosition(1, 16);
 	}
 	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==98 ){
 		nowMap=map00;
 		currentVillage = village00;
-		myPlayer.x= (18*UNIT);
-		myPlayer.y= (12*UNIT);
+		setPosition(18, 12);
 	}
 	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==97 ){
 		nowMap=map02;
 		currentVillage = village02;
-		myPlayer.x= (3*UNIT);
-		myPlayer.y= (18*UNIT);
+		setPosition(3, 18);
 	}
 	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==96 ){
 		nowMap=map01;
 		currentVillage = village01;
-		myPlayer.x= (13*UNIT);
-		myPlayer.y= (1*UNIT);
+		setPosition(13, 1);
 	}
 	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==95 ){
 		nowMap=map_boss;
 		currentVillage = bossmap;
-		myPlayer.x= (1*UNIT);
-		myPlayer.y= (8*UNIT);
+		setPosition(1, 8);
 	}
 	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==94 ){
 		nowMap=map02;
 		currentVillage = village02;
-		myPlayer.x= (18*UNIT);
-		myPlayer.y= (17*UNIT);
+		setPosition(18, 17);
 	}
+}
+
+function setPosition(x, y) {
+	myPlayer.x = x * UNIT;
+	myPlayer.y = y * UNIT;
 }
 
 function draw(){
@@ -463,6 +448,18 @@ function draw(){
 	context.drawImage(myPlayer.img, IMG_U*motionIdx, IMG_U*myPlayer.direction, IMG_U, IMG_U, MAP_WIDTH/2, MAP_HEIGHT/2, UNIT, UNIT);
 
 	move();
+
+	if(onPokemonZone && battleCountDown >=0) {
+		context.font="30px Comic Sans MS";
+		context.fillStyle = "red";
+		context.textAlign = "center";
+		context.fillText(battleCountDown, MAP_WIDTH/2, MAP_HEIGHT/2);
+	} else if(onPokemonZone && battleCountDown < 0) {
+		alert("Battle Begin");
+		clearInterval(runMap);
+	}
+	
+
 	console.log(`실제 캐릭터 위치 : (${Math.floor(myPlayer.x/UNIT)}, ${Math.floor(myPlayer.y/UNIT)})`);
 	//  requestAnimationFrame(draw);
 }
@@ -505,11 +502,6 @@ function createDiag ( dialog ) {
 			}, 50*k);
 		}(k));
 	}	
-	// setTimeout(function(){
-	// 	$('#dialog').html("");
-    //   	chat.style.display="none";
-    //   	textOn=0;
-	// }, 50*k);
 }
 
 function clearDiag() {
@@ -523,6 +515,7 @@ var runMap = setInterval(function fps(){
 	
 	draw();
 	moveMap();
+	pokemonDetction();
 
 }, 51);
 //  draw();
@@ -534,3 +527,11 @@ setInterval(function motionFps(){
 setInterval(function motionFps(){
 	monsterIdx=(monsterIdx+1) % 4
 }, 3000);
+
+var countDown =  setInterval(function() {
+	if(onPokemonZone == true) {
+		battleCountDown--;
+	} else {
+		battleCountDown = 3;
+	}
+}, 1000)
