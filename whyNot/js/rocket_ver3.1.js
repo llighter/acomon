@@ -1,6 +1,6 @@
-/*ㅁㅁ
- * 집에서....Apr24,2017
- * 			03:21
+/*ㅁㅁzz
+ * 학원에서....Apr25,2017
+ * 			20:30
  * 			dev by JW
  */
 
@@ -473,6 +473,7 @@ function yMyAcomonSelect(){
 	switch (yListCount) {
 	case 1:
 		tagMyMon(yListCount-1);//재현 1번째 포켓몬 // pokemons[0]
+<<<<<<< HEAD
 		yAllyhp();
 		turnEnd();  //실행할 함수에 넣으면됨
 		break;
@@ -494,6 +495,24 @@ function yMyAcomonSelect(){
 	case 5:
 		tagMyMon(yListCount-1);//재현 5번째 포켓몬// pokemons[4]
 		yAllyhp();
+=======
+		turnEnd();  //실행할 함수에 넣으면됨
+		break;
+	case 2:
+		tagMyMon(yListCount-1);//재현 1번째 포켓몬 // pokemons[0]
+		turnEnd();	//실행할 함수에 넣으면됨
+		break;
+	case 3:
+		tagMyMon(yListCount-1);//재현 1번째 포켓몬 // pokemons[0]
+		turnEnd();	//실행할 함수에 넣으면됨
+		break;
+	case 4:
+		tagMyMon(yListCount-1);//재현 1번째 포켓몬 // pokemons[0]
+		turnEnd();	//실행할 함수에 넣으면됨
+		break;
+	case 5:
+		tagMyMon(yListCount-1);//재현 1번째 포켓몬 // pokemons[0]
+>>>>>>> d1e780ba5726add2adb6beb2763027f2019d9474
 		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	case 6:
@@ -557,10 +576,17 @@ function yCmdSkillSelect(){
 	    	yEnemyhp();				//공격 hp시각효과
 		},200)
 		setTimeout(function (){	//방어 턴
+<<<<<<< HEAD
 			propertyBonus();
 	        yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");   
 	        propertyBonusRelease();
 	        enemyTurn();
+=======
+			 propertyBonus();
+			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");	
+			 propertyBonusRelease();
+			enemyTurn();
+>>>>>>> d1e780ba5726add2adb6beb2763027f2019d9474
 			yEnemyAttackEffect();	
 			yAllyhp();		
 		},4000)
@@ -575,9 +601,15 @@ function yCmdSkillSelect(){
 		},200)
 		setTimeout(function (){	//방어 턴
 			propertyBonus();
+<<<<<<< HEAD
 	        yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");   
 	        propertyBonusRelease();
 	        enemyTurn();
+=======
+			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");	
+			 propertyBonusRelease();	
+			enemyTurn();
+>>>>>>> d1e780ba5726add2adb6beb2763027f2019d9474
 			yEnemyAttackEffect();	
 			yAllyhp();		
 		},4000)
@@ -592,8 +624,13 @@ function yCmdSkillSelect(){
 		},200)
 		setTimeout(function (){	//방어 턴
 			propertyBonus();
+<<<<<<< HEAD
 	        yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");   
 	        propertyBonusRelease();
+=======
+			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");	
+			 propertyBonusRelease();		
+>>>>>>> d1e780ba5726add2adb6beb2763027f2019d9474
 			enemyTurn();
 			yEnemyAttackEffect();	
 			yAllyhp();		
@@ -601,6 +638,7 @@ function yCmdSkillSelect(){
 		setTimeout(function (){turnEnd();},7000);  //실행할 함수에 넣으면됨
 		break;
 	case 4:
+<<<<<<< HEAD
 	      setTimeout(function (){      //공격 턴
 	         yTextmsg(myMonid.name+"몬 \""+ skill2Names[myMonid.property]+"\"발동!!");
 	         skillLv2Attack();            //공격 스크립트
@@ -623,6 +661,30 @@ function yCmdSkillSelect(){
 	      },4000)
 	      setTimeout(function (){turnEnd();},7000);  //실행할 함수에 넣으면됨
 	      break;
+=======
+		setTimeout(function (){		//공격 턴
+			yTextmsg(myMonid.name+"몬 \""+ skill2Names[myMonid.property]+"\"발동!!");
+			skillLv2Attack();				//공격 스크립트
+			yAllyAttackEffect();	//공격 시각효과
+	    	yEnemyhp();				//공격 hp시각효과
+		},200)
+		setTimeout(function (){	//방어 턴
+			if(myMonid.property == 0)
+				yTextmsg( myMonid.name+ "이 "+skill2Names[myMonid.property]+" 상태이다.");		
+			else if(myMonid.property == 1)
+				yTextmsg( myMonid.name+ "이 "+skill2Names[myMonid.property]+" 상태이다.");		
+			else if(myMonid.property == 2)
+				yTextmsg( newPokemon.name+ "이 "+skill2Names[myMonid.property]+"상태이다.");		
+			else if(myMonid.property == 3)
+				yTextmsg( newPokemon.name+ "이 "+skill2Names[myMonid.property]+"상태이다.");		
+			else if(myMonid.property == 4)
+				yTextmsg( myMonid.name+ "이 "+skill2Names[myMonid.property]+" 상태이다.");	
+			enemyTurn();
+			yAllyhp();		
+		},4000)
+		setTimeout(function (){turnEnd();},7000);  //실행할 함수에 넣으면됨
+		break;
+>>>>>>> d1e780ba5726add2adb6beb2763027f2019d9474
 	default:
 		break;
 	}
