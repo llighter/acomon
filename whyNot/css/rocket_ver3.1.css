@@ -489,7 +489,7 @@ body{overflow:auto;background:#d2e0d1;}
 		float:left;
 		height:100%;
 		width:20%;
-		background-color:#2b6240;
+		background-color:rgba(0, 0, 0, 0.0)
 	}
 	.whyMyAcomonTag{
 		display:inline-block;
@@ -500,7 +500,7 @@ body{overflow:auto;background:#d2e0d1;}
 		margin:5px 10px 0px 0px;
 		padding:0 0 0 20px;	 
 	}
-		.whyMyAcomonTag{
+		.whyMyAcomonTagText{
 			display:inline-block;
 			float:left;
 			width:25%;
@@ -515,6 +515,12 @@ body{overflow:auto;background:#d2e0d1;}
 		margin:0px 10px 5px 0px;
 		padding:0 0 0 20px;	 
 	}
+		.whyMyAcomonValueText{
+			display:inline-block;
+			float:left;
+			width:25%;
+			height:100%;
+		}
 		.whyMyAcomon:NTH-CHILD(1) .whyMyAcomonImg{
 			background:url("../img/pocketmon01.gif") no-repeat center;
 		}
@@ -529,9 +535,6 @@ body{overflow:auto;background:#d2e0d1;}
 		}
 		.whyMyAcomon:NTH-CHILD(5) .whyMyAcomonImg{
 			background:url("../img/pocketmon05.gif") no-repeat center;
-		}
-		.whyMyAcomon:NTH-CHILD(6) .whyMyAcomonImg{
-			background:url("../img/pocketmon06.gif") no-repeat center;
 		}
 		
 		
