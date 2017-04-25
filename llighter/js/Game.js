@@ -230,15 +230,16 @@ var leftPressed = false;
 var rightPressed = false;
 
 var spacePressed = false;
-
+var textOn=0;
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("keydown", keyDownHandler, false);
 
 document.addEventListener('keyup', (event) => {
-  if (event.keyCode === 32) {
+  if (event.keyCode === 32&& textOn==0) {
     if(npcDetection() == 501) {
 		chat.style="block";
 		createDiag( temp[0] );
+		textOn=1;
 	}
   }
 }, false);
@@ -445,7 +446,8 @@ function createDiag ( dialog ) {
 	}	
 	setTimeout(function(){
 		$('#dialog').html("");
-      	chat.style.display="none";  
+      	chat.style.display="none";
+      	textOn=0;
 	}, 50*k);
 
 }
