@@ -264,6 +264,9 @@ function yMapMenuOff(){
 	$('.whyMenubox').css('z-index','10');
 	$('.whyTextbox').css('z-index','10');
 	yLocClassFun("whyAllMap");
+
+	currentMode = 0;
+	
 }
 
 
