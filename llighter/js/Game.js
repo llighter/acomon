@@ -200,6 +200,7 @@ var nowMap = mapList[0].mappingArray;
 
 // dialog창 -yoda-
 var chat=document.getElementById("dialog");
+var option=document.getElementById("option");
 
 var upPressed = false;
 var downPressed = false;
@@ -208,7 +209,7 @@ var rightPressed = false;
 
 var textOn=0;
 var onPokemonZone = false;
-var battleCountDown = 3;
+var battleCountDown = 4;
 
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("keydown", keyDownHandler, false);
@@ -225,6 +226,7 @@ document.addEventListener('keyup', (event) => {
 			chat.style="block";
 			createDiag( temp[1] );
 			textOn=1;
+			option.style="block";
 			break;
 		case 503:
 			chat.style="block";
@@ -235,6 +237,7 @@ document.addEventListener('keyup', (event) => {
 			chat.style="block";
 			createDiag( temp[3] );
 			textOn=1;
+			option.style="block";
 			break;
 		case 505:
 			chat.style="block";
@@ -245,6 +248,7 @@ document.addEventListener('keyup', (event) => {
 			chat.style="block";
 			createDiag( temp[5] );
 			textOn=1;
+			option.style="block";
 			break;
 		case 507:
 			chat.style="block";
@@ -358,10 +362,6 @@ function pokemonDetction() {
 	
 	if(currentValue >= 50 && currentValue < 60) {
 		onPokemonZone = true;
-		// context.font="30px Comic Sans MS";
-		// context.fillStyle = "red";
-		// context.textAlign = "center";
-		// context.fillText(countDown, MAP_WIDTH/2, MAP_HEIGHT/2);
 	} else {
 		onPokemonZone = false;
 	}
@@ -457,6 +457,7 @@ function draw(){
 	} else if(onPokemonZone && battleCountDown < 0) {
 		alert("Battle Begin");
 		clearInterval(runMap);
+		// TODO : 배틀팀 합치기
 	}
 	
 
@@ -473,6 +474,8 @@ var init_talk = ['Acorn 아카데미에 온 것을 환영하네.. 자네는 이�
 				'아저씨 뭐 줄까?',
 				'여기는 Javascript 마을이네.. 아주 위험하지..',
 				];
+
+var market_talk = '[1] 다음에 올께요..		[2] 몬스터볼 1개 구입		  [3]민트 캔디 1개 구입';
 var temp = [];
 
 for(var idx = 0; idx < init_talk.length; idx++) {
@@ -501,13 +504,25 @@ function createDiag ( dialog ) {
 				$('#dialog').text($('#dialog').text()+dialog[k]);
 			}, 50*k);
 		}(k));
-	}	
+	}
+
+	switch(npcDetection()) {
+		case 502:
+		case 504:
+		case 506:
+			$('#option').text($('#option').text()+market_talk);
+			break;
+	}
+
 }
 
 function clearDiag() {
 	$("#dialog").html("");
 	chat.style.display="none"
 	textOn=0;
+
+	$("#option").html("");
+	option.style.display="none"
 }
 
 var runMap = setInterval(function fps(){
@@ -532,6 +547,6 @@ var countDown =  setInterval(function() {
 	if(onPokemonZone == true) {
 		battleCountDown--;
 	} else {
-		battleCountDown = 3;
+		battleCountDown = 4;
 	}
 }, 1000)

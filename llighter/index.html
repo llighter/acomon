@@ -26,6 +26,19 @@
 				margin:0 auto;
 			}
 
+            #option {
+  				height: 30px;
+				background: red;
+				color: white;
+				font-size: 18px;
+				font-weight: bold;
+				position:relative;
+                z-index: 2;
+				top:-250px;
+				width: 610px;
+				margin:0 auto;
+			}
+
             body {
                 overflow: hidden;
             }
@@ -34,7 +47,10 @@
     <body>
         <!--<canvas id="startVillage" width="1280px" height="640px"></canvas>-->
         <canvas id="village" width="640px" height="640px"></canvas>
-        <div id="dialog" style="display:none"></div>
+        <div>
+            <div id="dialog" style="display:none"></div>
+            <div id="option" style="display:none"></div>
+        </div>
         <script
             src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
