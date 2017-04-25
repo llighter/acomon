@@ -198,7 +198,8 @@ function move() {
 	}
 
 	if(downPressed == true) {
-		charY += collisionDetection() ? 0 : MOVE_U;
+		charY += collisionDetection() ? 0 : MOV
+		E_U;
 		charDirection = SOUTH_DIRECTION;
 	}
 
