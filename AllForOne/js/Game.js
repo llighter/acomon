@@ -238,7 +238,8 @@ document.addEventListener('keyup', (event) => {
 		case 502:
 			chat.style="block";
 			createDiag( temp[1] );
-			textOn=1;
+			textOn=2;
+			// 상점은 2번으로 별 방법을 다했는데 안되서 그냥 상점은 textOn을 2로배정
 			option.style="block";
 			break;
 		case 503:
@@ -249,7 +250,7 @@ document.addEventListener('keyup', (event) => {
 		case 504:
 			chat.style="block";
 			createDiag( temp[3] );
-			textOn=1;
+			textOn=2;
 			option.style="block";
 			break;
 		case 505:
@@ -260,7 +261,7 @@ document.addEventListener('keyup', (event) => {
 		case 506:
 			chat.style="block";
 			createDiag( temp[5] );
-			textOn=1;
+			textOn=2;
 			option.style="block";
 			break;
 		case 507:
@@ -270,12 +271,23 @@ document.addEventListener('keyup', (event) => {
 			break;
 
 	}
-  } else if(event.keyCode === 49) {
+  }else if(event.keyCode === 49) {
 	  clearDiag();
 	  // currentMode값을 0으로 변경(opening에 사용)
 	  currentMode = 0;
-	  $("body").css("background","white");
-	  
+	  $("body").css("background","white");	  
+  }
+// 상점.... 정리가 안되도 그냥 한다 작동이 되니까!
+// mapBattleFunctions.js에서 store()함수 끌고옴
+// *2키-민트 *3키-포켓볼 *4키-치료 *5키-방생 
+  if(textOn==2){
+	  switch(event.keyCode){
+	  case 50: store("mint"); break;
+	  case 51: store("pokeBall"); break;
+	  case 52: store("heal"); break;
+	  case 53: store("makeMonFree"); break;
+		  
+	  }
   }
 }, false);
 
@@ -500,7 +512,7 @@ var init_talk = ['Acorn 아카데미에 온 것을 환영하네.. 자네는 이�
 				'오프닝 멘트입니다 아 귀찮다 귀찮아 워어어어어어엉어엉어어~~~',	// 오프닝멘트
 				];
 
-var market_talk = '[1] 다음에 올께요..		[2] 몬스터볼 1개 구입		  [3]민트 캔디 1개 구입';
+var market_talk = '[1] 다음에 올께요..    [2] 민트 캔디 구입    [3] 몬스터볼 구입   [4] 치료    [5] 몬스터 방생 ';
 var temp = [];
 
 for(var idx = 0; idx < init_talk.length; idx++) {
@@ -576,7 +588,7 @@ var update = setInterval(function fps(){
 		yEventBattle();
 		currentMode = 3;	// 대전 중
 		// clearInterval(update);
-	} else if(currentMode == 4) {
+	} else if(currentMode == 4 && currentMode==2) {
 		draw();
 	}
 	
