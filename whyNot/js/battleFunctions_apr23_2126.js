@@ -1,7 +1,10 @@
+
 /*ㅁㅁ
- * 집에서....Apr24,2017
- * 			03:21
+<!-- 
+ * 학원에서....Apr25,2017
+ * 			17:35
  * 			dev by JB
+ * UTF-8
  * 
  * 금_작업) 
  * 상성(+데미지, -데미지)효과 부여.
@@ -38,6 +41,15 @@
  * 아이템.. 추가?
  * +공격증강. 방어증강?
  * 
+ * ==============================
+ * 연동작업- 
+ * 월) 내 몬스터, 적몬스터 name, lv, hp, att, 등등.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
  * */
 
 var newPokemon = {   // 때려잡을 적 "몬스터 복사본", 몬볼로 잡는것은 세계몬스터 새걸로 가져옴.
@@ -49,7 +61,7 @@ var newPokemon = {   // 때려잡을 적 "몬스터 복사본", 몬볼로 잡는
 		att: worldMon.att, 
 		shield: worldMon.shield, 
 		property: worldMon.property, 
-		status: 0,
+		status: "normal",
 		
 		initHp: worldMon.hp
 		};
@@ -69,9 +81,10 @@ if(noExists){
 }
 */
 
+$(".whyEnemyName").html("["+ newPokemon.name +"] Lv."+ newPokemon.lv );
+$(".whyAllyName").html("["+ myMonid.name +"] Lv."+ myMonid.lv );
 
-
-function propertyBonus(){
+function propertyBonus(){  // 상성 보너스 데미지.
 	var showMsg = "상성이없음.";
 	if((myMonid.property+1)%5 == newPokemon.property){
 		showMsg = "\t newPokemon myMonid.att "
@@ -90,7 +103,7 @@ function propertyBonus(){
 	console.log(showMsg);
 
 }
-function propertyBonusRelease(){
+function propertyBonusRelease(){ // 상성 보너스 데미지 해제 - 안하면 공격할때마다 곱하게됨...
 	var showMsg = "상성이없음.";
 	if((myMonid.property+1)%5 == newPokemon.property){
 		showMsg = "\t newPokemon myMonid.att "
@@ -115,7 +128,8 @@ function enemyRandAtt(){
 	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
 		var enemyRand = Math.floor(Math.random()*2);
 		var criticalAttack02 = Number((newPokemon.att*(1+(Math.random()*0.3 + 0.2))).toFixed(1)); 
-		if(myMonid.status =="reflect"){
+		if(myMonid.status =="reflect"){ 
+			// 상대몬스터 턴 시작전에 상태에따른 공격방식 변화 - 공격반사는 자기자신의 공격함.
 			console.log( myMonid.name + "가 공격반사를 사용했다!!");
 			if(enemyRand == 0){
 				console.log(newPokemon.name+"몬이 공격력 ("+newPokemon.att+"-"+newPokemon.shield+")로공격.");
@@ -128,11 +142,13 @@ function enemyRandAtt(){
 				newPokemon.hp = Number((newPokemon.hp - (criticalAttack02- newPokemon.shield)).toFixed(1));
 				console.log(newPokemon.name + "몬의 체력 "+newPokemon.hp+" 남음.");
 			}
+			//hpDown();
+			$(".whyEnemyTextHp").html("HP: "+ newPokemon.hp + " / Max_HP: "+newPokemon.initHp);
 		}
-		else if(newPokemon.status == "paralyze"){
+		else if(newPokemon.status == "paralyze"){  // 마비는 1턴 휴식.
 			console.log("마비... 이번턴 쉴께요~");
 		}
-		else{
+		else{ // 공격반사, 마비이외에는 평범한 랜덤형식 공격시전.
 			if(enemyRand == 0){
 				console.log(newPokemon.name+"몬이 공격력 ("+newPokemon.att+"-"+myMonid.shield+")로공격.");
 				myMonid.hp = Number((myMonid.hp - (newPokemon.att - myMonid.shield)).toFixed(1));
@@ -144,24 +160,22 @@ function enemyRandAtt(){
 				myMonid.hp = Number((myMonid.hp - (criticalAttack02- myMonid.shield)).toFixed(1));
 				console.log(myMonid.name + "몬의 체력 "+myMonid.hp+" 남음.");
 			}
+			$(".whyAllyTextHp").html("HP: "+ myMonid.hp + " / Max_HP: "+myMonid.initHp);
 		}
 	skillLv2AttackRelease();  // 상대몬스터의 턴이 끝날때마다 부여효과 횟수 차감.
 	}
 }
 
 function tackle(){
-	propertyBonus();
+	propertyBonus();  // 상성데미지 추가.
 	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
 		console.log(myMonid.name+"몬이 공격력 ("+myMonid.att+ "-" + newPokemon.shield +")로공격.");
 		newPokemon.hp = Number((newPokemon.hp - (myMonid.att - newPokemon.shield)).toFixed(1));
 		console.log(newPokemon.name + "몬의 체력 "+newPokemon.hp+" 남음.");
+		$(".whyEnemyTextHp").html("HP: "+ newPokemon.hp + " / Max_HP: "+newPokemon.initHp);
 	}
-	winOrLose();
-	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
-		enemyRandAtt();
-		winOrLose();
-	}
-	propertyBonusRelease();
+	winOrLose();  // 자신/ 상대의 턴이 끝날때마다 hp <=0인지 체크 -> 승리판정
+	propertyBonusRelease();// 상성데미지 해제..
 }
 	
 
@@ -169,17 +183,29 @@ function skillAttack(){
 	propertyBonus();
 	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
 		var criticalAttack01 = Number((myMonid.att*(1+(Math.random()*0.3 + 0.2))).toFixed(1)) ; 
+																	// 스킬1공격은 최소 1.2배~ 최대 1.5배 공격력을 가짐.
+																	// 소수점 한자리수로 string형변화후 넘버화.
 		console.log(myMonid.name+"몬이 스킬 "+skillNames[myMonid.property]+"로공격.");
 		console.log("원래데미지: "+myMonid.att+ " 스킬데미지: "+criticalAttack01 + " 상대방어: "+newPokemon.shield);
 		newPokemon.hp = (newPokemon.hp - (criticalAttack01 - newPokemon.shield)).toFixed(1);
 		console.log(newPokemon.name + "몬의 체력 "+newPokemon.hp+" 남음.");
+		$(".whyEnemyTextHp").html("HP: "+ newPokemon.hp + " / Max_HP: "+newPokemon.initHp);
 	}
 	winOrLose();
-	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
-		enemyRandAtt();
-		winOrLose();
-	}
 	propertyBonusRelease();
+}
+
+function meditation(){  // 명상 체력 +13.
+	var showMsg = "명상을 할수없습니다. \n\t(설명: 명상하면 전체체력보다 많아질경우.)"
+	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
+		if((myMonid.hp +13) < myMonid.initHp){
+		myMonid.hp += 13;
+		showMsg = "체력회복 (+13)!" +myMonid.hp;
+		//hpUp();
+		}
+	}
+	console.log(showMsg);
+	winOrLose();
 }
 
 
@@ -190,34 +216,34 @@ var burning  = 5;
 //var skill2Names = ["reflect","sharpen","paralyze","burn","shieldOn"]; //
 function skillLv2Attack(){
 	var skillMsg = "적정레벨이 아닙니다. 현재레벨: " + myMonid.lv + "/ 요구레벨:2 "; 
-	if( myMonid.lv > 1 /*&& !winOrLoseResult*/){  //### winOrLoseResult 결과값이 안나왓을경우에 진행.
+	if( myMonid.lv > 1 /*&& !winOrLoseResult*/){  //### 레벨 2이상 && winOrLoseResult 결과값이 안나왓을경우에 진행.
 		propertyBonus();
 		switch(myMonid.property){
-		case 0://reflect
+		case 0://reflect -상대몬스터 데미지반사 - 1회.
 			myMonid.status = skill2Names[0];
 			effectTimes =1;
 			skillMsg = myMonid.name+"에게 "+ skill2Names[0]+"를 걸엇다!";
 			break;
-		case 1://sharpen
+		case 1://sharpen -상대몬스터 방어관통.
 			myMonid.status = skill2Names[1];
 			effectTimes =(2 +1);  //### 2+1의미: 처음 해제되고 내 몬스터의 2턴의 공격동안 방어관통이됨.
 			newPokemon.initSh = newPokemon.shield;
 			newPokemon.shield = 0;
 			skillMsg =myMonid.name+"에게 "+ skill2Names[1]+"를 걸엇다!";
 			break;
-		case 2://paralyze
+		case 2://paralyze - 상대몬스터 1회 마비; 공격불가.  // 근데 이거 좀 사긴데...??;;;
 			newPokemon.status = skill2Names[2];
 			effectTimes = (1+1); //## 상대방은 1턴을 그냥 공격 받아야한다.
 			skillMsg =newPokemon.name+"에게 "+ skill2Names[2]+"를 걸엇다!";
 			
 			break;
-		case 3://burn
+		case 3://burn - 화상걸린 상대몬스터가 총 3턴에 걸쳐 1차 화상은 5, 2차는 8, 3차는 11의 가중데미지를 받는다.
 			newPokemon.status = skill2Names[3];
 			effectTimes =(3 +1); //## 화상은 총 3회 공격으로 1차 화상은 5, 2차는 8, 3차는 11의 가중데미지를 준다.
 			skillMsg =newPokemon.name+"에게 "+ skill2Names[3]+"를 걸엇다!";
 			
 			break;
-		case 4://shieldOn
+		case 4://shieldOn  - 스킬쓴 직후 2턴동안 몬스터의 방어력 3배.
 			myMonid.status = skill2Names[4];
 			effectTimes =2;
 			skillMsg =myMonid.name+"에게 "+ skill2Names[4]+"를 걸엇다!";
@@ -230,15 +256,11 @@ function skillLv2Attack(){
 		winOrLose();
 	}  // if - switch case:  END
 	console.log(skillMsg);
-
-	if( myMonid.lv > 1 /*&& !winOrLoseResult*/){  //### winOrLoseResult 결과값이 안나왓을경우에 진행.
-		enemyRandAtt();
-		winOrLose();
-		propertyBonusRelease();
-	}  // if 레벨2조건  END.
+	winOrLose();
+	propertyBonusRelease();
 }  //skillLv2Attack func END
 
-function skillLv2AttackRelease(){
+function skillLv2AttackRelease(){  // 상태이상 효과 해제. 
 	effectTimes--;
 	console.log("효과  " + effectTimes + "번 남음.");
 	if(effectTimes == 0 ){
@@ -247,27 +269,27 @@ function skillLv2AttackRelease(){
 		case "burn":
 			burning  = 5;
 			console.log(newPokemon.name+"의 "+ newPokemon.status +"효과 해제!");
-			newPokemon.status = 0;
+			newPokemon.status = "normal";
 			break;
 		}
 		switch(myMonid.status){	
 		case "reflect":
 			console.log(myMonid.name+"의 "+ myMonid.status +"효과 해제!");
-			myMonid.status = 0;
+			myMonid.status = "normal";
 			break;
 		case "sharpen":
 			newPokemon.shield = newPokemon.initSh;
 			console.log(myMonid.name+"의 "+ myMonid.status +"효과 해제!");
-			myMonid.status = 0;
+			myMonid.status = "normal";
 			break;
 		case "shieldOn":
 			myMonid.shield /= 3;
 			console.log(myMonid.name+"의 "+ myMonid.status +"효과 해제!");
-			myMonid.status = 0;
+			myMonid.status = "normal";
 			break;
 		}
 	} //if(effectTimes <=0) END
-	else if(newPokemon.status == "burn"){
+	else if(newPokemon.status == "burn"){  // 효과횟수가 남은동안에는 화상데미지는 누적됨.
 		console.log( (4-effectTimes) + "차화상: " + burning + "데미지");
 		newPokemon.hp -= burning;
 		console.log("상대 포켓몬 체력: " + newPokemon.hp);
@@ -278,30 +300,11 @@ function skillLv2AttackRelease(){
 	
 } //skillLv2AttackRelease END
 
-
-function meditation(){
-	propertyBonus();
-	var showMsg = "명상을 할수없습니다. \n\t(설명: 명상하면 전체체력보다 많아질경우.)"
-	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
-		if((myMonid.hp +13) < myMonid.initHp){
-		myMonid.hp += 13;
-		showMsg = "체력회복 (+13)!" +myMonid.hp;
-		}
-	}
-	console.log(showMsg);
-	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
-		enemyRandAtt();
-		winOrLose();
-	}
-	propertyBonusRelease();
-}
-
-
-function catchWildMon(){
+function catchWildMon(){  // 몬스터볼 소모해서 상대몬스터를 포획.
 	var showItemMsg = "";
-	var chanceToCatch = Math.random() * 0.2 + 0.6; // 체력비율 60~80% 확률잡기.
-	console.log(newPokemon.hp/newPokemon.initHp +"  ??  " + chanceToCatch);
-	if((newPokemon.hp/newPokemon.initHp) < chanceToCatch){
+	var chanceToCatch = Math.random() * 0.2 + 0.6; // 상대몬스터 체력비율 < 60~80% 확률로 포획.
+//	console.log(newPokemon.hp/newPokemon.initHp +"  ??  " + chanceToCatch);
+	if((newPokemon.hp/newPokemon.initHp) < chanceToCatch){  // 포획에 성공하는경우.
 		pokemons.push(new MyPokemon(
 				pokemons.length,
 				worldMon.id,
@@ -312,11 +315,11 @@ function catchWildMon(){
 				worldMon.att,
 				worldMon.shield,
 				worldMon.property,
-				0  // status =0 // 정상.
+				"normal"  // status ="normal" // 정상.
 				));
 		showItemMsg = "system- 새로운 몬스터 "+worldMon.name+"를 잡앗다!!";
 		winOrLoseResult = true;
-		console.log(pokemons[pokemons.length-1]);
+		console.log(pokemons[pokemons.length-1]);  // 포획한 몬스터, 몬스터북에서 확인.
 		
 		//#### 종원이형: 여기서 전투모드 끝내고 맵으로 전환.
 	}
@@ -327,7 +330,7 @@ function catchWildMon(){
 }
 
 function useItem(item){
-	if(item == "mint"){
+	if(item == "mint"){  // 민트 아이템 소모. 체력+25. 턴소모X. 초기 5개 소유중.
 		var showItemMsg = "사용할수 없습니다 - 설명: 민트먹을시 체력max보다 많습니다.";
 		if(jiwoo.mint ==0){
 			showItemMsg = "system- mint 없다 ㅜㅜ";
@@ -337,11 +340,12 @@ function useItem(item){
 			showItemMsg = myMonid.name+"회복!! 현재체력: "+ myMonid.hp;
 			jiwoo.mint--;
 			showItemMsg += "\nsystem- "+ item +" " + jiwoo.mint + "개 남았습니다.";
+			//hpUp();
 		}
 		console.log(showItemMsg);
 	}
 
-	if(item == "pokeBall"){
+	if(item == "pokeBall"){ // 몬볼아이템 소모해서 포획시도. 턴소모X. 초기 3개 소유중.
 		var showItemMsg = "";
 		if(jiwoo.pokeBall ==0){
 			showItemMsg ="system- pokeBallNo 없다 ㅜㅜ";
@@ -357,12 +361,15 @@ function useItem(item){
 	console.log("jiwoo.mint "+jiwoo.mint +"  jiwoo.pokeBall "+ jiwoo.pokeBall);
 } 
 
-// 내가 소유한 몬스터와 태그하기.
-function tagMyMon(bookNumber){	
+function tagMyMon(bookNumber){	// 내가 소유한 몬스터와 태그하기.
 	if(confirm("태그하시겟습니까?")){
 //		turnMoves(parseInt(obj.getAttribute("id").substr(obj.getAttribute("id").length -2)), window.pokemonNo02);
 		encounter(pokemons[bookNumber].id, worldMon.id); 
 		console.log("너로 정했다!! 나와라~ "+pokemons[bookNumber].name+"!!!!");
+		$(".whyAllyName").html("["+ pokemons[bookNumber].name +"] Lv."+ pokemons[bookNumber].lv );
+		$(".whyAllyTextHp").html("HP: "+ pokemons[bookNumber].hp + " / Max_HP: "+pokemons[bookNumber].initHp);
+
+		
 		// #### 맵팀: 여기서 몬스터태그하면서 화면전환 가능한지...
 	}
 }
@@ -418,8 +425,17 @@ function expUp(){
 }
 
 
+function enemyTurn(){
+	propertyBonus();
+	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
+		enemyRandAtt();
+		winOrLose(); // 자신/ 상대의 턴이 끝날때마다 hp <=0인지 체크 -> 승리판정
+	}
+	propertyBonusRelease();
+}
 
-function runAway(){
+
+function runAway(){  // 도망도망..
 	winOrLoseResult = true;
 	//###### 종원이형: 여기서 escape로 전투화면을 끝내는 화면연출.!!!
 	
