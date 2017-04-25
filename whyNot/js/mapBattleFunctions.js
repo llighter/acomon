@@ -137,10 +137,10 @@ function encounter( randID1 , randID2 ){
 function checkPokemonBook(){  // bookNumber = listCount-1;
 	for(var idx =0; idx< pokemons.length; idx++){
 		$(".whyMyAcomonValue").eq(idx)
-		.html("name: "+ pokemons[idx].name +
-				"&nbsp lv: "+ pokemons[idx].lv +
-				"&nbsp hp: "+ pokemons[idx].hp +
-				"&nbsp status: "+ pokemons[idx].status
+		.html(pokemons[idx].name +
+				", "+ pokemons[idx].lv +
+				", "+ pokemons[idx].hp +
+				", "+ pokemons[idx].status
 		);
 	}
 }

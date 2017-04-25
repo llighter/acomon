@@ -1,6 +1,6 @@
 /*ㅁㅁ
- * 집에서....Apr24,2017
- * 			03:21
+ * 학원에서....Apr25,2017
+ * 			20:30
  * 			dev by JW
  */
 
@@ -471,23 +471,23 @@ function yCmdListSelect(){
 function yMyAcomonSelect(){
 	switch (yListCount) {
 	case 1:
-		checkPokemonBook(yListCount-1);//재현 1번째 포켓몬 // pokemons[0]
+		tagMyMon(yListCount-1);//재현 1번째 포켓몬 // pokemons[0]
 		turnEnd();  //실행할 함수에 넣으면됨
 		break;
 	case 2:
-		checkPokemonBook(yListCount-1);//재현 2번째 포켓몬// pokemons[1]
+		tagMyMon(yListCount-1);//재현 1번째 포켓몬 // pokemons[0]
 		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	case 3:
-		checkPokemonBook(yListCount-1);//재현 3번째 포켓몬// pokemons[2]
+		tagMyMon(yListCount-1);//재현 1번째 포켓몬 // pokemons[0]
 		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	case 4:
-		checkPokemonBook(yListCount-1);//재현 4번째 포켓몬// pokemons[3]
+		tagMyMon(yListCount-1);//재현 1번째 포켓몬 // pokemons[0]
 		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	case 5:
-		checkPokemonBook(yListCount-1);//재현 5번째 포켓몬// pokemons[4]
+		tagMyMon(yListCount-1);//재현 1번째 포켓몬 // pokemons[0]
 		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	case 6:
@@ -550,7 +550,9 @@ function yCmdSkillSelect(){
 	    	yEnemyhp();				//공격 hp시각효과
 		},200)
 		setTimeout(function (){	//방어 턴
-			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");			
+			 propertyBonus();
+			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");	
+			 propertyBonusRelease();
 			enemyTurn();
 			yEnemyAttackEffect();	
 			yAllyhp();		
@@ -565,7 +567,9 @@ function yCmdSkillSelect(){
 	    	yEnemyhp();				//공격 hp시각효과
 		},200)
 		setTimeout(function (){	//방어 턴
-			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");			
+			propertyBonus();
+			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");	
+			 propertyBonusRelease();	
 			enemyTurn();
 			yEnemyAttackEffect();	
 			yAllyhp();		
@@ -580,7 +584,9 @@ function yCmdSkillSelect(){
 			yAllyhp();				//공격 hp시각효과
 		},200)
 		setTimeout(function (){	//방어 턴
-			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");		
+			propertyBonus();
+			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");	
+			 propertyBonusRelease();		
 			enemyTurn();
 			yEnemyAttackEffect();	
 			yAllyhp();		
@@ -595,7 +601,16 @@ function yCmdSkillSelect(){
 	    	yEnemyhp();				//공격 hp시각효과
 		},200)
 		setTimeout(function (){	//방어 턴
-			yTextmsg("적군이 마비상태라 공격이 불가능하다!!");		
+			if(myMonid.property == 0)
+				yTextmsg( myMonid.name+ "이 "+skill2Names[myMonid.property]+" 상태이다.");		
+			else if(myMonid.property == 1)
+				yTextmsg( myMonid.name+ "이 "+skill2Names[myMonid.property]+" 상태이다.");		
+			else if(myMonid.property == 2)
+				yTextmsg( newPokemon.name+ "이 "+skill2Names[myMonid.property]+"상태이다.");		
+			else if(myMonid.property == 3)
+				yTextmsg( newPokemon.name+ "이 "+skill2Names[myMonid.property]+"상태이다.");		
+			else if(myMonid.property == 4)
+				yTextmsg( myMonid.name+ "이 "+skill2Names[myMonid.property]+" 상태이다.");	
 			enemyTurn();
 			yAllyhp();		
 		},4000)
