@@ -472,7 +472,7 @@ function draw(){
 	context.drawImage(currentVillage,0,0,1280,1280,x,y,1280,1280);
 	context.drawImage(myPlayer.img, IMG_U*motionIdx, IMG_U*myPlayer.direction, IMG_U, IMG_U, MAP_WIDTH/2, MAP_HEIGHT/2, UNIT, UNIT);
 
-	move();
+	// move();
 
 	if(onPokemonZone && battleCountDown >=0) {
 		context.font="30px Comic Sans MS";
@@ -569,6 +569,7 @@ var update = setInterval(function fps(){
 	
 	if(currentMode == 0) {
 		draw();
+		move();
 		moveMap();
 		pokemonDetction();
 	} else if(currentMode == 1) {
@@ -576,10 +577,7 @@ var update = setInterval(function fps(){
 		currentMode = 3;	// 대전 중
 		// clearInterval(update);
 	} else if(currentMode == 4) {
-		var x = MAP_WIDTH/2 - myPlayer.x;
-		var y = MAP_HEIGHT/2 - myPlayer.y;
-		context.drawImage(currentVillage,0,0,1280,1280,x,y,1280,1280);
-		context.drawImage(myPlayer.img, IMG_U*motionIdx, IMG_U*myPlayer.direction, IMG_U, IMG_U, MAP_WIDTH/2, MAP_HEIGHT/2, UNIT, UNIT);
+		draw();
 	}
 	
 
