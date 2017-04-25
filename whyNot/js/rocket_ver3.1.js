@@ -25,6 +25,7 @@ function yBlink(imgClass){
 	},250);
 }
 
+yBlink();
 
 //heal effect
 function yAllyHealEffect(){
