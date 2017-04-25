@@ -266,6 +266,8 @@ document.addEventListener('keyup', (event) => {
 	  clearDiag();
 	  // currentMode값을 0으로 변경(opening에 사용)
 	  currentMode = 0;
+	  $("body").css("background","white");
+	  
   }
 }, false);
 
