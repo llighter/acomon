@@ -13,7 +13,7 @@ border:1px solid black;
 
 </head>
 <body onkeydown="javascipt:key();">
-<canvas id="sinCanvas" width="1280px" height="640px"></canvas>
+<canvas id="sinCanvas" width="1280px" height="1280px"></canvas>
 
 <script>
 /**/
@@ -22,41 +22,161 @@ border:1px solid black;
 var canvas = document.getElementById('sinCanvas');
 var context = canvas.getContext('2d');
 
-var map=[
-   [0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0],
-   [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0],
-   [1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0],
-   [0,0,0,0,1,1,0,0,0,0,0,0,0,0,2,2,0,0,0,0],
-   [0,0,0,0,0,1,1,1,0,0,0,0,0,0,2,0,0,0,0,0],
-   [0,0,0,0,0,0,0,1,1,2,2,2,2,2,2,0,0,0,0,0],
-   [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
-   [0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0],
-   [0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1],
-   [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+var map00=[
+	   [154,154,154,154,154,154,154,154,154,154,154,154,154,154,154,154,154,154,154,154],
+	   [154,  0,  0,210,100,100,100,100,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,154],
+	   [154,  0,  0,100,100,100,100,100,  0,  0,  0, 50, 50, 50, 50, 50, 50,  0,  0,154],
+	   [154,  0,  0,100,100,100,100,100,  0,  0,  0, 50, 50, 50, 50, 50, 50,  0,  0,154],
+	   [154,  0,  0,100,100,100,100,100,  0,  0,  0, 50, 50, 50, 50, 50, 50,  0,  0,154],
+	   [154,  0,  0,100,100,100,100,100,  0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,154],
+	   [154,  0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  1,  0,  0,200,100,  0,  0,154],
+	   [154,  0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  1,  0,  0,100,100,155,  0,154],
+	   [154,  0,  0,  0,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  502,  0,  0,154],
+	   [154,  0,  0,  0,  0,  1,  0,  0,  0,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,154],
+	   [154,  0,  0, 50, 50, 50, 50, 50,  0,  1,  1,  0,  0,230,100,  0,  0,  0,  0,154],
+	   [154,  0,  0, 50, 50, 50, 50, 50,  0,  1,  1,  0,  0,100,100,  0,  0,  0,  0,154],
+	   [154,  0,  0, 50, 50, 50, 50, 50,  0,  1,  1,  1,  1,  1,  503,  1,  1,  1,  1, 99],
+	   [154,  0,220,100,  0,  0,  0,  0,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, 99],
+	   [154,  0,100,100,  0,  0,  0,  0,  0,  1,  1,  0,  0,  0,  0,  1,  0,  0,  0,154],
+	   [154,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  0,  0,  0,  0,  1,  0,  0,  0,154],
+	   [154,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 50, 50, 50, 50, 50, 50,154],
+	   [154,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 50, 50, 50, 50, 50, 50,154],
+	   [154,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 50, 50, 50, 50, 50, 50,154],
+	   [154,154,154,154,154,154,154,154,154,154,154,154,154,154,154,154,154,154,154,154]
 
-];
+	];
 
-var grass=new Image();
-var road01=new Image();
+
+var map01=[
+	   [  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,110, 97, 97,110,  3,  3,  3,  3],
+	   [  3,  3,  3,  3,  3,  3,110,110,110,110,110,110,110,  5,  5,110,110,110,110,110],
+	   [ 52, 52, 52,  3,  3,  3,110, 51, 51,  3,  3,  3,  3,  5,  5,  3,  3,  3,  3,110],
+	   [ 52, 52, 52,  3,  3,  3,110, 51, 51,  3,  3,200,100,  5,  5,  3,  3,  3,  3,110],
+	   [ 52, 52, 52,  3,  3,  3,110, 51, 51,  3,  3,100,100,  5,  5,  3,  3,  3,  3,110],
+	   [ 52, 52, 52,  3,  3,  3,110,  3,  3,  3,  3,  3,  504,  5,  5,  3,  3,220,  3,110],
+	   [ 52, 52, 52,  3,  3,  3,110,  3,230,100,  3,  3,  3,  5,  5,  3,  3,  3,  3,110],
+	   [  3,  3,  3,  3,  3,  3,110,  3,100,100,  505,  3,  3,  5,  5,  3,  3,  3,  3,110],
+	   [  3,  3,  3,  3,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  3,  3,  3,  3,110],
+	   [  3,  3,  3,  3,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  3,240,  3,  3,110],
+	   [  3,  3,  3,  3,  5,  3,110,  3,  3,  3,  3,  3,  3,  3,  3,  3,100,  3,  3,110],
+	   [  3,  3,  3,  3,  5,  3,110,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,110],
+	   [  3,  3,  3,  3,  5,  3,110,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,110],
+	   [  3,  3,  3,  3,  5,  3,110,  3, 51, 51, 51, 51, 51,  3,  3,  3, 51, 51, 51,110],
+	   [154,  3,  3,  3,  5,  3,110,  3, 51, 51, 51, 51, 51,  3,  3,  3, 51, 51, 51,110],
+	   [154,154,  3,  3,  5,  3,110,  3, 51, 51, 51, 51, 51,  3,  3,  3, 51, 51, 51,110],
+	   [ 98,  4,  4,  4,  5,  3,110,110,110,110,110,110,110,110,110,  3,110,110,110,110],
+	   [ 98,  4,  4,  4,  4,  3,  3,  3,  3, 52, 52, 52, 52, 52, 52,  3,  3,  3,  3,  3],
+	   [154,154,  3,  3,  3,  3, 52, 52,  3, 52, 52, 52, 52, 52, 52,  3,  3, 52, 52, 52],
+	   [154,154,154,  3,  3,  3, 52, 52,  3,  3,  3,  3,  3,  3,  3,  3,  3, 52, 52, 52]
+
+	];
+	
+	
+var map02=[
+	   [152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152],
+	   [152,230,100,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,156,155,152,152,152,152,152],
+	   [152,100,100,156,  8,  8,  8,  8,  8,  8,  8,  7,  7,  7,  7,  7,  7,  7,  7,152],
+	   [  7,  507,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  7,  7,152],
+	   [  7,  7,  8,  8,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  8,  7,  7,152],
+	   [  7,  7,  8,  8,  7,  7,  7,  7,152,152,  7,  7,  7,  7,  7,  7,  8,  7,  7,152],
+	   [  7,  7,  8,  8, 53, 53, 53, 53,152,152,152,152,152,  7,  7,  7,  8,  7, 54, 54],
+	   [  7,  7,  8,  8, 53, 53, 53,152,152,152,152,152,240,100,100,  7,  8,  7, 54, 54],
+	   [  7,  7,  8,  8, 53, 53, 53,152,152,  7,  7,155,100,100,100,  7,  8,  7, 54, 54],
+	   [  7,  7,  8,  8,152,152,152,152,152,  7,  7,  7,  7,  7,  7,  7,  8,  7, 54, 54],
+	   [  7,  7,  8,  8,152,152,152,152,152, 53, 53,  7,  8,  8,  8,  8,  8,152,152,152],
+	   [  7,  7,  8,  8,152,152,152,152,152, 53, 53,  7,  8,152,152,152,152,152,152,152],
+	   [  7,  7,  8,  8,  8,  7,200,100,152, 53, 53,  7,  8,152,152,152,152,152,152,152],
+	   [  7,  7,  7,  8,  8,  7,100,100,152,  7,  7,  8,  8,152,152,152,152,152,152,152],
+	   [ 53, 53,  7,  8,  8,  8,  8,  506,152,  7,  7,  8,  7, 54, 54, 54, 54,  7,152,152],
+	   [ 53, 53,  7,  8,  8,152,152,152,152,  7,  7,  8,  7, 54, 54, 54, 54,  7,152,152],
+	   [ 53, 53,  7,  8,  8,152,152,  7,220,100,  7,  8,  7,  7,  7,  7,  7,  7,  7,152],
+	   [ 53, 53,  7,  8,  8,152,152,  7,100,100,  7,  8,  8,  8,  8,  8,  8,  8,  8, 95],
+	   [ 53, 53,  7,  8,  8,152,152,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  8, 95],
+	   [152,152,152, 96, 96,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152]
+
+	];	
+	
+
+var tile00=new Image();
+var tile01=new Image();
+var tile02=new Image();
+var tile03=new Image();
+var tile04=new Image();
+var tile05=new Image();
+var tile06=new Image();
+var tile07=new Image();
+var tile08=new Image();
+var tile110=new Image();
+var tree01=new Image();
+var tree02=new Image();
+var tree03=new Image();
+var tree04=new Image();
+var tree05=new Image();
+var tree06=new Image();
+var mart00=new Image();
+var tower00=new Image();
+var house00=new Image();
+var center00=new Image();
+var gym00=new Image();
+var mon_zone00=new Image();
+var mon_zone01=new Image();
+var mon_zone02=new Image();
+var mon_zone03=new Image();
+var mon_zone04=new Image();
+
+
+
+
 var rock=new Image();
 var player = new Image();
+var npc = new Image();
 
 
-grass.src='tileImage.png';
-road01.src='tileImage.png';
+tile00.src='tileImage.png';
+tile01.src='tileImage.png';
+tile02.src='tileImage.png';
+tile03.src='tileImage.png';
+tile04.src='tileImage.png';
+tile05.src='tileImage.png';
+tile06.src='tileImage.png';
+tile07.src='tileImage01.png';
+tile08.src='tileImage.png';
+tile110.src='tileImage01.png';
+tree01.src='tree01.png'; //151
+tree02.src='tree02.png';
+tree03.src='tree03.png';
+tree04.src='tree04.png';
+tree05.src='tree05.png';
+tree06.src='tree06.png'; //156
+mart00.src='tileImage03.png'; //200
+tower00.src='tileImage03.png'; //210
+house00.src='tileImage03.png'; //220
+center00.src='tileImage03.png'; //230
+gym00.src='tileImage03.png'; //240
+mon_zone00.src='tileImage01.png'; //50
+mon_zone01.src='tileImage01.png'; //51
+mon_zone02.src='tileImage01.png'; //52
+mon_zone03.src='tileImage.png'; //53
+mon_zone04.src='tileImage01.png'; //54
+npc.src='npc.png';
+
+
+
+
 rock.src='tileImage.png';
 player.src='mon01.png';
 
-var mapX=0; // ����ǥ
+var mapX=0; // 筌���占쏙옙占�
 var mapY=0;
-var charX=0; // ĳ����ǥ
-var charY=0;
-var charPos = 3; // ĳ���͹���
+var charX=640; // 筌�占썹�깍옙�ワ옙占쏙옙
+var charY=640;
+var charPos = 3; // 筌�占썹�깍옙占쎄�媛�占쏙옙
+var nowMap=map00;
 
 
 function key(){
    if(event.keyCode==37){
-      if( map[(charY/64)][((charX-64)/64)]==2 || (charX<=0) ){
+      if( nowMap[(charY/64)][((charX-64)/64)]>=100 || (charX<=0) ){
          charPos=0;
       }else{
          charX-=64;
@@ -64,7 +184,7 @@ function key(){
       }
    }
    if(event.keyCode==38){
-      if( map[((charY-64)/64)][(charX/64)]==2 || (charY<=0) ){
+      if( nowMap[((charY-64)/64)][(charX/64)]>=100 || (charY<=0) ){
          charPos=1;
       }else{
          charY-=64;
@@ -72,8 +192,8 @@ function key(){
       }
    }
    if(event.keyCode==39){
-      if( map[(charY/64)][((charX+64)/64)]==2 || (charX>=1216) ){
-         // �������� ����Ʈ(����?)
+      if( nowMap[(charY/64)][((charX+64)/64)]>=100 || (charX>=1216) ){
+         // 筌�占쏙옙占쏙옙占쏙옙占� 占쎈��占썩�븝옙占�(筌�占쏙옙占�?)
          charPos=2;
       }else{
          charX+=64;
@@ -81,15 +201,42 @@ function key(){
       }
    }
    if(event.keyCode==40){
-      if( (charY>=576) || map[((charY+64)/64)][(charX/64)]==2 ){
+      if( (charY>=1216) || nowMap[((charY+64)/64)][(charX/64)]>=100 ){
          charPos=3;
       }else{
          charY+=64;
          charPos=3;
       }
    }
-   
+   console.log((charX/64) +" "+ (charY/64));
 
+   if(nowMap[charY/64][charX/64] == 99){
+	   nowMap = map01;
+	   charX=64*1;
+	   charY=64*16;	   
+   }
+   if(nowMap[charY/64][charX/64] == 98){
+	   nowMap = map00;
+	   charX=64*18;
+	   charY=64*12;
+   }
+   if(nowMap[charY/64][charX/64] == 97){
+	   nowMap = map02;
+	   charX=64*3;
+	   charY=64*18;
+   }
+   if(nowMap[charY/64][charX/64] == 96){
+	   nowMap = map01;
+	   charX=64*13;
+	   charY=64*1;
+   }
+   if(nowMap[charY/64][charX/64] == 95){
+	   nowMap = map03;
+	   charX=64*1;
+	   charY=64*1;
+   }
+   
+   
 
    
 }
@@ -100,29 +247,171 @@ function drawMap(){
    mapX=0;
    mapY=0;
    
-   for(var i=0 ; i < map.length ; i++){
-      for(var j=0 ; j < map[i].length ; j++){
-      
-         if(map[i][j]==0){
-            context.drawImage(grass, 0, 32, 64, 64, mapX, mapY, 64, 64);
-         }
-         if(map[i][j]==1){
-            context.drawImage(road01, 64, 32, 64, 64, mapX, mapY, 64, 64);
-         }
-         if(map[i][j]==2){
-            context.drawImage(rock, 192, 32, 64, 64, mapX, mapY, 64, 64);
-         }
+   for(var i=0 ; i < nowMap.length ; i++){
+      for(var j=0 ; j < nowMap[i].length ; j++){
+		// 筌�占�00
+        if(nowMap[i][j]== 0 ){
+           context.drawImage(tile00, 0, 32, 64, 64, mapX, mapY, 64, 64);
+        }
+        if(nowMap[i][j]==1){
+           context.drawImage(tile01, 64, 32, 64, 64, mapX, mapY, 64, 64);
+        }
+        if(nowMap[i][j]==30){
+           context.drawImage(rock, 192, 32, 64, 64, mapX, mapY, 64, 64);
+        }
+        
+        // 筌�占�01
+        if(nowMap[i][j]==3 ){
+            context.drawImage(tile03, 0, 128, 64, 64, mapX, mapY, 64, 64);
+        }
+        if(nowMap[i][j]==4){
+            context.drawImage(tile04, 64, 128, 64, 64, mapX, mapY, 64, 64);
+        }
+        if(nowMap[i][j]==5){
+            context.drawImage(tile05, 128, 128, 64, 64, mapX, mapY, 64, 64);
+        }
+        if(nowMap[i][j]==6){
+            context.drawImage(tile06, 192, 224, 64, 64, mapX, mapY, 64, 64);
+        }
+        
+        // 筌�占�02
+        if(nowMap[i][j]==7){
+            context.drawImage(tile07, 192, 320, 64, 64, mapX, mapY, 64, 64);
+        }
+        if(nowMap[i][j]==8){
+            context.drawImage(tile08, 128, 320, 64, 64, mapX, mapY, 64, 64);
+        }
+         
+         
+         
+         
          mapX+=64;
       }
       mapX=0;
       mapY+=64;
    }
+   // 占쏙옙占쏙옙 域밸�占썬�쇽옙占쏙옙 椰���窺占쏙옙
+   mapX=0;
+   mapY=0;
+   for(var k=0 ; k < nowMap.length ; k++){
+	      for(var l=0 ; l < nowMap[k].length ; l++){
+		     if(nowMap[k][l]==99){
+		    	 context.drawImage(tile01, 64, 32, 64, 64, mapX, mapY, 64, 64);
+		     }
+		     if(nowMap[k][l]==98){
+		    	 context.drawImage(tile04, 64, 128, 64, 64, mapX, mapY, 64, 64);
+		     }
+	         if(nowMap[k][l]==200){
+	        	 context.drawImage(tile00, 0, 32, 64, 64, mapX, mapY, 64, 64);
+	             context.drawImage(mart00, 735, 447, 70, 70, mapX, mapY, 136, 136);
+	         }
+	         if(nowMap[k][l]==210){
+	        	 context.drawImage(tile00, 0, 32, 64, 64, mapX, mapY, 64, 64);
+	             context.drawImage(tower00, 974, 144, 174, 184, mapX, mapY, 340, 340);
+	         }
+	         if(nowMap[k][l]==220){
+	             context.drawImage(house00, 1248, 437, 78, 85, mapX, mapY, 130, 136);
+	         }
+	         if(nowMap[k][l]==230){
+	             context.drawImage(center00, 645, 491, 78, 78, mapX, mapY, 136, 136);
+	         }
+	         if(nowMap[k][l]==231){
+	             context.drawImage(center00, 645, 491, 78, 78, mapX, mapY, 136, 136);
+	         }
+	         if(nowMap[k][l]==240){
+	             context.drawImage(gym00, 814, 455, 124, 92, mapX, mapY, 198, 140);
+	         }
+	         if(nowMap[k][l]==110){
+	             context.drawImage(tile110, 384, 320, 64, 64, mapX, mapY, 64, 64);
+	         }
+	         if(nowMap[k][l]==151){
+	             context.drawImage(tree01, 0, 0, 64, 64, mapX, mapY, 64, 64);
+	         }
+	         if(nowMap[k][l]==152){
+	             context.drawImage(tree02, 0, 0, 64, 64, mapX, mapY, 64, 64);
+	         }
+	         if(nowMap[k][l]==153){
+	             context.drawImage(tree03, 0, 0, 64, 64, mapX, mapY, 64, 64);
+	         }
+	         if(nowMap[k][l]==154){
+	        	 context.drawImage(tile00, 0, 32, 64, 64, mapX, mapY, 64, 64);
+	             context.drawImage(tree04, 0, 0, 64, 64, mapX, mapY, 64, 64);
+	         }
+	         if(nowMap[k][l]==155){
+	             context.drawImage(tree05, 0, 0, 64, 64, mapX, mapY, 64, 64);
+	         }
+	         if(nowMap[k][l]==156){
+	             context.drawImage(tree06, 0, 0, 64, 64, mapX, mapY, 64, 64);
+	         }
+	         if(nowMap[k][l]==50){
+	        	 context.drawImage(tile00, 0, 32, 64, 64, mapX, mapY, 64, 64);
+	             context.drawImage(mon_zone00, 256, 32, 64, 64, mapX, mapY, 64, 64);
+	         }
+	         if(nowMap[k][l]==51){
+	        	 context.drawImage(tile03, 0, 128, 64, 64, mapX, mapY, 64, 64);
+	             context.drawImage(mon_zone01, 256, 128, 64, 64, mapX, mapY, 64, 64);
+	         }
+	         if(nowMap[k][l]==52){
+	        	 context.drawImage(tile03, 0, 128, 64, 64, mapX, mapY, 64, 64);
+	             context.drawImage(mon_zone02, 128, 192, 32, 32, mapX, mapY, 64, 64);
+	         }
+	         if(nowMap[k][l]==53){
+	             context.drawImage(mon_zone03, 256, 320, 64, 64, mapX, mapY, 64, 64);
+	         }
+	         if(nowMap[k][l]==54){
+	             context.drawImage(mon_zone04, 128, 288, 32, 32, mapX, mapY, 64, 64);
+	         }
+	         if(nowMap[k][l]==97){
+	        	 context.drawImage(tile05, 128, 128, 64, 64, mapX, mapY, 64, 64);
+	         }
+	         // 1탄 상점걸
+	         if(nowMap[k][l]==502){
+	        	 context.drawImage(tile00, 0, 32, 64, 64, mapX, mapY, 64, 64);
+	        	 context.drawImage(npc,0,20,72,96,mapX, mapY, 64, 64);
+	         }
+	         // 1탄 맵소개할배
+	         if(nowMap[k][l]==503){
+	        	 context.drawImage(tile01, 64, 32, 64, 64, mapX, mapY, 64, 64);
+	        	 context.drawImage(npc,144,202,72,96,mapX, mapY, 64, 64);
+	         }
+	         // 2탄 상점
+	         if(nowMap[k][l]==504){
+	        	 context.drawImage(tile03, 0, 128, 64, 64, mapX, mapY, 64, 64);
+	        	 context.drawImage(npc,72,400,72,76,mapX, mapY, 64, 64);
+	         }
+	         // 2탄 맵소개 꼬마
+	         if(nowMap[k][l]==505){
+	        	 context.drawImage(tile03, 0, 128, 64, 64, mapX, mapY, 64, 64);
+	        	 context.drawImage(npc,504,400,72,76,mapX, mapY, 64, 64);
+	         }
+	         if(nowMap[k][l]==96){
+	        	 context.drawImage(tile08, 128, 320, 64, 64, mapX, mapY, 64, 64);
+	         }
+	         if(nowMap[k][l]==95){
+	        	 context.drawImage(tile08, 128, 320, 64, 64, mapX, mapY, 64, 64);
+	         }
+	         // 3탄 상점
+	         if(nowMap[k][l]==506){
+	        	 context.drawImage(tile07, 192, 320, 64, 64, mapX, mapY, 64, 64);
+	        	 context.drawImage(npc,0,110,72,85,mapX, mapY, 64, 64);
+	         }
+	         // 3탄 맵소개
+	         if(nowMap[k][l]==507){
+	        	 context.drawImage(tile07, 192, 320, 64, 64, mapX, mapY, 64, 64);
+	        	 context.drawImage(npc,288,30,72,68,mapX, mapY, 64, 64);
+	         }
+	         
+	         mapX+=64;
+	      }
+	      mapX=0;
+	      mapY+=64;
+	}
    
    
    
    
    
-   
+  
    if(charPos==0){
       context.drawImage(player, 0, 64, 64, 64, charX, charY, 64, 64);
    }
