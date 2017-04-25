@@ -250,8 +250,7 @@ quest.push(new QuestList(2, "\"몬스터북에 3마리 이상 소유하시게.\"
 quest.push(new QuestList(3, "\"민트를 3개 가져다 주시게.\" "			,3 , false, "10000골드" )); 
 
 
-var questNow = 0;
-function getQuest(){  //### 맵팀: 퀘스트를 주는 npc
+function getQuest(questNow){  //### 맵팀: 퀘스트를 주는 npc
 	var questShow = "";
 	if(questNow ==1 && quest[1].questNeeds <= 0){  // 퀘스트 1(불속성2마리잡기) 완료할시.
 		questShow = "오호.. 자네 생각보다 쓸만하구만!! 인물이야! 하하하하!!";
@@ -284,7 +283,7 @@ function getQuest(){  //### 맵팀: 퀘스트를 주는 npc
 		questShow += "\n 퀘스트 보상: "+ quest[questNow].reward;
 
 	}
-	console.log(questShow);
+	$('#dialog').html(questShow);
 }
 
 function checkWorldBook(bookNumber){

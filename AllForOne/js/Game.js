@@ -238,36 +238,41 @@ document.addEventListener('keyup', (event) => {
 		case 502:
 			chat.style="block";
 			createDiag( temp[1] );
+			option.style="block";
 			textOn=2;
 			// 상점은 2번으로 별 방법을 다했는데 안되서 그냥 상점은 textOn을 2로배정
-			option.style="block";
+			
 			break;
 		case 503:
 			chat.style="block";
 			createDiag( temp[2] );
-			textOn=1;
+			option.style="block";
+			textOn=3;
+			// 퀘스트는 textOn 3으로
 			break;
 		case 504:
 			chat.style="block";
 			createDiag( temp[3] );
-			textOn=2;
 			option.style="block";
+			textOn=2;
 			break;
 		case 505:
 			chat.style="block";
 			createDiag( temp[4] );
-			textOn=1;
+			option.style="block";
+			textOn=3;
 			break;
 		case 506:
 			chat.style="block";
 			createDiag( temp[5] );
-			textOn=2;
 			option.style="block";
+			textOn=2;
 			break;
 		case 507:
 			chat.style="block";
 			createDiag( temp[6] );
-			textOn=1;
+			option.style="block";
+			textOn=3;
 			break;
 
 	}
@@ -277,6 +282,7 @@ document.addEventListener('keyup', (event) => {
 	  currentMode = 0;
 	  $("body").css("background","white");	  
   }
+//상점은 2번으로 별 방법을 다했는데 안되서 그냥 상점은 textOn을 2로배정  
 // 상점.... 정리가 안되도 그냥 한다 작동이 되니까!
 // mapBattleFunctions.js에서 store()함수 끌고옴
 // *2키-민트 *3키-포켓볼 *4키-치료 *5키-방생 
@@ -288,6 +294,17 @@ document.addEventListener('keyup', (event) => {
 	  case 53: store("makeMonFree"); break;
 		  
 	  }
+  }
+// 퀘스트. textOn=3이고 2번 눌렀을때 퀘스트대화창발생 
+// 퀘스트는 심각한 오류가 있음. 2번키누르면 퀘스트 수락인데 이게 중복으로 계속 발생
+// 예를 들어 스테이지 2퀘스트가 몬스터볼 보상으로 얻는건데 2번키계속누르면 무한으로 얻을수 있음  
+  if(textOn==3 && event.keyCode==50){
+	  switch(npcDetection()){
+	  case 503: getQuest(1); $('#option').html("[1] ㅂㅂ"); break;
+	  case 505: getQuest(2); $('#option').html("[1] ㅂㅂ"); break;
+	  case 507: getQuest(3); $('#option').html("[1] ㅂㅂ"); break;
+	  }
+	  
   }
 }, false);
 
@@ -504,15 +521,17 @@ function draw(){
 
 var init_talk = ['Acorn 아카데미에 온 것을 환영하네.. 자네는 이제 개발자가 되기 위한 모험을 떠날 걸세 내가 바쁜 관계로 지금 바로 출발하게!', 
 				'꼬마야 뭘 사고 싶니?',
-				'여기는 HTML 마을이란다..',
+				'여기는 HTML 마을이란다.. 퀘스트 있는데 할래?',
 				'청년 뭘 사고 싶소?',
-				'여기는 CSS 마을이에요 ㅎㅎ',
+				'여기는 CSS 마을이에요 ㅎㅎ퀘스트 있는데 할래?',
 				'아저씨 뭐 줄까?',
-				'여기는 Javascript 마을이네.. 아주 위험하지..',
+				'여기는 Javascript 마을이네.. 아주 위험하지..퀘스트 있는데 할래?',
 				'오프닝 멘트입니다 아 귀찮다 귀찮아 워어어어어어엉어엉어어~~~',	// 오프닝멘트
 				];
 
 var market_talk = '[1] 다음에 올께요..    [2] 민트 캔디 구입    [3] 몬스터볼 구입   [4] 치료    [5] 몬스터 방생 ';
+// 퀘스트 선택창
+var quest_choice = '[1] ㄴㄴ [2]ㅇㅇ ';
 var temp = [];
 
 for(var idx = 0; idx < init_talk.length; idx++) {
@@ -548,6 +567,11 @@ function createDiag ( dialog ) {
 		case 504:
 		case 506:
 			$('#option').text($('#option').text()+market_talk);
+			break;
+		case 503:
+		case 505:
+		case 507:
+			$('#option').text($('#option').text()+quest_choice);
 			break;
 	}
 
