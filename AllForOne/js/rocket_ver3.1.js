@@ -420,6 +420,9 @@ function yCmdRun(){
 	$('.whyAllMap').css('z-index','20');
 	yLocClassFun("whyAllMap");
 	yPreView = '.whyAllMap';
+
+	currentMode = 0;
+	battleCountDown = 4;
 }
 
 

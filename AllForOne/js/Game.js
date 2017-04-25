@@ -202,7 +202,15 @@ var nowMap = mapList[0].mappingArray;
 var chat=document.getElementById("dialog");
 var option=document.getElementById("option");
 
-// 현재 모드 (0 : 맵, 1 : 대전)
+/**
+ * TODO: 순서 정리 필요 - 오프닝을 앞으로
+ * Mode
+ * 0 : 맵
+ * 1 : 대전 돌입
+ * 2 : 오프닝
+ * 3 : 대전 중
+ * 
+ */
 // 초기값 opening을 위해 2로 조정 opening멘트 끝나면 0으로 변경
 var currentMode = 2;
 
@@ -566,7 +574,8 @@ var update = setInterval(function fps(){
 		// 	currentMode = 1;
 		// }
 		yEventBattle();
-		clearInterval(update);
+		currentMode = 3;	// 대전 중
+		// clearInterval(update);
 	}
 	
 
