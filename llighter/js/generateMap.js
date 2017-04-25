@@ -84,6 +84,12 @@ var monster2 = new Image();
 var sandStone = new Image();
 var sandRoad01 = new Image();
 
+var stage00 = new Image();
+stage00.src = './img/stage02.png';
+
+var npc = new Image();
+npc.src='./img/npc.png';
+
 // Charactor's direction
 var motionIdx = 0;
 
@@ -111,40 +117,65 @@ var charY = 0;
 // Current map index
 var nowMap = map00;
 
+
+console.log(stage00.src);
+
 function draw(){
 	mapX=0;
 	mapY=0;
-	
-	for(var i = 0; i < nowMap.length ; i++){
-		for(var j=0, mapX = 0; j < nowMap[i].length ; j++){
-            switch(nowMap[i][j]) {
-                case MAP_GRASS:
-                    context.drawImage(grass, 0, 32, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
-                    break;
-                case MAP_ROAD01:
-                    context.drawImage(road01, 64, 32, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
-                    break;
-                case MAP_STONE:
-                    context.drawImage(stone, 192, 32, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
-                    break;
-                case MAP_SAND:
-                    context.drawImage(sand, 0, 128, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
-                    break;
-                case MAP_SANDROAD01:
-                    context.drawImage(sandRoad01, 64, 128, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
-                    break;
-                case MAP_SANDSTONE:
-                    context.drawImage(sandStone, 128, 128, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
-                    break;
-            }
-            mapX += UNIT;
-		}
-		mapY += UNIT;
-	}
+	context.drawImage(stage00, 0,0,1280,1280,0,0,1280,1280);
 
-	context.drawImage(monster, 0, 0, MAPIMG_U, MAPIMG_U, UNIT*6, UNIT*2, UNIT, UNIT);
+	// 8, 16 
+	// context.drawImage(npc,0,20,72,96,UNIT*16, UNIT*8, UNIT, UNIT);
+	// context.drawImage(npc,0,20,72,96,mapX, mapY, 64, 64);
+	// 12, 14
+	// context.drawImage(npc,144,202,72,96, UNIT*14, UNIT*12, UNIT, UNIT);
+	// context.drawImage(npc,144,202,72,96,mapX, mapY, 64, 64);
 
-//	 requestAnimationFrame(draw);
+	// 5, 12
+	// context.drawImage(npc,72,400,72,76,UNIT*12, UNIT*5, UNIT, UNIT);
+	// context.drawImage(npc,72,400,72,76,mapX, mapY, 64, 64);
+	// 7, 10
+	// context.drawImage(npc,504,400,72,76,UNIT*10, UNIT*7, UNIT, UNIT);
+	// context.drawImage(npc,504,400,72,76,mapX, mapY, 64, 64);
+
+	// 3, 1
+	context.drawImage(npc,288,30,72,68,UNIT*1, UNIT*3, UNIT, UNIT);
+	// context.drawImage(npc,0,110,72,85,mapX, mapY, 64, 64);
+	// 14, 7
+	context.drawImage(npc,0,110,72,85,UNIT*7, UNIT*14, UNIT, UNIT);
+	// context.drawImage(npc,288,30,72,68,mapX, mapY, 64, 64);
+
+// 	for(var i = 0; i < nowMap.length ; i++){
+// 		for(var j=0, mapX = 0; j < nowMap[i].length ; j++){
+//             switch(nowMap[i][j]) {
+//                 case MAP_GRASS:
+//                     context.drawImage(grass, 0, 32, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
+//                     break;
+//                 case MAP_ROAD01:
+//                     context.drawImage(road01, 64, 32, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
+//                     break;
+//                 case MAP_STONE:
+//                     context.drawImage(stone, 192, 32, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
+//                     break;
+//                 case MAP_SAND:
+//                     context.drawImage(sand, 0, 128, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
+//                     break;
+//                 case MAP_SANDROAD01:
+//                     context.drawImage(sandRoad01, 64, 128, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
+//                     break;
+//                 case MAP_SANDSTONE:
+//                     context.drawImage(sandStone, 128, 128, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
+//                     break;
+//             }
+//             mapX += UNIT;
+// 		}
+// 		mapY += UNIT;
+// 	}
+
+// 	context.drawImage(monster, 0, 0, MAPIMG_U, MAPIMG_U, UNIT*6, UNIT*2, UNIT, UNIT);
+
+// //	 requestAnimationFrame(draw);
 }
 
 
@@ -152,6 +183,6 @@ function draw(){
 var runMap = setInterval(function fps(){
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	draw();
-	moveMap();
+	// moveMap();
 }, 51);
 //  draw();

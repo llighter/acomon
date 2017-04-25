@@ -1,6 +1,6 @@
 <!-- 
- * 집에서....Apr24,2017
- * 			03:21
+ * 학원에서....Apr24,2017
+ * 			17:35
  * 			dev by JW	
 
  -->
@@ -10,7 +10,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>♪RocketDAN2♪</title>
-	<link rel="stylesheet" type="text/css" href="css/rocket_ver3.0.css"/>
+	<link rel="stylesheet" type="text/css" href="css/rocket_ver3.1.css"/>
 </head>
 <body>
 	<!--0 메인 기본창전체 -->
@@ -43,14 +43,21 @@
 		</div>
 		<!--2 맵메뉴  -->
 		<div class="whyMenubox whyContain">
-				<div class="whyMenu">포켓몬</div>
-				<div class="whyMenu">아이템</div>
-				<div class="whyMenu">상태</div>
-				<div class="whyMenu">리포트</div>
+			<div class="whyMenu">포켓몬</div>
+			<div class="whyMenu">아이템</div>
+			<div class="whyMenu">상태</div>
+			<div class="whyMenu">리포트</div>
 		<!-- 미구현
 				<div class="whyMenu">옵션-맵</div>
  		-->
-			</div>
+		</div>
+		<!-- 재현: whyMyItembox에 있던 좌표 아래로 옮길것-->
+		<div class="whyStorebox">
+			<div class="whyStore">상점(민트)</div>
+			<div class="whyStore">상점(몬스터볼)</div>
+			<div class="whyStore">병원(치료)</div>
+			<div class="whyStore">병원(방생)</div>
+		</div>
 		<!--2 상태 -->
 		<div class="whyStatusbox whyContain">
 			<div class="whyStatus">
@@ -128,6 +135,7 @@
 				</div>
 			</div>
 			<div class="whyEnemyAttack"></div>
+			<div class="whyAllyAttack"></div>
 			
 		</div>
 	<!-- 
@@ -208,34 +216,12 @@
 		<!--2 아이템 -->
 		<!-- 아이템 선택창 push&삭제를 통해 아이템 채우고 비움-->					
 		<div class="whyMyItembox">
-			<div class="whyMyItem">
-				아이템사용1
-				<br/>(민트먹기)
-			</div>
-			<div class="whyMyItem">
-				아이템사용2
-				<br/>(몬스터볼던지기)
-			</div>
-<!-- 
-			<div class="whyMyItem">
-				지우가방 확인하기
-			</div>
--->		
-			<div class="whyMyItem">
-				아이템8
-			</div>
-			<div class="whyMyItem">
-				아이템9
-			</div>
-			<div class="whyMyItem">
-				아이템10
-			</div>
-			<div class="whyMyItem">
-				아이템11
-			</div>
-			<div class="whyMyItem">
-				아이템12
-			</div>
+			<div class="whyMyItem">민트</div>
+			<div class="whyMyItem">몬스터볼</div>
+			<div class="whyMyItem">빈슬롯	</div>
+			<div class="whyMyItem">빈슬롯</div>
+			<div class="whyMyItem">빈슬롯	</div>
+			<div class="whyMyItem">빈슬롯	</div>
 <!-- 예정
 				<div>
 					사용하기
@@ -245,22 +231,6 @@
 				</div>
  -->
 		</div>
-			<div class="whyMyItem">
-				임시-상점이용
-				<br/>(민트사기)
-			</div>
-			<div class="whyMyItem">
-				임시-상점이용
-				<br/>(몬스터볼 사기)
-			</div>
-			<div class="whyMyItem">
-				임시-병원이용
-				<br/>(모두치료하기)
-			</div>
-			<div class="whyMyItem">
-				임시-병원이용
-				<br/>(방생하기)
-			</div>
 	<!-- 예정
 			<div>
 				맵열기
@@ -337,7 +307,7 @@
 
 
 	<script src="js/jquery-3.2.1.js"></script>
-	<script src="js/rocket_ver3.0.js"></script>
+	<script src="js/rocket_ver3.1.js"></script>
 	<script src="js/mapBattlefunctions.js"></script>
 	<script src="js/battleFunctions_apr23_2126.js"></script>
 	

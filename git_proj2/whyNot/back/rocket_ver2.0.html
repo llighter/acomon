@@ -1,16 +1,9 @@
-<!-- 
- * 집에서....Apr24,2017
- * 			03:21
- * 			dev by JW	
-
- -->
-
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>♪RocketDAN2♪</title>
-	<link rel="stylesheet" type="text/css" href="css/rocket_ver3.0.css"/>
+	<link rel="stylesheet" type="text/css" href="css/rocket_ver2.0.css"/>
 </head>
 <body>
 	<!--0 메인 기본창전체 -->
@@ -32,12 +25,8 @@
 		<div class="whyAllMap whyContain">
 
 				<div id="whyMouse" onclick="yEventBattle()">
-					<div>[MAP ON]</div>
-					<div>------------</div>
-					<div>클릭: 전투</div>
-					<div>A키 : 메뉴</div>
-					<div>X키 : 취소</div>
-					<div>------------</div>
+					<div>[MAP ON] 클릭:전투!</div>
+					<div>A키 : 메뉴소환</div>
 				</div>
 
 		</div>
@@ -56,7 +45,7 @@
 			<div class="whyStatus">
 				<div class="whyStatusImgbox">
 					<div class="whyStatusImg"></div>					
-				</div>  <!--  종원이형에게 멘트: 이거 지우 상태창맞아용? -->
+				</div>
 				<div class="whyStatusNamebox">이름 // 나이 // 등등</div>
 				<div class="whyStatusMoneybox">돈 // 랭킹 등</div>
 			</div>
@@ -96,38 +85,14 @@
 		<div class="whyBattle whyContain"> 
 			<!-- 이미지 블록1 -->
 			<div class="whyBattleDiv">
-				<!-- 적군 Hp -->
-				<div class="whyBattleHp whyBattleEnemyhp">
-					<div class="whyEnemyName">[ NAME ] Lv.XX </div>
-					<div class="whyEnemyHpTitle">HP</div>
-					<div class="whyEnemyBarMaxHp">
-						<div class="whyEnemyBarHp"></div>
-					</div>
-					<div class="whyEnemyTextHp">HP/MAX_HP</div>
-				</div>
-				<!-- 아군이미지 -->
-				<div class="whyBattleImg whyBattleAllyimg">
-					<div class="whyAllyImg"></div>
-					<div class="whyAllyHeal"></div>
-				</div>
+				<div class="whyBattleHp whyBattleEnemyhp">상대hp</div>
+				<div class="whyBattleImg whyBattleAllyimg">H1(몬)</div>
 			</div>
 			<!-- 이미지 블록2 -->
 			<div class="whyBattleDiv">
-				<!-- 적군이미지 -->
-				<div class="whyBattleImg whyBattleEnemyimg">
-					<div class="whyEnemyImg"></div>
-				</div>
-				<!-- 아군 Hp -->
-				<div class="whyBattleHp whyBattleAllyhp">
-					<div class="whyAllyName">[ NAME ] Lv.XX </div>
-					<div class="whyAllyHpTitle">HP</div>
-					<div class="whyAllyBarMaxHp">
-						<div class="whyAllyBarHp"></div>
-					</div>
-					<div class="whyAllyTextHp">HP/MAX_HP</div>
-				</div>
+				<div class="whyBattleImg whyBattleEnemyimg">DIV(몬)</div>
+				<div class="whyBattleHp whyBattleAllyhp">자기hp</div>
 			</div>
-			<div class="whyEnemyAttack"></div>
 			
 		</div>
 	<!-- 
@@ -209,18 +174,26 @@
 		<!-- 아이템 선택창 push&삭제를 통해 아이템 채우고 비움-->					
 		<div class="whyMyItembox">
 			<div class="whyMyItem">
-				아이템사용1
-				<br/>(민트먹기)
+				아이템1(민트먹기)
 			</div>
 			<div class="whyMyItem">
-				아이템사용2
-				<br/>(몬스터볼던지기)
+				아이템2(포켓볼)
 			</div>
-<!-- 
 			<div class="whyMyItem">
-				지우가방 확인하기
+				아이템3
 			</div>
--->		
+			<div class="whyMyItem">
+				아이템4
+			</div>
+			<div class="whyMyItem">
+				아이템5
+			</div>
+			<div class="whyMyItem">
+				아이템6
+			</div>
+			<div class="whyMyItem">
+				아이템7
+			</div>
 			<div class="whyMyItem">
 				아이템8
 			</div>
@@ -236,6 +209,22 @@
 			<div class="whyMyItem">
 				아이템12
 			</div>
+			<div class="whyMyItem">
+				아이템13
+			</div>
+			<div class="whyMyItem">
+				아이템14
+			</div>
+			<div class="whyMyItem">
+				아이템15
+			</div>
+			<div class="whyMyItem">
+				아이템16
+			</div>
+			<div class="whyMyItem">
+				아이템17
+			</div>
+		
 <!-- 예정
 				<div>
 					사용하기
@@ -245,22 +234,6 @@
 				</div>
  -->
 		</div>
-			<div class="whyMyItem">
-				임시-상점이용
-				<br/>(민트사기)
-			</div>
-			<div class="whyMyItem">
-				임시-상점이용
-				<br/>(몬스터볼 사기)
-			</div>
-			<div class="whyMyItem">
-				임시-병원이용
-				<br/>(모두치료하기)
-			</div>
-			<div class="whyMyItem">
-				임시-병원이용
-				<br/>(방생하기)
-			</div>
 	<!-- 예정
 			<div>
 				맵열기
@@ -313,7 +286,7 @@
 				기술3(명상하기)
 			</div>
 			<div class="whyCmdSkill">
-				기술4(2차 스킬)
+				기술4
 			</div>
 		</div>
 		<div class="whyCmditem">
@@ -337,12 +310,6 @@
 
 
 	<script src="js/jquery-3.2.1.js"></script>
-	<script src="js/rocket_ver3.0.js"></script>
-	<script src="js/mapBattlefunctions.js"></script>
-	<script src="js/battleFunctions_apr23_2126.js"></script>
-	
-	
-	
-	
+	<script src="js/rocket_ver2.0.js"></script>
 </body>
 </html>

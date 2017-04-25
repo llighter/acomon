@@ -216,35 +216,9 @@
 				아이템사용2
 				<br/>(몬스터볼던지기)
 			</div>
-<!-- 
 			<div class="whyMyItem">
 				지우가방 확인하기
 			</div>
--->		
-			<div class="whyMyItem">
-				아이템8
-			</div>
-			<div class="whyMyItem">
-				아이템9
-			</div>
-			<div class="whyMyItem">
-				아이템10
-			</div>
-			<div class="whyMyItem">
-				아이템11
-			</div>
-			<div class="whyMyItem">
-				아이템12
-			</div>
-<!-- 예정
-				<div>
-					사용하기
-					자세히보기
-					팔기 - 갯수ok//취소
-					버리기
-				</div>
- -->
-		</div>
 			<div class="whyMyItem">
 				임시-상점이용
 				<br/>(민트사기)
@@ -261,6 +235,31 @@
 				임시-병원이용
 				<br/>(방생하기)
 			</div>
+			<div class="whyMyItem">
+				아이템8
+			</div>
+			<div class="whyMyItem">
+				아이템9
+			</div>
+			<div class="whyMyItem">
+				아이템10
+			</div>
+			<div class="whyMyItem">
+				아이템11
+			</div>
+			<div class="whyMyItem">
+				아이템12
+			</div>
+		
+<!-- 예정
+				<div>
+					사용하기
+					자세히보기
+					팔기 - 갯수ok//취소
+					버리기
+				</div>
+ -->
+		</div>
 	<!-- 예정
 			<div>
 				맵열기

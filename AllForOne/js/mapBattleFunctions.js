@@ -1,17 +1,9 @@
 
-<<<<<<< HEAD
 /*ㅁㅁ
- * 학원에서....Apr24,2017
- * 			20:56
- * 			dev by JB
-=======
-/*ㅁㅁzz
-
 <!-- 
  * 학원에서....Apr25,2017
- * 			20:30
- *  * 			dev by JB
->>>>>>> 2959009ae3869cc915d7ab2389f324d510c47d62
+ * 			17:35
+ * 			dev by JB
  * UTF-8
  * */$(document).ready(function(){
 
@@ -145,17 +137,10 @@ function encounter( randID1 , randID2 ){
 function checkPokemonBook(){  // bookNumber = listCount-1;
 	for(var idx =0; idx< pokemons.length; idx++){
 		$(".whyMyAcomonValue").eq(idx)
-<<<<<<< HEAD
 		.html("name: "+ pokemons[idx].name +
 				"&nbsp lv: "+ pokemons[idx].lv +
 				"&nbsp hp: "+ pokemons[idx].hp +
 				"&nbsp status: "+ pokemons[idx].status
-=======
-		.html(pokemons[idx].name +
-				", "+ pokemons[idx].lv +
-				", "+ pokemons[idx].hp +
-				", "+ pokemons[idx].status
->>>>>>> 2959009ae3869cc915d7ab2389f324d510c47d62
 		);
 	}
 }
