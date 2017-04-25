@@ -241,6 +241,8 @@ document.addEventListener('keyup', (event) => {
 		createDiag( temp[0] );
 		textOn=1;
 	}
+  } else if(event.keyCode === 49) {
+	  clearDiag();
   }
 }, false);
 
@@ -444,12 +446,17 @@ function createDiag ( dialog ) {
 			}, 50*k);
 		}(k));
 	}	
-	setTimeout(function(){
-		$('#dialog').html("");
-      	chat.style.display="none";
-      	textOn=0;
-	}, 50*k);
+	// setTimeout(function(){
+	// 	$('#dialog').html("");
+    //   	chat.style.display="none";
+    //   	textOn=0;
+	// }, 50*k);
+}
 
+function clearDiag() {
+	$("#dialog").html("");
+	chat.style.display="none"
+	textOn=0;
 }
 
 var runMap = setInterval(function fps(){
@@ -457,6 +464,7 @@ var runMap = setInterval(function fps(){
 	
 	draw();
 	moveMap();
+
 }, 51);
 //  draw();
 
