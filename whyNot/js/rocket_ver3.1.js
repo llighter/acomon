@@ -472,28 +472,34 @@ function yCmdListSelect(){
 function yMyAcomonSelect(){
 	switch (yListCount) {
 	case 1:
-		checkPokemonBook(yListCount-1);//재현 1번째 포켓몬 // pokemons[0]
+		tagMyMon(yListCount-1);//재현 1번째 포켓몬 // pokemons[0]
+		yAllyhp();
 		turnEnd();  //실행할 함수에 넣으면됨
 		break;
 	case 2:
-		checkPokemonBook(yListCount-1);//재현 2번째 포켓몬// pokemons[1]
+		tagMyMon(yListCount-1);//재현 2번째 포켓몬// pokemons[1]
+		yAllyhp();
 		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	case 3:
-		checkPokemonBook(yListCount-1);//재현 3번째 포켓몬// pokemons[2]
+		tagMyMon(yListCount-1);//재현 3번째 포켓몬// pokemons[2]
+		yAllyhp();
 		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	case 4:
-		checkPokemonBook(yListCount-1);//재현 4번째 포켓몬// pokemons[3]
+		tagMyMon(yListCount-1);//재현 4번째 포켓몬// pokemons[3]
+		yAllyhp();
 		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	case 5:
-		checkPokemonBook(yListCount-1);//재현 5번째 포켓몬// pokemons[4]
+		tagMyMon(yListCount-1);//재현 5번째 포켓몬// pokemons[4]
+		yAllyhp();
 		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	case 6:
-		checkPokemonBook(yListCount-1);//재현 6번째 포켓몬
+		tagMyMon(yListCount-1);//재현 6번째 포켓몬
 			// pokemons[5]  << 처음엔 없음. 새로운 몬스터 포획하면 보일몬스터.
+		yAllyhp();
 		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	default:
@@ -551,8 +557,10 @@ function yCmdSkillSelect(){
 	    	yEnemyhp();				//공격 hp시각효과
 		},200)
 		setTimeout(function (){	//방어 턴
-			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");			
-			enemyTurn();
+			propertyBonus();
+	        yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");   
+	        propertyBonusRelease();
+	        enemyTurn();
 			yEnemyAttackEffect();	
 			yAllyhp();		
 		},4000)
@@ -566,8 +574,10 @@ function yCmdSkillSelect(){
 	    	yEnemyhp();				//공격 hp시각효과
 		},200)
 		setTimeout(function (){	//방어 턴
-			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");			
-			enemyTurn();
+			propertyBonus();
+	        yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");   
+	        propertyBonusRelease();
+	        enemyTurn();
 			yEnemyAttackEffect();	
 			yAllyhp();		
 		},4000)
@@ -581,7 +591,9 @@ function yCmdSkillSelect(){
 			yAllyhp();				//공격 hp시각효과
 		},200)
 		setTimeout(function (){	//방어 턴
-			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");		
+			propertyBonus();
+	        yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");   
+	        propertyBonusRelease();
 			enemyTurn();
 			yEnemyAttackEffect();	
 			yAllyhp();		
@@ -589,19 +601,28 @@ function yCmdSkillSelect(){
 		setTimeout(function (){turnEnd();},7000);  //실행할 함수에 넣으면됨
 		break;
 	case 4:
-		setTimeout(function (){		//공격 턴
-			yTextmsg(myMonid.name+"몬 \""+ skill2Names[myMonid.property]+"\"발동!!");
-			skillLv2Attack();				//공격 스크립트
-			yAllyAttackEffect();	//공격 시각효과
-	    	yEnemyhp();				//공격 hp시각효과
-		},200)
-		setTimeout(function (){	//방어 턴
-			yTextmsg("적군이 마비상태라 공격이 불가능하다!!");		
-			enemyTurn();
-			yAllyhp();		
-		},4000)
-		setTimeout(function (){turnEnd();},7000);  //실행할 함수에 넣으면됨
-		break;
+	      setTimeout(function (){      //공격 턴
+	         yTextmsg(myMonid.name+"몬 \""+ skill2Names[myMonid.property]+"\"발동!!");
+	         skillLv2Attack();            //공격 스크립트
+	         yAllyAttackEffect();   //공격 시각효과
+	          yEnemyhp();            //공격 hp시각효과
+	      },200)
+	      setTimeout(function (){   //방어 턴
+	         if(myMonid.property == 0)
+	            yTextmsg( myMonid.name+ "이 "+skill2Names[myMonid.property]+" 상태이다.");      
+	         else if(myMonid.property == 1)
+	            yTextmsg( myMonid.name+ "이 "+skill2Names[myMonid.property]+" 상태이다.");      
+	         else if(myMonid.property == 2)
+	            yTextmsg( newPokemon.name+ "이 "+skill2Names[myMonid.property]+"상태이다.");      
+	         else if(myMonid.property == 3)
+	            yTextmsg( newPokemon.name+ "이 "+skill2Names[myMonid.property]+"상태이다.");      
+	         else if(myMonid.property == 4)
+	            yTextmsg( myMonid.name+ "이 "+skill2Names[myMonid.property]+" 상태이다.");   
+	         enemyTurn();
+	         yAllyhp();      
+	      },4000)
+	      setTimeout(function (){turnEnd();},7000);  //실행할 함수에 넣으면됨
+	      break;
 	default:
 		break;
 	}
