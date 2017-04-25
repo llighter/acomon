@@ -430,7 +430,6 @@ function enemyTurn(){
 		enemyRandAtt();
 		winOrLose(); // 자신/ 상대의 턴이 끝날때마다 hp <=0인지 체크 -> 승리판정
 	}
-	winOrLose();	
 	propertyBonusRelease();
 }
 
