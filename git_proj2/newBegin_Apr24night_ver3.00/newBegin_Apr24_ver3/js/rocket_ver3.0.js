@@ -530,19 +530,23 @@ function yCmdSkillSelect(){
 	switch (yListCount) {
 	case 1:
 		tackle();//재현 1번째 스킬
+		enemyTurn();
 		turnEnd();  //실행할 함수에 넣으면됨
 		break;
 	case 2:
 		skillAttack();//재현 2번째 스킬
+		enemyTurn();
 		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	case 3:
 		meditation();//재현 3번째 스킬
+		enemyTurn();
 		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	case 4:
 console.log("2차스킬 작업중...");//재현 4번째 스킬
 		skillLv2Attack();
+		enemyTurn();
 		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	default:

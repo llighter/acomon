@@ -141,7 +141,7 @@ function enemyRandAtt(){
 				newPokemon.hp = Number((newPokemon.hp - (criticalAttack02- newPokemon.shield)).toFixed(1));
 				console.log(newPokemon.name + "몬의 체력 "+newPokemon.hp+" 남음.");
 			}
-			hpDown();
+			//hpDown();
 			$(".whyEnemyTextHp").html("HP: "+ newPokemon.hp + " / Max_HP: "+newPokemon.initHp);
 		}
 		else if(newPokemon.status == "paralyze"){  // 마비는 1턴 휴식.
@@ -174,10 +174,6 @@ function tackle(){
 		$(".whyEnemyTextHp").html("HP: "+ newPokemon.hp + " / Max_HP: "+newPokemon.initHp);
 	}
 	winOrLose();  // 자신/ 상대의 턴이 끝날때마다 hp <=0인지 체크 -> 승리판정
-	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
-		enemyRandAtt();
-		winOrLose(); // 자신/ 상대의 턴이 끝날때마다 hp <=0인지 체크 -> 승리판정
-	}
 	propertyBonusRelease();// 상성데미지 해제..
 }
 	
@@ -195,29 +191,20 @@ function skillAttack(){
 		$(".whyEnemyTextHp").html("HP: "+ newPokemon.hp + " / Max_HP: "+newPokemon.initHp);
 	}
 	winOrLose();
-	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
-		enemyRandAtt();
-		winOrLose();
-	}
 	propertyBonusRelease();
 }
 
 function meditation(){  // 명상 체력 +13.
-	propertyBonus();
 	var showMsg = "명상을 할수없습니다. \n\t(설명: 명상하면 전체체력보다 많아질경우.)"
 	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
 		if((myMonid.hp +13) < myMonid.initHp){
 		myMonid.hp += 13;
 		showMsg = "체력회복 (+13)!" +myMonid.hp;
-		hpUp();
+		//hpUp();
 		}
 	}
 	console.log(showMsg);
-	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
-		enemyRandAtt();
-		winOrLose();
-	}
-	propertyBonusRelease();
+	winOrLose();
 }
 
 
@@ -268,12 +255,8 @@ function skillLv2Attack(){
 		winOrLose();
 	}  // if - switch case:  END
 	console.log(skillMsg);
-
-	if( myMonid.lv > 1 /*&& !winOrLoseResult*/){  //### winOrLoseResult 결과값이 안나왓을경우에 진행.
-		enemyRandAtt();
-		winOrLose();
-		propertyBonusRelease();
-	}  // if 레벨2조건  END.
+	winOrLose();
+	propertyBonusRelease();
 }  //skillLv2Attack func END
 
 function skillLv2AttackRelease(){  // 상태이상 효과 해제. 
@@ -356,7 +339,7 @@ function useItem(item){
 			showItemMsg = myMonid.name+"회복!! 현재체력: "+ myMonid.hp;
 			jiwoo.mint--;
 			showItemMsg += "\nsystem- "+ item +" " + jiwoo.mint + "개 남았습니다.";
-			hpUp();
+			//hpUp();
 		}
 		console.log(showItemMsg);
 	}
@@ -440,6 +423,16 @@ function expUp(){
 	console.log(showMsg);
 }
 
+
+function enemyTurn(){
+	propertyBonus();
+	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
+		enemyRandAtt();
+		winOrLose(); // 자신/ 상대의 턴이 끝날때마다 hp <=0인지 체크 -> 승리판정
+	}
+	winOrLose();	
+	propertyBonusRelease();
+}
 
 
 function runAway(){  // 도망도망..
