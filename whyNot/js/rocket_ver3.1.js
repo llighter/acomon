@@ -337,8 +337,10 @@ function yStatus(){
 	if(yPreView == '.whyAllMap'){
 		$('.whyAllMap').css('z-index','10');
 		$('.whyMenubox').css('z-index','10');
+		$('.whyTextbox').css('z-index','10');
 	}
 	$('.whyStatusbox').css('z-index','30');
+	
 	yLocClassFun("whyStatus");
 }
 function yStatusOff(){
@@ -358,6 +360,7 @@ function yReport(){
 	if(yPreView == '.whyAllMap'){
 		$('.whyAllMap').css('z-index','10');
 		$('.whyMenubox').css('z-index','10');
+		$('.whyTextbox').css('z-index','10');
 		yLocClassFun("whyReport");
 	}
 	$('.whyReportBox').css('z-index','30');
