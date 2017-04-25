@@ -500,6 +500,12 @@ body{overflow:auto;background:#d2e0d1;}
 		margin:5px 10px 0px 0px;
 		padding:0 0 0 20px;	 
 	}
+		.whyMyAcomonTag{
+			display:inline-block;
+			float:left;
+			width:25%;
+			height:100%;
+		}
 	.whyMyAcomonValue{
 		display:inline-block;
 		float:left;
