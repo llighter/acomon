@@ -41,12 +41,8 @@ body{overflow:auto;background:#d2e0d1;}
 	left:0;
 	width:100%;
 	height:100%;
-	background-color: #c8e3ff;
-	/* 안쓸꺼같음.
 	background-image:url(../img/background01.jpg);
-	*/
 	background-size:contain;
-	border-radius: 15px;
 }
 /*	전체 화면 시작	*/
 /* 전체 - 로딩 */
@@ -58,7 +54,6 @@ body{overflow:auto;background:#d2e0d1;}
 	background-color:#5593c2;
 	text-align:center;
 	color: white;
-	border-radius: 15px;
 }
 	/* 빈 블럭 상단 마진줌. */
 	.whyLoding1{
@@ -115,6 +110,7 @@ body{overflow:auto;background:#d2e0d1;}
 	position:absolute;
 	width:100%;
 	height:100%;
+	background:rgba(30, 150, 30, 0.7);
 }
 
 /* 맵 - 메뉴 */
@@ -129,7 +125,6 @@ body{overflow:auto;background:#d2e0d1;}
 	color:white;
 	text-align:center;
 	padding-top:30px;
-	border-radius: 15px;
 }
 	.whyMenu{
 		display:inline-block;
@@ -140,7 +135,6 @@ body{overflow:auto;background:#d2e0d1;}
 		font-size:25px;
 		font-weight:bold;
 		background:rgb(54, 125, 80);
-		border-radius: 15px;
 	}
 .whyStorebox{
 	z-index:10;
@@ -153,7 +147,6 @@ body{overflow:auto;background:#d2e0d1;}
 	color:white;
 	text-align:center;
 	padding-top:30px;
-	border-radius: 15px;
 }
 	.whyStore{
 		display:inline-block;
@@ -164,7 +157,6 @@ body{overflow:auto;background:#d2e0d1;}
 		font-size:25px;
 		font-weight:bold;
 		background:rgb(54, 125, 80);
-		border-radius: 15px;
 	}
 
 /* 전체 - 상태창 */
@@ -176,12 +168,10 @@ body{overflow:auto;background:#d2e0d1;}
 	background:#b8cde4;
 	color:white;
 	font-size: 40px;
-	border-radius: 15px;
 }
 	.whyStatus:NTH-CHILD(1){
 		height:60%;
 		background:#779ECB;
-		border-radius: 15px;
 	}
 		.whyStatusImgbox{
 			display:inline-block;
@@ -216,7 +206,6 @@ body{overflow:auto;background:#d2e0d1;}
 	.whyStatus:NTH-CHILD(2){
 		height:40%;
 		background:#5593c2;
-		border-radius: 15px;
 	}
 		.whyStatusBadge{
 			height:calc(100% - 20px - 20px); /* 높이%, R,L.px*/
@@ -239,7 +228,6 @@ body{overflow:auto;background:#d2e0d1;}
 	font-size:30px;
 	font-weight:bold; 
 	padding:40px;
-	border-radius: 15px;
 }	
 	.whyReport{
 		display:inline-block;
@@ -250,7 +238,6 @@ body{overflow:auto;background:#d2e0d1;}
 		border:5px solid #bb0a00;
 		margin:20px 10px;
 		padding:10px;
-		border-radius: 15px;
 	}
 	.whyReportImg{
 		display:inline-block;
@@ -270,7 +257,6 @@ body{overflow:auto;background:#d2e0d1;}
 		border:5px solid #bb0a00;
 		margin:20px 0px 0px 0px;
 		padding:10px;
-		border-radius: 15px;
 	}
 /* (임시삭제:아래 BattleArea -> Battle로 변경)전투 화면용, 하단 자리확보용
 .whyBattle{ 
@@ -292,20 +278,7 @@ body{overflow:auto;background:#d2e0d1;}
 	left:0;
 	width:100%;
 	height:75%;
-	overflow:hidden;
 }	
-	.whyBattleBase{
-	position:absolute;
-	z-index:2;
-	top:0;
-	left:0;
-	width:100%;
-	height:100%;
-	background-image:url(../img/background_battle.gif);
-	background-size: cover;
-	transform: rotate(-23deg);
-	
-	}
 	.whyBattleDiv{
 		position:relative;
 		top:0;
@@ -323,7 +296,6 @@ body{overflow:auto;background:#d2e0d1;}
 		height:30%;
 		font-size:20px;
 		padding:20px;
-		border-radius: 15px;
 	}
 	.whyBattleImg{
 		position:relative;
@@ -334,6 +306,7 @@ body{overflow:auto;background:#d2e0d1;}
 		font-size:60px;
 	}
 	.whyBattleEnemyhp{
+		background:#ffa8a4;
 		font-weight:bold;
 		text-align:center;
 	}
@@ -342,6 +315,7 @@ body{overflow:auto;background:#d2e0d1;}
 			float:left;
 			width:100%;
 			height:40%;
+			background:#ff6f6f;
 			font-size:30px;
 			padding-left:20px;
 		}
@@ -350,6 +324,7 @@ body{overflow:auto;background:#d2e0d1;}
 			float:left;
 			width:25%;
 			height:60%;
+			background:#6a6aff;
 			font-size:40px;
 		}
 		.whyEnemyBarMaxHp{
@@ -373,9 +348,11 @@ body{overflow:auto;background:#d2e0d1;}
 			float:left;
 			width:75%;
 			height:30%;
+			background:#fff09b;
 			font-size:20px;
 		}
 	.whyBattleAllyimg{
+		background:#8ea3e8;
 		padding:0px 70px 0px 10px;
 	}
 		.whyAllyImg{
@@ -397,6 +374,7 @@ body{overflow:auto;background:#d2e0d1;}
 				opacity:0.55;
 			}
 	.whyBattleEnemyimg{
+		background:#ffa8a4;
 		padding:0px 10px 0px 70px;
 	}
 		.whyEnemyImg{
@@ -408,6 +386,7 @@ body{overflow:auto;background:#d2e0d1;}
 			background-size:contain;
 		}
 	.whyBattleAllyhp{
+		background:#8ea3e8;
 		font-weight:bold;
 		text-align:center;
 	}
@@ -416,6 +395,7 @@ body{overflow:auto;background:#d2e0d1;}
 			float:left;
 			width:100%;
 			height:40%;
+			background:red;
 			font-size:30px;
 			padding-left:20px;
 		}
@@ -424,6 +404,7 @@ body{overflow:auto;background:#d2e0d1;}
 			float:left;
 			width:25%;
 			height:60%;
+			background:blue;
 			font-size:40px;
 		}
 		.whyAllyBarMaxHp{
@@ -439,6 +420,7 @@ body{overflow:auto;background:#d2e0d1;}
 			float:left;
 			width:0%;
 			height:100%;
+			background:green;
 			transition:width 2s ease, background 1s ease-in;
 			}
 		.whyAllyTextHp{
@@ -446,6 +428,7 @@ body{overflow:auto;background:#d2e0d1;}
 			float:left;
 			width:75%;
 			height:30%;
+			background:gold;
 			font-size:20px;
 		}
 .whyEnemyAttack{
@@ -494,21 +477,19 @@ body{overflow:auto;background:#d2e0d1;}
 	background:#A0D6B4;
 	color:white;
 	padding:15px;
-	border-radius: 15px;
 }
 	.whyMyAcomon{
 		height:calc(16.666% - 5px); /* 겹치는 마진은 상쇄되는듯.*/
 		margin:5px 0px 5px 0px;
 		background:#2b6240;
 		font-size:20px;
-		border-radius: 15px;
 	}
 	.whyMyAcomonImg{
 		display:inline-block;
 		float:left;
 		height:100%;
 		width:20%;
-		background-color:rgba(0, 0, 0, 0.0);
+		background-color:#2b6240;
 	}
 	.whyMyAcomonTag{
 		display:inline-block;
@@ -517,17 +498,13 @@ body{overflow:auto;background:#d2e0d1;}
 		width:calc(80% - 10px);
 		background:#3c8858;
 		margin:5px 10px 0px 0px;
-		padding:0 0 0 20px;	
-		border-radius: 5px 5px 0px 0px;
+		padding:0 0 0 20px;	 
 	}
-		.whyMyAcomonTagText{
+		.whyMyAcomonTag{
 			display:inline-block;
 			float:left;
 			width:25%;
 			height:100%;
-			text-align:center;
-			font-weight:bold !important;
-			color:white !important;
 		}
 	.whyMyAcomonValue{
 		display:inline-block;
@@ -536,16 +513,8 @@ body{overflow:auto;background:#d2e0d1;}
 		width:calc(80% - 10px);
 		background-color:#68bd88;
 		margin:0px 10px 5px 0px;
-		padding:0 0 0 20px;	
-		border-radius: 0px 0px 5px 5px;
+		padding:0 0 0 20px;	 
 	}
-		.whyMyAcomonValueText{
-			display:inline-block;
-			float:left;
-			width:25%;
-			height:100%;
-			text-align:center;
-		}
 		.whyMyAcomon:NTH-CHILD(1) .whyMyAcomonImg{
 			background:url("../img/pocketmon01.gif") no-repeat center;
 		}
@@ -560,6 +529,9 @@ body{overflow:auto;background:#d2e0d1;}
 		}
 		.whyMyAcomon:NTH-CHILD(5) .whyMyAcomonImg{
 			background:url("../img/pocketmon05.gif") no-repeat center;
+		}
+		.whyMyAcomon:NTH-CHILD(6) .whyMyAcomonImg{
+			background:url("../img/pocketmon06.gif") no-repeat center;
 		}
 		
 		
@@ -578,7 +550,6 @@ body{overflow:auto;background:#d2e0d1;}
 	font-size:20px;
 	font-weight:bold;
 	overflow:auto;
-	border-radius: 15px;
 }
 	/* 스크롤 디자인 */
 	.whyMyItembox::-webkit-scrollbar{	
@@ -595,7 +566,6 @@ body{overflow:auto;background:#d2e0d1;}
 		width:calc(99.99% - 6px);
 		margin:3px;
 		background-color:#836953;
-		border-radius: 15px;
 	}
 
 
@@ -611,8 +581,8 @@ body{overflow:auto;background:#d2e0d1;}
 	height:calc(25% - 18px - 18px);
 	top:calc(75% + 18px);
 	border-radius: 5px;
-	box-shadow: 0 0 0 6px white, 0 0 0 12px #0f0f0f;
-	background: #0f0f0f;
+	box-shadow: 0 0 0 6px white, 0 0 0 12px black;
+	background: black;
 	font-size:25px;
 	color:white;
 }
@@ -649,8 +619,7 @@ body{overflow:auto;background:#d2e0d1;}
 	width:100%;
 	height:25%;
 	top:75%;
-	background:#0f0f0f;
-	border-radius: 15px;
+	background:#FDFD96;
 }
 .whyCmdListbox{
 	z-index:10;
@@ -658,24 +627,15 @@ body{overflow:auto;background:#d2e0d1;}
 	width:100%;
 	height:25%;
 	top:75%;
-	font-size:20px;
+	font-size:25px;
 	font-weight:bold;
 	color:white;
 	padding:5px;
-	border-radius:15px;
-	
 }
 	.whyCmdList{
-		display:inline-block;
-		float:left;
-		width:calc(50% - 10px);
-		height:calc(50% - 10px);
-		background:#0f0f0f;
-		margin:5px;
-		font-size:30px;
-		line-height:60px;
-		border-radius:10px;
-		text-align:center;
+		height:calc(25% - 2px);
+		background:#B19CD9;
+		margin:2px;
 	}
 .whyCmdSkillbox{
 	z-index:10;
@@ -687,19 +647,11 @@ body{overflow:auto;background:#d2e0d1;}
 	font-weight:bold;
 	color:white;
 	padding:5px;
-	border-radius: 15px;
 }
 	.whyCmdSkill{
-		display:inline-block;
-		float:left;
-		width:calc(50% - 10px);
-		height:calc(50% - 10px);
-		background:#0f0f0f;
-		margin:5px;
-		font-size:30px;
-		line-height:60px;
-		border-radius:10px;
-		text-align:center;
+		height:calc(25% - 2px);
+		background:#B19CD9;
+		margin:2px;
 	}
 .whyCmditem{
 }	

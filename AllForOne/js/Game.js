@@ -146,15 +146,15 @@ var motionIdx = 0;
 // Monster's direction
 var monsterIdx = 0;
 
-player.src = './img/eagle.png';
-monster.src = './img/mon00.png';
-monster2.src = './img/mon01.png';
-currentVillage.src = './img/map_academy_v2.png';
-academy.src = './img/map_academy.png';
-village00.src = './img/stage00_npc.png';
-village01.src = './img/stage01_npc.png';
-village02.src = './img/stage02_npc.png';
-bossmap.src = './img/bossmap.png';
+player.src = './img/map/eagle.png';
+monster.src = './img/map/mon00.png';
+monster2.src = './img/map/mon01.png';
+currentVillage.src = './img/map/map_academy_v2.png';
+academy.src = './img/map/map_academy.png';
+village00.src = './img/map/stage00_npc.png';
+village01.src = './img/map/stage01_npc.png';
+village02.src = './img/map/stage02_npc.png';
+bossmap.src = './img/map/bossmap.png';
 
 
 
@@ -202,7 +202,15 @@ var nowMap = mapList[0].mappingArray;
 var chat=document.getElementById("dialog");
 var option=document.getElementById("option");
 
-// 현재 모드 (0 : 맵, 1 : 대전)
+/**
+ * TODO: 순서 정리 필요 - 오프닝을 앞으로
+ * Mode
+ * 0 : 맵
+ * 1 : 대전 돌입
+ * 2 : 오프닝
+ * 3 : 대전 중
+ * 4 : 메뉴 창 오픈
+ */
 // 초기값 opening을 위해 2로 조정 opening멘트 끝나면 0으로 변경
 var currentMode = 2;
 
@@ -268,6 +276,14 @@ document.addEventListener('keyup', (event) => {
 	  currentMode = 0;
 	  $("body").css("background","white");
 	  
+  }
+}, false);
+
+
+// A키 눌렀을 때
+document.addEventListener('keyup', (event) => {
+  if (event.keyCode === 65) {
+	currentMode = 4;
   }
 }, false);
 
@@ -456,7 +472,7 @@ function draw(){
 	context.drawImage(currentVillage,0,0,1280,1280,x,y,1280,1280);
 	context.drawImage(myPlayer.img, IMG_U*motionIdx, IMG_U*myPlayer.direction, IMG_U, IMG_U, MAP_WIDTH/2, MAP_HEIGHT/2, UNIT, UNIT);
 
-	move();
+	// move();
 
 	if(onPokemonZone && battleCountDown >=0) {
 		context.font="30px Comic Sans MS";
@@ -553,18 +569,15 @@ var update = setInterval(function fps(){
 	
 	if(currentMode == 0) {
 		draw();
+		move();
 		moveMap();
 		pokemonDetction();
 	} else if(currentMode == 1) {
-		// TODO 대전팀 함칠 부분.
-		// TODO 대전팀 끝낸 다음에 currentMode 값 0으로 초기화 해야한다.
-		// 아래는 가상으로 배틀을 했다고 가정하고 배틀을 끝난 경우 [확인]을 누르면 다시 맵으로 돌아온다.
-		if(confirm("배틀이 끝났습니까?")) {
-			currentMode = 0;
-			battleCountDown = 4;
-		} else {
-			currentMode = 1;
-		}
+		yEventBattle();
+		currentMode = 3;	// 대전 중
+		// clearInterval(update);
+	} else if(currentMode == 4) {
+		draw();
 	}
 	
 

@@ -1,6 +1,6 @@
 /*ㅁㅁ
- * 학원에서....Apr25,2017
- * 			20:30
+ * 집에서....Apr24,2017
+ * 			03:21
  * 			dev by JW
  */
 
@@ -25,7 +25,6 @@ function yBlink(imgClass){
 	},250);
 }
 
-yBlink();
 
 //heal effect
 function yAllyHealEffect(){
@@ -265,6 +264,9 @@ function yMapMenuOff(){
 	$('.whyMenubox').css('z-index','10');
 	$('.whyTextbox').css('z-index','10');
 	yLocClassFun("whyAllMap");
+
+	currentMode = 0;
+	
 }
 
 
@@ -338,10 +340,8 @@ function yStatus(){
 	if(yPreView == '.whyAllMap'){
 		$('.whyAllMap').css('z-index','10');
 		$('.whyMenubox').css('z-index','10');
-		$('.whyTextbox').css('z-index','10');
 	}
 	$('.whyStatusbox').css('z-index','30');
-	
 	yLocClassFun("whyStatus");
 }
 function yStatusOff(){
@@ -361,7 +361,6 @@ function yReport(){
 	if(yPreView == '.whyAllMap'){
 		$('.whyAllMap').css('z-index','10');
 		$('.whyMenubox').css('z-index','10');
-		$('.whyTextbox').css('z-index','10');
 		yLocClassFun("whyReport");
 	}
 	$('.whyReportBox').css('z-index','30');
@@ -424,6 +423,9 @@ function yCmdRun(){
 	$('.whyAllMap').css('z-index','20');
 	yLocClassFun("whyAllMap");
 	yPreView = '.whyAllMap';
+
+	currentMode = 0;
+	battleCountDown = 4;
 }
 
 
@@ -472,23 +474,23 @@ function yCmdListSelect(){
 function yMyAcomonSelect(){
 	switch (yListCount) {
 	case 1:
-		tagMyMon(yListCount-1);//재현 1번째 포켓몬 // pokemons[0]
+		checkPokemonBook(yListCount-1);//재현 1번째 포켓몬 // pokemons[0]
 		turnEnd();  //실행할 함수에 넣으면됨
 		break;
 	case 2:
-		tagMyMon(yListCount-1);//재현 1번째 포켓몬 // pokemons[0]
+		checkPokemonBook(yListCount-1);//재현 2번째 포켓몬// pokemons[1]
 		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	case 3:
-		tagMyMon(yListCount-1);//재현 1번째 포켓몬 // pokemons[0]
+		checkPokemonBook(yListCount-1);//재현 3번째 포켓몬// pokemons[2]
 		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	case 4:
-		tagMyMon(yListCount-1);//재현 1번째 포켓몬 // pokemons[0]
+		checkPokemonBook(yListCount-1);//재현 4번째 포켓몬// pokemons[3]
 		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	case 5:
-		tagMyMon(yListCount-1);//재현 1번째 포켓몬 // pokemons[0]
+		checkPokemonBook(yListCount-1);//재현 5번째 포켓몬// pokemons[4]
 		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	case 6:
@@ -551,9 +553,7 @@ function yCmdSkillSelect(){
 	    	yEnemyhp();				//공격 hp시각효과
 		},200)
 		setTimeout(function (){	//방어 턴
-			 propertyBonus();
-			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");	
-			 propertyBonusRelease();
+			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");			
 			enemyTurn();
 			yEnemyAttackEffect();	
 			yAllyhp();		
@@ -568,9 +568,7 @@ function yCmdSkillSelect(){
 	    	yEnemyhp();				//공격 hp시각효과
 		},200)
 		setTimeout(function (){	//방어 턴
-			propertyBonus();
-			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");	
-			 propertyBonusRelease();	
+			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");			
 			enemyTurn();
 			yEnemyAttackEffect();	
 			yAllyhp();		
@@ -585,9 +583,7 @@ function yCmdSkillSelect(){
 			yAllyhp();				//공격 hp시각효과
 		},200)
 		setTimeout(function (){	//방어 턴
-			propertyBonus();
-			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");	
-			 propertyBonusRelease();		
+			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");		
 			enemyTurn();
 			yEnemyAttackEffect();	
 			yAllyhp();		
@@ -602,16 +598,7 @@ function yCmdSkillSelect(){
 	    	yEnemyhp();				//공격 hp시각효과
 		},200)
 		setTimeout(function (){	//방어 턴
-			if(myMonid.property == 0)
-				yTextmsg( myMonid.name+ "이 "+skill2Names[myMonid.property]+" 상태이다.");		
-			else if(myMonid.property == 1)
-				yTextmsg( myMonid.name+ "이 "+skill2Names[myMonid.property]+" 상태이다.");		
-			else if(myMonid.property == 2)
-				yTextmsg( newPokemon.name+ "이 "+skill2Names[myMonid.property]+"상태이다.");		
-			else if(myMonid.property == 3)
-				yTextmsg( newPokemon.name+ "이 "+skill2Names[myMonid.property]+"상태이다.");		
-			else if(myMonid.property == 4)
-				yTextmsg( myMonid.name+ "이 "+skill2Names[myMonid.property]+" 상태이다.");	
+			yTextmsg("적군이 마비상태라 공격이 불가능하다!!");		
 			enemyTurn();
 			yAllyhp();		
 		},4000)
