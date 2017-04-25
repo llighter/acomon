@@ -3,28 +3,28 @@ var canvas = document.getElementById("village");
 var context = canvas.getContext("2d");
 
 var map_init = [
-    [ 0, 0, 0,  0,  0,  0, 0, 0, 0, 210],
-    [ 202, 203, 204, 0, 0, 0, 501, 0,205,2101],
-    [ 2021, 2031,2041, 0, 0, 0, 0,206, 206,2102],
-    [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 211],
-    [207, 0,207, 0,207, 0,207, 0,207, 2111],
-    [2071,209,2071,209,2071, 0,2071,209,2071,211],
-    [208, 0,208, 0,208, 0,208, 0,208, 2111],
-    [207, 0,207, 0,207, 0,207, 0,207, 211],
-    [2071,209,2071,209,2071, 0,2071,209,2071,2111],
-    [208, 0,208, 0,208, 90,208, 0,208, 0]
+    [   0,   0,   0,   0,   0,   0,   0,   0,   0, 210],
+    [ 202, 203, 204,   0,   0,   0, 501,   0, 205,2101],
+    [2021,2031,2041,   0,   0,   0,   0, 206, 206,2102],
+    [   0,   0,   0,   0,   0,   0,   0,   0,   0, 211],
+    [ 207,   0,  207,  0, 207,   0, 207,   0, 207,2111],
+    [2071, 209, 2071,209,2071,   0,2071, 209,2071, 211],
+    [ 208,   0,  208,  0, 208,   0, 208,   0, 208,2111],
+    [ 207,   0,  207,  0, 207,   0, 207,   0, 207, 211],
+    [2071, 209, 2071,209,2071,   0,2071, 209,2071,2111],
+    [208,    0, 208,   0, 208,  90, 208,   0, 208,   0]
 ];
 
 var map_boss = [
     [ 301, 301, 301, 301, 301, 301, 301, 301, 301, 301],
-    [ 301, 301,	0, 0, 0, 0, 0, 0, 301, 301],
-    [ 301, 301, 0, 0, 303, 3021, 0, 0, 301, 301],
-    [ 301, 301, 0, 0, 0, 0, 0, 0, 301, 301],
-    [ 301, 301, 0, 0, 0, 0, 0, 0, 301, 301],
-    [ 301, 301, 0, 0, 0, 0, 0, 0, 301, 301],
-    [ 301, 301, 301, 301, 0, 0, 301, 301, 301, 301],
-    [ 301, 301, 301, 301, 0, 0, 301, 301, 301, 301],
-    [ 94, 0, 0, 0, 0, 0, 301, 301, 301, 301],
+    [ 301, 301,	  0,   0,   0,   0,   0,   0, 301, 301],
+    [ 301, 301,   0,   0, 303,3021,   0,   0, 301, 301],
+    [ 301, 301,   0,   0,   0,   0,   0,   0, 301, 301],
+    [ 301, 301,   0,   0,   0,   0,   0,   0, 301, 301],
+    [ 301, 301,   0,   0,   0,   0,   0,   0, 301, 301],
+    [ 301, 301, 301, 301,   0,   0, 301, 301, 301, 301],
+    [ 301, 301, 301, 301,   0,   0, 301, 301, 301, 301],
+    [  94,   0,   0,   0,   0,   0, 301, 301, 301, 301],
     [ 301, 301, 301, 301, 301, 301, 301, 301, 301, 301]
 ];
 
@@ -34,14 +34,14 @@ var map00=[
 	   [154,  0,  0,100,100,100,100,100,  0,  0,  0, 50, 50, 50, 50, 50, 50,  0,  0,154],
 	   [154,  0,  0,100,100,100,100,100,  0,  0,  0, 50, 50, 50, 50, 50, 50,  0,  0,154],
 	   [154,  0,  0,100,100,100,100,100,  0,  0,  0, 50, 50, 50, 50, 50, 50,  0,  0,154],
-	   [154,  0,  0,100,100,  91,100,100,  0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,154],
+	   [154,  0,  0,100,100,100,100,100,  0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,154],
 	   [154,  0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  1,  0,  0,200,100,  0,  0,154],
 	   [154,  0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  1,  0,  0,100,100,155,  0,154],
-	   [154,  0,  0,  0,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  0,  0,154],
+	   [154,  0,  0,  0,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  502,  0,  0,154],
 	   [154,  0,  0,  0,  0,  1,  0,  0,  0,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,154],
 	   [154,  0,  0, 50, 50, 50, 50, 50,  0,  1,  1,  0,  0,230,100,  0,  0,  0,  0,154],
 	   [154,  0,  0, 50, 50, 50, 50, 50,  0,  1,  1,  0,  0,100,100,  0,  0,  0,  0,154],
-	   [154,  0,  0, 50, 50, 50, 50, 50,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, 99],
+	   [154,  0,  0, 50, 50, 50, 50, 50,  0,  1,  1,  1,  1,  1,  503,  1,  1,  1,  1, 99],
 	   [154,  0,220,100,  0,  0,  0,  0,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, 99],
 	   [154,  0,100,100,  0,  0,  0,  0,  0,  1,  1,  0,  0,  0,  0,  1,  0,  0,  0,154],
 	   [154,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  0,  0,  0,  0,  1,  0,  0,  0,154],
@@ -59,9 +59,9 @@ var map01=[
 	   [ 52, 52, 52,  3,  3,  3,110, 51, 51,  3,  3,  3,  3,  5,  5,  3,  3,  3,  3,110],
 	   [ 52, 52, 52,  3,  3,  3,110, 51, 51,  3,  3,200,100,  5,  5,  3,  3,  3,  3,110],
 	   [ 52, 52, 52,  3,  3,  3,110, 51, 51,  3,  3,100,100,  5,  5,  3,  3,  3,  3,110],
-	   [ 52, 52, 52,  3,  3,  3,110,  3,  3,  3,  3,  3,  3,  5,  5,  3,  3,220,  3,110],
+	   [ 52, 52, 52,  3,  3,  3,110,  3,  3,  3,  3,  3,  504,  5,  5,  3,  3,220,  3,110],
 	   [ 52, 52, 52,  3,  3,  3,110,  3,230,100,  3,  3,  3,  5,  5,  3,  3,  3,  3,110],
-	   [  3,  3,  3,  3,  3,  3,110,  3,100,100,  3,  3,  3,  5,  5,  3,  3,  3,  3,110],
+	   [  3,  3,  3,  3,  3,  3,110,  3,100,100,  505,  3,  3,  5,  5,  3,  3,  3,  3,110],
 	   [  3,  3,  3,  3,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  3,  3,  3,  3,110],
 	   [  3,  3,  3,  3,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  3,240,  3,  3,110],
 	   [  3,  3,  3,  3,  5,  3,110,  3,  3,  3,  3,  3,  3,  3,  3,  3,100,  3,  3,110],
@@ -82,7 +82,7 @@ var map02=[
 	   [152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152],
 	   [152,230,100,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,156,155,152,152,152,152,152],
 	   [152,100,100,156,  8,  8,  8,  8,  8,  8,  8,  7,  7,  7,  7,  7,  7,  7,  7,152],
-	   [  7,  7,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  7,  7,152],
+	   [  7,  507,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  7,  7,152],
 	   [  7,  7,  8,  8,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  8,  7,  7,152],
 	   [  7,  7,  8,  8,  7,  7,  7,  7,152,152,  7,  7,  7,  7,  7,  7,  8,  7,  7,152],
 	   [  7,  7,  8,  8, 53, 53, 53, 53,152,152,152,152,152,  7,  7,  7,  8,  7, 54, 54],
@@ -93,7 +93,7 @@ var map02=[
 	   [  7,  7,  8,  8,152,152,152,152,152, 53, 53,  7,  8,152,152,152,152,152,152,152],
 	   [  7,  7,  8,  8,  8,  7,200,100,152, 53, 53,  7,  8,152,152,152,152,152,152,152],
 	   [  7,  7,  7,  8,  8,  7,100,100,152,  7,  7,  8,  8,152,152,152,152,152,152,152],
-	   [ 53, 53,  7,  8,  8,  8,  8,  7,152,  7,  7,  8,  7, 54, 54, 54, 54,  7,152,152],
+	   [ 53, 53,  7,  8,  8,  8,  8,  506,152,  7,  7,  8,  7, 54, 54, 54, 54,  7,152,152],
 	   [ 53, 53,  7,  8,  8,152,152,152,152,  7,  7,  8,  7, 54, 54, 54, 54,  7,152,152],
 	   [ 53, 53,  7,  8,  8,152,152,  7,220,100,  7,  8,  7,  7,  7,  7,  7,  7,  7,152],
 	   [ 53, 53,  7,  8,  8,152,152,  7,100,100,  7,  8,  8,  8,  8,  8,  8,  8,  8, 95],
@@ -102,28 +102,6 @@ var map02=[
 
 	];	
 
-var map00_npc=[
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,200,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-];
 
 const UNIT = 64;
 const IMG_U = 96;
@@ -173,9 +151,9 @@ monster.src = './img/mon00.png';
 monster2.src = './img/mon01.png';
 currentVillage.src = './img/map_academy_v2.png';
 academy.src = './img/map_academy.png';
-village00.src = './img/stage00.png';
-village01.src = './img/stage01.png';
-village02.src = './img/stage02.png';
+village00.src = './img/stage00_npc.png';
+village01.src = './img/stage01_npc.png';
+village02.src = './img/stage02_npc.png';
 bossmap.src = './img/bossmap.png';
 
 
@@ -219,7 +197,6 @@ mapList.push(new Map('04', bossmap, 640, 640, map_boss));
 
 // Current map index
 var nowMap = mapList[0].mappingArray;
-var nowMap_npc = map00_npc;
 
 // dialog창 -yoda-
 var chat=document.getElementById("dialog");
@@ -229,18 +206,55 @@ var downPressed = false;
 var leftPressed = false;
 var rightPressed = false;
 
-var spacePressed = false;
 var textOn=0;
+var onPokemonZone = false;
+var battleCountDown = 3;
+
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("keydown", keyDownHandler, false);
 
 document.addEventListener('keyup', (event) => {
-  if (event.keyCode === 32&& textOn==0) {
-    if(npcDetection() == 501) {
-		chat.style="block";
-		createDiag( temp[0] );
-		textOn=1;
+  if (event.keyCode === 32 && textOn == 0) {
+	switch(npcDetection()) {
+		case 501:
+			chat.style="block";
+			createDiag( temp[0] );
+			textOn=1;
+			break;
+		case 502:
+			chat.style="block";
+			createDiag( temp[1] );
+			textOn=1;
+			break;
+		case 503:
+			chat.style="block";
+			createDiag( temp[2] );
+			textOn=1;
+			break;
+		case 504:
+			chat.style="block";
+			createDiag( temp[3] );
+			textOn=1;
+			break;
+		case 505:
+			chat.style="block";
+			createDiag( temp[4] );
+			textOn=1;
+			break;
+		case 506:
+			chat.style="block";
+			createDiag( temp[5] );
+			textOn=1;
+			break;
+		case 507:
+			chat.style="block";
+			createDiag( temp[6] );
+			textOn=1;
+			break;
+
 	}
+  } else if(event.keyCode === 49) {
+	  clearDiag();
   }
 }, false);
 
@@ -322,10 +336,38 @@ function npcDetection() {
 	let npcId = -1;
 	if(nowMap[Math.ceil(myPlayer.y/UNIT)-1][Math.ceil(myPlayer.x/UNIT)] == 501) {
 		npcId = 501;
+	} else if(nowMap[Math.ceil(myPlayer.y/UNIT)-1][Math.ceil(myPlayer.x/UNIT)] == 502) {
+		npcId = 502;
+	} else if(nowMap[Math.ceil(myPlayer.y/UNIT)-1][Math.ceil(myPlayer.x/UNIT)] == 503) {
+		npcId = 503;
+	} else if(nowMap[Math.ceil(myPlayer.y/UNIT)-1][Math.ceil(myPlayer.x/UNIT)] == 504) {
+		npcId = 504;
+	} else if(nowMap[Math.ceil(myPlayer.y/UNIT)-1][Math.ceil(myPlayer.x/UNIT)] == 505) {
+		npcId = 505;
+	} else if(nowMap[Math.ceil(myPlayer.y/UNIT)][Math.ceil(myPlayer.x/UNIT)+1] == 506) {
+		npcId = 506;
+	} else if(nowMap[Math.ceil(myPlayer.y/UNIT)-1][Math.ceil(myPlayer.x/UNIT)] == 507) {
+		npcId = 507;
 	}
 
 	return npcId;
 }
+
+function pokemonDetction() {
+	var currentValue = nowMap[Math.ceil(myPlayer.y/UNIT)][Math.ceil(myPlayer.x/UNIT)];
+	
+	if(currentValue >= 50 && currentValue < 60) {
+		onPokemonZone = true;
+		// context.font="30px Comic Sans MS";
+		// context.fillStyle = "red";
+		// context.textAlign = "center";
+		// context.fillText(countDown, MAP_WIDTH/2, MAP_HEIGHT/2);
+	} else {
+		onPokemonZone = false;
+	}
+	return currentValue;
+}
+
 
 function move() {
 	if(upPressed == true) {
@@ -354,51 +396,48 @@ function moveMap(){
 	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==90 ){
 		nowMap=map00;
 		currentVillage = village00;
-		myPlayer.x= (5*UNIT);
-		myPlayer.y= (6*UNIT);
+		setPosition(5, 6);
 	}
 	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==91 ){
 		nowMap=map_init;
 		currentVillage = academy;
-		myPlayer.x= (5*UNIT);
-		myPlayer.y= (8*UNIT);
+		setPosition(5, 8);
 	}
 	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==99 ){
 		nowMap=map01;
 		currentVillage = village01;
-		myPlayer.x= (1*UNIT);
-		myPlayer.y= (16*UNIT);
+		setPosition(1, 16);
 	}
 	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==98 ){
 		nowMap=map00;
 		currentVillage = village00;
-		myPlayer.x= (18*UNIT);
-		myPlayer.y= (12*UNIT);
+		setPosition(18, 12);
 	}
 	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==97 ){
 		nowMap=map02;
 		currentVillage = village02;
-		myPlayer.x= (3*UNIT);
-		myPlayer.y= (18*UNIT);
+		setPosition(3, 18);
 	}
 	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==96 ){
 		nowMap=map01;
 		currentVillage = village01;
-		myPlayer.x= (13*UNIT);
-		myPlayer.y= (1*UNIT);
+		setPosition(13, 1);
 	}
 	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==95 ){
 		nowMap=map_boss;
 		currentVillage = bossmap;
-		myPlayer.x= (1*UNIT);
-		myPlayer.y= (8*UNIT);
+		setPosition(1, 8);
 	}
 	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==94 ){
 		nowMap=map02;
 		currentVillage = village02;
-		myPlayer.x= (18*UNIT);
-		myPlayer.y= (17*UNIT);
+		setPosition(18, 17);
 	}
+}
+
+function setPosition(x, y) {
+	myPlayer.x = x * UNIT;
+	myPlayer.y = y * UNIT;
 }
 
 function draw(){
@@ -409,12 +448,31 @@ function draw(){
 	context.drawImage(myPlayer.img, IMG_U*motionIdx, IMG_U*myPlayer.direction, IMG_U, IMG_U, MAP_WIDTH/2, MAP_HEIGHT/2, UNIT, UNIT);
 
 	move();
+
+	if(onPokemonZone && battleCountDown >=0) {
+		context.font="30px Comic Sans MS";
+		context.fillStyle = "red";
+		context.textAlign = "center";
+		context.fillText(battleCountDown, MAP_WIDTH/2, MAP_HEIGHT/2);
+	} else if(onPokemonZone && battleCountDown < 0) {
+		alert("Battle Begin");
+		clearInterval(runMap);
+	}
+	
+
 	console.log(`실제 캐릭터 위치 : (${Math.floor(myPlayer.x/UNIT)}, ${Math.floor(myPlayer.y/UNIT)})`);
 	//  requestAnimationFrame(draw);
 }
 
 
-var init_talk = ['Acorn 아카데미에 온 것을 환영하네.. 자네는 이제 개발자가 되기 위한 모험을 떠날 걸세 내가 바쁜 관계로 지금 바로 출발하게!'];
+var init_talk = ['Acorn 아카데미에 온 것을 환영하네.. 자네는 이제 개발자가 되기 위한 모험을 떠날 걸세 내가 바쁜 관계로 지금 바로 출발하게!', 
+				'꼬마야 뭘 사고 싶니?',
+				'여기는 HTML 마을이란다..',
+				'청년 뭘 사고 싶소?',
+				'여기는 CSS 마을이에요 ㅎㅎ',
+				'아저씨 뭐 줄까?',
+				'여기는 Javascript 마을이네.. 아주 위험하지..',
+				];
 var temp = [];
 
 for(var idx = 0; idx < init_talk.length; idx++) {
@@ -444,12 +502,12 @@ function createDiag ( dialog ) {
 			}, 50*k);
 		}(k));
 	}	
-	setTimeout(function(){
-		$('#dialog').html("");
-      	chat.style.display="none";
-      	textOn=0;
-	}, 50*k);
+}
 
+function clearDiag() {
+	$("#dialog").html("");
+	chat.style.display="none"
+	textOn=0;
 }
 
 var runMap = setInterval(function fps(){
@@ -457,6 +515,8 @@ var runMap = setInterval(function fps(){
 	
 	draw();
 	moveMap();
+	pokemonDetction();
+
 }, 51);
 //  draw();
 
@@ -467,3 +527,11 @@ setInterval(function motionFps(){
 setInterval(function motionFps(){
 	monsterIdx=(monsterIdx+1) % 4
 }, 3000);
+
+var countDown =  setInterval(function() {
+	if(onPokemonZone == true) {
+		battleCountDown--;
+	} else {
+		battleCountDown = 3;
+	}
+}, 1000)
