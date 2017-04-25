@@ -1,9 +1,10 @@
 
 /*ㅁㅁ
+
 <!-- 
  * 학원에서....Apr25,2017
- * 			17:35
- * 			dev by JB
+ * 			20:30
+ *  * 			dev by JB
  * UTF-8
  * */$(document).ready(function(){
 
