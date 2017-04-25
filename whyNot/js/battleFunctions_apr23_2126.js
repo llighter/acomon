@@ -1,14 +1,7 @@
-
-<<<<<<< HEAD
-/*ㅁㅁ
- * 학원에서....Apr24,2017
- * 			20:56
-=======
 /*ㅁㅁzz
 <!-- 
  * 학원에서....Apr25,2017
  * 			20:30
->>>>>>> 2959009ae3869cc915d7ab2389f324d510c47d62
  * 			dev by JB
  * UTF-8
  * 
@@ -147,13 +140,7 @@ function enemyRandAtt(){
 				newPokemon.hp = Number((newPokemon.hp - (criticalAttack02- newPokemon.shield)).toFixed(1));
 				console.log(newPokemon.name + "몬의 체력 "+newPokemon.hp+" 남음.");
 			}
-<<<<<<< HEAD
-			hpDown();
-			$(".whyEnemyTextHp").html("HP: "+ newPokemon.hp + " / Max_HP: "+newPokemon.initHp);
-=======
-			//hpDown();
 			$(".whyEnemyTextHp").html(parseInt(newPokemon.hp*10)/10 + " / "+newPokemon.initHp);
->>>>>>> 2959009ae3869cc915d7ab2389f324d510c47d62
 		}
 		else if(newPokemon.status == "paralyze"){  // 마비는 1턴 휴식.
 			console.log("마비... 이번턴 쉴께요~");
@@ -170,11 +157,7 @@ function enemyRandAtt(){
 				myMonid.hp = Number((myMonid.hp - (criticalAttack02- myMonid.shield)).toFixed(1));
 				console.log(myMonid.name + "몬의 체력 "+myMonid.hp+" 남음.");
 			}
-<<<<<<< HEAD
-			$(".whyAllyTextHp").html("HP: "+ myMonid.hp + " / Max_HP: "+myMonid.initHp);
-=======
 			$(".whyAllyTextHp").html( parseInt(myMonid.hp*10)/10 + " / "+myMonid.initHp);
->>>>>>> 2959009ae3869cc915d7ab2389f324d510c47d62
 		}
 	skillLv2AttackRelease();  // 상대몬스터의 턴이 끝날때마다 부여효과 횟수 차감.
 	}
@@ -186,19 +169,9 @@ function tackle(){
 		console.log(myMonid.name+"몬이 공격력 ("+myMonid.att+ "-" + newPokemon.shield +")로공격.");
 		newPokemon.hp = Number((newPokemon.hp - (myMonid.att - newPokemon.shield)).toFixed(1));
 		console.log(newPokemon.name + "몬의 체력 "+newPokemon.hp+" 남음.");
-<<<<<<< HEAD
-		$(".whyEnemyTextHp").html("HP: "+ newPokemon.hp + " / Max_HP: "+newPokemon.initHp);
-	}
-	winOrLose();  // 자신/ 상대의 턴이 끝날때마다 hp <=0인지 체크 -> 승리판정
-	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
-		enemyRandAtt();
-		winOrLose(); // 자신/ 상대의 턴이 끝날때마다 hp <=0인지 체크 -> 승리판정
-	}
-=======
 		$(".whyEnemyTextHp").html( parseInt(newPokemon.hp*10)/10 + " / "+newPokemon.initHp);
 	}
 	winOrLose();  // 자신/ 상대의 턴이 끝날때마다 hp <=0인지 체크 -> 승리판정
->>>>>>> 2959009ae3869cc915d7ab2389f324d510c47d62
 	propertyBonusRelease();// 상성데미지 해제..
 }
 	
@@ -213,11 +186,7 @@ function skillAttack(){
 		console.log("원래데미지: "+myMonid.att+ " 스킬데미지: "+criticalAttack01 + " 상대방어: "+newPokemon.shield);
 		newPokemon.hp = (newPokemon.hp - (criticalAttack01 - newPokemon.shield)).toFixed(1);
 		console.log(newPokemon.name + "몬의 체력 "+newPokemon.hp+" 남음.");
-<<<<<<< HEAD
-		$(".whyEnemyTextHp").html("HP: "+ newPokemon.hp + " / Max_HP: "+newPokemon.initHp);
-=======
 		$(".whyEnemyTextHp").html( parseInt(newPokemon.hp*10)/10 + " / " + newPokemon.initHp);
->>>>>>> 2959009ae3869cc915d7ab2389f324d510c47d62
 	}
 	winOrLose();
 	propertyBonusRelease();
@@ -370,11 +339,8 @@ function catchWildMon(){  // 몬스터볼 소모해서 상대몬스터를 포획
 				));
 		showItemMsg = "system- 새로운 몬스터 "+worldMon.name+"를 잡앗다!!";
 		winOrLoseResult = true;
-<<<<<<< HEAD
-=======
 		newPokemon.hp = 0;
 		$(".whyEnemyTextHp").html( parseInt(newPokemon.hp*10)/10 + " / "+newPokemon.initHp);
->>>>>>> 2959009ae3869cc915d7ab2389f324d510c47d62
 		console.log(pokemons[pokemons.length-1]);  // 포획한 몬스터, 몬스터북에서 확인.
 		
 		//#### 종원이형: 여기서 전투모드 끝내고 맵으로 전환.
@@ -396,10 +362,6 @@ function useItem(item){
 			showItemMsg = myMonid.name+"회복!! 현재체력: "+ myMonid.hp;
 			jiwoo.mint--;
 			showItemMsg += "\nsystem- "+ item +" " + jiwoo.mint + "개 남았습니다.";
-<<<<<<< HEAD
-			hpUp();
-=======
-			//hpUp();
 			$(".whyAllyTextHp").html( parseInt(myMonid.hp*10)/10+ " / "+myMonid.initHp);
 		}
 		else if((jiwoo.mint >0) && ((myMonid.hp +25) >= myMonid.initHp)){
@@ -409,7 +371,6 @@ function useItem(item){
 			showItemMsg += "\nsystem- "+ item +" " + jiwoo.mint + "개 남았습니다.";
 			//hpUp();
 			$(".whyAllyTextHp").html( parseInt(myMonid.hp*10)/10 + " / "+myMonid.initHp);
->>>>>>> 2959009ae3869cc915d7ab2389f324d510c47d62
 		}
 		//### 종원이형: 민트먹을떄 hpUp하면서 게이지 변동..
 		console.log(showItemMsg);
@@ -436,11 +397,7 @@ function tagMyMon(bookNumber){	// 내가 소유한 몬스터와 태그하기.
 		encounter(pokemons[bookNumber].id, worldMon.id); 
 		console.log("너로 정했다!! 나와라~ "+pokemons[bookNumber].name+"!!!!");
 		$(".whyAllyName").html("["+ pokemons[bookNumber].name +"] Lv."+ pokemons[bookNumber].lv );
-<<<<<<< HEAD
-		$(".whyAllyTextHp").html("HP: "+ pokemons[bookNumber].hp + " / Max_HP: "+pokemons[bookNumber].initHp);
-=======
 		$(".whyAllyTextHp").html( parseInt(pokemons[bookNumber].hp*10)/10 + " / "+pokemons[bookNumber].initHp);
->>>>>>> 2959009ae3869cc915d7ab2389f324d510c47d62
 
 		
 		// #### 맵팀: 여기서 몬스터태그하면서 화면전환 가능한지...
