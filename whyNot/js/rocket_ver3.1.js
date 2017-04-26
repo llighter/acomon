@@ -46,8 +46,8 @@ function yAllyAttackEffect(){
 }
 
 function yEnemyAttackEffect(){
-	$('.whyEnemyImg').css({'background-image':'url("img/monZ_01.gif")'});
-	setTimeout(function(){$('.whyEnemyImg').css({'background-image':'url("img/monZ_00.png")'})},2730);
+	$('.whyEnemyImg').css({'background-image':'url("img/rd/myMon_06d.gif")'});
+	setTimeout(function(){$('.whyEnemyImg').css({'background-image':'url("img/rd/myMon_06c.png")'})},2730);
 	$('.whyEnemyAttack').css({top:"120px",left:"450px",width:'60px',height:'60px'}).fadeIn();
 	$('.whyEnemyAttack').animate({top:"220px",left:"10px",width:'300px',height:'300px'},{duration:1000});
 	$('.whyEnemyAttack').fadeOut();
