@@ -1,7 +1,7 @@
 /*ㅁㅁzz
 <!-- 
  * 학원에서....Apr26,2017
- * 			14:40
+ * 			20:43
  * 			dev by JB
  * MS949
  * 
@@ -48,7 +48,15 @@
  * battlefunc // 데미지, 상태이상 ytext수정. 
  * mapBattlefunc // hp/max_hp 초기상태창. 지우상점이용후 지우상태창update.
  * rocket_ver3.1 // 특수스킬 사용효과 ytext. 
- * 
+ * --------------------
+ * 수 20:45) 해결 해야할 버그
+ * mapBattle -> $("#dialog").html("보유 포켓몬: list"+ (++listNo) +" 몬스터이름: " + pokemons[bookNo].name);
+	보내기위해서 몬스터 리스트를 봐야하는데... html이 안뜸..
+
+	battlefunc -> useItem에서 체력 == 풀체력 일떄 상대에게 공격넘어감.
+	// 공격안넘어가고 알람창만 할수잇을까.
+
+	승리판정후 -> 전투화면에서 빠져나가게끔.
  * 
  * 
  * 
@@ -85,6 +93,8 @@ if(noExists){
 
 $(".whyEnemyName").html("["+ newPokemon.name +"] Lv."+ newPokemon.lv );
 $(".whyAllyName").html("["+ myMonid.name +"] Lv."+ myMonid.lv );
+$(".whyEnemyTextHp").html(parseInt(newPokemon.hp *10)/10 + " / "+newPokemon.initHp);
+$(".whyEnemyName").html("["+ newPokemon.name +"] Lv."+ newPokemon.lv );
 
 function propertyBonus(){  // 상성 보너스 데미지.
 	var showMsg = "상성이없음.";
@@ -149,6 +159,7 @@ function enemyRandAtt(){
 			        	(criticalAttack02- newPokemon.shield).toFixed(1)+"</span>만큼 피해를 받았습니다!!");   
 			}
 			$(".whyEnemyTextHp").html(parseInt(newPokemon.hp*10)/10 + " / "+newPokemon.initHp);
+			yEnemyhp();	
 		}
 		else if(newPokemon.status == "paralyze"){  // 마비는 1턴 휴식.
 			console.log("마비... 이번턴 쉴께요~");
@@ -233,7 +244,7 @@ var burning  = 5;
 //var skill2Names = ["reflect","sharpen","paralyze","burn","shieldOn"]; //
 function skillLv2Attack(){
 	var skillMsg = "적정레벨이 아닙니다. 현재레벨: " + myMonid.lv + "/ 요구레벨:2 "; 
-	if( myMonid.lv > 1 /*&& !winOrLoseResult*/){  //### 레벨 2이상 && winOrLoseResult 결과값이 안나왓을경우에 진행.
+	if( myMonid.lv > 1 && ( myMonid.status == "normal" && newPokemon.status =="normal" ) /*&& !winOrLoseResult*/){  //### 레벨 2이상 && winOrLoseResult 결과값이 안나왓을경우에 진행.
 		propertyBonus();
 		switch(myMonid.property){
 		case 0://reflect -상대몬스터 데미지반사 - 1회.
@@ -279,7 +290,11 @@ function skillLv2Attack(){
 
 function skillLv2AttackRelease(){  // 상태이상 효과 해제. 
 	effectTimes--;
-	console.log("효과  " + effectTimes + "번 남음.");
+	if(effectTimes >0 ){
+		setTimeout(function(){ 
+			console.log("효과  " + effectTimes + "번 남았습니다.");
+			}, 2000);
+		}
 	if(effectTimes == 0 ){
 		switch(newPokemon.status){	
 		case "paralyze":
@@ -307,13 +322,15 @@ function skillLv2AttackRelease(){  // 상태이상 효과 해제.
 		}
 	} //if(effectTimes <=0) END
 	else if(newPokemon.status == "burn"){  // 효과횟수가 남은동안에는 화상데미지는 누적됨.
-		console.log( (4-effectTimes) + "차화상: " + burning + "데미지");
+		setTimeout(function(){
+			yTextmsg( newPokemon.name +"몬 "+(4-effectTimes) + "차화상: " + burning + "데미지");
+		}, 1500);
 		newPokemon.hp -= burning;
 		console.log("상대 포켓몬 체력: " + newPokemon.hp);
 		$(".whyEnemyTextHp").html( parseInt(newPokemon.hp*10)/10 + " / "+newPokemon.initHp);
+		yEnemyhp();	
 		//### 종원이형: hp게이지 변동..
 		burning += 3;  // 1차 화상은 5, 2차는 8, 3차는 11 데미지. 총 24데미지를 주게됨.
-		
 	}
 	
 } //skillLv2AttackRelease END
@@ -339,6 +356,7 @@ function catchWildMon(){  // 몬스터볼 소모해서 상대몬스터를 포획
 		showItemMsg = "system- 새로운 몬스터 "+worldMon.name+"를 잡앗다!!";
 		winOrLoseResult = true;
 		newPokemon.hp = 0;
+		yEnemyhp();	
 		$(".whyEnemyTextHp").html( parseInt(newPokemon.hp*10)/10 + " / "+newPokemon.initHp);
 		console.log(pokemons[pokemons.length-1]);  // 포획한 몬스터, 몬스터북에서 확인.
 		
@@ -369,6 +387,7 @@ function useItem(item){
 			showItemMsg += "<br><span style='color:#82b5f2'>"+ item +
 				"</span>(이)가 <span style='color:#82b5f2'>"+ jiwoo.mint + "</span>개 남았습니다.";
 			$(".whyAllyTextHp").html( parseInt(myMonid.hp*10)/10+ " / "+myMonid.initHp);
+			yAllyhp();
 		}
 		else if((jiwoo.mint >0) && ((myMonid.hp +25) >= myMonid.initHp)){
 			myMonid.hp = myMonid.initHp;		
@@ -378,6 +397,7 @@ function useItem(item){
 			showItemMsg += "<br><span style='color:#82b5f2'>"+ item +
 				"</span>(이)가 <span style='color:#82b5f2'>"+ jiwoo.mint + "</span>개 남았습니다.";
 			$(".whyAllyTextHp").html( parseInt(myMonid.hp*10)/10 + " / "+myMonid.initHp);
+			yAllyhp();
 		}
 		setTimeout(yTextmsg(showItemMsg), 1500);
 		console.log(showItemMsg);
@@ -408,6 +428,8 @@ function tagMyMon(bookNumber){	// 내가 소유한 몬스터와 태그하기.
 		console.log("너로 정했다!! 나와라~ "+pokemons[bookNumber].name+"!!!!");
 		$(".whyAllyName").html("["+ pokemons[bookNumber].name +"] Lv."+ pokemons[bookNumber].lv );
 		$(".whyAllyTextHp").html( parseInt(pokemons[bookNumber].hp*10)/10 + " / "+pokemons[bookNumber].initHp);
+		$(".whyEnemyTextHp").html(parseInt(newPokemon.hp *10)/10 + " / "+newPokemon.initHp);
+		$(".whyEnemyName").html("["+ newPokemon.name +"] Lv."+ newPokemon.lv );
 		// #### 맵팀: 여기서 몬스터태그하면서 화면전환 가능한지...
 	}
 }
@@ -436,7 +458,7 @@ function winOrLose(){
 		myMonid.status = "Fainted";
 		winOrLoseResult= true;
 		yTextmsg(myMonid.name+ "의 패배!! " +
-				 "<br/>" + myMonid.name + "의 상태가 " + myMonid.status+ "가 되었다! (병원치료 요구)");
+				 "<br/>" + myMonid.name + "의 상태가 " + myMonid.status+ "가 되었다!");
 		///########## 종원이형: 여기서 escape로 전투화면을 끝내는 화면연출.!!!
 	}
 }
@@ -446,17 +468,17 @@ function expUp(){
 	var showMsg = "";   
 	if((myMonid.exp + winExp) >= (60 + myMonid.lv*40)){  //1렙 풀경치 100, 2렙은 140, 3렙은 180...
 		showMsg = myMonid.name+"가 레벨업했다!!!";
-		showMsg += "\n경험치: "+(myMonid.exp);
+		showMsg += "<br/>경험치: "+(myMonid.exp);
 		myMonid.exp = ((myMonid.exp + winExp) % (60 + myMonid.lv*40));
 		showMsg += " -> "+ myMonid.exp +", ";
 //		console.log("#### "+ (60 + myMonid.lv*40));    경험치가 앞에 있어야함. 아니면 앞에 함수식 망가짐;;
-		showMsg += "\t레벨: "+myMonid.lv ;
+		showMsg += "   레벨: "+myMonid.lv ;
 		myMonid.lv += 1;  //#### 종원이형: 레벨 오를시에 생기는 이벤트. 레벨업연출은 여기서 수정해가면되욤.
 		showMsg += " -> "+ myMonid.lv;
 		myMonid.hp = Number((myMonid.initHp*1.2).toFixed(1));
-		showMsg += "\n체력증가율 (1.2배):\t"+ myMonid.initHp+ " -> " + (myMonid.initHp*1.2).toFixed(1);
+		showMsg += "<br/>체력증가율 (1.2배):"+ myMonid.initHp+ " -> " + (myMonid.initHp*1.2).toFixed(1);
 		myMonid.initHp = myMonid.hp;
-		showMsg += "\n공격력 증가 (+4): \t" + myMonid.att;
+		showMsg += "<br/>공격력 증가 (+4): " + myMonid.att;
 		myMonid.att += 4;
 		showMsg += " -> "+ myMonid.att;
 
