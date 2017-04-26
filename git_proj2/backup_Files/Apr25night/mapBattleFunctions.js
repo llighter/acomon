@@ -65,7 +65,7 @@ pokemons.push(new MyPokemon((bookNumber++), 0, "HTML", 		2, 0, 50, 13, 1, 0 ,"no
 var jiwoo = {name: "한지우", age: 16 , mint:5, pokeBall:4, golds:30000};
 $(".whyStatusNamebox").html("이름: "+jiwoo.name + "<br/> 나이: "+jiwoo.age )
 .css({"font-size": "30pt", "font-weight": "bolder"});
-$(".whyStatusMoneybox").html("소유 골드: "+ jiwoo.golds +"골드 "+"<br/> 민트: "+ jiwoo.mint +"개 <br/>몬스터볼: "+ jiwoo.pokeBall+ "개");
+$(".whyStatusMoneybox").html("소유 골드: "+ jiwoo.golds +"골드 "+"<br/> 민트: "+ jiwoo.mint +"개 <br/>몬스터볼: "+ jiwoo.pokeBall+ "개")
 .css({"font-size": "20pt", "font-weight": "bolder"});
 //console.log("jiwoo.mint "+jiwoo.mint +"  jiwoo.pokeBall "+ jiwoo.pokeBall);
 
@@ -77,11 +77,9 @@ console.log("storage.mint "+storage.mint +"  storage.pokeBall "+ storage.pokeBal
 var rand1;
 var rand2;
 var myMonid;
-var winOrLoseResult = false;  //결과가 나올때까지 경기 속행. 둘중 죽거나, 도망치면 true.
 
 function goBattle(){ //#### 맵팀: 야생 포켓몬과의 만날때 시작부분.
 noRepeatRand();  // 내가 뽑는 몬스터도 랜덤. 상대몬스터도 랜덤.으로 만들어놧음. 조율가능.
-winOrLoseResult = false;
 encounter(rand1,rand2);  // 나와 상대의 특정 몬스터를 넣고싶을땐  이놈 건드리면됨..
 /////
 }
@@ -222,7 +220,6 @@ function store(wantedService){
 		} /////////
 		
 	}
-	$(".whyStatusMoneybox").html("소유 골드: "+ jiwoo.golds +"골드 "+"<br/> 민트: "+ jiwoo.mint +"개 <br/>몬스터볼: "+ jiwoo.pokeBall+ "개");
 	console.log(storeMsg);
 }
 

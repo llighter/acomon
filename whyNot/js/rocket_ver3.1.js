@@ -529,14 +529,6 @@ function yCmdListSelect(){
 function yMyAcomonTag(){
 	switch (yListCount) {
 	case 1:
-<<<<<<< HEAD
-		tagMyMon(yListCount-1);//재현 1번째 포켓몬 // pokemons[0]
-
-		yAllyhp();
-		turnEnd();  //실행할 함수에 넣으면됨
-=======
-
->>>>>>> efb4baa8e8ecb41d89c4434930fe4643701674bf
 		break;
 	case 2:
 		tagMyMon(yListCount-1);//재현 2번째 포켓몬// pokemons[1]
@@ -553,10 +545,6 @@ function yMyAcomonTag(){
 	case 5:
 		tagMyMon(yListCount-1);//재현 5번째 포켓몬// pokemons[4]
 		yAllyhp();
-<<<<<<< HEAD
-		turnEnd();	//실행할 함수에 넣으면됨
-=======
->>>>>>> efb4baa8e8ecb41d89c4434930fe4643701674bf
 		break;
 	case 6:
 		tagMyMon(yListCount-1);//재현 6번째 포켓몬
@@ -612,19 +600,11 @@ function yCmdSkillSelect(){
 	    	yEnemyhp();				//공격 hp시각효과
 		},200)
 		setTimeout(function (){	//방어 턴
-<<<<<<< HEAD
-			 propertyBonus();
-			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");	
-			 propertyBonusRelease();
-			enemyTurn();
-=======
 			propertyBonus();
 	        yTextmsg("<span style='color:#FF6961'>"+myMonid.name+"</span>몬이 <span style='color:#82b5f2'>"+
 	        		((newPokemon.att - myMonid.shield).toFixed(1))+"</span>만큼 피해를 받았습니다!!");   
 	        propertyBonusRelease();
 	        enemyTurn();
-
->>>>>>> efb4baa8e8ecb41d89c4434930fe4643701674bf
 			yEnemyAttackEffect();	
 			yAllyhp();		
 		},4000)
@@ -640,17 +620,10 @@ function yCmdSkillSelect(){
 		},200)
 		setTimeout(function (){	//방어 턴
 			propertyBonus();
-<<<<<<< HEAD
-			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");	
-			propertyBonusRelease();	
-			enemyTurn();
-=======
 	        yTextmsg("<span style='color:#FF6961'>"+myMonid.name+"</span>몬이 <span style='color:#82b5f2'>"+
 	        		((newPokemon.att - myMonid.shield).toFixed(1))+"</span>만큼 피해를 받았습니다!!");    
 	        propertyBonusRelease();
 	        enemyTurn();
-
->>>>>>> efb4baa8e8ecb41d89c4434930fe4643701674bf
 			yEnemyAttackEffect();	
 			yAllyhp();		
 		},4000)
@@ -665,15 +638,9 @@ function yCmdSkillSelect(){
 		},200)
 		setTimeout(function (){	//방어 턴
 			propertyBonus();
-<<<<<<< HEAD
-			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");	
-			 propertyBonusRelease();		
-=======
 	        yTextmsg("<span style='color:#FF6961'>"+myMonid.name+"</span>몬이 <span style='color:#82b5f2'>"+
 	        		((newPokemon.att - myMonid.shield).toFixed(1))+"</span>만큼 피해를 받았습니다!!");   
 	        propertyBonusRelease();
-
->>>>>>> efb4baa8e8ecb41d89c4434930fe4643701674bf
 			enemyTurn();
 			yEnemyAttackEffect();	
 			yAllyhp();		
@@ -681,30 +648,6 @@ function yCmdSkillSelect(){
 		setTimeout(function (){turnEnd();},7000);  //실행할 함수에 넣으면됨
 		break;
 	case 4:
-<<<<<<< HEAD
-		setTimeout(function (){		//공격 턴
-			yTextmsg(myMonid.name+"몬 \""+ skill2Names[myMonid.property]+"\"발동!!");
-			skillLv2Attack();				//공격 스크립트
-			yAllyAttackEffect();	//공격 시각효과
-	    	yEnemyhp();				//공격 hp시각효과
-		},200)
-		setTimeout(function (){	//방어 턴
-			if(myMonid.property == 0)
-				yTextmsg( myMonid.name+ "이 "+skill2Names[myMonid.property]+" 상태이다.");		
-			else if(myMonid.property == 1)
-				yTextmsg( myMonid.name+ "이 "+skill2Names[myMonid.property]+" 상태이다.");		
-			else if(myMonid.property == 2)
-				yTextmsg( newPokemon.name+ "이 "+skill2Names[myMonid.property]+"상태이다.");		
-			else if(myMonid.property == 3)
-				yTextmsg( newPokemon.name+ "이 "+skill2Names[myMonid.property]+"상태이다.");		
-			else if(myMonid.property == 4)
-				yTextmsg( myMonid.name+ "이 "+skill2Names[myMonid.property]+" 상태이다.");	
-			enemyTurn();
-			yAllyhp();		
-		},4000)
-		setTimeout(function (){turnEnd();},7000);  //실행할 함수에 넣으면됨
-		break;
-=======
 	      setTimeout(function (){      //공격 턴
 	         yTextmsg("<span style='color:#FF6961'>"+myMonid.name+"</span>몬이 <span style='color:#82b5f2'>"+
 						skillNames[myMonid.property]+"</span>를 시전했습니다.");
@@ -733,7 +676,6 @@ function yCmdSkillSelect(){
 	      },4000)
 	      setTimeout(function (){turnEnd();},7000);  //실행할 함수에 넣으면됨
 	      break;
->>>>>>> efb4baa8e8ecb41d89c4434930fe4643701674bf
 	default:
 		break;
 	}
