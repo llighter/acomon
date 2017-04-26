@@ -7,13 +7,12 @@ var myPlayer = new Player('player01', 'yunha', UNIT*4 ,UNIT*2, player, EAST_DIRE
 
 
 var mapList = [];
+
 mapList.push(new Map('00', academy, 640, 640, map_init));
 mapList.push(new Map('01', village00, 1280, 1280, map00));
 mapList.push(new Map('02', village01, 1280, 1280, map01));
 mapList.push(new Map('03', village02, 1280, 1280, map02));
 mapList.push(new Map('04', bossmap, 640, 640, map_boss));
-
-var monsterList = {};
 
 // Current map index
 var nowMap = mapList[0];
@@ -253,10 +252,9 @@ function draw(){
 	
 	var x = MAP_WIDTH/2 - myPlayer.x;
 	var y = MAP_HEIGHT/2 - myPlayer.y;
-	context.drawImage(nowMap.img,0,0,1280,1280,x,y,1280,1280);
-	context.drawImage(myPlayer.img, IMG_U*motionIdx, IMG_U*myPlayer.direction, IMG_U, IMG_U, MAP_WIDTH/2, MAP_HEIGHT/2, UNIT, UNIT);
-
-	// move();
+	context.drawImage(nowMap.img,0,0,nowMap.width,nowMap.height,x,y,nowMap.width,nowMap.height);
+	context.drawImage(myPlayer.img, IMG_U*motionIdx, IMG_U*myPlayer.direction, 
+						IMG_U, IMG_U, MAP_WIDTH/2, MAP_HEIGHT/2, UNIT, UNIT);
 
 	if(pokemonDetction() > 0 && battleCountDown >=0) {
 		context.font="30px Comic Sans MS";
@@ -268,7 +266,6 @@ function draw(){
 		currentMode = 1;
 	}
 	
-
 	console.log(`실제 캐릭터 위치 : (${Math.floor(myPlayer.x/UNIT)}, ${Math.floor(myPlayer.y/UNIT)})`);
 	//  requestAnimationFrame(draw);
 }
@@ -319,8 +316,12 @@ function createDiag ( dialog ) {
 	}
 
 }
+
+// TODO : 위치가 쌩뚱 맞다. 적절한 위치로 옮겨야함(맨위로 올리면 동작안함) - temp 밑에 있어야한다.
+createOpening(temp[7]);
+
 //	오프닝 멘트 창 출력
-function createOpen ( dialog) {
+function createOpening ( dialog ) {
 	for(k = 0; k < dialog.length; k++) {
 		(function(k){
 			setTimeout(function(){
@@ -330,17 +331,19 @@ function createOpen ( dialog) {
 		}(k));
 	}
 }	
-	createOpen(temp[7]);
+
+
 
 function clearDiag() {
 	$("#dialog").html("");
 	chat.style.display="none"
-	textOn=0;
 
 	$("#option").html("");
 	option.style.display="none"
 	$("#opening").html("");
 	opening.style.display="none"
+
+	textOn=0;
 }
 
 var update = setInterval(function fps(){
