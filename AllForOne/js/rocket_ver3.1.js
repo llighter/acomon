@@ -140,8 +140,8 @@ function ykeyRokect(event){
     else if(event.keyCode == 65){ 	//a키 : 메뉴키
     	yAkeyPressed();
     }
-    else if(event.keyCode == 90){ //z키 : 확인키
-    	yZkeyPressed();
+    else if(event.keyCode == 32){ //z키 : 확인키 -> 스페이스로 바꿈.
+    	ySpacekeyPressed();
     }
     else if(event.keyCode == 88){ //x키 : 뒤로가기키
     	yXkeyPressed();
@@ -231,7 +231,7 @@ function yXkeyPressed(){
 		break;
 	}
 }
-function yZkeyPressed(){
+function ySpacekeyPressed(){
 	switch (yLocClass[0]){
 	case "whyMenu":	//@
 		yMapMenuSelect();
