@@ -73,8 +73,8 @@ var map01=[
 
 //맨 처음 건물안 
 var map000 = [
-    [ -1, -1, -1,  -1,  -1,  -1, -1, -1, -1, 210],
-    [ 202, 203, 204, -1, -1, -1, -1, -1,205,2101],
+    [ -1, -1, -1,  509,  510,  511, -1, -1, -1, 210],
+    [ 202, 203, 204, -1, -1, -1, 512, -1,205,2101],
     [ 2021, 2031,2041, -1, -1, -1, -1,206, 206,2102],
     [ -1, -1, -1, -1, -1, -1, -1, -1, -1, 211],
     [207, -1,207, -1,207, -1,207, -1,207, 2111],
@@ -142,6 +142,9 @@ var boss = new Image();
 // 보스 맵타일
 var b_tile = new Image();
 var b_tile2 = new Image();
+// npc
+var npc = new Image();
+var ball = new Image();
 
 
 
@@ -165,7 +168,8 @@ appliance.src='./img/appliance.png';
 boss.src='./img/boss.png';
 b_tile.src='./img/bossmap_1.PNG';
 b_tile2.src='./img/b_tile02.png';
-
+npc.src='./img/npc.png';
+ball.src='./img/item00.png';
 
 // Map coordinate
 var mapX = 0;
@@ -486,6 +490,26 @@ function draw(){
                 	context.drawImage(b_tile, 0, 0, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
                 	context.drawImage(b_tile2, 96, 448, MAPIMG_U/2, MAPIMG_U/2, mapX, mapY, UNIT, UNIT);
                 	break;
+                case 512:
+                	context.drawImage(bottom, 192, 320, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
+                	context.drawImage(npc,720,10,72, 96, mapX, mapY, UNIT, UNIT );
+                	break;
+                case 509:
+                	context.drawImage(bottom, 192, 320, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
+                	context.drawImage(appliance, 0, 64, MAPIMG_U/2, MAPIMG_U/2, mapX, mapY, UNIT, UNIT);
+                	context.drawImage(ball, 0, 25, 25, 25, 210, 0, 30, 30);
+                	break;
+                case 510:
+                	context.drawImage(bottom, 192, 320, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
+                	context.drawImage(appliance, 0, 64, MAPIMG_U/2, MAPIMG_U/2, mapX, mapY, UNIT, UNIT);
+                	context.drawImage(ball, 25, 25, 25, 25, 276, 0, 30, 30);
+                	break;
+                case 511:
+                	context.drawImage(bottom, 192, 320, MAPIMG_U, MAPIMG_U, mapX, mapY, UNIT, UNIT);
+                	context.drawImage(appliance, 0, 64, MAPIMG_U/2, MAPIMG_U/2, mapX, mapY, UNIT, UNIT);
+                	context.drawImage(ball, 50, 25, 25, 25, 340, 0, 30, 30);
+                	break;
+                	
             }
             mapX += UNIT;
 		}

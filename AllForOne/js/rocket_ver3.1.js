@@ -47,8 +47,8 @@ function yAllyAttackEffect(){
 }
 
 function yEnemyAttackEffect(){
-	$('.whyEnemyImg').css({'background-image':'url("img/monZ_01.gif")'});
-	setTimeout(function(){$('.whyEnemyImg').css({'background-image':'url("img/monZ_00.png")'})},2730);
+	$('.whyEnemyImg').css({'background-image':'url("img/rd/myMon_06d.gif")'});
+	setTimeout(function(){$('.whyEnemyImg').css({'background-image':'url("img/rd/myMon_06c.png")'})},2730);
 	$('.whyEnemyAttack').css({top:"120px",left:"450px",width:'60px',height:'60px'}).fadeIn();
 	$('.whyEnemyAttack').animate({top:"220px",left:"10px",width:'300px',height:'300px'},{duration:1000});
 	$('.whyEnemyAttack').fadeOut();
@@ -78,7 +78,7 @@ function yEnemyhp(){
 }
 
 //var yPause=false;
-function yTextmsg(msg){
+function yTextmsg(msg,time){ //settime까지 줄까??,time
 	if(yPreView == '.whyBattle'){
 		$('.whyCmdListbox').css('z-index','10');
 		$('.whyCmdSkillbox').css('z-index','10');
@@ -87,7 +87,8 @@ function yTextmsg(msg){
 	else if(yPreView == '.whyAllMap' ){
 		$('.whyTextbox').css('z-index','30');
 	}
-	$('.whyText').html(msg);
+	$('.whyText').html("");
+	setTimeout(function(){$('.whyText').html(msg)},time);
 }
 
 
@@ -133,9 +134,15 @@ function ykeyRokect(event){
     }
     if(event.keyCode == 37){
     //	yLeftPressed();
+    	if(yPreView == '.whyBattle'){
+    	yChangAllyMon();
+    	}
     }
     else if(event.keyCode == 39){
     //	yRightPressed();
+    	if(yPreView == '.whyBattle'){
+        	yChangEnemyMon();
+        	}
     }
     else if(event.keyCode == 65){ 	//a키 : 메뉴키
     	yAkeyPressed();
@@ -209,10 +216,10 @@ function yXkeyPressed(){
 		yMapMenuOff();
 		break;
 	case "whyMyAcomon":
-		yMyAcomonOff();
+		yCmdList();
 		break;
 	case "whyMyItem":
-		yMyItemOff();
+		yCmdList();
 		break;
 	case "whyStatus":
 		yStatusOff();
@@ -345,7 +352,7 @@ function yMyAcomonMenuSelect(){
 	}
 }
 
-function yMyAcomonOff(){
+function yCmdList(){ //이름 바꿈 <==yMyAcomonOff()
 	yPreCssFun();
 	yListCount = 1;
 	if(yPreView == '.whyAllMap'){
@@ -360,23 +367,10 @@ function yMyAcomonOff(){
 	}
 	$('.whyMyAcomonbox').css('z-index','10');
 	$('.whyTextbox').css('z-index','10');
+	$('.whyMyItembox').css('z-index','10');
 	ySetCssFun();
 }
-
-function yMyItem(){
-	yPreCssFun();
-	yListCount = 1;
-	if(yPreView == '.whyAllMap'){
-		$('.whyMenubox').css('z-index','10');
-	}
-	else if(yPreView == '.whyBattle'){
-		$('.whyCmdListbox').css('z-index','10');
-	}
-	$('.whyTextbox').css('z-index','30');
-	$('.whyMyItembox').css('z-index','30');
-	yLocClassFun("whyMyItem");
-	ySetCssFun();
-}
+/*
 function yMyItemOff(){
 	yPreCssFun();
 	yListCount = 1;
@@ -393,6 +387,22 @@ function yMyItemOff(){
 	$('.whyMyItembox').css('z-index','10');
 	ySetCssFun();
 }
+*/
+function yMyItem(){
+	yPreCssFun();
+	yListCount = 1;
+	if(yPreView == '.whyAllMap'){
+		$('.whyMenubox').css('z-index','10');
+	}
+	else if(yPreView == '.whyBattle'){
+		$('.whyCmdListbox').css('z-index','10');
+	}
+	$('.whyTextbox').css('z-index','30');
+	$('.whyMyItembox').css('z-index','30');
+	yLocClassFun("whyMyItem");
+	ySetCssFun();
+}
+
 function yStatus(){
 	yPreCssFun();
 	if(yPreView == '.whyAllMap'){
@@ -733,6 +743,67 @@ function turnEnd(){
 	$('.whyCmdSkillbox').css('z-index','10');
 	ySetCssFun();
 }
+
+
+
+
+
+function yChangAllyMon(){
+	$('.whyAllyImg').animate({left:'-300px'},1000);
+	setTimeout(function(){$('.whyAllyImg').css({'background-image':'url("img/rd/myMon_03b.png")'})},1000);
+	$('.whyAllyImg').animate({left:'0px'},1000);
+	yTextmsg("[적군 몬스터 이름]+을 발견했다!",500);
+	setTimeout(function(){yCmdList()},3000);
+}
+function yChangEnemyMon(){
+	$('.whyEnemyImg').animate({left:'300px'},1000);
+	setTimeout(function(){$('.whyEnemyImg').css({'background-image':'url("img/rd/myMon_03c.png")'})},1000);
+	$('.whyEnemyImg').animate({left:'0px'},1000);
+	yTextmsg("[적군 몬스터 이름]+을 발견했다!",500);
+	setTimeout(function(){yCmdList()},3000);
+}
+function yFindMon(){
+//TODO $('.whyEnemyImg').css('background-image':'url("img/rd/"'+몬스터이미지이름.확장자[재현몬북에 앞에꺼 그대로 입력가능?]+')');
+	// 위도에꺼...하려면.
+	//css 초기화(백그라운드를 지운다)
+	yChangEnemyMon();
+	yChangAllyMon();
+}
+
+function yContactMon(){
+		
+	
+	
+	
+		
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

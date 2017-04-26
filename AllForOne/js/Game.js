@@ -4,7 +4,7 @@ var context = canvas.getContext("2d");
 var myPlayer = new Player('player01', 'yunha', UNIT*4 ,UNIT*2, player, EAST_DIRECTION);
 var mapList = [];
 
-var init_talk = ['Acorn 아카데미에 온 것을 환영하네.. 우리학원에 등록을 하고 싶다고? 그렇다면 간단한 프로젝트몬들을 길러야하네. 프로그래밍 마을의 모든 임무를 완수해서 프로젝트몬을 키우고 오게!', 
+var init_talk = ['Acorn 아카데미에 온 것을 환영하네.. 우리학원에 등록을 하고 싶다고? 그렇다면 프로젝트몬들을 길러야하네. 프로그래밍 마을의 모든 임무를 완수해서 프로젝트몬을 키우고 오게! 원한다면 프로젝트몬을 하나 줄 수 있는데 받을텐가?', 
 				'꼬마야 뭘 사고 싶니?',
 				'HTML마을에 온 것을 환영하네 젊은 친구.. 내가 도움이 필요한데 좀 도와주겠는가...?',
 				'청년 뭘 사고 싶소?',
@@ -72,7 +72,8 @@ document.addEventListener('keyup', (event) => {
 		case MAP_ACADEMY_YANG:
 			chat.style="block";
 			createDiag( temp[0] );
-			dialogMode=1;
+			option.style="block";
+			dialogMode=3;
 			break;
 		case MAP_00_STORE_NPC:
 			chat.style="block";
@@ -118,6 +119,22 @@ document.addEventListener('keyup', (event) => {
 			createDiag( temp[8] );
 			dialogMode=1;
 			break;
+		//	초기 몬스터 3마리 맵배열값 509~511 dialogMode=4로 배정	
+		case MAP_MY_MON01:
+			chat.style="block";
+			meetingMonId=0; quest0(0);
+			dialogMode=4;
+			break;
+		case MAP_MY_MON02:
+			chat.style="block";
+			meetingMonId=0; quest0(0);
+			dialogMode=4;
+			break;
+		case MAP_MY_MON03:
+			chat.style="block";
+			meetingMonId=0; quest0(0);
+			dialogMode=4;
+			break;				
 			
 
 	}
@@ -142,18 +159,18 @@ document.addEventListener('keyup', (event) => {
   }
 // 퀘스트. dialogMode=3이고 2번 눌렀을때 퀘스트대화창발생 
 // 퀘스트는 심각한 오류가 있음. 2번키누르면 퀘스트 수락인데 이게 중복으로 계속 발생
-// 예를 들어 스테이지 2퀘스트가 몬스터볼 보상으로 얻는건데 2번키계속누르면 무한으로 얻을수 있음  
+// 예를 들어 스테이지 2퀘스트가 몬스터볼 보상으로 얻는건데 2번키계속누르면 무한으로 얻을수 있음
   if(dialogMode == 3 && event.keyCode == KEYBOARD_2 ){
 	  switch(npcDetection()){
-	  case MAP_00_QUEST_NPC: getQuest(); $('#option').html("[1] 감사합니다!"); break;
-	  case MAP_01_QUEST_NPC: getQuest(); $('#option').html("[1] 감사합니다!"); break;
-	  case MAP_02_QUEST_NPC: getQuest(); $('#option').html("[1] 감사합니다!"); break;
-	  }
-	  
+	  case MAP_ACADEMY_YANG: getQuest(); break;
+	  case MAP_00_QUEST_NPC: getQuest(); break;
+	  case MAP_01_QUEST_NPC: getQuest(); break;
+	  case MAP_02_QUEST_NPC: getQuest(); break;
+	  } 	  
   }
 }, false);
 
-
+var meetingMonId=1;
 // A키 눌렀을 때
 document.addEventListener('keyup', (event) => {
   if (event.keyCode === KEYBOARD_A) {
@@ -211,7 +228,7 @@ function npcDetection() {
 		return mapValue2;
 	}
 
-	return (mapValue >= 501 && mapValue <= 508) ? mapValue : -1;	
+	return (mapValue >= 501 && mapValue <= 511) ? mapValue : -1;	
 }
 
 
@@ -342,7 +359,7 @@ function createDiag ( dialog ) {
 			setTimeout(function(){
 			// (2) 50*k시간 마다 글자 하나를 dialog에 표시하겠다. 	
 				$('#dialog').text($('#dialog').text()+dialog[k]);
-			}, 50*k);
+			}, 20*k);
 		}(k));
 	}
 
@@ -352,6 +369,7 @@ function createDiag ( dialog ) {
 		case MAP_02_STORE_NPC:
 			$('#option').html(market_talk[0]+market_talk[1]+market_talk[2]+"<br>"+market_talk[3]+market_talk[4]);
 			break;
+		case MAP_ACADEMY_YANG:
 		case MAP_00_QUEST_NPC:
 		case MAP_01_QUEST_NPC:
 		case MAP_02_QUEST_NPC:

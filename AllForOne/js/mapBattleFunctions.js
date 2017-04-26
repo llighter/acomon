@@ -246,7 +246,7 @@ function QuestList(questNo, questContent, questNeeds, questDone, reward){  // ##
 	this.reward = reward;
 }
 var quest = [];		//questNo, questContent, 		questNeeds, questDone, reward
-quest.push(new QuestList(0, "\"셋중 아무거나 골라보시게\" "			,1 , false, "고른 포켓몬을 소유."));
+quest.push(new QuestList(0, "\"뒤에 놓여진 포켓몬볼 셋중 아무거나 골라보시게\" "			,1 , false, "고른 포켓몬을 소유."));
 quest.push(new QuestList(1, "\"불속성 몬스터를 2마리 쓰러트리시게.\" "	,2 , false, "4000골드."));  //###속성 random()?
 quest.push(new QuestList(2, "\"몬스터북에 3마리 이상 소유하시게.\" " 	,3 , false, "몬스터볼 3개." ));
 quest.push(new QuestList(3, "\"민트를 3개 가져다 주시게.\" "			,3 , false, "10000골드" )); 
@@ -262,6 +262,7 @@ function getQuest(){  //### 맵팀: 퀘스트를 주는 npc
 		questShow += "<br/>4000 골드를 받았다. 현재 골드: " + jiwoo.golds;
 		quest[1].questDone = true;
 		questNow++;
+		$('#option').html("[1] 감사합니다!");
 	}
 	if(questNow ==2 && pokemons.length >= quest[2].questNeeds){ // 퀘스트 2(소유몬스터 6마리) 완료할시.
 		questShow = "벌써 이렇게나!!! 자네 배우는게 빠르구만! 하하하하!!";
@@ -270,6 +271,7 @@ function getQuest(){  //### 맵팀: 퀘스트를 주는 npc
 		questShow += "<br/>몬볼 3개를 받았다. 현재 몬볼수: " + jiwoo.pokeBall;
 		quest[2].questDone = true;
 		questNow++;
+		$('#option').html("[1] 감사합니다!");
 	}
 	if(questNow ==3 && jiwoo.mint >= quest[3].questNeeds){ // 퀘스트 3(민드3개 헌납) 완료할시.
 		questShow = "벌써 이렇게나!!! 자네 배우는게 빠르구만! 하하하하!!";
@@ -279,11 +281,13 @@ function getQuest(){  //### 맵팀: 퀘스트를 주는 npc
 		questShow += "<br/>4000 골드를 받았다. 현재 골드: " + jiwoo.golds;
 		quest[3].questDone = true;
 		questNow++;
+		$('#option').html("[1] 감사합니다!");
 	}
 	if(quest[questNow].questDone == false ){   // 완료 못할시 퀘스트 내용과 보상을 보여줄것.
-		questShow = "안녕하신가?. 난 퀘스트 장인이네. 여기 퀘스트가 있다네!";
+		questShow = "아래의 퀘스트를 해결해주면 된다네.";
 		questShow += "<br/> 퀘스트 내용: "+ quest[questNow].questContent;
 		questShow += "<br/> 퀘스트 보상: "+ quest[questNow].reward;
+		$('#option').html("[1] 알겠습니다!");
 
 	}
 	$("#dialog").html(questShow);
@@ -324,15 +328,17 @@ function quest0(meetingMonId){   // 맵팀: quest0(~~);함수의 위치: 고를�
 			console.log(pokemons[pokemons.length-1]);  //### 확실히 받앗는지 확인.
 			quest[0].questNeeds--;
 			if(quest[0].questNeeds ==0 ){ 
-				console.log("다음 퀘스트를 받으려면 퀘스트npc에게 완료보고 하시게!! 하하하하!");
+				$("#dialog").html("다음 퀘스트를 받으려면 퀘스트npc에게 완료보고 하시게!! 하하하하!");
 				// 보상은 이미 받은상태이므로 패스.
 				quest[0].questDone = true;
 				questNow++;
 			}
+		}else{
+			$("#dialog").html("그러면 다른 프로젝트몬을 한번 살펴보게.");
 		}
 	}
 	else{
-		console.log("자넨 이미 받은거같은데? 다음 퀘스트를 하려면 퀘스트npc를 찾아가시게!!!");
+		$("#dialog").html("자넨 이미 받은거같은데? 다음 퀘스트를 하려면 퀘스트npc를 찾아가시게!!!");
 	}
 }
 
