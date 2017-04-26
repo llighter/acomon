@@ -460,17 +460,17 @@ function expUp(){
 	var showMsg = "";   
 	if((myMonid.exp + winExp) >= (60 + myMonid.lv*40)){  //1렙 풀경치 100, 2렙은 140, 3렙은 180...
 		showMsg = myMonid.name+"가 레벨업했다!!!";
-		showMsg += "\n경험치: "+(myMonid.exp);
+		showMsg += "<br/>경험치: "+(myMonid.exp);
 		myMonid.exp = ((myMonid.exp + winExp) % (60 + myMonid.lv*40));
 		showMsg += " -> "+ myMonid.exp +", ";
 //		console.log("#### "+ (60 + myMonid.lv*40));    경험치가 앞에 있어야함. 아니면 앞에 함수식 망가짐;;
-		showMsg += "\t레벨: "+myMonid.lv ;
+		showMsg += "   레벨: "+myMonid.lv ;
 		myMonid.lv += 1;  //#### 종원이형: 레벨 오를시에 생기는 이벤트. 레벨업연출은 여기서 수정해가면되욤.
 		showMsg += " -> "+ myMonid.lv;
 		myMonid.hp = Number((myMonid.initHp*1.2).toFixed(1));
-		showMsg += "\n체력증가율 (1.2배):\t"+ myMonid.initHp+ " -> " + (myMonid.initHp*1.2).toFixed(1);
+		showMsg += "<br/>체력증가율 (1.2배):"+ myMonid.initHp+ " -> " + (myMonid.initHp*1.2).toFixed(1);
 		myMonid.initHp = myMonid.hp;
-		showMsg += "\n공격력 증가 (+4): \t" + myMonid.att;
+		showMsg += "<br/>공격력 증가 (+4): " + myMonid.att;
 		myMonid.att += 4;
 		showMsg += " -> "+ myMonid.att;
 
