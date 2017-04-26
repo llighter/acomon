@@ -211,6 +211,9 @@ function npcDetection() {
 // @return : 포켓몬을 만날 수 있는 지역에 있다면 포켓몬 번호를 전달, 일반 지역이면 -1을 전달
 function pokemonDetction() {
 	let mapValue = nowMap.matrix[Math.ceil(myPlayer.y/UNIT)][Math.ceil(myPlayer.x/UNIT)];
+
+	// 전투에서 상대할 포켓몬 정하기
+	
 	
 	return (mapValue >= 50 && mapValue < 60) ? mapValue : -1;
 }
@@ -368,6 +371,7 @@ var update = setInterval(function fps(){
 		changeMap();
 		pokemonDetction();
 	} else if(currentMode == 1) {
+		// encounter(0,0);
 		yEventBattle();
 		currentMode = 3;	// 대전 중
 	} else if(currentMode == 4) {

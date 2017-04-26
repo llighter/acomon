@@ -48,6 +48,10 @@ const MAP_02_TO_01 = 96;
 const MAP_02_TO_BOSS = 95;
 const MAP_BOSS_TO_02 = 94;
 
+// 전투 발생 시 나의 몬스터와 상대방 몬스터 ID 설정
+var battle_MyPokemon = 0;
+var battle_OpponentPokemon = 0;
+
 var player = new Image();
 var bossmap = new Image();
 var academy = new Image();
