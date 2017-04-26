@@ -145,9 +145,9 @@ document.addEventListener('keyup', (event) => {
 // 예를 들어 스테이지 2퀘스트가 몬스터볼 보상으로 얻는건데 2번키계속누르면 무한으로 얻을수 있음  
   if(dialogMode == 3 && event.keyCode == KEYBOARD_2 ){
 	  switch(npcDetection()){
-	  case MAP_00_QUEST_NPC: getQuest(1); $('#option').html("[1] 감사합니다!"); break;
-	  case MAP_01_QUEST_NPC: getQuest(2); $('#option').html("[1] 감사합니다!"); break;
-	  case MAP_02_QUEST_NPC: getQuest(3); $('#option').html("[1] 감사합니다!"); break;
+	  case MAP_00_QUEST_NPC: getQuest(); $('#option').html("[1] 감사합니다!"); break;
+	  case MAP_01_QUEST_NPC: getQuest(); $('#option').html("[1] 감사합니다!"); break;
+	  case MAP_02_QUEST_NPC: getQuest(); $('#option').html("[1] 감사합니다!"); break;
 	  }
 	  
   }
