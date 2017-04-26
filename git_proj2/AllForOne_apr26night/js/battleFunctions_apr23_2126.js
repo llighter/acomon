@@ -50,14 +50,17 @@
  * rocket_ver3.1 // 특수스킬 사용효과 ytext. 
  * --------------------
  * 수 20:45) 해결 해야할 버그
- * mapBattle -> $("#dialog").html("보유 포켓몬: list"+ (++listNo) +" 몬스터이름: " + pokemons[bookNo].name);
+ * 1.mapBattle -> $("#dialog").html("보유 포켓몬: list"+ (++listNo) +" 몬스터이름: " + pokemons[bookNo].name);
 	보내기위해서 몬스터 리스트를 봐야하는데... html이 안뜸..
+	// todo w/ 맵팀.
+   1.1 방생 보내고, 몬스터도감 확인할때 리스트 업데이트가 안됨... 
+    // todo w/ 종원이형.이 카톡에 적어놓은거긴한데..
 
-	battlefunc -> useItem에서 체력 == 풀체력 일떄 상대에게 공격넘어감.
-	// 공격안넘어가고 알람창만 할수잇을까.
-
-	승리판정후 -> 전투화면에서 빠져나가게끔.
- * 
+   2.승리판정후 -> 전투화면에서 빠져나가게끔.  << 종원이형.  //setTimeout(yCmdRun(), 5000); 이거 맞는지 확인...
+ * 3. 이름과, 숫자 -> <span> 스타일 이쁘게 처리할수잇음...
+ * 4. 몬스터 볼을 산 후에.. 아이템창에서 몬스터볼 x?? 가버그인듯.. 사용하면 숫자가 올라가긴함.  //종원이형.
+ * 5. 마비... 1차적으로는 막앗지만 2차마비는 공격모션보다 빨리 풀려지는바람에.. 방법없음. 혹시 물어보고 안되겟다시프면 ㅈㅈ..
+ * 6. 내가 스킬2쓰면 가만히 있는게.. 공격모션은 막아볼것.
  * 
  * 
  * 
@@ -94,7 +97,7 @@ if(noExists){
 $(".whyEnemyName").html("["+ newPokemon.name +"] Lv."+ newPokemon.lv );
 $(".whyAllyName").html("["+ myMonid.name +"] Lv."+ myMonid.lv );
 $(".whyEnemyTextHp").html(parseInt(newPokemon.hp *10)/10 + " / "+newPokemon.initHp);
-$(".whyEnemyName").html("["+ newPokemon.name +"] Lv."+ newPokemon.lv );
+$(".whyAllyTextHp").html( parseInt(myMonid.hp*10)/10 + " / "+myMonid.initHp);
 
 function propertyBonus(){  // 상성 보너스 데미지.
 	var showMsg = "상성이없음.";
@@ -142,21 +145,21 @@ function enemyRandAtt(){
 		var criticalAttack02 = Number((newPokemon.att*(1+(Math.random()*0.3 + 0.2))).toFixed(1)); 
 		if(myMonid.status =="reflect"){ 
 			// 상대몬스터 턴 시작전에 상태에따른 공격방식 변화 - 공격반사는 자기자신의 공격함.
-			console.log( myMonid.name + "가 공격반사를 사용했다!!");
+			yTextmsg( myMonid.name + "가 공격반사를 사용했다!!");
 			if(enemyRand == 0){
 				console.log(newPokemon.name+"몬이 공격력 ("+newPokemon.att+"-"+newPokemon.shield+")로공격.");
 				newPokemon.hp = Number((newPokemon.hp - (newPokemon.att - newPokemon.shield)).toFixed(1));
 				console.log(newPokemon.name + "몬의 체력 "+newPokemon.hp+" 남음.");
-			    yTextmsg("<span style='color:#FF6961'>"+newPokemon.name+"</span>몬이 <span style='color:#82b5f2'>"+
-			    		(newPokemon.att - newPokemon.shield).toFixed(1)+"</span>만큼 피해를 받았습니다!!");   
+			    setTimeout(yTextmsg("<span style='color:#FF6961'>"+newPokemon.name+"</span>몬이 <span style='color:#82b5f2'>"+
+			    		(newPokemon.att - newPokemon.shield).toFixed(1)+"</span>만큼 피해를 받았습니다!!"),1000);   
 			}
 			else{
 				console.log(newPokemon.name+"몬이 스킬 "+skillNames[newPokemon.property]+"로공격.");
 				console.log("원래데미지: "+newPokemon.att+ " 스킬데미지: "+criticalAttack02+ " 상대방어: "+newPokemon.shield);
 				newPokemon.hp = Number((newPokemon.hp - (criticalAttack02- newPokemon.shield)).toFixed(1));
 				console.log(newPokemon.name + "몬의 체력 "+newPokemon.hp+" 남음.");
-			    yTextmsg("<span style='color:#FF6961'>"+newPokemon.name+"</span>몬이 <span style='color:#82b5f2'>"+
-			        	(criticalAttack02- newPokemon.shield).toFixed(1)+"</span>만큼 피해를 받았습니다!!");   
+				setTimeout(yTextmsg("<span style='color:#FF6961'>"+newPokemon.name+"</span>몬이 <span style='color:#82b5f2'>"+
+			        	(criticalAttack02- newPokemon.shield).toFixed(1)+"</span>만큼 피해를 받았습니다!!"),1000);   
 			}
 			$(".whyEnemyTextHp").html(parseInt(newPokemon.hp*10)/10 + " / "+newPokemon.initHp);
 			yEnemyhp();	
@@ -250,31 +253,35 @@ function skillLv2Attack(){
 		case 0://reflect -상대몬스터 데미지반사 - 1회.
 			myMonid.status = skill2Names[0];
 			effectTimes =1;
-			skillMsg = myMonid.name+"에게 "+ skill2Names[0]+"를 걸엇다!";
+			skillMsg = "<span style='color:#FF6961'>" + myMonid.name+"</span>몬이 <span style='color:#82b5f2'>"
+			+ skill2Names[0]+"</span>(공격반사)를 시전했습니다.";
 			break;
 		case 1://sharpen -상대몬스터 방어관통.
 			myMonid.status = skill2Names[1];
 			effectTimes =(2 +1);  //### 2+1의미: 처음 해제되고 내 몬스터의 2턴의 공격동안 방어관통이됨.
 			newPokemon.initSh = newPokemon.shield;
 			newPokemon.shield = 0;
-			skillMsg =myMonid.name+"에게 "+ skill2Names[1]+"를 걸엇다!";
+			skillMsg ="<span style='color:#FF6961'>" + myMonid.name+"</span>몬이 <span style='color:#82b5f2'>"
+			+ skill2Names[1]+"</span>(방어관통)를 시전했습니다.";
 			break;
 		case 2://paralyze - 상대몬스터 1회 마비; 공격불가.  // 근데 이거 좀 사긴데...??;;;
 			newPokemon.status = skill2Names[2];
 			effectTimes = (1+1); //## 상대방은 1턴을 그냥 공격 받아야한다.
-			skillMsg =newPokemon.name+"에게 "+ skill2Names[2]+"를 걸엇다!";
+			skillMsg ="<span style='color:#FF6961'>" +newPokemon.name+"</span>에게 <span style='color:#82b5f2'>"
+			+ skill2Names[2]+"</span>(마비)를 시전했습니다.";
 			
 			break;
 		case 3://burn - 화상걸린 상대몬스터가 총 3턴에 걸쳐 1차 화상은 5, 2차는 8, 3차는 11의 가중데미지를 받는다.
 			newPokemon.status = skill2Names[3];
 			effectTimes =(3 +1); //## 화상은 총 3회 공격으로 1차 화상은 5, 2차는 8, 3차는 11의 가중데미지를 준다.
-			skillMsg =newPokemon.name+"에게 "+ skill2Names[3]+"를 걸엇다!";
-			
+			skillMsg ="<span style='color:#FF6961'>" +newPokemon.name+"</span>에게 <span style='color:#82b5f2'>"
+			+ skill2Names[3]+"</span>(마비)를 시전했습니다.";
 			break;
 		case 4://shieldOn  - 스킬쓴 직후 2턴동안 몬스터의 방어력 3배.
 			myMonid.status = skill2Names[4];
 			effectTimes =2;
-			skillMsg =myMonid.name+"에게 "+ skill2Names[4]+"를 걸엇다!";
+			skillMsg ="<span style='color:#FF6961'>" + myMonid.name+"</span>몬이 <span style='color:#82b5f2'>"
+			+ skill2Names[4]+"</span>(방어증가)를 시전했습니다.";
 			myMonid.shield *= 3;
 			
 			break;
@@ -283,7 +290,7 @@ function skillLv2Attack(){
 		}
 		winOrLose();
 	}  // if - switch case:  END
-	console.log(skillMsg);
+	 yTextmsg(skillMsg);
 	winOrLose();
 	propertyBonusRelease();
 }  //skillLv2Attack func END
@@ -353,8 +360,9 @@ function catchWildMon(){  // 몬스터볼 소모해서 상대몬스터를 포획
 				"normal"  // status ="normal" // 정상.
 				));
 		
-		showItemMsg = "system- 새로운 몬스터 "+worldMon.name+"를 잡앗다!!";
+		showItemMsg = "새로운 몬스터 <span style='color:#FF6961'>"+worldMon.name+"</span>를 잡앗다!!";
 		winOrLoseResult = true;
+		// setTimeout(yCmdRun(), 5000);
 		newPokemon.hp = 0;
 		yEnemyhp();	
 		$(".whyEnemyTextHp").html( parseInt(newPokemon.hp*10)/10 + " / "+newPokemon.initHp);
@@ -363,9 +371,9 @@ function catchWildMon(){  // 몬스터볼 소모해서 상대몬스터를 포획
 		//#### 종원이형: 여기서 전투모드 끝내고 맵으로 전환.
 	}
 	else{
-		showItemMsg = "system- "+worldMon.name+"를 잡는데 실패했다!!";
+		showItemMsg = worldMon.name+"를 잡는데 실패했다!!";
 	}
-	console.log(showItemMsg);
+	yTextmsg(showItemMsg);
 }
 
 function useItem(item){
@@ -407,7 +415,7 @@ function useItem(item){
 	if(item == "pokeBall"){ // 몬볼아이템 소모해서 포획시도. 턴소모X. 초기 3개 소유중.
 		var showItemMsg = "";
 		if(jiwoo.pokeBall ==0){
-			showItemMsg ="system- pokeBallNo 없다 ㅜㅜ";
+			showItemMsg ="포켓볼이 없습니다. 상점에서 구매 해주세요!";
 		}
 		else if(jiwoo.pokeBall >0){
 			jiwoo.pokeBall--;
@@ -416,7 +424,6 @@ function useItem(item){
 			winOrLose();
 		} // jiwoo.pokeBall >0 END
 		console.log(showItemMsg);
-		yTextmsg(showItemMsg);
 		$(".whyStatusMoneybox").html("소유 골드: "+ jiwoo.golds +"골드 "+"<br/> 민트: "+ jiwoo.mint +"개 <br/>몬스터볼: "+ jiwoo.pokeBall+ "개");
 	}// 아이템사용_포켓볼 던졌을때. else if END
 	console.log("jiwoo.mint "+jiwoo.mint +"  jiwoo.pokeBall "+ jiwoo.pokeBall);
@@ -425,7 +432,7 @@ function useItem(item){
 function tagMyMon(bookNumber){	// 내가 소유한 몬스터와 태그하기.
 	if(confirm("태그하시겟습니까?")){
 		encounter(pokemons[bookNumber].id, worldMon.id); 
-		console.log("너로 정했다!! 나와라~ "+pokemons[bookNumber].name+"!!!!");
+		yTextmsg("너로 정했다!! <br/> 나와라~ <span style='color:#FF6961'>"+pokemons[bookNumber].name+"</span>!!!!");
 		$(".whyAllyName").html("["+ pokemons[bookNumber].name +"] Lv."+ pokemons[bookNumber].lv );
 		$(".whyAllyTextHp").html( parseInt(pokemons[bookNumber].hp*10)/10 + " / "+pokemons[bookNumber].initHp);
 		$(".whyEnemyTextHp").html(parseInt(newPokemon.hp *10)/10 + " / "+newPokemon.initHp);
@@ -449,7 +456,7 @@ function winOrLose(){
 		yTextmsg(myMonid.name+ "의 승리!!");
 		expUp();
 		winOrLoseResult= true;
-		///########## 종원이형: 여기서 escape로 전투화면을 끝내는 화면연출.!!!
+		// setTimeout(yCmdRun(), 5000);
 	}
 	else if(myMonid.hp <= 0){
 		console.log("user loses.");
@@ -457,9 +464,9 @@ function winOrLose(){
 		$(".whyAllyTextHp").html( parseInt(myMonid.hp*10)/10  + " / "+myMonid.initHp);
 		myMonid.status = "Fainted";
 		winOrLoseResult= true;
+		// setTimeout(yCmdRun(), 5000);
 		yTextmsg(myMonid.name+ "의 패배!! " +
 				 "<br/>" + myMonid.name + "의 상태가 " + myMonid.status+ "가 되었다!");
-		///########## 종원이형: 여기서 escape로 전투화면을 끝내는 화면연출.!!!
 	}
 }
 
@@ -467,7 +474,7 @@ function expUp(){
 	var winExp = 40;  // 한판 승리때마다 얻는 경험치.
 	var showMsg = "";   
 	if((myMonid.exp + winExp) >= (60 + myMonid.lv*40)){  //1렙 풀경치 100, 2렙은 140, 3렙은 180...
-		showMsg = myMonid.name+"가 레벨업했다!!!";
+		showMsg = "<span style='color:#FF6961'>" +myMonid.name+"</span>가 레벨업했다!!!";
 		showMsg += "<br/>경험치: "+(myMonid.exp);
 		myMonid.exp = ((myMonid.exp + winExp) % (60 + myMonid.lv*40));
 		showMsg += " -> "+ myMonid.exp +", ";
@@ -478,14 +485,14 @@ function expUp(){
 		myMonid.hp = Number((myMonid.initHp*1.2).toFixed(1));
 		showMsg += "<br/>체력증가율 (1.2배):"+ myMonid.initHp+ " -> " + (myMonid.initHp*1.2).toFixed(1);
 		myMonid.initHp = myMonid.hp;
-		showMsg += "<br/>공격력 증가 (+4): " + myMonid.att;
-		myMonid.att += 4;
+		showMsg += "<br/>공격력 증가 (+7): " + myMonid.att;
+		myMonid.att += 7;
 		showMsg += " -> "+ myMonid.att;
 
 	}
 	else{
 		myMonid.exp += winExp;
-		showMsg = myMonid.name+"가 "+ winExp+" / "+(60 + myMonid.lv*40)+ "만큼 경험치를 획득했다!!!";
+		showMsg = myMonid.name+"가 "+ myMonid.exp+" / "+(60 + myMonid.lv*40)+ "만큼 경험치를 획득했다!!!";
 	}
 	yTextmsg(showMsg);
 }
@@ -503,6 +510,7 @@ function enemyTurn(){
 
 function runAway(){  // 도망도망..
 	winOrLoseResult = true;
+	// setTimeout(yCmdRun(), 5000);
 	//###### 종원이형: 여기서 escape로 전투화면을 끝내는 화면연출.!!!
 	
 	

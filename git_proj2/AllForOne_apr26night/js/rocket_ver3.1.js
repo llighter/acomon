@@ -15,6 +15,8 @@ var yBlinkCondtion=true;
 //  깜빡임효과.
 var turnCount=0;
 var imgClass;
+var winOrLoseResult = false;  //@@//
+
 function yBlink(imgClass){
 	blinkCount=0;
 	yBlinkCondtion=false;
@@ -40,13 +42,16 @@ function yAllyHealEffect(){
 
 // 재현 태클이나,스킬공격에 넣으면됨.
 function yAllyAttackEffect(){
+	if(!winOrLoseResult){  //@@//
 	$('.whyAllyAttack').css({top:"260px",left:"220px",width:'60px',height:'60px'}).fadeIn();
 	$('.whyAllyAttack').animate({top:"80px",left:"250px",width:'380px',height:'200px'},1000);
 	$('.whyAllyAttack').fadeOut();
 	yBlink('.whyEnemyImg');
+	}
 }
 
 function yEnemyAttackEffect(){
+	if(!winOrLoseResult && newPokemon.status != "paralyze" ){  //@@//
 	$('.whyEnemyImg').css({'background-image':'url("img/monZ_01.gif")'});
 	setTimeout(function(){$('.whyEnemyImg').css({'background-image':'url("img/monZ_00.png")'})},2730);
 	$('.whyEnemyAttack').css({top:"120px",left:"450px",width:'60px',height:'60px'}).fadeIn();
@@ -54,6 +59,7 @@ function yEnemyAttackEffect(){
 	$('.whyEnemyAttack').fadeOut();
 // 깜빡임 효과(상대편이미지에 주기.적중시기준이지만 일단 전부 적용하는걸로.)
 	yBlink('.whyAllyImg');
+	}
 }
 
 
@@ -649,8 +655,8 @@ function yCmdSkillSelect(){
 		break;
 	case 4:
 	      setTimeout(function (){      //공격 턴
-	         yTextmsg("<span style='color:#FF6961'>"+myMonid.name+"</span>몬이 <span style='color:#82b5f2'>"+
-						skill2Names[myMonid.property]+"</span>를 시전했습니다.");
+	        /* yTextmsg("<span style='color:#FF6961'>"+myMonid.name+"</span>몬이 <span style='color:#82b5f2'>"+
+						skill2Names[myMonid.property]+"</span>를 시전했습니다.");*/  //@@//
 		         setTimeout(function (){      //공격 턴
 		        		console.log(newPokemon.status);
 		        	if(newPokemon.status == "paralyze"){
@@ -695,8 +701,8 @@ function yCmdSkillSelect(){
 	         else if(myMonid.property == 4)
 	            yTextmsg("<span style='color:#FF6961'>"+myMonid.name+ "</span>몬이 <span style='color:#82b5f2'>"+
 	            		skill2Names[myMonid.property]+"</span>(방어증가) 상태입니다.");    */
-	        enemyTurn();
-			yEnemyAttackEffect();	
+	        yEnemyAttackEffect();	 //@@//
+			enemyTurn();		//@@//  
 			yAllyhp();		
 	      },4000)
 	      setTimeout(function (){turnEnd();},7000);  //실행할 함수에 넣으면됨
