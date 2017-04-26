@@ -235,37 +235,39 @@ function move() {
 function changeMap(){
 	let mapValue = nowMap.matrix[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)];
 
-	if( mapValue == MAP_ACADEMY_TO_00 ){
-		nowMap = mapList[1];
-		setPosition(5, 6);
-	}
-	if( mapValue == MAP_00_TO_ACADEMY ){
-		nowMap = mapList[0];
-		setPosition(5, 8);
-	}
-	if( mapValue == MAP_00_TO_01 ){
-		nowMap = mapList[2];
-		setPosition(1, 16);
-	}
-	if( mapValue == MAP_01_TO_00 ){
-		nowMap = mapList[1];
-		setPosition(18, 12);
-	}
-	if( mapValue == MAP_01_TO_02 ){
-		nowMap = mapList[3];
-		setPosition(3, 18);
-	}
-	if( mapValue == MAP_02_TO_01 ){
-		nowMap = mapList[2];
-		setPosition(13, 1);
-	}
-	if( mapValue == MAP_02_TO_BOSS ){
-		nowMap = mapList[4];
-		setPosition(1, 8);
-	}
-	if( mapValue == MAP_BOSS_TO_02 ){
-		nowMap = mapList[3];
-		setPosition(18, 17);
+	switch(mapValue) {
+		case MAP_ACADEMY_TO_00:
+			nowMap = mapList[1];
+			setPosition(5, 6);
+			break;
+		case MAP_00_TO_ACADEMY:
+			nowMap = mapList[0];
+			setPosition(5, 8);
+			break;
+		case MAP_00_TO_01:
+			nowMap = mapList[2];
+			setPosition(1, 16);
+			break;
+		case MAP_01_TO_00:
+			nowMap = mapList[1];
+			setPosition(18, 12);
+			break;
+		case MAP_01_TO_02:
+			nowMap = mapList[3];
+			setPosition(3, 18);
+			break;
+		case MAP_02_TO_01:
+			nowMap = mapList[2];
+			setPosition(13, 1);
+			break;
+		case MAP_02_TO_BOSS:
+			nowMap = mapList[4];
+			setPosition(1, 8);
+			break;
+		case MAP_BOSS_TO_02:
+			nowMap = mapList[3];
+			setPosition(18, 17);
+			break;
 	}
 }
 
