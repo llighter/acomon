@@ -28,14 +28,14 @@ canvas {
     font-size: 18px;
     font-weight: bold;
     position: relative;
-    top:-200px;
+    top:-180px;
     width: 610px;
     margin:0 auto;
 }
 
 #option {
-    height: 30px;
-    background: grey;
+    height: 50px;
+    background: black;
     color: white;
     font-size: 18px;
     font-weight: bold;
