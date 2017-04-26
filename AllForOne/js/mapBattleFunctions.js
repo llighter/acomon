@@ -165,14 +165,14 @@ function store(wantedService){
 		jiwoo.mint++;
 		jiwoo.golds -= 3000; 
 		storeMsg = "민트를 구입하셨습니다 :)" 
-					+"\n현재 소유한 민트수량: " + jiwoo.mint
+					+"<br>현재 소유한 민트수량: " + jiwoo.mint
 					+"\n현재 소유한 골드량: "+ jiwoo.golds;
 	}
 	else if(wantedService == "pokeBall" && jiwoo.golds >= 5000){
 		jiwoo.pokeBall++;
 		jiwoo.golds -= 5000; 
 		storeMsg = "몬스터볼을 구입하셨습니다 :)" 
-					+"\n 현재 소유한 몬스터볼 수량: " + jiwoo.pokeBall
+					+"<br>현재 소유한 몬스터볼 수량: " + jiwoo.pokeBall
 					+"\n 현재 소유한 골드량: "+ jiwoo.golds;
 	}
 	else if(wantedService == "heal" && jiwoo.golds >= 4000){
@@ -206,8 +206,8 @@ function store(wantedService){
 		if( (confirmRemove == "yes") && (jiwoo.golds >= 12800) ){
 			pokemons.splice(findListNo,1);
 			storeMsg = "유기처리비용 12만 8천원/1마리 입니다! ";
-			storeMsg += "\n\t\t -통계청 자료, 2015년";
-			storeMsg += "\n지우씨는 특별히 90% 할인해줄게요!";
+			storeMsg += "<br>t\t -통계청 자료, 2015년";
+			storeMsg += "<br>지우씨는 특별히 90% 할인해줄게요!";
 			jiwoo.golds -= 12800;
 			storeMsg +="소유골드: " + jiwoo.golds;
 			for(var inx =0; inx <pokemons.length; inx++){
