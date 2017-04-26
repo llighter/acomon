@@ -197,8 +197,15 @@ function collisionDetection() {
 // @return : NPC를 만났다면 NPC번호를 전달, 안만났다면 -1을 전달
 function npcDetection() {
 	let mapValue = nowMap.matrix[Math.ceil(myPlayer.y/UNIT)-1][Math.ceil(myPlayer.x/UNIT)];
+	
+	// TODO: return이 두개인것은 좋지 않지만 일단 이것 하나만 따로 해야하기 때문에 return을 사용함
+	let mapValue2 = nowMap.matrix[Math.ceil(myPlayer.y/UNIT)][Math.ceil(myPlayer.x/UNIT)+1];
+	console.log(mapValue2);
+	if(mapValue2 == MAP_02_STORE_NPC) {
+		return mapValue2;
+	}
 
-	return (mapValue >= 501 && mapValue <= 507) ? mapValue : -1	
+	return (mapValue >= 501 && mapValue <= 507) ? mapValue : -1;	
 }
 
 
