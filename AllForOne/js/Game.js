@@ -6,17 +6,18 @@ var context = canvas.getContext("2d");
 var myPlayer = new Player('player01', 'yunha', UNIT*4 ,UNIT*2, player, EAST_DIRECTION);
 
 
-// TODO : 아직 사용하지 않음
 var mapList = [];
-var monsterList = {};
 mapList.push(new Map('00', academy, 640, 640, map_init));
 mapList.push(new Map('01', village00, 1280, 1280, map00));
 mapList.push(new Map('02', village01, 1280, 1280, map01));
 mapList.push(new Map('03', village02, 1280, 1280, map02));
 mapList.push(new Map('04', bossmap, 640, 640, map_boss));
 
+var monsterList = {};
+
 // Current map index
-var nowMap = mapList[0].mappingArray;
+var nowMap = mapList[0];
+
 
 // dialog창 -yoda-
 var chat=document.getElementById("dialog");
@@ -134,32 +135,32 @@ function collisionDetection() {
 
 	if(upPressed == true) {
 		if( (myPlayer.y < MOVE_U )
-			|| nowMap[ Math.ceil( (myPlayer.y - UNIT) / UNIT) ][((myPlayer.x-(myPlayer.x%UNIT)) / UNIT)] >= 100
-			|| nowMap[ Math.ceil( (myPlayer.y - UNIT) / UNIT) ][ Math.ceil(myPlayer.x / UNIT) ] > 100 ){
+			|| nowMap.matrix[ Math.ceil( (myPlayer.y - UNIT) / UNIT) ][((myPlayer.x-(myPlayer.x%UNIT)) / UNIT)] >= 100
+			|| nowMap.matrix[ Math.ceil( (myPlayer.y - UNIT) / UNIT) ][ Math.ceil(myPlayer.x / UNIT) ] > 100 ){
 			isCollide = true;
 		}
 	}
 
 	if(downPressed == true) {
 		if( (myPlayer.y > (19 * UNIT - MOVE_U) )
-			|| nowMap[ ( (myPlayer.y-(myPlayer.y%UNIT)+UNIT) / UNIT) ][ ( (myPlayer.x - (myPlayer.x%UNIT) ) / UNIT)] >= 100 
-			|| nowMap[ ( (myPlayer.y-(myPlayer.y%UNIT)+UNIT) / UNIT) ][ Math.ceil( myPlayer.x / UNIT ) ] > 100 ){
+			|| nowMap.matrix[ ( (myPlayer.y-(myPlayer.y%UNIT)+UNIT) / UNIT) ][ ( (myPlayer.x - (myPlayer.x%UNIT) ) / UNIT)] >= 100 
+			|| nowMap.matrix[ ( (myPlayer.y-(myPlayer.y%UNIT)+UNIT) / UNIT) ][ Math.ceil( myPlayer.x / UNIT ) ] > 100 ){
 			isCollide = true;
 		}
 	}
 
 	if(leftPressed == true) {
 		if( (myPlayer.x <= 0)
-			|| nowMap[((myPlayer.y-(myPlayer.y%UNIT)) / UNIT)][ Math.ceil((myPlayer.x-UNIT) / UNIT) ] >= 100
-			|| nowMap[ Math.ceil(myPlayer.y / UNIT) ][ Math.ceil((myPlayer.x-UNIT) / UNIT)] > 100 ){
+			|| nowMap.matrix[((myPlayer.y-(myPlayer.y%UNIT)) / UNIT)][ Math.ceil((myPlayer.x-UNIT) / UNIT) ] >= 100
+			|| nowMap.matrix[ Math.ceil(myPlayer.y / UNIT) ][ Math.ceil((myPlayer.x-UNIT) / UNIT)] > 100 ){
 			isCollide = true;
 		}
 	}
 
 	if(rightPressed == true) {
 		if( (myPlayer.x > (19 * UNIT - MOVE_U) )
-			|| nowMap[((myPlayer.y-(myPlayer.y%UNIT)) / UNIT)][((myPlayer.x-(myPlayer.x%UNIT) + UNIT) / UNIT)] >= 100
-			|| nowMap[ Math.ceil(myPlayer.y / UNIT) ][((myPlayer.x-(myPlayer.x%UNIT) + UNIT) / UNIT)] > 100 ){
+			|| nowMap.matrix[((myPlayer.y-(myPlayer.y%UNIT)) / UNIT)][((myPlayer.x-(myPlayer.x%UNIT) + UNIT) / UNIT)] >= 100
+			|| nowMap.matrix[ Math.ceil(myPlayer.y / UNIT) ][((myPlayer.x-(myPlayer.x%UNIT) + UNIT) / UNIT)] > 100 ){
 			isCollide = true;
 		}
 	}
@@ -170,7 +171,7 @@ function collisionDetection() {
 
 // @return : NPC를 만났다면 NPC번호를 전달, 안만났다면 -1을 전달
 function npcDetection() {
-	let mapValue = nowMap[Math.ceil(myPlayer.y/UNIT)-1][Math.ceil(myPlayer.x/UNIT)];
+	let mapValue = nowMap.matrix[Math.ceil(myPlayer.y/UNIT)-1][Math.ceil(myPlayer.x/UNIT)];
 
 	return (mapValue >= 501 && mapValue <= 507) ? mapValue : -1	
 }
@@ -178,7 +179,7 @@ function npcDetection() {
 
 // @return : 포켓몬을 만날 수 있는 지역에 있다면 포켓몬 번호를 전달, 일반 지역이면 -1을 전달
 function pokemonDetction() {
-	let mapValue = nowMap[Math.ceil(myPlayer.y/UNIT)][Math.ceil(myPlayer.x/UNIT)];
+	let mapValue = nowMap.matrix[Math.ceil(myPlayer.y/UNIT)][Math.ceil(myPlayer.x/UNIT)];
 	
 	return (mapValue >= 50 && mapValue < 60) ? mapValue : -1;
 }
@@ -207,46 +208,38 @@ function move() {
 }
 
 function changeMap(){
-	let mapValue = nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)];
+	let mapValue = nowMap.matrix[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)];
 
 	if( mapValue == MAP_ACADEMY_TO_00 ){
-		nowMap=map00;
-		currentVillage = village00;
+		nowMap = mapList[1];
 		setPosition(5, 6);
 	}
 	if( mapValue == MAP_00_TO_ACADEMY ){
-		nowMap=map_init;
-		currentVillage = academy;
+		nowMap = mapList[0];
 		setPosition(5, 8);
 	}
 	if( mapValue == MAP_00_TO_01 ){
-		nowMap=map01;
-		currentVillage = village01;
+		nowMap = mapList[2];
 		setPosition(1, 16);
 	}
 	if( mapValue == MAP_01_TO_00 ){
-		nowMap=map00;
-		currentVillage = village00;
+		nowMap = mapList[1];
 		setPosition(18, 12);
 	}
 	if( mapValue == MAP_01_TO_02 ){
-		nowMap=map02;
-		currentVillage = village02;
+		nowMap = mapList[3];
 		setPosition(3, 18);
 	}
 	if( mapValue == MAP_02_TO_01 ){
-		nowMap=map01;
-		currentVillage = village01;
+		nowMap = mapList[2];
 		setPosition(13, 1);
 	}
 	if( mapValue == MAP_02_TO_BOSS ){
-		nowMap=map_boss;
-		currentVillage = bossmap;
+		nowMap = mapList[4];
 		setPosition(1, 8);
 	}
 	if( mapValue == MAP_BOSS_TO_02 ){
-		nowMap=map02;
-		currentVillage = village02;
+		nowMap = mapList[3];
 		setPosition(18, 17);
 	}
 }
@@ -260,7 +253,7 @@ function draw(){
 	
 	var x = MAP_WIDTH/2 - myPlayer.x;
 	var y = MAP_HEIGHT/2 - myPlayer.y;
-	context.drawImage(currentVillage,0,0,1280,1280,x,y,1280,1280);
+	context.drawImage(nowMap.img,0,0,1280,1280,x,y,1280,1280);
 	context.drawImage(myPlayer.img, IMG_U*motionIdx, IMG_U*myPlayer.direction, IMG_U, IMG_U, MAP_WIDTH/2, MAP_HEIGHT/2, UNIT, UNIT);
 
 	// move();

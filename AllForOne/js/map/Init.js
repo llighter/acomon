@@ -54,7 +54,6 @@ var academy = new Image();
 var village00 = new Image();
 var village01 = new Image();
 var village02 = new Image();
-var currentVillage = new Image();
 
 var upPressed = false;
 var downPressed = false;
@@ -66,11 +65,10 @@ var motionIdx = 0;
 
 player.src = './img/map/eagle.png';
 bossmap.src = './img/map/bossmap.png';
-academy.src = './img/map/map_academy.png';
+academy.src = './img/map/map_academy_v2.png';
 village00.src = './img/map/stage00_npc.png';
 village01.src = './img/map/stage01_npc.png';
 village02.src = './img/map/stage02_npc.png';
-currentVillage.src = './img/map/map_academy_v2.png';
 
 
 var map_init = [
