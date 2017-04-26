@@ -1,10 +1,8 @@
-
 /*ㅁㅁ
-<!-- 
- * 학원에서....Apr25,2017
- * 			17:35
+ * 학원에서....Apr26,2017
+ * 			14:40
  * 			dev by JB
- * UTF-8
+ * MS949
  * */$(document).ready(function(){
 
 });
@@ -79,9 +77,11 @@ console.log("storage.mint "+storage.mint +"  storage.pokeBall "+ storage.pokeBal
 var rand1;
 var rand2;
 var myMonid;
+var winOrLoseResult = false;  //결과가 나올때까지 경기 속행. 둘중 죽거나, 도망치면 true.
 
 function goBattle(){ //#### 맵팀: 야생 포켓몬과의 만날때 시작부분.
 noRepeatRand();  // 내가 뽑는 몬스터도 랜덤. 상대몬스터도 랜덤.으로 만들어놧음. 조율가능.
+winOrLoseResult = false;
 encounter(rand1,rand2);  // 나와 상대의 특정 몬스터를 넣고싶을땐  이놈 건드리면됨..
 /////
 }
@@ -109,6 +109,8 @@ function encounter( randID1 , randID2 ){
 			break;
 		}
 	}
+	$(".whyAllyTextHp").html( parseInt(myMonid.hp*10)/10 + " / "+myMonid.initHp);
+	$(".whyEnemyTextHp").html(parseInt(worldMon.hp*10)/10 + " / "+worldMon.hp);
 }
 
 // 현재 소유한 몬스터북 보기.
@@ -136,12 +138,10 @@ function encounter( randID1 , randID2 ){
 }*/
 function checkPokemonBook(){  // bookNumber = listCount-1;
 	for(var idx =0; idx< pokemons.length; idx++){
-		$(".whyMyAcomonValue").eq(idx)
-		.html("name: "+ pokemons[idx].name +
-				"&nbsp lv: "+ pokemons[idx].lv +
-				"&nbsp hp: "+ pokemons[idx].hp +
-				"&nbsp status: "+ pokemons[idx].status
-		);
+		$(".whyMyAcomonValue:eq("+idx+") .whyMyAcomonValueText:eq(0)").html(pokemons[idx].name);
+		$(".whyMyAcomonValue:eq("+idx+") .whyMyAcomonValueText:eq(1)").html(pokemons[idx].lv);
+		$(".whyMyAcomonValue:eq("+idx+") .whyMyAcomonValueText:eq(2)").html(pokemons[idx].hp);
+		$(".whyMyAcomonValue:eq("+idx+") .whyMyAcomonValueText:eq(3)").html(pokemons[idx].status);
 	}
 }
 $(".whyMyAcomonbox").unbind().on("click", checkPokemonBook());
@@ -167,7 +167,6 @@ function store(wantedService){
 		storeMsg = "민트를 구입하셨습니다 :)" 
 					+"\n현재 소유한 민트수량: " + jiwoo.mint
 					+"\n현재 소유한 골드량: "+ jiwoo.golds;
-		$('#dialog').html(storeMsg);
 	}
 	else if(wantedService == "pokeBall" && jiwoo.golds >= 5000){
 		jiwoo.pokeBall++;
@@ -175,7 +174,6 @@ function store(wantedService){
 		storeMsg = "몬스터볼을 구입하셨습니다 :)" 
 					+"\n 현재 소유한 몬스터볼 수량: " + jiwoo.pokeBall
 					+"\n 현재 소유한 골드량: "+ jiwoo.golds;
-		$('#dialog').html(storeMsg);
 	}
 	else if(wantedService == "heal" && jiwoo.golds >= 4000){
 		for(var inx =0; inx< pokemons.length; inx++){
@@ -185,7 +183,7 @@ function store(wantedService){
 			storeMsg +="\n status:"+ pokemons[inx].status;
 			pokemons[inx].status = "normal";
 			storeMsg += " -> "+ pokemons[inx].status;
-			$('#dialog').html(storeMsg);
+			console.log(storeMsg);
 		}
 		jiwoo.golds -= 4000;
 		storeMsg =" 민영화 치료비 4천골드 ㅠㅠ.." + jiwoo.golds+"골드 보유";
@@ -193,7 +191,7 @@ function store(wantedService){
 	else if(wantedService == "makeMonFree"){
 		var listNo =0 ;
 		for(bookNo in pokemons){  //### 맵팀: 대화창에 리스트 출력.
-			$('#dialog').html("보유 포켓몬: list"+ (++listNo) +" 몬스터이름: " + pokemons[bookNo].name);
+			console.log("보유 포켓몬: list"+ (++listNo) +" 몬스터이름: " + pokemons[bookNo].name);
 		}
 		var findListNo =0 ;
 		var removeMon = prompt("지우실 포켓몬 이름은...","");
@@ -212,14 +210,12 @@ function store(wantedService){
 			storeMsg += "\n지우씨는 특별히 90% 할인해줄게요!";
 			jiwoo.golds -= 12800;
 			storeMsg +="소유골드: " + jiwoo.golds;
-			$('#dialog').html(storeMsg);
 			for(var inx =0; inx <pokemons.length; inx++){
 				pokemons[inx].bookNo = inx; 
 			}
 		}
 		else if( (confirmRemove != "yes") && (jiwoo.golds >= 12800) ){
 			storeMsg = "잘생각하셨어요 :) ";
-			$('#dialog').html(storeMsg);
 		}
 
 		listNo =0 ; //### 테스트용...
@@ -228,7 +224,8 @@ function store(wantedService){
 		} /////////
 		
 	}
-	$('#dialog').html(storeMsg);
+	$(".whyStatusMoneybox").html("소유 골드: "+ jiwoo.golds +"골드 "+"<br/> 민트: "+ jiwoo.mint +"개 <br/>몬스터볼: "+ jiwoo.pokeBall+ "개");
+	console.log(storeMsg);
 }
 
 
@@ -250,7 +247,8 @@ quest.push(new QuestList(2, "\"몬스터북에 3마리 이상 소유하시게.\"
 quest.push(new QuestList(3, "\"민트를 3개 가져다 주시게.\" "			,3 , false, "10000골드" )); 
 
 
-function getQuest(questNow){  //### 맵팀: 퀘스트를 주는 npc
+var questNow = 0;
+function getQuest(){  //### 맵팀: 퀘스트를 주는 npc
 	var questShow = "";
 	if(questNow ==1 && quest[1].questNeeds <= 0){  // 퀘스트 1(불속성2마리잡기) 완료할시.
 		questShow = "오호.. 자네 생각보다 쓸만하구만!! 인물이야! 하하하하!!";
@@ -283,7 +281,7 @@ function getQuest(questNow){  //### 맵팀: 퀘스트를 주는 npc
 		questShow += "\n 퀘스트 보상: "+ quest[questNow].reward;
 
 	}
-	$('#dialog').html(questShow);
+	console.log(questShow);
 }
 
 function checkWorldBook(bookNumber){
