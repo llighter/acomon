@@ -41,7 +41,7 @@ var battleCountDown = 4;
 
 
 document.addEventListener('keyup', (event) => {
-  if (event.keyCode === 32 && textOn == 0) {
+  if (event.keyCode === SPACE_BAR && textOn == 0) {
 	switch(npcDetection()) {
 		case 501:
 			chat.style="block";
