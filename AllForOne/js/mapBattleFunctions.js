@@ -333,6 +333,8 @@ function quest0(meetingMonId){   // 맵팀: quest0(~~);함수의 위치: 고를�
 				quest[0].questDone = true;
 				questNow++;
 			}
+		}else{
+			$("#dialog").html("그러면 다른 프로젝트몬을 한번 살펴보게.");
 		}
 	}
 	else{
