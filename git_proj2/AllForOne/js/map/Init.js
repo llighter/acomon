@@ -1,6 +1,6 @@
 // 맵 기본 단위
 const UNIT = 64;
-const IMG_U = 96;
+const IMG_U = 64;
 const MAPIMG_U = 64;
 const MOVE_U = 16;
 
@@ -64,7 +64,7 @@ var rightPressed = false;
 // Charactor's direction
 var motionIdx = 0;
 
-player.src = './img/map/eagle.png';
+player.src = './img/map/jiwoo.png';
 bossmap.src = './img/map/bossmap.png';
 academy.src = './img/map/map_academy.png';
 village00.src = './img/map/stage00_npc.png';
