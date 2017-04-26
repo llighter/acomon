@@ -1,7 +1,8 @@
 /*ㅁㅁzz
- * 학원에서....Apr25,2017
- * 			20:30
- * 			dev by JW
+ * 학원에서....Apr26,2017
+ * 			11:02
+ * 			dev by JB
+ * MS949
  */
 $(function(){
 	yItemNum();
@@ -599,15 +600,13 @@ function yCmdSkillSelect(){
 			yAllyAttackEffect();	//공격 시각효과
 	    	yEnemyhp();				//공격 hp시각효과
 		},200)
+		////////
 		setTimeout(function (){	//방어 턴
-			propertyBonus();
-	        yTextmsg("<span style='color:#FF6961'>"+myMonid.name+"</span>몬이 <span style='color:#82b5f2'>"+
-	        		((newPokemon.att - myMonid.shield).toFixed(1))+"</span>만큼 피해를 받았습니다!!");   
-	        propertyBonusRelease();
-	        enemyTurn();
+			enemyTurn();
 			yEnemyAttackEffect();	
 			yAllyhp();		
 		},4000)
+		////////
 		setTimeout(function (){turnEnd();},7000);  //실행할 함수에 넣으면됨
 		break;
 	case 2:
@@ -618,61 +617,82 @@ function yCmdSkillSelect(){
 			yAllyAttackEffect();	//공격 시각효과
 	    	yEnemyhp();				//공격 hp시각효과
 		},200)
+		////////
 		setTimeout(function (){	//방어 턴
-			propertyBonus();
-	        yTextmsg("<span style='color:#FF6961'>"+myMonid.name+"</span>몬이 <span style='color:#82b5f2'>"+
-	        		((newPokemon.att - myMonid.shield).toFixed(1))+"</span>만큼 피해를 받았습니다!!");    
-	        propertyBonusRelease();
-	        enemyTurn();
-			yEnemyAttackEffect();	
-			yAllyhp();		
-		},4000)
-		setTimeout(function (){turnEnd();},7000);  //실행할 함수에 넣으면됨
-		break;
-	case 3:
-		setTimeout(function (){		//공격 턴
-			yTextmsg("<span style='color:#FF6961'>"+myMonid.name+"</span>몬이 <span style='color:#82b5f2'>명상을</span>을 시전합니다.");
-			meditation();				//공격 스크립트
-			yAllyHealEffect();	//공격 시각효과
-			yAllyhp();				//공격 hp시각효과
-		},200)
-		setTimeout(function (){	//방어 턴
-			propertyBonus();
-	        yTextmsg("<span style='color:#FF6961'>"+myMonid.name+"</span>몬이 <span style='color:#82b5f2'>"+
-	        		((newPokemon.att - myMonid.shield).toFixed(1))+"</span>만큼 피해를 받았습니다!!");   
-	        propertyBonusRelease();
 			enemyTurn();
 			yEnemyAttackEffect();	
 			yAllyhp();		
 		},4000)
+		////////
+		setTimeout(function (){turnEnd();},7000);  //실행할 함수에 넣으면됨
+		break;
+	case 3:
+		setTimeout(function (){		//공격 턴
+			yTextmsg("<span style='color:#FF6961'>"+myMonid.name+"</span>몬이 <span style='color:#82b5f2'>명상</span>을 시전합니다.");
+			meditation();				//공격 스크립트
+			yAllyHealEffect();	//공격 시각효과
+			yAllyhp();				//공격 hp시각효과
+		},200)
+		////////
+		setTimeout(function (){	//방어 턴
+			enemyTurn();
+			yEnemyAttackEffect();	
+			yAllyhp();		
+		},4000)
+		////////
 		setTimeout(function (){turnEnd();},7000);  //실행할 함수에 넣으면됨
 		break;
 	case 4:
 	      setTimeout(function (){      //공격 턴
 	         yTextmsg("<span style='color:#FF6961'>"+myMonid.name+"</span>몬이 <span style='color:#82b5f2'>"+
 						skill2Names[myMonid.property]+"</span>를 시전했습니다.");
+		         setTimeout(function (){      //공격 턴
+		        		console.log(newPokemon.status);
+		        	if(newPokemon.status == "paralyze"){
+		        		console.log("마비상태 지속.");
+		        		
+		        	}
+		        	else{
+		        	 if(myMonid.property == 0)
+			            yTextmsg("<span style='color:#FF6961'>"+myMonid.name+ "</span>몬이 <span style='color:#82b5f2'>"+
+			            		skill2Names[myMonid.property]+"</span>(공격반사) 상태입니다.");      
+			         else if(myMonid.property == 1)
+			            yTextmsg("<span style='color:#FF6961'>"+myMonid.name+ "</span>몬이 <span style='color:#82b5f2'>"+
+			            		skill2Names[myMonid.property]+"</span>(방어관통) 상태입니다.");      
+			         else if(myMonid.property == 2)
+			            yTextmsg("<span style='color:#FF6961'>"+newPokemon.name+ "</span>몬이 <span style='color:#82b5f2'>"+
+			            		skill2Names[myMonid.property]+"</span>(마비) 상태입니다.");       
+			         else if(myMonid.property == 3)
+			            yTextmsg("<span style='color:#FF6961'>"+newPokemon.name+ "</span>몬이 <span style='color:#82b5f2'>"+
+			            		skill2Names[myMonid.property]+"</span>(화상) 상태입니다.");      
+			         else if(myMonid.property == 4)
+			            yTextmsg("<span style='color:#FF6961'>"+myMonid.name+ "</span>몬이 <span style='color:#82b5f2'>"+
+			            		skill2Names[myMonid.property]+"</span>(방어증가) 상태입니다."); 
+		        	}
+		         },1500);
 	         skillLv2Attack();            //공격 스크립트
 	         yAllyAttackEffect();   //공격 시각효과
-	          yEnemyhp();            //공격 hp시각효과
-	      },200)
+	         yEnemyhp();            //공격 hp시각효과
+	      },200);
 	      setTimeout(function (){   //방어 턴
-	         if(myMonid.property == 0)
+	         /*if(myMonid.property == 0)
 	            yTextmsg("<span style='color:#FF6961'>"+myMonid.name+ "</span>몬이 <span style='color:#82b5f2'>"+
-	            		skill2Names[myMonid.property]+"</span> 상태입니다.");      
+	            		skill2Names[myMonid.property]+"</span>(공격반사) 상태입니다.");      
 	         else if(myMonid.property == 1)
 	            yTextmsg("<span style='color:#FF6961'>"+myMonid.name+ "</span>몬이 <span style='color:#82b5f2'>"+
-	            		skill2Names[myMonid.property]+"</span> 상태입니다.");      
+	            		skill2Names[myMonid.property]+"</span>(방어관통) 상태입니다.");      
 	         else if(myMonid.property == 2)
 	            yTextmsg("<span style='color:#FF6961'>"+newPokemon.name+ "</span>몬이 <span style='color:#82b5f2'>"+
-	            		skill2Names[myMonid.property]+"</span> 상태입니다.");       
+	            		skill2Names[myMonid.property]+"</span>(마비) 상태입니다.");       
 	         else if(myMonid.property == 3)
-	            yTextmsg("<span style='color:#FF6961'>"+myMonewPokemonnid.name+ "</span>몬이 <span style='color:#82b5f2'>"+
-	            		skill2Names[myMonid.property]+"</span> 상태입니다.");      
+	            yTextmsg("<span style='color:#FF6961'>"+newPokemon.name+ "</span>몬이 <span style='color:#82b5f2'>"+
+	            		skill2Names[myMonid.property]+"</span>(화상) 상태입니다.");      
 	         else if(myMonid.property == 4)
 	            yTextmsg("<span style='color:#FF6961'>"+myMonid.name+ "</span>몬이 <span style='color:#82b5f2'>"+
-	            		skill2Names[myMonid.property]+"</span> 상태입니다.");    
-	         enemyTurn();
-	         yAllyhp();      
+	            		skill2Names[myMonid.property]+"</span>(방어증가) 상태입니다.");    */
+	        enemyTurn();
+			yEnemyAttackEffect();	
+			yAllyhp();		
 	      },4000)
 	      setTimeout(function (){turnEnd();},7000);  //실행할 함수에 넣으면됨
 	      break;

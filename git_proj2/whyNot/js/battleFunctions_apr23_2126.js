@@ -133,29 +133,40 @@ function enemyRandAtt(){
 				console.log(newPokemon.name+"몬이 공격력 ("+newPokemon.att+"-"+newPokemon.shield+")로공격.");
 				newPokemon.hp = Number((newPokemon.hp - (newPokemon.att - newPokemon.shield)).toFixed(1));
 				console.log(newPokemon.name + "몬의 체력 "+newPokemon.hp+" 남음.");
+			    yTextmsg("<span style='color:#FF6961'>"+newPokemon.name+"</span>몬이 <span style='color:#82b5f2'>"+
+			    		(newPokemon.att - newPokemon.shield).toFixed(1)+"</span>만큼 피해를 받았습니다!!");   
 			}
 			else{
 				console.log(newPokemon.name+"몬이 스킬 "+skillNames[newPokemon.property]+"로공격.");
 				console.log("원래데미지: "+newPokemon.att+ " 스킬데미지: "+criticalAttack02+ " 상대방어: "+newPokemon.shield);
 				newPokemon.hp = Number((newPokemon.hp - (criticalAttack02- newPokemon.shield)).toFixed(1));
 				console.log(newPokemon.name + "몬의 체력 "+newPokemon.hp+" 남음.");
+			    yTextmsg("<span style='color:#FF6961'>"+newPokemon.name+"</span>몬이 <span style='color:#82b5f2'>"+
+			        	(criticalAttack02- newPokemon.shield).toFixed(1)+"</span>만큼 피해를 받았습니다!!");   
 			}
 			$(".whyEnemyTextHp").html(parseInt(newPokemon.hp*10)/10 + " / "+newPokemon.initHp);
 		}
 		else if(newPokemon.status == "paralyze"){  // 마비는 1턴 휴식.
 			console.log("마비... 이번턴 쉴께요~");
+			yTextmsg("<span style='color:#FF6961'>"+newPokemon.name+ "</span>몬이 <span style='color:#82b5f2'>"+
+            		skill2Names[myMonid.property]+"</span>(마비) 상태입니다.");
 		}
 		else{ // 공격반사, 마비이외에는 평범한 랜덤형식 공격시전.
 			if(enemyRand == 0){
 				console.log(newPokemon.name+"몬이 공격력 ("+newPokemon.att+"-"+myMonid.shield+")로공격.");
 				myMonid.hp = Number((myMonid.hp - (newPokemon.att - myMonid.shield)).toFixed(1));
 				console.log(myMonid.name + "몬의 체력 "+myMonid.hp+" 남음.");
+			        yTextmsg("<span style='color:#FF6961'>"+myMonid.name+"</span>몬이 <span style='color:#82b5f2'>"+
+			        		(newPokemon.att - myMonid.shield).toFixed(1)+"</span>만큼 피해를 받았습니다!!");   
 			}
 			else{
 				console.log(newPokemon.name+"몬이 스킬 "+skillNames[newPokemon.property]+"로공격.");
 				console.log("원래데미지: "+newPokemon.att+ " 스킬데미지: "+criticalAttack02+ " 내방어: "+myMonid.shield);
+				//////
 				myMonid.hp = Number((myMonid.hp - (criticalAttack02- myMonid.shield)).toFixed(1));
 				console.log(myMonid.name + "몬의 체력 "+myMonid.hp+" 남음.");
+			        yTextmsg("<span style='color:#FF6961'>"+myMonid.name+"</span>몬이 <span style='color:#82b5f2'>"+
+			        		(criticalAttack02- myMonid.shield).toFixed(1)+"</span>만큼 피해를 받았습니다!!");   
 			}
 			$(".whyAllyTextHp").html( parseInt(myMonid.hp*10)/10 + " / "+myMonid.initHp);
 		}
@@ -207,23 +218,6 @@ function meditation(){  // 명상 체력 +13.
 	}
 	console.log(showMsg);
 	winOrLose();
-}
-
-function meditation(){  // 명상 체력 +13.
-	propertyBonus();
-	var showMsg = "명상을 할수없습니다. \n\t(설명: 명상하면 전체체력보다 많아질경우.)"
-	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
-		if((myMonid.hp +13) < myMonid.initHp){
-		myMonid.hp += 13;
-		showMsg = "체력회복 (+13)!" +myMonid.hp;
-		hpUp();
-		}
-	}
-	console.log(showMsg);
-	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
-		enemyRandAtt();
-		winOrLose();
-	}
 	propertyBonusRelease();
 }
 
@@ -327,16 +321,17 @@ function catchWildMon(){  // 몬스터볼 소모해서 상대몬스터를 포획
 	if((newPokemon.hp/newPokemon.initHp) < chanceToCatch){  // 포획에 성공하는경우.
 		pokemons.push(new MyPokemon(
 				pokemons.length,
-				worldMon.id,
-				worldMon.name,
-				worldMon.lv ,
-				worldMon.exp ,
-				worldMon.hp,
-				worldMon.att,
-				worldMon.shield,
-				worldMon.property,
+				newPokemon.id,
+				newPokemon.name,
+				newPokemon.lv ,
+				0 ,  //newPokemon.exp
+				newPokemon.hp,
+				newPokemon.att,
+				newPokemon.shield,
+				newPokemon.property,
 				"normal"  // status ="normal" // 정상.
 				));
+		
 		showItemMsg = "system- 새로운 몬스터 "+worldMon.name+"를 잡앗다!!";
 		winOrLoseResult = true;
 		newPokemon.hp = 0;
@@ -357,6 +352,11 @@ function useItem(item){
 		if(jiwoo.mint ==0){
 			showItemMsg = "<span style='color:#82b5f2'>mint</span>가 없습니다.";
 		}
+		else if((jiwoo.mint >0) && (myMonid.hp == myMonid.initHp)){
+			showItemMsg ="<span style='color:#FF6961'>"+myMonid.name+
+				"</span>이미 체력이 풀상태입니다. <br>현재 HP는 <span style='color:#82b5f2'>"+myMonid.hp+"</span>입니다.";
+			$(".whyAllyTextHp").html( parseInt(myMonid.hp*10)/10+ " / "+myMonid.initHp);
+		}
 		else if((jiwoo.mint >0) && ((myMonid.hp +25) < myMonid.initHp)){
 			myMonid.hp +=25;		
 			showItemMsg ="<span style='color:#FF6961'>"+myMonid.name+
@@ -373,10 +373,8 @@ function useItem(item){
 			jiwoo.mint--;
 			showItemMsg += "<br><span style='color:#82b5f2'>"+ item +
 				"</span>(이)가 <span style='color:#82b5f2'>"+ jiwoo.mint + "</span>개 남았습니다.";
-			//hpUp();
 			$(".whyAllyTextHp").html( parseInt(myMonid.hp*10)/10 + " / "+myMonid.initHp);
 		}
-		//### 종원이형: 민트먹을떄 hpUp하면서 게이지 변동..
 		yTextmsg(showItemMsg);
 		console.log(showItemMsg);
 	}
@@ -393,9 +391,9 @@ function useItem(item){
 			winOrLose();
 		} // jiwoo.pokeBall >0 END
 		console.log(showItemMsg);
+		yTextmsg(showItemMsg);
 	}// 아이템사용_포켓볼 던졌을때. else if END
 	console.log("jiwoo.mint "+jiwoo.mint +"  jiwoo.pokeBall "+ jiwoo.pokeBall);
-	yTextmsg(showItemMsg);
 } 
 
 function tagMyMon(bookNumber){	// 내가 소유한 몬스터와 태그하기.
@@ -410,7 +408,6 @@ function tagMyMon(bookNumber){	// 내가 소유한 몬스터와 태그하기.
 
 
 
-var winOrLoseResult = false;  //결과가 나올때까지 경기 속행. 둘중 죽거나, 도망치면 true.
 function winOrLose(){
 
 	if(newPokemon.hp <= 0){
@@ -453,13 +450,13 @@ function expUp(){
 		showMsg += "\n공격력 증가 (+4): \t" + myMonid.att;
 		myMonid.att += 4;
 		showMsg += " -> "+ myMonid.att;
-		
+
 	}
 	else{
 		myMonid.exp += winExp;
 		showMsg = myMonid.name+"가"+ winExp+"만큼 경험치를 획득했다!!!";
 	}
-	console.log(showMsg);
+	yTextmsg(showMsg);
 }
 
 
