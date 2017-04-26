@@ -226,7 +226,7 @@ function store(wantedService){
 		
 	}
 	$(".whyStatusMoneybox").html("소유 골드: "+ jiwoo.golds +"골드 "+"<br/> 민트: "+ jiwoo.mint +"개 <br/>몬스터볼: "+ jiwoo.pokeBall+ "개");
-	console.log(storeMsg);
+	$("#dialog").html(storeMsg);
 }
 
 
