@@ -15,10 +15,10 @@ function Monster(id, name, x, y, img) {
     this.img = img;
 }
 
-function Map(id, img, width, height, mappingArray) {
+function Map(id, img, width, height, matrix) {
 	this.id = id;
 	this.img = img;
 	this.width = width;
 	this.height = height;
-	this.mappingArray = mappingArray;
+	this.matrix = matrix;
 }

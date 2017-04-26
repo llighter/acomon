@@ -85,6 +85,8 @@ if(noExists){
 
 $(".whyEnemyName").html("["+ newPokemon.name +"] Lv."+ newPokemon.lv );
 $(".whyAllyName").html("["+ myMonid.name +"] Lv."+ myMonid.lv );
+$(".whyEnemyTextHp").html(parseInt(newPokemon.hp *10)/10 + " / "+newPokemon.initHp);
+$(".whyEnemyName").html("["+ newPokemon.name +"] Lv."+ newPokemon.lv );
 
 function propertyBonus(){  // 상성 보너스 데미지.
 	var showMsg = "상성이없음.";
@@ -346,6 +348,7 @@ function catchWildMon(){  // 몬스터볼 소모해서 상대몬스터를 포획
 		showItemMsg = "system- 새로운 몬스터 "+worldMon.name+"를 잡앗다!!";
 		winOrLoseResult = true;
 		newPokemon.hp = 0;
+		yEnemyhp();	
 		$(".whyEnemyTextHp").html( parseInt(newPokemon.hp*10)/10 + " / "+newPokemon.initHp);
 		console.log(pokemons[pokemons.length-1]);  // 포획한 몬스터, 몬스터북에서 확인.
 		
@@ -417,6 +420,8 @@ function tagMyMon(bookNumber){	// 내가 소유한 몬스터와 태그하기.
 		console.log("너로 정했다!! 나와라~ "+pokemons[bookNumber].name+"!!!!");
 		$(".whyAllyName").html("["+ pokemons[bookNumber].name +"] Lv."+ pokemons[bookNumber].lv );
 		$(".whyAllyTextHp").html( parseInt(pokemons[bookNumber].hp*10)/10 + " / "+pokemons[bookNumber].initHp);
+		$(".whyEnemyTextHp").html(parseInt(newPokemon.hp *10)/10 + " / "+newPokemon.initHp);
+		$(".whyEnemyName").html("["+ newPokemon.name +"] Lv."+ newPokemon.lv );
 		// #### 맵팀: 여기서 몬스터태그하면서 화면전환 가능한지...
 	}
 }

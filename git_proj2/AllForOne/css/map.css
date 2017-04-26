@@ -2,7 +2,7 @@
 canvas {
     background: black;
     display: block;
-    margin: 0 auto;
+    margin: 0 0;
 }
 
 /* dialog div css -yoda- */ 
@@ -34,7 +34,7 @@ canvas {
 }
 
 #option {
-    height: 70px;
+    height: 30px;
     background: grey;
     color: white;
     font-size: 18px;
