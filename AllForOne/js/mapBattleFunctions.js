@@ -167,6 +167,7 @@ function store(wantedService){
 		storeMsg = "민트를 구입하셨습니다 :)" 
 					+"\n현재 소유한 민트수량: " + jiwoo.mint
 					+"\n현재 소유한 골드량: "+ jiwoo.golds;
+		$('#dialog').html(storeMsg);
 	}
 	else if(wantedService == "pokeBall" && jiwoo.golds >= 5000){
 		jiwoo.pokeBall++;
@@ -174,6 +175,7 @@ function store(wantedService){
 		storeMsg = "몬스터볼을 구입하셨습니다 :)" 
 					+"\n 현재 소유한 몬스터볼 수량: " + jiwoo.pokeBall
 					+"\n 현재 소유한 골드량: "+ jiwoo.golds;
+		$('#dialog').html(storeMsg);
 	}
 	else if(wantedService == "heal" && jiwoo.golds >= 4000){
 		for(var inx =0; inx< pokemons.length; inx++){
@@ -183,7 +185,7 @@ function store(wantedService){
 			storeMsg +="\n status:"+ pokemons[inx].status;
 			pokemons[inx].status = "normal";
 			storeMsg += " -> "+ pokemons[inx].status;
-			console.log(storeMsg);
+			$('#dialog').html(storeMsg);
 		}
 		jiwoo.golds -= 4000;
 		storeMsg =" 민영화 치료비 4천골드 ㅠㅠ.." + jiwoo.golds+"골드 보유";
@@ -191,7 +193,7 @@ function store(wantedService){
 	else if(wantedService == "makeMonFree"){
 		var listNo =0 ;
 		for(bookNo in pokemons){  //### 맵팀: 대화창에 리스트 출력.
-			console.log("보유 포켓몬: list"+ (++listNo) +" 몬스터이름: " + pokemons[bookNo].name);
+			$('#dialog').html("보유 포켓몬: list"+ (++listNo) +" 몬스터이름: " + pokemons[bookNo].name);
 		}
 		var findListNo =0 ;
 		var removeMon = prompt("지우실 포켓몬 이름은...","");
@@ -210,12 +212,14 @@ function store(wantedService){
 			storeMsg += "\n지우씨는 특별히 90% 할인해줄게요!";
 			jiwoo.golds -= 12800;
 			storeMsg +="소유골드: " + jiwoo.golds;
+			$('#dialog').html(storeMsg);
 			for(var inx =0; inx <pokemons.length; inx++){
 				pokemons[inx].bookNo = inx; 
 			}
 		}
 		else if( (confirmRemove != "yes") && (jiwoo.golds >= 12800) ){
 			storeMsg = "잘생각하셨어요 :) ";
+			$('#dialog').html(storeMsg);
 		}
 
 		listNo =0 ; //### 테스트용...
@@ -224,7 +228,7 @@ function store(wantedService){
 		} /////////
 		
 	}
-	console.log(storeMsg);
+	$('#dialog').html(storeMsg);
 }
 
 
@@ -246,8 +250,7 @@ quest.push(new QuestList(2, "\"몬스터북에 3마리 이상 소유하시게.\"
 quest.push(new QuestList(3, "\"민트를 3개 가져다 주시게.\" "			,3 , false, "10000골드" )); 
 
 
-var questNow = 0;
-function getQuest(){  //### 맵팀: 퀘스트를 주는 npc
+function getQuest(questNow){  //### 맵팀: 퀘스트를 주는 npc
 	var questShow = "";
 	if(questNow ==1 && quest[1].questNeeds <= 0){  // 퀘스트 1(불속성2마리잡기) 완료할시.
 		questShow = "오호.. 자네 생각보다 쓸만하구만!! 인물이야! 하하하하!!";
@@ -280,7 +283,7 @@ function getQuest(){  //### 맵팀: 퀘스트를 주는 npc
 		questShow += "\n 퀘스트 보상: "+ quest[questNow].reward;
 
 	}
-	console.log(questShow);
+	$('#dialog').html(questShow);
 }
 
 function checkWorldBook(bookNumber){

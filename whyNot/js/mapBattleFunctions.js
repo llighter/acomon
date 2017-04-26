@@ -1,10 +1,7 @@
-
-/*ㅁㅁzz
-
-<!-- 
- * 학원에서....Apr25,2017
- * 			20:30
- *  * 			dev by JB
+/*ㅁㅁ
+ * 학원에서....Apr24,2017
+ * 			20:56
+ * 			dev by JB
  * UTF-8
  * */$(document).ready(function(){
 
@@ -137,12 +134,10 @@ function encounter( randID1 , randID2 ){
 }*/
 function checkPokemonBook(){  // bookNumber = listCount-1;
 	for(var idx =0; idx< pokemons.length; idx++){
-		$(".whyMyAcomonValue").eq(idx)
-		.html(pokemons[idx].name +
-				", "+ pokemons[idx].lv +
-				", "+ pokemons[idx].hp +
-				", "+ pokemons[idx].status
-		);
+		$(".whyMyAcomonValue:eq("+idx+") .whyMyAcomonValueText:eq(0)").html(pokemons[idx].name);
+		$(".whyMyAcomonValue:eq("+idx+") .whyMyAcomonValueText:eq(1)").html(pokemons[idx].lv);
+		$(".whyMyAcomonValue:eq("+idx+") .whyMyAcomonValueText:eq(2)").html(pokemons[idx].hp);
+		$(".whyMyAcomonValue:eq("+idx+") .whyMyAcomonValueText:eq(3)").html(pokemons[idx].status);
 	}
 }
 $(".whyMyAcomonbox").unbind().on("click", checkPokemonBook());

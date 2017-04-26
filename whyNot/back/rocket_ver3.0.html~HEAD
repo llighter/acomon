@@ -1,9 +1,8 @@
 <!-- 
-/*ㅁㅁ
- * 학원에서....Apr24,2017
- * 			20:56
- * 			dev by JB
- * UTF-8
+ * 집에서....Apr24,2017
+ * 			03:21
+ * 			dev by JW	
+
  -->
 
 <!DOCTYPE html>
@@ -51,28 +50,21 @@
 		<!-- 미구현
 				<div class="whyMenu">옵션-맵</div>
  		-->
-		</div>
-<!-- 구현 진행중 -->
-		<div class="whyStorebox whyContain">
-				<div class="whyStore">*상점(민트)</div>
-				<div class="whyStore">*상점(몬스터볼)</div>
-				<div class="whyStore">*병원(치료)</div>
-				<div class="whyStore">*병원(방생)</div>
-		</div>
+			</div>
 		<!--2 상태 -->
 		<div class="whyStatusbox whyContain">
 			<div class="whyStatus">
 				<div class="whyStatusImgbox">
 					<div class="whyStatusImg"></div>					
-				</div>  
+				</div>  <!--  종원이형에게 멘트: 이거 지우 상태창맞아용? -->
 				<div class="whyStatusNamebox">이름 // 나이 // 등등</div>
 				<div class="whyStatusMoneybox">돈 // 랭킹 등</div>
 			</div>
 			<div class="whyStatus">
 				<div class="whyStatusBadge">
-					 HTML // CSS // SQL ???
+					 HTML // CSS // SQL
 					<br>
-					 JavaScript // JAVA  ???
+					 JavaScript // JAVA
 				</div>
 			</div>
 		</div>
@@ -197,8 +189,10 @@
 				<div class="whyMyAcomonImg">
 				</div>
 				<div class="whyMyAcomonTag">
+					/ 이름  // 레벨 // HP // 상태 /
 				</div>
 				<div class="whyMyAcomonValue">
+					/ 잉어킹  // level // hp // condition /
 				</div>
 			</div>
 <!-- 예정
@@ -222,45 +216,9 @@
 				아이템사용2
 				<br/>(몬스터볼던지기)
 			</div>
-<<<<<<< HEAD:whyNot/rocket_ver3.0.html
-<!--  
 			<div class="whyMyItem">
 				지우가방 확인하기
 			</div>
--->
-			<div class="whyMyItem">
-				아이템3
-=======
-<!-- 
-			<div class="whyMyItem">
-				지우가방 확인하기
-			</div>
--->		
-			<div class="whyMyItem">
-				아이템8
->>>>>>> 2959009ae3869cc915d7ab2389f324d510c47d62:git_proj2/whyNot/back/rocket_ver3.0.html
-			</div>
-			<div class="whyMyItem">
-				아이템4
-			</div>
-			<div class="whyMyItem">
-				아이템5
-			</div>
-			<div class="whyMyItem">
-				아이템6
-			</div>
-			<div class="whyMyItem">
-				아이템7
-			</div>
-<!-- 예정
-				<div>
-					사용하기
-					자세히보기
-					팔기 - 갯수ok//취소
-					버리기
-				</div>
- -->
-		</div>
 			<div class="whyMyItem">
 				임시-상점이용
 				<br/>(민트사기)
@@ -277,6 +235,31 @@
 				임시-병원이용
 				<br/>(방생하기)
 			</div>
+			<div class="whyMyItem">
+				아이템8
+			</div>
+			<div class="whyMyItem">
+				아이템9
+			</div>
+			<div class="whyMyItem">
+				아이템10
+			</div>
+			<div class="whyMyItem">
+				아이템11
+			</div>
+			<div class="whyMyItem">
+				아이템12
+			</div>
+		
+<!-- 예정
+				<div>
+					사용하기
+					자세히보기
+					팔기 - 갯수ok//취소
+					버리기
+				</div>
+ -->
+		</div>
 	<!-- 예정
 			<div>
 				맵열기

@@ -1,4 +1,10 @@
 
+/*ㅁㅁ
+ * 학원에서....Apr24,2017
+ * 			20:56
+ * 			dev by JB
+ * UTF-8
+*/
 body{box-sizing:border-box;}
 *, *:after, *:before{box-sizing:inherit;}
 
@@ -127,6 +133,29 @@ body{overflow:auto;background:#d2e0d1;}
 	padding-top:30px;
 }
 	.whyMenu{
+		display:inline-block;
+		height:50px;
+		line-height:50px;
+		width:200px;
+		margin:5px;
+		font-size:25px;
+		font-weight:bold;
+		background:rgb(54, 125, 80);
+	}
+/* 맵 - 상점 */
+.whyStorebox{
+	z-index:10;
+	position:absolute;
+	top:20px;
+	left:0px; /* 전체%, 너비px, 마진px */
+	height:calc(480px - 20px - 20px); /* 높이px, 탑마진px, 바텀마진px */
+	width:250px;
+	background:rgb(160, 214, 180);
+	color:white;
+	text-align:center;
+	padding-top:30px;
+}
+	.whyStore{
 		display:inline-block;
 		height:50px;
 		line-height:50px;
@@ -327,7 +356,7 @@ body{overflow:auto;background:#d2e0d1;}
 			width:75%;
 			height:30%;
 			background:#fff09b;
-			font-size:20px;
+			font-size:18px;
 		}
 	.whyBattleAllyimg{
 		background:#8ea3e8;
@@ -407,7 +436,7 @@ body{overflow:auto;background:#d2e0d1;}
 			width:75%;
 			height:30%;
 			background:gold;
-			font-size:20px;
+			font-size:18px;
 		}
 .whyEnemyAttack{
 	display:none;
@@ -490,7 +519,6 @@ body{overflow:auto;background:#d2e0d1;}
 			background:url("../img/pocketmon05.gif") no-repeat center;
 		}
 		.whyMyAcomon:NTH-CHILD(6) .whyMyAcomonImg{
-			background:url("../img/pocketmon06.gif") no-repeat center;
 		}
 		
 		

@@ -1,4 +1,3 @@
-
 /*ㅁㅁzz
 <!-- 
  * 학원에서....Apr25,2017
@@ -141,7 +140,6 @@ function enemyRandAtt(){
 				newPokemon.hp = Number((newPokemon.hp - (criticalAttack02- newPokemon.shield)).toFixed(1));
 				console.log(newPokemon.name + "몬의 체력 "+newPokemon.hp+" 남음.");
 			}
-			//hpDown();
 			$(".whyEnemyTextHp").html(parseInt(newPokemon.hp*10)/10 + " / "+newPokemon.initHp);
 		}
 		else if(newPokemon.status == "paralyze"){  // 마비는 1턴 휴식.
@@ -209,6 +207,24 @@ function meditation(){  // 명상 체력 +13.
 	}
 	console.log(showMsg);
 	winOrLose();
+}
+
+function meditation(){  // 명상 체력 +13.
+	propertyBonus();
+	var showMsg = "명상을 할수없습니다. \n\t(설명: 명상하면 전체체력보다 많아질경우.)"
+	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
+		if((myMonid.hp +13) < myMonid.initHp){
+		myMonid.hp += 13;
+		showMsg = "체력회복 (+13)!" +myMonid.hp;
+		hpUp();
+		}
+	}
+	console.log(showMsg);
+	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
+		enemyRandAtt();
+		winOrLose();
+	}
+	propertyBonusRelease();
 }
 
 
@@ -337,27 +353,31 @@ function catchWildMon(){  // 몬스터볼 소모해서 상대몬스터를 포획
 
 function useItem(item){
 	if(item == "mint"){  // 민트 아이템 소모. 체력+25. 턴소모X. 초기 5개 소유중.
-		var showItemMsg = "사용할수 없습니다 - 설명: 민트먹을시 체력max보다 많습니다.";
+		var showItemMsg = "체력이 최대치입니다. <span style='color:#82b5f2'>mint</span>를 사용할 수 없습니다.";
 		if(jiwoo.mint ==0){
-			showItemMsg = "system- mint 없다 ㅜㅜ";
+			showItemMsg = "<span style='color:#82b5f2'>mint</span>가 없습니다.";
 		}
 		else if((jiwoo.mint >0) && ((myMonid.hp +25) < myMonid.initHp)){
 			myMonid.hp +=25;		
-			showItemMsg = myMonid.name+"회복!! 현재체력: "+ myMonid.hp;
+			showItemMsg ="<span style='color:#FF6961'>"+myMonid.name+
+				"</span>몬이 회복합니다. <br>현재 HP는 <span style='color:#82b5f2'>"+myMonid.hp+"</span>입니다.";
 			jiwoo.mint--;
-			showItemMsg += "\nsystem- "+ item +" " + jiwoo.mint + "개 남았습니다.";
-			//hpUp();
+			showItemMsg += "<br><span style='color:#82b5f2'>"+ item +
+				"</span>(이)가 <span style='color:#82b5f2'>"+ jiwoo.mint + "</span>개 남았습니다.";
 			$(".whyAllyTextHp").html( parseInt(myMonid.hp*10)/10+ " / "+myMonid.initHp);
 		}
 		else if((jiwoo.mint >0) && ((myMonid.hp +25) >= myMonid.initHp)){
 			myMonid.hp = myMonid.initHp;		
-			showItemMsg = myMonid.name+" 최대회복!! 현재체력: "+ myMonid.hp;
+			showItemMsg ="<span style='color:#FF6961'>"+myMonid.name+
+				"</span>몬이 체력이 전부 회복되었습니다. <br>현재 HP는 <span style='color:#82b5f2'>"+myMonid.hp+"</span>입니다."
 			jiwoo.mint--;
-			showItemMsg += "\nsystem- "+ item +" " + jiwoo.mint + "개 남았습니다.";
+			showItemMsg += "<br><span style='color:#82b5f2'>"+ item +
+				"</span>(이)가 <span style='color:#82b5f2'>"+ jiwoo.mint + "</span>개 남았습니다.";
 			//hpUp();
 			$(".whyAllyTextHp").html( parseInt(myMonid.hp*10)/10 + " / "+myMonid.initHp);
 		}
 		//### 종원이형: 민트먹을떄 hpUp하면서 게이지 변동..
+		yTextmsg(showItemMsg);
 		console.log(showItemMsg);
 	}
 
@@ -375,6 +395,7 @@ function useItem(item){
 		console.log(showItemMsg);
 	}// 아이템사용_포켓볼 던졌을때. else if END
 	console.log("jiwoo.mint "+jiwoo.mint +"  jiwoo.pokeBall "+ jiwoo.pokeBall);
+	yTextmsg(showItemMsg);
 } 
 
 function tagMyMon(bookNumber){	// 내가 소유한 몬스터와 태그하기.
@@ -383,8 +404,6 @@ function tagMyMon(bookNumber){	// 내가 소유한 몬스터와 태그하기.
 		console.log("너로 정했다!! 나와라~ "+pokemons[bookNumber].name+"!!!!");
 		$(".whyAllyName").html("["+ pokemons[bookNumber].name +"] Lv."+ pokemons[bookNumber].lv );
 		$(".whyAllyTextHp").html( parseInt(pokemons[bookNumber].hp*10)/10 + " / "+pokemons[bookNumber].initHp);
-
-		
 		// #### 맵팀: 여기서 몬스터태그하면서 화면전환 가능한지...
 	}
 }
