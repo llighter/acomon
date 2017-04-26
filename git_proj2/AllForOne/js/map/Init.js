@@ -39,6 +39,7 @@ const MAP_01_STORE_NPC = 504;
 const MAP_01_QUEST_NPC = 505;
 const MAP_02_STORE_NPC = 506;
 const MAP_02_QUEST_NPC = 507;
+const MAP_BOSS_NPC = 303;
 const MAP_ACADEMY_TO_00 = 90;
 const MAP_00_TO_ACADEMY = 91;
 const MAP_00_TO_01 = 99;

@@ -4,19 +4,20 @@ var context = canvas.getContext("2d");
 var myPlayer = new Player('player01', 'yunha', UNIT*4 ,UNIT*2, player, EAST_DIRECTION);
 var mapList = [];
 
-var init_talk = ['Acorn 아카데미에 온 것을 환영하네.. 자네는 이제 개발자가 되기 위한 모험을 떠날 걸세 내가 바쁜 관계로 지금 바로 출발하게!', 
+var init_talk = ['Acorn 아카데미에 온 것을 환영하네.. 우리학원에 등록을 하고 싶다고? 그렇다면 간단한 프로젝트몬들을 길러야하네. 프로그래밍 마을의 모든 임무를 완수해서 프로젝트몬을 키우고 오게!', 
 				'꼬마야 뭘 사고 싶니?',
-				'여기는 HTML 마을이란다.. 퀘스트 있는데 할래?',
+				'HTML마을에 온 것을 환영하네 젊은 친구.. 내가 도움이 필요한데 좀 도와주겠는가...?',
 				'청년 뭘 사고 싶소?',
-				'여기는 CSS 마을이에요 ㅎㅎ퀘스트 있는데 할래?',
+				'여기는 CSS 마을이에요! 제 부탁 한가지만 들어주시겠어요?',
 				'아저씨 뭐 줄까?',
-				'여기는 Javascript 마을이네.. 아주 위험하지..퀘스트 있는데 할래?',
-				'오프닝 멘트입니다 아 귀찮다 귀찮아 워어어어어어엉어엉어어~~~',	// 오프닝멘트
+				'여기는 Javascript 마을이네.. 아주 위험하지...부탁 좀 들어주겠나?',
+				'취준생 지우는 세계최고의 프로그래밍 개발자가 되고 싶어 한다. 부족한 프로그래밍 실력을 키우기 위해 에이콘아카데미에 등록하려고 찾아가는데.... ',	// 오프닝멘트
+				'엄청난 프로젝트몬을 수집했군. 이제 넌 쓸모가 없어졌다. 가지고 있는 프로젝트몬을 나에게 넘겨라!'
 				];
 // 상점 옵션
 var market_talk = '[1] 다음에 올께요..    [2] 민트 캔디 구입    [3] 몬스터볼 구입   [4] 치료    [5] 몬스터 방생 ';
 // 퀘스트 옵션
-var quest_choice = '[1] ㄴㄴ [2]ㅇㅇ ';
+var quest_choice = '[1] 싫어요! [2]그럴께요! ';
 var temp = [];
 
 for(var idx = 0; idx < init_talk.length; idx++) {
@@ -112,6 +113,12 @@ document.addEventListener('keyup', (event) => {
 			option.style="block";
 			dialogMode=3;
 			break;
+		case MAP_BOSS_NPC:
+			chat.style="block";
+			createDiag( temp[8] );
+			dialogMode=1;
+			break;
+			
 
 	}
   } else if(event.keyCode === KEYBOARD_1) {
@@ -138,9 +145,9 @@ document.addEventListener('keyup', (event) => {
 // 예를 들어 스테이지 2퀘스트가 몬스터볼 보상으로 얻는건데 2번키계속누르면 무한으로 얻을수 있음  
   if(dialogMode == 3 && event.keyCode == KEYBOARD_2 ){
 	  switch(npcDetection()){
-	  case MAP_00_QUEST_NPC: getQuest(1); $('#option').html("[1] ㅂㅂ"); break;
-	  case MAP_01_QUEST_NPC: getQuest(2); $('#option').html("[1] ㅂㅂ"); break;
-	  case MAP_02_QUEST_NPC: getQuest(3); $('#option').html("[1] ㅂㅂ"); break;
+	  case MAP_00_QUEST_NPC: getQuest(1); $('#option').html("[1] 감사합니다!"); break;
+	  case MAP_01_QUEST_NPC: getQuest(2); $('#option').html("[1] 감사합니다!"); break;
+	  case MAP_02_QUEST_NPC: getQuest(3); $('#option').html("[1] 감사합니다!"); break;
 	  }
 	  
   }
@@ -204,7 +211,7 @@ function npcDetection() {
 		return mapValue2;
 	}
 
-	return (mapValue >= 501 && mapValue <= 507) ? mapValue : -1;	
+	return (mapValue >= 501 && mapValue <= 508) ? mapValue : -1;	
 }
 
 
