@@ -1,10 +1,9 @@
-
 /*ㅁㅁ
- * 학원에서....Apr24,2017
- * 			20:56
- * 			dev by JB
- * UTF-8
-*/
+ * 집에서....Apr24,2017
+ * 			03:21
+ * 			dev by JW
+ */
+
 
 // 테스트용 //72 번째 줄까지 추가~
 var acomonHp = 126;
@@ -327,7 +326,6 @@ function yStatus(){
 	if(yPreView == '.whyAllMap'){
 		$('.whyAllMap').css('z-index','10');
 		$('.whyMenubox').css('z-index','10');
-		$('.whyTextbox').css('z-index','10');
 	}
 	$('.whyStatusbox').css('z-index','30');
 	yLocClassFun("whyStatus");
@@ -349,7 +347,6 @@ function yReport(){
 	if(yPreView == '.whyAllMap'){
 		$('.whyAllMap').css('z-index','10');
 		$('.whyMenubox').css('z-index','10');
-		$('.whyTextbox').css('z-index','10');
 		yLocClassFun("whyReport");
 	}
 	$('.whyReportBox').css('z-index','30');
@@ -458,27 +455,27 @@ function yCmdListSelect(){
 function yMyAcomonSelect(){
 	switch (yListCount) {
 	case 1:
-		tagMyMon(yListCount-1);//재현 1번째 포켓몬 // pokemons[0]
+		checkPokemonBook(yListCount-1);//재현 1번째 포켓몬 // pokemons[0]
 		turnEnd();  //실행할 함수에 넣으면됨
 		break;
 	case 2:
-		tagMyMon(yListCount-1);//재현 2번째 포켓몬// pokemons[1]
+		checkPokemonBook(yListCount-1);//재현 2번째 포켓몬// pokemons[1]
 		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	case 3:
-		tagMyMon(yListCount-1);//재현 3번째 포켓몬// pokemons[2]
+		checkPokemonBook(yListCount-1);//재현 3번째 포켓몬// pokemons[2]
 		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	case 4:
-		tagMyMon(yListCount-1);//재현 4번째 포켓몬// pokemons[3]
+		checkPokemonBook(yListCount-1);//재현 4번째 포켓몬// pokemons[3]
 		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	case 5:
-		tagMyMon(yListCount-1);//재현 5번째 포켓몬// pokemons[4]
+		checkPokemonBook(yListCount-1);//재현 5번째 포켓몬// pokemons[4]
 		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	case 6:
-		tagMyMon(yListCount-1);//재현 6번째 포켓몬
+		checkPokemonBook(yListCount-1);//재현 6번째 포켓몬
 			// pokemons[5]  << 처음엔 없음. 새로운 몬스터 포획하면 보일몬스터.
 		turnEnd();	//실행할 함수에 넣으면됨
 		break;

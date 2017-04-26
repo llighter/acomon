@@ -136,28 +136,6 @@ body{overflow:auto;background:#d2e0d1;}
 		font-weight:bold;
 		background:rgb(54, 125, 80);
 	}
-.whyStorebox{
-	z-index:10;
-	position:absolute;
-	top:20px;
-	left:0px; /* 전체%, 너비px, 마진px */
-	height:calc(480px - 20px - 20px); /* 높이px, 탑마진px, 바텀마진px */
-	width:250px;
-	background:rgb(160, 214, 180);
-	color:white;
-	text-align:center;
-	padding-top:30px;
-}
-	.whyStore{
-		display:inline-block;
-		height:50px;
-		line-height:50px;
-		width:200px;
-		margin:5px;
-		font-size:25px;
-		font-weight:bold;
-		background:rgb(54, 125, 80);
-	}
 
 /* 전체 - 상태창 */
 .whyStatusbox{
@@ -338,7 +316,7 @@ body{overflow:auto;background:#d2e0d1;}
 		.whyEnemyBarHp{
 			display:inline-block;
 			float:left;
-			width:0%;
+			width:90%;
 			height:100%;
 			background:#00a800;
 			transition:width 2s ease, background 1s ease-in;
@@ -418,7 +396,7 @@ body{overflow:auto;background:#d2e0d1;}
 		.whyAllyBarHp{
 			display:inline-block;
 			float:left;
-			width:0%;
+			width:70%;
 			height:100%;
 			background:green;
 			transition:width 2s ease, background 1s ease-in;
@@ -442,19 +420,6 @@ body{overflow:auto;background:#d2e0d1;}
 	background:url("../img/attack_01.png") no-repeat center;
 	background-size:cover;
 	opacity:0.6;
-}
-.whyAllyAttack{
-	display:none;
-	width:60px;
-	height:60px;
-	z-index:50;
-	position:absolute;
-	top:260px;
-	left:220px;
-	background:url("../img/attack_fire01.png") no-repeat center;
-	background-size:100% 100%;
-	opacity:0.9;
-	transform: rotate(-23deg);
 }
 /*
 	animation-name:yEnemyAttack;
@@ -500,12 +465,6 @@ body{overflow:auto;background:#d2e0d1;}
 		margin:5px 10px 0px 0px;
 		padding:0 0 0 20px;	 
 	}
-		.whyMyAcomonTag{
-			display:inline-block;
-			float:left;
-			width:25%;
-			height:100%;
-		}
 	.whyMyAcomonValue{
 		display:inline-block;
 		float:left;
@@ -576,13 +535,10 @@ body{overflow:auto;background:#d2e0d1;}
 .whyTextbox{
 	z-index:10;
 	position:absolute;
-	left:18px;
-	width:calc(100% - 18px - 18px);
-	height:calc(25% - 18px - 18px);
-	top:calc(75% + 18px);
-	border-radius: 5px;
-	box-shadow: 0 0 0 6px white, 0 0 0 12px black;
-	background: black;
+	width:100%;
+	height:25%;
+	top:75%;
+	border:10px solid rgba(27,27,27,0.6);
 	font-size:25px;
 	color:white;
 }
@@ -592,15 +548,14 @@ body{overflow:auto;background:#d2e0d1;}
 		width:calc(100% - 50px);
 		height:100%;
 		padding:12px;
-/*		background:rgba(27,27,27,0.5);	*/
+		background:rgba(27,27,27,0.5);
 	}
 	.whySkip{
 		display:flex;
 		float:right;
 		width:50px;
 		height:100%;
-/*		background:rgba(27,27,27,0.5);
-*/
+		background:rgba(27,27,27,0.5);
 	}
 	.whySkipBtn{
 		display:inline-block;

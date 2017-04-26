@@ -4,86 +4,77 @@
  * 			dev by JW
  */
 
-var viewHp;
+
+// 테스트용 //72 번째 줄까지 추가~
+var acomonHp = 126;
+var acomonMaxHp = 172;
+var attackPoint = 11;
+var viewHp = (acomonHp/acomonMaxHp)*100;
 var hpColor;
-var yBlinkCondtion=true;
-//  깜빡임효과.
-var turnCount=0;
-var imgClass;
-function yBlink(imgClass){
-	blinkCount=0;
-	yBlinkCondtion=false;
-	Blink = setInterval(function(){
-		blinkCount++;
-		if(blinkCount>5){
-			$(imgClass).toggle();
-		}
-		if(blinkCount==11){
-			clearInterval(Blink);
-			yBlinkCondtion=true
-		}
-	},250);
-}
-
-
-//heal effect
-function yAllyHealEffect(){
-	$('.whyAllyHeal').fadeIn("slow","swing");
-	$('.whyAllyHeal').delay(500).fadeOut("fast","swing");
-}
-
-// 재현 태클이나,스킬공격에 넣으면됨.
-function yAllyAttackEffect(){
-	$('.whyAllyAttack').css({top:"260px",left:"220px",width:'60px',height:'60px'}).fadeIn();
-	$('.whyAllyAttack').animate({top:"80px",left:"250px",width:'380px',height:'200px'},1000);
-	$('.whyAllyAttack').fadeOut();
-	yBlink('.whyEnemyImg');
-}
-
-function yEnemyAttackEffect(){
-	$('.whyEnemyImg').css({'background-image':'url("img/monZ_01.gif")'});
-	setTimeout(function(){$('.whyEnemyImg').css({'background-image':'url("img/monZ_00.png")'})},2730);
-	$('.whyEnemyAttack').css({top:"120px",left:"450px",width:'60px',height:'60px'}).fadeIn();
-	$('.whyEnemyAttack').animate({top:"220px",left:"10px",width:'300px',height:'300px'},{duration:1000});
-	$('.whyEnemyAttack').fadeOut();
-// 깜빡임 효과(상대편이미지에 주기.적중시기준이지만 일단 전부 적용하는걸로.)
-	yBlink('.whyAllyImg');
-}
-
-
-//hp변경 -> 이미지 변화
-function yAllyhp(){
-	viewHp = (myMonid.hp/myMonid.initHp)*100;
-	if(viewHp>=50) hpColor = "green";
-	else if(viewHp<50 && viewHp>=25) hpColor = "gold";
-	else if(viewHp<25) hpColor = "red";
-	$('.whyAllyBarHp').css({width:viewHp+"%"});
-	$('.whyAllyBarHp').css("background", hpColor);
-}
-
-
-function yEnemyhp(){
-	viewHp = (newPokemon.hp/newPokemon.initHp)*100;
-	if(viewHp>=50) hpColor = "green";
-	else if(viewHp<50 && viewHp>=25) hpColor = "gold";
-	else if(viewHp<25) hpColor = "red";
-	$('.whyEnemyBarHp').css({width:viewHp+"%"});
-	$('.whyEnemyBarHp').css("background", hpColor);
-}
-
-//var yPause=false;
-function yTextmsg(msg){
+function hpDown(){
 	if(yPreView == '.whyBattle'){
-		$('.whyCmdListbox').css('z-index','10');
-		$('.whyCmdSkillbox').css('z-index','10');
-		$('.whyTextbox').css('z-index','30');
+		// HP 변화 함수.
+		attackPoint = 42;
+		acomonHp -= attackPoint;
+		
+		//  HP Bar 함수
+		viewHp = (acomonHp/acomonMaxHp)*100;
+		if(viewHp>=50) hpColor = "green";
+		else if(viewHp<50 && viewHp>=25) hpColor = "gold";
+		else if(viewHp<25) hpColor = "red";
+		$('.whyAllyBarHp').css({width:viewHp+"%"});
+		$('.whyAllyBarHp').css("background", hpColor);
+			console.log("code:whyNot hp"+attackPoint+"감소"+hpColor);
+		
+			// 공격이펙트 함수
+		
+		$('.whyEnemyImg').css({'background-image':'url("img/monZ_01.gif")'});
+		setTimeout(function(){$('.whyEnemyImg').css({'background-image':'url("img/monZ_00.png")'})},2730);
+		$('.whyEnemyAttack').css({top:"120px",left:"450px",width:'60px',height:'60px'}).fadeIn();
+		$('.whyEnemyAttack').animate({top:"220px",left:"10px",width:'300px',height:'300px'},{duration:1000});
+		$('.whyEnemyAttack').fadeOut();
+	
+		var blinkCount=0;
+		var yBlink = setInterval(function(){
+			blinkCount++;
+			if(blinkCount>5){
+				$('.whyAllyImg').toggle();
+			}
+			if(blinkCount==11){
+				clearInterval(yBlink)
+			}
+		},250);
 	}
-	$('.whyText').html(msg);
+}
+
+
+function hpUp(){
+	if(yPreView == '.whyBattle'){
+		// HP 변화 함수.
+		attackPoint = 42;
+		acomonHp += attackPoint;
+		
+		//  HP Bar 함수
+		viewHp = (acomonHp/acomonMaxHp)*100;
+		if(viewHp>=50) hpColor = "green";
+		else if(viewHp<50 && viewHp>=25) hpColor = "gold";
+		else if(viewHp<25) hpColor = "red";
+		$('.whyAllyBarHp').css({width:viewHp+"%"});
+		$('.whyAllyBarHp').css("background", hpColor);
+			console.log("hp"+attackPoint+"상승"+hpColor);
+			
+		// 힐이펙트 함수	
+		$('.whyAllyHeal').fadeIn("slow","swing");
+		$('.whyAllyHeal').delay(500).fadeOut("fast","swing");
+	}
 }
 
 
 
 
+$(function(){
+
+});
 
 var yPreView; //Undo하기 위한 저장값
 
@@ -124,9 +115,11 @@ function ykeyRokect(event){
     }
     if(event.keyCode == 37){
     //	yLeftPressed();
+    	hpDown();
     }
     else if(event.keyCode == 39){
     //	yRightPressed();
+    	hpUp();    	
     }
     else if(event.keyCode == 65){ 	//a키 : 메뉴키
     	yAkeyPressed();
@@ -136,9 +129,6 @@ function ykeyRokect(event){
     }
     else if(event.keyCode == 88){ //x키 : 뒤로가기키
     	yXkeyPressed();
-    }
-    else if(event.keyCode == 89){ //y키 : 뒤로가기키
-    	nextMsg=true;
     }
 }
 /* 스크롤이동 일단보류1
@@ -278,7 +268,6 @@ function yMyAcomon(){
 		$('.whyBattle').css('z-index','10');
 		$('.whyCmdListbox').css('z-index','10');
 	}
-	checkPokemonBook();
 	$('.whyMyAcomonbox').css('z-index','20');
 	$('.whyTextbox').css('z-index','30');
 	yLocClassFun("whyMyAcomon");
@@ -387,8 +376,6 @@ function yEventBattle(){
 	$('.whyCommand').css('z-index','20');
 	$('.whyCmdListbox').css('z-index','30');
 	yLocClassFun("whyCmdList");
-	yAllyhp();
-	yEnemyhp();
 	ySetCssFun();
 }
 
@@ -540,63 +527,21 @@ function yMyItemSelect(){
 function yCmdSkillSelect(){
 	switch (yListCount) {
 	case 1:
-		setTimeout(function (){		//공격 턴
-			yTextmsg(myMonid.name+"몬 몸통박치기!!");
-			tackle();				//공격 스크립트
-			yAllyAttackEffect();	//공격 시각효과
-	    	yEnemyhp();				//공격 hp시각효과
-		},200)
-		setTimeout(function (){	//방어 턴
-			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");			
-			enemyTurn();
-			yEnemyAttackEffect();	
-			yAllyhp();		
-		},4000)
-		setTimeout(function (){turnEnd();},7000);  //실행할 함수에 넣으면됨
+		tackle();//재현 1번째 스킬
+		turnEnd();  //실행할 함수에 넣으면됨
 		break;
 	case 2:
-		setTimeout(function (){		//공격 턴
-			yTextmsg(myMonid.name+"몬 \""+ skillNames[myMonid.property]+"\"발동!!");
-			skillAttack();				//공격 스크립트
-			yAllyAttackEffect();	//공격 시각효과
-	    	yEnemyhp();				//공격 hp시각효과
-		},200)
-		setTimeout(function (){	//방어 턴
-			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");			
-			enemyTurn();
-			yEnemyAttackEffect();	
-			yAllyhp();		
-		},4000)
-		setTimeout(function (){turnEnd();},7000);  //실행할 함수에 넣으면됨
+		skillAttack();//재현 2번째 스킬
+		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	case 3:
-		setTimeout(function (){		//공격 턴
-			yTextmsg(myMonid.name+"몬 명상하기!!");
-			meditation();				//공격 스크립트
-			yAllyHealEffect();	//공격 시각효과
-			yAllyhp();				//공격 hp시각효과
-		},200)
-		setTimeout(function (){	//방어 턴
-			yTextmsg(myMonid.name+"몬이 "+((newPokemon.att - myMonid.shield).toFixed(1))+"만큼 피해를 받았다!!");		
-			enemyTurn();
-			yEnemyAttackEffect();	
-			yAllyhp();		
-		},4000)
-		setTimeout(function (){turnEnd();},7000);  //실행할 함수에 넣으면됨
+		meditation();//재현 3번째 스킬
+		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	case 4:
-		setTimeout(function (){		//공격 턴
-			yTextmsg(myMonid.name+"몬 \""+ skill2Names[myMonid.property]+"\"발동!!");
-			skillLv2Attack();				//공격 스크립트
-			yAllyAttackEffect();	//공격 시각효과
-	    	yEnemyhp();				//공격 hp시각효과
-		},200)
-		setTimeout(function (){	//방어 턴
-			yTextmsg("적군이 마비상태라 공격이 불가능하다!!");		
-			enemyTurn();
-			yAllyhp();		
-		},4000)
-		setTimeout(function (){turnEnd();},7000);  //실행할 함수에 넣으면됨
+console.log("2차스킬 작업중...");//재현 4번째 스킬
+		skillLv2Attack();
+		turnEnd();	//실행할 함수에 넣으면됨
 		break;
 	default:
 		break;

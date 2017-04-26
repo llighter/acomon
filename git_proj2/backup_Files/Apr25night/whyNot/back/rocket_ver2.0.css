@@ -1,10 +1,4 @@
 
-/*ㅁㅁ
- * 학원에서....Apr24,2017
- * 			20:56
- * 			dev by JB
- * UTF-8
-*/
 body{box-sizing:border-box;}
 *, *:after, *:before{box-sizing:inherit;}
 
@@ -142,29 +136,6 @@ body{overflow:auto;background:#d2e0d1;}
 		font-weight:bold;
 		background:rgb(54, 125, 80);
 	}
-/* 맵 - 상점 */
-.whyStorebox{
-	z-index:10;
-	position:absolute;
-	top:20px;
-	left:0px; /* 전체%, 너비px, 마진px */
-	height:calc(480px - 20px - 20px); /* 높이px, 탑마진px, 바텀마진px */
-	width:250px;
-	background:rgb(160, 214, 180);
-	color:white;
-	text-align:center;
-	padding-top:30px;
-}
-	.whyStore{
-		display:inline-block;
-		height:50px;
-		line-height:50px;
-		width:200px;
-		margin:5px;
-		font-size:25px;
-		font-weight:bold;
-		background:rgb(54, 125, 80);
-	}
 
 /* 전체 - 상태창 */
 .whyStatusbox{
@@ -287,179 +258,34 @@ body{overflow:auto;background:#d2e0d1;}
 	height:75%;
 }	
 	.whyBattleDiv{
-		position:relative;
-		top:0;
-		left:0;
 		display:inline-block;
 		float:left;
 		width:50%;
 		height:100%;
 	}
 	.whyBattleHp{
-		position:relative;
-		top:0;
-		left:0;
 		width:100%;
 		height:30%;
 		font-size:20px;
-		padding:20px;
 	}
 	.whyBattleImg{
-		position:relative;
-		top:0;
-		left:0;
 		width:100%;
 		height:70%;
 		font-size:60px;
 	}
 	.whyBattleEnemyhp{
 		background:#ffa8a4;
-		font-weight:bold;
-		text-align:center;
 	}
-		.whyEnemyName{
-			display:inline-block;
-			float:left;
-			width:100%;
-			height:40%;
-			background:#ff6f6f;
-			font-size:30px;
-			padding-left:20px;
-		}
-		.whyEnemyHpTitle{
-			display:inline-block;
-			float:left;
-			width:25%;
-			height:60%;
-			background:#6a6aff;
-			font-size:40px;
-		}
-		.whyEnemyBarMaxHp{
-			display:inline-block;
-			float:left;
-			width:75%;
-			height:30%;
-			background:#e1e1e1;
-			border:5px solid black;
-		}
-		.whyEnemyBarHp{
-			display:inline-block;
-			float:left;
-			width:90%;
-			height:100%;
-			background:#00a800;
-			transition:width 2s ease, background 1s ease-in;
-			}
-		.whyEnemyTextHp{
-			display:inline-block;
-			float:left;
-			width:75%;
-			height:30%;
-			background:#fff09b;
-			font-size:18px;
-		}
 	.whyBattleAllyimg{
 		background:#8ea3e8;
-		padding:0px 70px 0px 10px;
 	}
-		.whyAllyImg{
-			width:100%;
-			height:100%;
-			background:url("../img/monA_02.gif") no-repeat bottom;
-			background-size:contain;
-		}
-			.whyAllyHeal{
-				display:none;
-				width:100%;
-				height:100%;
-				z-index:1;
-				position:absolute;
-				top:60px;
-				left:0px;
-				background:url("../img/heal1.png") no-repeat center;
-				background-size:250% 200%;
-				opacity:0.55;
-			}
 	.whyBattleEnemyimg{
 		background:#ffa8a4;
-		padding:0px 10px 0px 70px;
 	}
-		.whyEnemyImg{
-			width:100%;
-			height:100%;
-			background-image:url('../img/monZ_00.png');
-			background-repeat:no-repeat;
-			background-position:center;
-			background-size:contain;
-		}
 	.whyBattleAllyhp{
 		background:#8ea3e8;
-		font-weight:bold;
-		text-align:center;
 	}
-		.whyAllyName{
-			display:inline-block;
-			float:left;
-			width:100%;
-			height:40%;
-			background:red;
-			font-size:30px;
-			padding-left:20px;
-		}
-		.whyAllyHpTitle{
-			display:inline-block;
-			float:left;
-			width:25%;
-			height:60%;
-			background:blue;
-			font-size:40px;
-		}
-		.whyAllyBarMaxHp{
-			display:inline-block;
-			float:left;
-			width:75%;
-			height:30%;
-			background:white;
-			border:5px solid black;
-		}
-		.whyAllyBarHp{
-			display:inline-block;
-			float:left;
-			width:70%;
-			height:100%;
-			background:green;
-			transition:width 2s ease, background 1s ease-in;
-			}
-		.whyAllyTextHp{
-			display:inline-block;
-			float:left;
-			width:75%;
-			height:30%;
-			background:gold;
-			font-size:18px;
-		}
-.whyEnemyAttack{
-	display:none;
-	width:60px;
-	height:60px;
-	z-index:50;
-	position:absolute;
-	top:120px;
-	left:450px;
-	background:url("../img/attack_01.png") no-repeat center;
-	background-size:cover;
-	opacity:0.6;
-}
-/*
-	animation-name:yEnemyAttack;
-	animation-duration:2s;
-
-@keyframes yEnemyAttack{
-    0%   {left:360px; top:50px;}
-    100% {left:360px; top:360px;}
-}
-*/
-
+	
 /* 상단 포켓몬 */
 .whyMyAcomonbox{
 	z-index:10;
@@ -519,6 +345,7 @@ body{overflow:auto;background:#d2e0d1;}
 			background:url("../img/pocketmon05.gif") no-repeat center;
 		}
 		.whyMyAcomon:NTH-CHILD(6) .whyMyAcomonImg{
+			background:url("../img/pocketmon06.gif") no-repeat center;
 		}
 		
 		
@@ -643,9 +470,9 @@ body{overflow:auto;background:#d2e0d1;}
 	
 #whyMouse{
 	position:absolute;
-	top:20%;
+	top:40%;
 	margin:40px;
-	font-size:40px;
+	font-size:50px;
 	padding:10px;
 	color:white;
 	background:rgba(27,27,27,0.5);
