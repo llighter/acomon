@@ -389,4 +389,4 @@ setInterval(function() {
 	} else {
 		battleCountDown = 4;
 	}
-}, 1000)
+}, 1000);
