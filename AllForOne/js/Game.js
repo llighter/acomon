@@ -1,12 +1,28 @@
-
 var canvas = document.getElementById("village");
 var context = canvas.getContext("2d");
 
-
 var myPlayer = new Player('player01', 'yunha', UNIT*4 ,UNIT*2, player, EAST_DIRECTION);
-
-
 var mapList = [];
+
+var init_talk = ['Acorn 아카데미에 온 것을 환영하네.. 자네는 이제 개발자가 되기 위한 모험을 떠날 걸세 내가 바쁜 관계로 지금 바로 출발하게!', 
+				'꼬마야 뭘 사고 싶니?',
+				'여기는 HTML 마을이란다.. 퀘스트 있는데 할래?',
+				'청년 뭘 사고 싶소?',
+				'여기는 CSS 마을이에요 ㅎㅎ퀘스트 있는데 할래?',
+				'아저씨 뭐 줄까?',
+				'여기는 Javascript 마을이네.. 아주 위험하지..퀘스트 있는데 할래?',
+				'오프닝 멘트입니다 아 귀찮다 귀찮아 워어어어어어엉어엉어어~~~',	// 오프닝멘트
+				];
+// 상점 옵션
+var market_talk = '[1] 다음에 올께요..    [2] 민트 캔디 구입    [3] 몬스터볼 구입   [4] 치료    [5] 몬스터 방생 ';
+// 퀘스트 옵션
+var quest_choice = '[1] ㄴㄴ [2]ㅇㅇ ';
+var temp = [];
+
+for(var idx = 0; idx < init_talk.length; idx++) {
+	temp[idx] = init_talk[idx].split('');
+	console.log(temp[idx]);
+}
 
 mapList.push(new Map('00', academy, 640, 640, map_init));
 mapList.push(new Map('01', village00, 1280, 1280, map00));
@@ -34,57 +50,67 @@ var option=document.getElementById("option");
 // 초기값 opening을 위해 2로 조정 opening멘트 끝나면 0으로 변경
 var currentMode = 2;
 
-
-var textOn=0;
+/**
+ * TODO: dialogMode 값이 어떤식으로 매핑되어있는지 추가 필요
+ * Mode
+ * 0 : 대화 창이 없는 일반 상태
+ * 1 : 일반 대화 상태
+ * 2 : 상점 거래
+ * 3 : 퀘스트 상태
+ */
+var dialogMode=0;
 var battleCountDown = 4;
 
 
+createOpening(temp[7]);
+
+
 document.addEventListener('keyup', (event) => {
-  if (event.keyCode === SPACE_BAR && textOn == 0) {
+  if (event.keyCode === SPACE_BAR && dialogMode == 0) {
 	switch(npcDetection()) {
 		case MAP_ACADEMY_YANG:
 			chat.style="block";
 			createDiag( temp[0] );
-			textOn=1;
+			dialogMode=1;
 			break;
 		case MAP_00_STORE_NPC:
 			chat.style="block";
 			createDiag( temp[1] );
 			option.style="block";
-			textOn=2;
-			// 상점은 2번으로 별 방법을 다했는데 안되서 그냥 상점은 textOn을 2로배정
+			dialogMode=2;
+			// 상점은 2번으로 별 방법을 다했는데 안되서 그냥 상점은 dialogMode을 2로배정
 			
 			break;
 		case MAP_00_QUEST_NPC:
 			chat.style="block";
 			createDiag( temp[2] );
 			option.style="block";
-			textOn=3;
-			// 퀘스트는 textOn 3으로
+			dialogMode=3;
+			// 퀘스트는 dialogMode 3으로
 			break;
 		case MAP_01_STORE_NPC:
 			chat.style="block";
 			createDiag( temp[3] );
 			option.style="block";
-			textOn=2;
+			dialogMode=2;
 			break;
 		case MAP_01_QUEST_NPC:
 			chat.style="block";
 			createDiag( temp[4] );
 			option.style="block";
-			textOn=3;
+			dialogMode=3;
 			break;
 		case MAP_02_STORE_NPC:
 			chat.style="block";
 			createDiag( temp[5] );
 			option.style="block";
-			textOn=2;
+			dialogMode=2;
 			break;
 		case MAP_02_QUEST_NPC:
 			chat.style="block";
 			createDiag( temp[6] );
 			option.style="block";
-			textOn=3;
+			dialogMode=3;
 			break;
 
 	}
@@ -94,11 +120,11 @@ document.addEventListener('keyup', (event) => {
 	  currentMode = 0;
 	  $("body").css("background","white");	  
   }
-//상점은 2번으로 별 방법을 다했는데 안되서 그냥 상점은 textOn을 2로배정  
+//상점은 2번으로 별 방법을 다했는데 안되서 그냥 상점은 dialogMode을 2로배정  
 // 상점.... 정리가 안되도 그냥 한다 작동이 되니까!
 // mapBattleFunctions.js에서 store()함수 끌고옴
 // *2키-민트 *3키-포켓볼 *4키-치료 *5키-방생 
-  if(textOn==2){
+  if(dialogMode == 2){
 	  switch(event.keyCode){
 	  case KEYBOARD_2: store("mint"); break;
 	  case KEYBOARD_3: store("pokeBall"); break;
@@ -107,10 +133,10 @@ document.addEventListener('keyup', (event) => {
 		  
 	  }
   }
-// 퀘스트. textOn=3이고 2번 눌렀을때 퀘스트대화창발생 
+// 퀘스트. dialogMode=3이고 2번 눌렀을때 퀘스트대화창발생 
 // 퀘스트는 심각한 오류가 있음. 2번키누르면 퀘스트 수락인데 이게 중복으로 계속 발생
 // 예를 들어 스테이지 2퀘스트가 몬스터볼 보상으로 얻는건데 2번키계속누르면 무한으로 얻을수 있음  
-  if(textOn==3 && event.keyCode == KEYBOARD_2 ){
+  if(dialogMode == 3 && event.keyCode == KEYBOARD_2 ){
 	  switch(npcDetection()){
 	  case MAP_00_QUEST_NPC: getQuest(1); $('#option').html("[1] ㅂㅂ"); break;
 	  case MAP_01_QUEST_NPC: getQuest(2); $('#option').html("[1] ㅂㅂ"); break;
@@ -128,7 +154,7 @@ document.addEventListener('keyup', (event) => {
   }
 }, false);
 
-// Check whether next move is blocked
+// @return : 가고자 하는 방향에 장애물(바위, NPC, 등.)이 있는지 판별한다.
 function collisionDetection() {
 	let isCollide = false;
 
@@ -243,6 +269,11 @@ function changeMap(){
 	}
 }
 
+/**
+ * 
+ * @param {*} x : 캐릭터의 x좌표상의 현재 위치
+ * @param {*} y : 캐릭터의 y좌표상의 현재 위치
+ */
 function setPosition(x, y) {
 	myPlayer.x = x * UNIT;
 	myPlayer.y = y * UNIT;
@@ -268,27 +299,6 @@ function draw(){
 	
 	console.log(`실제 캐릭터 위치 : (${Math.floor(myPlayer.x/UNIT)}, ${Math.floor(myPlayer.y/UNIT)})`);
 	//  requestAnimationFrame(draw);
-}
-
-
-var init_talk = ['Acorn 아카데미에 온 것을 환영하네.. 자네는 이제 개발자가 되기 위한 모험을 떠날 걸세 내가 바쁜 관계로 지금 바로 출발하게!', 
-				'꼬마야 뭘 사고 싶니?',
-				'여기는 HTML 마을이란다.. 퀘스트 있는데 할래?',
-				'청년 뭘 사고 싶소?',
-				'여기는 CSS 마을이에요 ㅎㅎ퀘스트 있는데 할래?',
-				'아저씨 뭐 줄까?',
-				'여기는 Javascript 마을이네.. 아주 위험하지..퀘스트 있는데 할래?',
-				'오프닝 멘트입니다 아 귀찮다 귀찮아 워어어어어어엉어엉어어~~~',	// 오프닝멘트
-				];
-
-var market_talk = '[1] 다음에 올께요..    [2] 민트 캔디 구입    [3] 몬스터볼 구입   [4] 치료    [5] 몬스터 방생 ';
-// 퀘스트 선택창
-var quest_choice = '[1] ㄴㄴ [2]ㅇㅇ ';
-var temp = [];
-
-for(var idx = 0; idx < init_talk.length; idx++) {
-	temp[idx] = init_talk[idx].split('');
-	console.log(temp[idx]);
 }
 
 // dialog창에 text 출력
@@ -317,9 +327,6 @@ function createDiag ( dialog ) {
 
 }
 
-// TODO : 위치가 쌩뚱 맞다. 적절한 위치로 옮겨야함(맨위로 올리면 동작안함) - temp 밑에 있어야한다.
-createOpening(temp[7]);
-
 //	오프닝 멘트 창 출력
 function createOpening ( dialog ) {
 	for(k = 0; k < dialog.length; k++) {
@@ -332,8 +339,6 @@ function createOpening ( dialog ) {
 	}
 }	
 
-
-
 function clearDiag() {
 	$("#dialog").html("");
 	chat.style.display="none"
@@ -343,7 +348,7 @@ function clearDiag() {
 	$("#opening").html("");
 	opening.style.display="none"
 
-	textOn=0;
+	dialogMode=0;
 }
 
 var update = setInterval(function fps(){
