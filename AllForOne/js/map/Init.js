@@ -55,6 +55,9 @@ const MAP_01_POKEMON2 = 52;
 const MAP_02_POKEMON1 = 53;
 const MAP_02_POKEMON2 = 54;
 const MAP_BOSS_POKEMON = 508;
+const MAP_MY_MON01 = 509;
+const MAP_MY_MON02 = 510;
+const MAP_MY_MON03 = 511;
 
 // 전투 발생 시 나의 몬스터와 상대방 몬스터 ID 설정
 var battle_MyPokemon = 0;
