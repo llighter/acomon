@@ -15,6 +15,9 @@ var yBlinkCondtion=true;
 //  깜빡임효과.
 var turnCount=0;
 var imgClass;
+var winOrLoseResult = false;  //결과가 나올때까지 경기 속행. 둘중 죽거나, 도망치면 true.
+
+
 function yBlink(imgClass){
 	blinkCount=0;
 	yBlinkCondtion=false;
@@ -47,13 +50,15 @@ function yAllyAttackEffect(){
 }
 
 function yEnemyAttackEffect(){
-	$('.whyEnemyImg').css({'background-image':'url("img/monZ_01.gif")'});
-	setTimeout(function(){$('.whyEnemyImg').css({'background-image':'url("img/monZ_00.png")'})},2730);
-	$('.whyEnemyAttack').css({top:"120px",left:"450px",width:'60px',height:'60px'}).fadeIn();
-	$('.whyEnemyAttack').animate({top:"220px",left:"10px",width:'300px',height:'300px'},{duration:1000});
-	$('.whyEnemyAttack').fadeOut();
-// 깜빡임 효과(상대편이미지에 주기.적중시기준이지만 일단 전부 적용하는걸로.)
-	yBlink('.whyAllyImg');
+	if(!winOrLoseResult){
+		$('.whyEnemyImg').css({'background-image':'url("img/monZ_01.gif")'});
+		setTimeout(function(){$('.whyEnemyImg').css({'background-image':'url("img/monZ_00.png")'})},2730);
+		$('.whyEnemyAttack').css({top:"120px",left:"450px",width:'60px',height:'60px'}).fadeIn();
+		$('.whyEnemyAttack').animate({top:"220px",left:"10px",width:'300px',height:'300px'},{duration:1000});
+		$('.whyEnemyAttack').fadeOut();
+	// 깜빡임 효과(상대편이미지에 주기.적중시기준이지만 일단 전부 적용하는걸로.)
+		yBlink('.whyAllyImg');
+	}
 }
 
 
@@ -281,6 +286,8 @@ function yMapMenuOff(){
 	$('.whyMenubox').css('z-index','10');
 	$('.whyTextbox').css('z-index','10');
 	yLocClassFun("whyAllMap");
+	
+	
 }
 
 
