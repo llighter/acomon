@@ -15,7 +15,7 @@ var init_talk = ['Acorn 아카데미에 온 것을 환영하네.. 우리학원�
 				'엄청난 프로젝트몬을 수집했군. 이제 넌 쓸모가 없어졌다. 가지고 있는 프로젝트몬을 나에게 넘겨라!'
 				];
 // 상점 옵션
-var market_talk = '[1] 다음에 올께요..    [2] 민트 캔디 구입    [3] 몬스터볼 구입   [4] 치료    [5] 몬스터 방생 ';
+var market_talk = ['[1] 다음에 올께요.', '[2] 민트 캔디 구입',  '[3] 몬스터볼 구입',  '[4] 몬스터 치료',  '[5] 몬스터 방생'];
 // 퀘스트 옵션
 var quest_choice = '[1] 싫어요! [2]그럴께요! ';
 var temp = [];
@@ -218,6 +218,25 @@ function npcDetection() {
 // @return : 포켓몬을 만날 수 있는 지역에 있다면 포켓몬 번호를 전달, 일반 지역이면 -1을 전달
 function pokemonDetction() {
 	let mapValue = nowMap.matrix[Math.ceil(myPlayer.y/UNIT)][Math.ceil(myPlayer.x/UNIT)];
+
+	// 전투에서 상대할 포켓몬 정하기
+	switch(mapValue) {
+		case MAP_00_POKEMON:
+			battle_OpponentPokemon = 0;
+			break;
+		case MAP_01_POKEMON1:
+			battle_OpponentPokemon = 1;
+			break;
+		case MAP_01_POKEMON2:
+			battle_OpponentPokemon = 2;
+			break;
+		case MAP_02_POKEMON1:
+			battle_OpponentPokemon = 3;
+			break;
+		case MAP_02_POKEMON2:
+			battle_OpponentPokemon = 4;
+			break;
+	}
 	
 	return (mapValue >= 50 && mapValue < 60) ? mapValue : -1;
 }
@@ -331,7 +350,7 @@ function createDiag ( dialog ) {
 		case MAP_00_STORE_NPC:
 		case MAP_01_STORE_NPC:
 		case MAP_02_STORE_NPC:
-			$('#option').text($('#option').text()+market_talk);
+			$('#option').html(market_talk[0]+market_talk[1]+market_talk[2]+"<br>"+market_talk[3]+market_talk[4]);
 			break;
 		case MAP_00_QUEST_NPC:
 		case MAP_01_QUEST_NPC:
