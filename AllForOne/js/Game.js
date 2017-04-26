@@ -224,7 +224,7 @@ function move() {
 	}
 }
 
-function moveMap(){
+function changeMap(){
 
 	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==90 ){
 		nowMap=map00;
@@ -373,25 +373,25 @@ var update = setInterval(function fps(){
 	if(currentMode == 0) {
 		draw();
 		move();
-		moveMap();
+		changeMap();
 		pokemonDetction();
 	} else if(currentMode == 1) {
 		yEventBattle();
 		currentMode = 3;	// 대전 중
-		// clearInterval(update);
 	} else if(currentMode == 4) {
 		draw();
 	}
 	
 
 }, 51);
-//  draw();
 
+// 캐릭터 움직임 표현
 setInterval(function motionFps(){
 	motionIdx=(motionIdx+1) % 4
 }, 150);
 
-var countDown =  setInterval(function() {
+// 전투지역 카운트다운 활성화
+setInterval(function() {
 	if(onPokemonZone == true) {
 		battleCountDown--;
 	} else {
