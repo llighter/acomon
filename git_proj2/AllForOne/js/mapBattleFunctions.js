@@ -1,6 +1,6 @@
-/*ㅁㅁ
+/*ㅁㅁ 
  * 학원에서....Apr26,2017
- * 			12:36
+ * 			20:43
  * 			dev by JB
  * MS949
  * */$(document).ready(function(){
@@ -77,7 +77,6 @@ console.log("storage.mint "+storage.mint +"  storage.pokeBall "+ storage.pokeBal
 var rand1;
 var rand2;
 var myMonid;
-var winOrLoseResult = false;  //결과가 나올때까지 경기 속행. 둘중 죽거나, 도망치면 true.
 
 function goBattle(){ //#### 맵팀: 야생 포켓몬과의 만날때 시작부분.
 noRepeatRand();  // 내가 뽑는 몬스터도 랜덤. 상대몬스터도 랜덤.으로 만들어놧음. 조율가능.
@@ -165,22 +164,22 @@ function store(wantedService){
 		jiwoo.mint++;
 		jiwoo.golds -= 3000; 
 		storeMsg = "민트를 구입하셨습니다 :)" 
-					+"\n현재 소유한 민트수량: " + jiwoo.mint
-					+"\n현재 소유한 골드량: "+ jiwoo.golds;
+					+"<br/>현재 소유한 민트수량: " + jiwoo.mint
+					+"<br/>현재 소유한 골드량: "+ jiwoo.golds;
 	}
 	else if(wantedService == "pokeBall" && jiwoo.golds >= 5000){
 		jiwoo.pokeBall++;
 		jiwoo.golds -= 5000; 
 		storeMsg = "몬스터볼을 구입하셨습니다 :)" 
-					+"\n 현재 소유한 몬스터볼 수량: " + jiwoo.pokeBall
-					+"\n 현재 소유한 골드량: "+ jiwoo.golds;
+					+"<br/> 현재 소유한 몬스터볼 수량: " + jiwoo.pokeBall
+					+"<br/> 현재 소유한 골드량: "+ jiwoo.golds;
 	}
 	else if(wantedService == "heal" && jiwoo.golds >= 4000){
 		for(var inx =0; inx< pokemons.length; inx++){
 			storeMsg = pokemons[inx].name + ": "+ pokemons[inx].hp;
 			pokemons[inx].hp = pokemons[inx].initHp;
 			storeMsg += " -> "+ pokemons[inx].hp;
-			storeMsg +="\n status:"+ pokemons[inx].status;
+			storeMsg +="<br/> status:"+ pokemons[inx].status;
 			pokemons[inx].status = "normal";
 			storeMsg += " -> "+ pokemons[inx].status;
 			console.log(storeMsg);
@@ -191,7 +190,7 @@ function store(wantedService){
 	else if(wantedService == "makeMonFree"){
 		var listNo =0 ;
 		for(bookNo in pokemons){  //### 맵팀: 대화창에 리스트 출력.
-			console.log("보유 포켓몬: list"+ (++listNo) +" 몬스터이름: " + pokemons[bookNo].name);
+			$("#dialog").html("보유 포켓몬: list"+ (++listNo) +" 몬스터이름: " + pokemons[bookNo].name);
 		}
 		var findListNo =0 ;
 		var removeMon = prompt("지우실 포켓몬 이름은...","");
@@ -206,8 +205,8 @@ function store(wantedService){
 		if( (confirmRemove == "yes") && (jiwoo.golds >= 12800) ){
 			pokemons.splice(findListNo,1);
 			storeMsg = "유기처리비용 12만 8천원/1마리 입니다! ";
-			storeMsg += "\n\t\t -통계청 자료, 2015년";
-			storeMsg += "\n지우씨는 특별히 90% 할인해줄게요!";
+			storeMsg += "<br/>\t\t -통계청 자료, 2015년";
+			storeMsg += "<br/>지우씨는 특별히 90% 할인해줄게요!";
 			jiwoo.golds -= 12800;
 			storeMsg +="소유골드: " + jiwoo.golds;
 			for(var inx =0; inx <pokemons.length; inx++){
@@ -225,7 +224,7 @@ function store(wantedService){
 		
 	}
 	$(".whyStatusMoneybox").html("소유 골드: "+ jiwoo.golds +"골드 "+"<br/> 민트: "+ jiwoo.mint +"개 <br/>몬스터볼: "+ jiwoo.pokeBall+ "개");
-	console.log(storeMsg);
+	$("#dialog").html(storeMsg);
 }
 
 
