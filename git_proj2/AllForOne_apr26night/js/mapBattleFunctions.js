@@ -1,8 +1,8 @@
 /*ㅁㅁ 
- * 학원에서....Apr26,2017
- * 			20:43
+* 집에서....Apr27,2017
+ * 			01:21
  * 			dev by JB
- * MS949
+ * UTF-8
  * */
 $(document).ready(function(){
 
