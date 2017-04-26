@@ -211,10 +211,11 @@ body{overflow:auto;background:#d2e0d1;}
 	color:white;
 }
 	.whyStatus:NTH-CHILD(1){
-		height:calc(40% - 30px - 20px);
+		height:40%;
+		background:#779ECB;
 		text-shadow: 1px 1px 3px #000000;
 		padding:10px;
-		margin:30px 70px 20px 70px;
+		margin:50px 70px 20px 70px;
 		background:#4376ad;
 		border-radius:5px;
 		border:3px solid #779ECB;
@@ -225,7 +226,7 @@ body{overflow:auto;background:#d2e0d1;}
 	}
 		.whyClassCard{
 			width:100%;
-			height:25%;
+			height:20%;
 			font-size:30px;
 			font-weight:bold;
 			color:white;
@@ -240,119 +241,105 @@ body{overflow:auto;background:#d2e0d1;}
 		.whyStatusImgbox{
 			display:inline-block;
 			float:left;	
-			height:75%;
+			height:80%;
 			width:calc(30% - 10px);
 			margin:0px 5px;
 			box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
 				0px 2px 2px 0px rgba(255, 255, 255, 0.5);
+		
+		/*		
+			margin:40px 10px 20px 10px;
+			background:#487db9;
+			border-radius:5px;
+			border:3px solid #c4d5e8;
+			box-shadow: 5px 5px 10px 0px #6a6a6a;
+			text-shadow: 1px 1px 3px #000000;
+		*/
 		}
 			.whyStatusImg{
 				height:100%;
 				width:100%;
+			/*
+				width:100%; 
 				background:url("../img/naong01.png") no-repeat center;
-				background-size:contain;
+				background-size:100% 70%;
+			*/
 			}
 		.whyStatusInfobox{
 			display:inline-block;
 			float:left;
-			height:75%;
-			width:69%;
-			font-size:20px;
-			margin-left:1%;
+			height:80%;
+			width:70%;
 			box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
 				0px 2px 2px 0px rgba(255, 255, 255, 0.5);
 			text-align:center;
-		}
-		.whyStatusInfobox div:NTH-CHILD(2n+1){
-			width:40%;
-		}
-		.whyStatusInfobox div:NTH-CHILD(2n+0){
-			width:60%;
-			text-align:left;
+		/*
+			display:inline-block;
+			float:left;
+			margin:40px 10px 10px 0px;
+			background:#68b4ff;
+			width:calc(60% - 10px); 
+		*/
 		}
 			.whyStatusName{
 				display:inline-block;
 				float:left;
-				width:50%;
+				widows:50%;
 				height:25%;
 			}
 			.whyStatusMoney{
-				display:inline-block;
+							display:inline-block;
 				float:left;
-				width:50%;
+				widows:50%;
 				height:25%;
 			}
 			.whyStatusPlayTime{
-				display:inline-block;
-				float:left;
-				width:50%;
-				height:25%;
+			
 			}
 			.whyStatusStartTime{
-				display:inline-block;
-				float:left;
-				width:50%;
-				height:25%;
+			
 			}
 		
 	.whyStatus:NTH-CHILD(2){
-		height:calc(60% - 20px);
-		width:calc(100% - 40px);
-		background:#4376ad;
-		padding:20px;
-		margin:0px 20px 20px 20px;
-		border-radius:5px;
-		border:3px solid #779ECB;
-		box-shadow: 0px 0px 60px 10px #779ECB inset,
-			5px 5px 10px 0px #6a6a6a;
+		height:60%;
 		text-shadow: 1px 1px 3px #000000;
+		padding:10px;
+		/*
+		background:#3e9eff;
+		border-radius:5px;
+		border:3px solid #68b4ff;
+		box-shadow: 5px 5px 10px 0px #6a6a6a;
+		text-shadow: 1px 1px 3px #000000;
+		*/
 	}
 		.whyStatusScorebox{
 			display:inline-block;
 			float:left;
 			width:100%;
-			height:35%;
-			font-size:20px;
-			font-weight:bold;
-		}
-		.whyStatusScorebox div:NTH-CHILD(2n+1){
-			padding-left:50px;
-			width:75%;
-			color:#A0D6B4;
-			text-align:right;
-		}
-		.whyStatusScorebox div:NTH-CHILD(2n+0){
-			padding-left:30px;
-			width:25%;
-			color:#FF6961;
+			height:50%;
+			box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
+				0px 2px 2px 0px rgba(255, 255, 255, 0.5);
+		/*
+			display:inline-block;
+			float:left;
+			height:calc(35% - 20px); 
+			width:calc(60% - 10px);	 
+			margin:0px 10px 20px 0px;
+			background:#68b4ff;
+		*/
 		}
 			.whyStatusScoreFind{
-				display:inline-block;
-				float:left;
-				width:50%;
-				height:33.333%;
+			
 			}
 			.whyStatusScoreGet{
-				display:inline-block;
-				float:left;
-				width:50%;
-				height:33.333%;
+			
 			}
 			.whyStatusScoreRanking{
-				display:inline-block;
-				float:left;
-				width:50%;
-				height:33.333%;
+			
 			}
 		
 		.whyStatusBadge{
-			display:inline-block;
-			float:left;
-			height:calc(65% - 5px - 5px);
-			width:100%;
-			margin:10px 0px;
-			box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
-					0px 2px 2px 0px rgba(255, 255, 255, 0.5);
+		height:100%;
 		/*
 			height:calc(100% - 20px - 20px); 
 			width:calc(100% - 20px - 20px);
