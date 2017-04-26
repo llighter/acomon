@@ -1,9 +1,17 @@
+<!-- 
+ * 학원에서....Apr24,2017
+ * 			17:35
+ * 			dev by JW	
+
+ -->
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>♪RocketDAN2♪</title>
-	<link rel="stylesheet" type="text/css" href="css/rocket_ver2.0.css"/>
+	<link rel="stylesheet" type="text/css" href="css/rocket_ver3.1.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/map.css">
 </head>
 <body>
 	<!--0 메인 기본창전체 -->
@@ -24,28 +32,36 @@
 		<!--2 맵 -->
 		<div class="whyAllMap whyContain">
 
-				<div id="whyMouse" onclick="yEventBattle()">
-					<div>[MAP ON] 클릭:전투!</div>
-					<div>A키 : 메뉴소환</div>
+				<canvas id="village" width="640px" height="640px"></canvas>
+				<div>
+					<div id="opening" style="display:block"></div>
+					<div id="dialog" style="display:none"></div>
+					<div id="option" style="display:none"></div>
 				</div>
-
 		</div>
 		<!--2 맵메뉴  -->
 		<div class="whyMenubox whyContain">
-				<div class="whyMenu">포켓몬</div>
-				<div class="whyMenu">아이템</div>
-				<div class="whyMenu">상태</div>
-				<div class="whyMenu">리포트</div>
+			<div class="whyMenu">포켓몬</div>
+			<div class="whyMenu">아이템</div>
+			<div class="whyMenu">상태</div>
+			<div class="whyMenu">리포트</div>
 		<!-- 미구현
 				<div class="whyMenu">옵션-맵</div>
  		-->
-			</div>
+		</div>
+		<!-- 재현: whyMyItembox에 있던 좌표 아래로 옮길것-->
+		<div class="whyStorebox">
+			<div class="whyStore">상점(민트)</div>
+			<div class="whyStore">상점(몬스터볼)</div>
+			<div class="whyStore">병원(치료)</div>
+			<div class="whyStore">병원(방생)</div>
+		</div>
 		<!--2 상태 -->
 		<div class="whyStatusbox whyContain">
 			<div class="whyStatus">
 				<div class="whyStatusImgbox">
 					<div class="whyStatusImg"></div>					
-				</div>
+				</div>  <!--  종원이형에게 멘트: 이거 지우 상태창맞아용? -->
 				<div class="whyStatusNamebox">이름 // 나이 // 등등</div>
 				<div class="whyStatusMoneybox">돈 // 랭킹 등</div>
 			</div>
@@ -85,14 +101,39 @@
 		<div class="whyBattle whyContain"> 
 			<!-- 이미지 블록1 -->
 			<div class="whyBattleDiv">
-				<div class="whyBattleHp whyBattleEnemyhp">상대hp</div>
-				<div class="whyBattleImg whyBattleAllyimg">H1(몬)</div>
+				<!-- 적군 Hp -->
+				<div class="whyBattleHp whyBattleEnemyhp">
+					<div class="whyEnemyName">[ NAME ] Lv.XX </div>
+					<div class="whyEnemyHpTitle">HP</div>
+					<div class="whyEnemyBarMaxHp">
+						<div class="whyEnemyBarHp"></div>
+					</div>
+					<div class="whyEnemyTextHp">HP/MAX_HP</div>
+				</div>
+				<!-- 아군이미지 -->
+				<div class="whyBattleImg whyBattleAllyimg">
+					<div class="whyAllyImg"></div>
+					<div class="whyAllyHeal"></div>
+				</div>
 			</div>
 			<!-- 이미지 블록2 -->
 			<div class="whyBattleDiv">
-				<div class="whyBattleImg whyBattleEnemyimg">DIV(몬)</div>
-				<div class="whyBattleHp whyBattleAllyhp">자기hp</div>
+				<!-- 적군이미지 -->
+				<div class="whyBattleImg whyBattleEnemyimg">
+					<div class="whyEnemyImg"></div>
+				</div>
+				<!-- 아군 Hp -->
+				<div class="whyBattleHp whyBattleAllyhp">
+					<div class="whyAllyName">[ NAME ] Lv.XX </div>
+					<div class="whyAllyHpTitle">HP</div>
+					<div class="whyAllyBarMaxHp">
+						<div class="whyAllyBarHp"></div>
+					</div>
+					<div class="whyAllyTextHp">HP/MAX_HP</div>
+				</div>
 			</div>
+			<div class="whyEnemyAttack"></div>
+			<div class="whyAllyAttack"></div>
 			
 		</div>
 	<!-- 
@@ -173,58 +214,12 @@
 		<!--2 아이템 -->
 		<!-- 아이템 선택창 push&삭제를 통해 아이템 채우고 비움-->					
 		<div class="whyMyItembox">
-			<div class="whyMyItem">
-				아이템1(민트먹기)
-			</div>
-			<div class="whyMyItem">
-				아이템2(포켓볼)
-			</div>
-			<div class="whyMyItem">
-				아이템3
-			</div>
-			<div class="whyMyItem">
-				아이템4
-			</div>
-			<div class="whyMyItem">
-				아이템5
-			</div>
-			<div class="whyMyItem">
-				아이템6
-			</div>
-			<div class="whyMyItem">
-				아이템7
-			</div>
-			<div class="whyMyItem">
-				아이템8
-			</div>
-			<div class="whyMyItem">
-				아이템9
-			</div>
-			<div class="whyMyItem">
-				아이템10
-			</div>
-			<div class="whyMyItem">
-				아이템11
-			</div>
-			<div class="whyMyItem">
-				아이템12
-			</div>
-			<div class="whyMyItem">
-				아이템13
-			</div>
-			<div class="whyMyItem">
-				아이템14
-			</div>
-			<div class="whyMyItem">
-				아이템15
-			</div>
-			<div class="whyMyItem">
-				아이템16
-			</div>
-			<div class="whyMyItem">
-				아이템17
-			</div>
-		
+			<div class="whyMyItem">민트</div>
+			<div class="whyMyItem">몬스터볼</div>
+			<div class="whyMyItem">빈슬롯	</div>
+			<div class="whyMyItem">빈슬롯</div>
+			<div class="whyMyItem">빈슬롯	</div>
+			<div class="whyMyItem">빈슬롯	</div>
 <!-- 예정
 				<div>
 					사용하기
@@ -286,7 +281,7 @@
 				기술3(명상하기)
 			</div>
 			<div class="whyCmdSkill">
-				기술4
+				기술4(2차 스킬)
 			</div>
 		</div>
 		<div class="whyCmditem">
@@ -310,6 +305,16 @@
 
 
 	<script src="js/jquery-3.2.1.js"></script>
-	<script src="js/rocket_ver2.0.js"></script>
+	<script src="js/rocket_ver3.1.js"></script>
+	<script src="js/mapBattlefunctions.js"></script>
+	<script src="js/battleFunctions_apr23_2126.js"></script>
+	<script type="text/javascript" src="./js/map/Init.js"></script> 
+	<script type="text/javascript" src="./js/map/Entities.js"></script>
+	<script type="text/javascript" src="./js/map/KeyControl.js"></script>
+	<script type="text/javascript" src="./js/Game.js"></script>   
+	
+	
+	
+	
 </body>
 </html>
