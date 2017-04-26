@@ -37,7 +37,9 @@ body{overflow:auto;background:#d2e0d1;}
 	height:827px;
 	top:35px;
 	left:100px;
+/*
 	background:url("../img/back_player.png") no-repeat center;
+*/
 	background-size:contain;
 }
 .whyPSPinset{
@@ -67,7 +69,7 @@ body{overflow:auto;background:#d2e0d1;}
 	left:0;
 	width:100%;
 	height:100%;
-	background-color: #fae7e7;
+	background-color: #e6e6d5;
 	/* 안쓸꺼같음.
 	background-image:url(../img/background01.jpg);
 	*/
@@ -205,55 +207,146 @@ body{overflow:auto;background:#d2e0d1;}
 	position:absolute;
 	width:100%;
 	height:100%;
+	background:#bdd0e6;
 	color:white;
-	font-size: 40px;
-	background:#367d50;
-	text-shadow: 1px 1px 3px #000000;
 }
 	.whyStatus:NTH-CHILD(1){
-		height:60%;
+		height:40%;
 		background:#779ECB;
+		text-shadow: 1px 1px 3px #000000;
+		padding:10px;
+		margin:50px 70px 20px 70px;
+		background:#4376ad;
+		border-radius:5px;
+		border:3px solid #779ECB;
+		box-shadow: 0px 0px 60px 10px #779ECB inset,
+			5px 5px 10px 0px #6a6a6a;
+		text-shadow: 1px 1px 3px #000000;
+		
 	}
+		.whyClassCard{
+			width:100%;
+			height:20%;
+			font-size:30px;
+			font-weight:bold;
+			color:white;
+			text-align:center;
+			text-shadow:
+				0px 0px 0 #c0c0c0,
+				1px 1px 0 #808080,
+				2px 2px 1px rgba(0,0,0,0.7),
+				2px 2px 1px rgba(100,100,100,0.3),
+				0px 0px 1px rgba(150,150,150,0.9);
+		}
 		.whyStatusImgbox{
 			display:inline-block;
-			float:left;
-			height:calc(100% - 40px - 20px); /* 높이%, TOP.px, BOTTOM.px */
-			width:calc(40% - 10px - 10px); /* 너비%, LEFT.px, RIGHT.px */
+			float:left;	
+			height:80%;
+			width:calc(30% - 10px);
+			margin:0px 5px;
+			box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
+				0px 2px 2px 0px rgba(255, 255, 255, 0.5);
+		
+		/*		
 			margin:40px 10px 20px 10px;
-			background:#5593c2;
+			background:#487db9;
+			border-radius:5px;
+			border:3px solid #c4d5e8;
+			box-shadow: 5px 5px 10px 0px #6a6a6a;
+			text-shadow: 1px 1px 3px #000000;
+		*/
 		}
 			.whyStatusImg{
-				height:100%; 
+				height:100%;
+				width:100%;
+			/*
 				width:100%; 
 				background:url("../img/naong01.png") no-repeat center;
 				background-size:100% 70%;
+			*/
 			}
-		.whyStatusNamebox{
+		.whyStatusInfobox{
 			display:inline-block;
 			float:left;
-			height:calc(65% - 40px - 10px); /* 높이%,TOP>px, 바텀px */
-			width:calc(60% - 10px); /* 너비%, RIGHTpx*/
+			height:80%;
+			width:70%;
+			box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
+				0px 2px 2px 0px rgba(255, 255, 255, 0.5);
+			text-align:center;
+		/*
+			display:inline-block;
+			float:left;
 			margin:40px 10px 10px 0px;
-			background:#5593c2;
+			background:#68b4ff;
+			width:calc(60% - 10px); 
+		*/
 		}
-		.whyStatusMoneybox{
+			.whyStatusName{
+				display:inline-block;
+				float:left;
+				widows:50%;
+				height:25%;
+			}
+			.whyStatusMoney{
+							display:inline-block;
+				float:left;
+				widows:50%;
+				height:25%;
+			}
+			.whyStatusPlayTime{
+			
+			}
+			.whyStatusStartTime{
+			
+			}
+		
+	.whyStatus:NTH-CHILD(2){
+		height:60%;
+		text-shadow: 1px 1px 3px #000000;
+		padding:10px;
+		/*
+		background:#3e9eff;
+		border-radius:5px;
+		border:3px solid #68b4ff;
+		box-shadow: 5px 5px 10px 0px #6a6a6a;
+		text-shadow: 1px 1px 3px #000000;
+		*/
+	}
+		.whyStatusScorebox{
 			display:inline-block;
 			float:left;
-			height:calc(35% - 20px); /* 높이%, BOTTOM.px*/
-			width:calc(60% - 10px);	 /* 너비%, RIGHT.px*/
+			width:100%;
+			height:50%;
+			box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
+				0px 2px 2px 0px rgba(255, 255, 255, 0.5);
+		/*
+			display:inline-block;
+			float:left;
+			height:calc(35% - 20px); 
+			width:calc(60% - 10px);	 
 			margin:0px 10px 20px 0px;
-			background:#5593c2;
+			background:#68b4ff;
+		*/
 		}
-	.whyStatus:NTH-CHILD(2){
-		height:40%;
-		background:#5593c2;
-	}
+			.whyStatusScoreFind{
+			
+			}
+			.whyStatusScoreGet{
+			
+			}
+			.whyStatusScoreRanking{
+			
+			}
+		
 		.whyStatusBadge{
-			height:calc(100% - 20px - 20px); /* 높이%, R,L.px*/
-			width:calc(100% - 20px - 20px); /* 높이%, T,B.px*/
+		height:100%;
+		/*
+			height:calc(100% - 20px - 20px); 
+			width:calc(100% - 20px - 20px);
 			float:left;
 			margin:20px;
-			background:#779ECB;
+			background:#68b4ff;
+		*/
 		}
 
 /* 전체 - 리포트 */
@@ -604,18 +697,23 @@ body{overflow:auto;background:#d2e0d1;}
 		}
 		.whyMyAcomon:NTH-CHILD(1) .whyMyAcomonImg{
 			background:url("../img/pocketmon01.gif") no-repeat center;
+			background-size:contain;
 		}
 		.whyMyAcomon:NTH-CHILD(2) .whyMyAcomonImg{
 			background:url("../img/pocketmon02.gif") no-repeat center;
+			background-size:contain;
 		}
 		.whyMyAcomon:NTH-CHILD(3) .whyMyAcomonImg{
 			background:url("../img/pocketmon03.gif") no-repeat center;
+			background-size:contain;
 		}
 		.whyMyAcomon:NTH-CHILD(4) .whyMyAcomonImg{
 			background:url("../img/pocketmon04.gif") no-repeat center;
+			background-size:contain;
 		}
 		.whyMyAcomon:NTH-CHILD(5) .whyMyAcomonImg{
 			background:url("../img/pocketmon05.gif") no-repeat center;
+			background-size:contain;
 		}
 	
 .whyMyAcomonMenubox{
