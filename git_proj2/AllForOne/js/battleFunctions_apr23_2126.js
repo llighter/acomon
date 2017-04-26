@@ -1,7 +1,7 @@
 /*ㅁㅁzz
 <!-- 
  * 학원에서....Apr26,2017
- * 			19:25
+ * 			20:43
  * 			dev by JB
  * MS949
  * 
@@ -48,7 +48,15 @@
  * battlefunc // 데미지, 상태이상 ytext수정. 
  * mapBattlefunc // hp/max_hp 초기상태창. 지우상점이용후 지우상태창update.
  * rocket_ver3.1 // 특수스킬 사용효과 ytext. 
- * 
+ * --------------------
+ * 수 20:45) 해결 해야할 버그
+ * mapBattle -> $("#dialog").html("보유 포켓몬: list"+ (++listNo) +" 몬스터이름: " + pokemons[bookNo].name);
+	보내기위해서 몬스터 리스트를 봐야하는데... html이 안뜸..
+
+	battlefunc -> useItem에서 체력 == 풀체력 일떄 상대에게 공격넘어감.
+	// 공격안넘어가고 알람창만 할수잇을까.
+
+	승리판정후 -> 전투화면에서 빠져나가게끔.
  * 
  * 
  * 

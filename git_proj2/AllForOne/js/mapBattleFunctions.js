@@ -1,6 +1,6 @@
-/*ㅁㅁ
+/*ㅁㅁ 
  * 학원에서....Apr26,2017
- * 			19:25
+ * 			20:43
  * 			dev by JB
  * MS949
  * */$(document).ready(function(){
