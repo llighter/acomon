@@ -1,7 +1,7 @@
 /*ㅁㅁzz
 <!-- 
  * 학원에서....Apr26,2017
- * 			14:40
+ * 			19:25
  * 			dev by JB
  * MS949
  * 
@@ -149,6 +149,7 @@ function enemyRandAtt(){
 			        	(criticalAttack02- newPokemon.shield).toFixed(1)+"</span>만큼 피해를 받았습니다!!");   
 			}
 			$(".whyEnemyTextHp").html(parseInt(newPokemon.hp*10)/10 + " / "+newPokemon.initHp);
+			yEnemyhp();	
 		}
 		else if(newPokemon.status == "paralyze"){  // 마비는 1턴 휴식.
 			console.log("마비... 이번턴 쉴께요~");
@@ -233,7 +234,7 @@ var burning  = 5;
 //var skill2Names = ["reflect","sharpen","paralyze","burn","shieldOn"]; //
 function skillLv2Attack(){
 	var skillMsg = "적정레벨이 아닙니다. 현재레벨: " + myMonid.lv + "/ 요구레벨:2 "; 
-	if( myMonid.lv > 1 /*&& !winOrLoseResult*/){  //### 레벨 2이상 && winOrLoseResult 결과값이 안나왓을경우에 진행.
+	if( myMonid.lv > 1 && ( myMonid.status == "normal" && newPokemon.status =="normal" ) /*&& !winOrLoseResult*/){  //### 레벨 2이상 && winOrLoseResult 결과값이 안나왓을경우에 진행.
 		propertyBonus();
 		switch(myMonid.property){
 		case 0://reflect -상대몬스터 데미지반사 - 1회.
@@ -279,7 +280,11 @@ function skillLv2Attack(){
 
 function skillLv2AttackRelease(){  // 상태이상 효과 해제. 
 	effectTimes--;
-	console.log("효과  " + effectTimes + "번 남음.");
+	if(effectTimes >0 ){
+		setTimeout(function(){ 
+			console.log("효과  " + effectTimes + "번 남았습니다.");
+			}, 2000);
+		}
 	if(effectTimes == 0 ){
 		switch(newPokemon.status){	
 		case "paralyze":
@@ -307,13 +312,15 @@ function skillLv2AttackRelease(){  // 상태이상 효과 해제.
 		}
 	} //if(effectTimes <=0) END
 	else if(newPokemon.status == "burn"){  // 효과횟수가 남은동안에는 화상데미지는 누적됨.
-		console.log( (4-effectTimes) + "차화상: " + burning + "데미지");
+		setTimeout(function(){
+			yTextmsg( newPokemon.name +"몬 "+(4-effectTimes) + "차화상: " + burning + "데미지");
+		}, 1500);
 		newPokemon.hp -= burning;
 		console.log("상대 포켓몬 체력: " + newPokemon.hp);
 		$(".whyEnemyTextHp").html( parseInt(newPokemon.hp*10)/10 + " / "+newPokemon.initHp);
+		yEnemyhp();	
 		//### 종원이형: hp게이지 변동..
 		burning += 3;  // 1차 화상은 5, 2차는 8, 3차는 11 데미지. 총 24데미지를 주게됨.
-		
 	}
 	
 } //skillLv2AttackRelease END
@@ -369,6 +376,7 @@ function useItem(item){
 			showItemMsg += "<br><span style='color:#82b5f2'>"+ item +
 				"</span>(이)가 <span style='color:#82b5f2'>"+ jiwoo.mint + "</span>개 남았습니다.";
 			$(".whyAllyTextHp").html( parseInt(myMonid.hp*10)/10+ " / "+myMonid.initHp);
+			yAllyhp();
 		}
 		else if((jiwoo.mint >0) && ((myMonid.hp +25) >= myMonid.initHp)){
 			myMonid.hp = myMonid.initHp;		
@@ -378,6 +386,7 @@ function useItem(item){
 			showItemMsg += "<br><span style='color:#82b5f2'>"+ item +
 				"</span>(이)가 <span style='color:#82b5f2'>"+ jiwoo.mint + "</span>개 남았습니다.";
 			$(".whyAllyTextHp").html( parseInt(myMonid.hp*10)/10 + " / "+myMonid.initHp);
+			yAllyhp();
 		}
 		setTimeout(yTextmsg(showItemMsg), 1500);
 		console.log(showItemMsg);
@@ -436,7 +445,7 @@ function winOrLose(){
 		myMonid.status = "Fainted";
 		winOrLoseResult= true;
 		yTextmsg(myMonid.name+ "의 패배!! " +
-				 "<br/>" + myMonid.name + "의 상태가 " + myMonid.status+ "가 되었다! (병원치료 요구)");
+				 "<br/>" + myMonid.name + "의 상태가 " + myMonid.status+ "가 되었다!");
 		///########## 종원이형: 여기서 escape로 전투화면을 끝내는 화면연출.!!!
 	}
 }

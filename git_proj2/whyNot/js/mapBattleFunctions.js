@@ -1,6 +1,6 @@
 /*ㅁㅁ
  * 학원에서....Apr26,2017
- * 			14:40
+ * 			19:25
  * 			dev by JB
  * MS949
  * */$(document).ready(function(){
@@ -77,7 +77,6 @@ console.log("storage.mint "+storage.mint +"  storage.pokeBall "+ storage.pokeBal
 var rand1;
 var rand2;
 var myMonid;
-var winOrLoseResult = false;  //결과가 나올때까지 경기 속행. 둘중 죽거나, 도망치면 true.
 
 function goBattle(){ //#### 맵팀: 야생 포켓몬과의 만날때 시작부분.
 noRepeatRand();  // 내가 뽑는 몬스터도 랜덤. 상대몬스터도 랜덤.으로 만들어놧음. 조율가능.
