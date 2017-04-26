@@ -44,10 +44,6 @@
  * 연동작업- 
  * 월) 내 몬스터, 적몬스터 name, lv, hp, att, 등등.
  * 
- * 수) 
- * battlefunc // 데미지, 상태이상 ytext수정. 
- * mapBattlefunc // hp/max_hp 초기상태창. 지우상점이용후 지우상태창update.
- * rocket_ver3.1 // 특수스킬 사용효과 ytext. 
  * 
  * 
  * 
@@ -379,9 +375,8 @@ function useItem(item){
 				"</span>(이)가 <span style='color:#82b5f2'>"+ jiwoo.mint + "</span>개 남았습니다.";
 			$(".whyAllyTextHp").html( parseInt(myMonid.hp*10)/10 + " / "+myMonid.initHp);
 		}
-		setTimeout(yTextmsg(showItemMsg), 1500);
+		yTextmsg(showItemMsg);
 		console.log(showItemMsg);
-		$(".whyStatusMoneybox").html("소유 골드: "+ jiwoo.golds +"골드 "+"<br/> 민트: "+ jiwoo.mint +"개 <br/>몬스터볼: "+ jiwoo.pokeBall+ "개");
 	}
 
 	if(item == "pokeBall"){ // 몬볼아이템 소모해서 포획시도. 턴소모X. 초기 3개 소유중.
@@ -397,7 +392,6 @@ function useItem(item){
 		} // jiwoo.pokeBall >0 END
 		console.log(showItemMsg);
 		yTextmsg(showItemMsg);
-		$(".whyStatusMoneybox").html("소유 골드: "+ jiwoo.golds +"골드 "+"<br/> 민트: "+ jiwoo.mint +"개 <br/>몬스터볼: "+ jiwoo.pokeBall+ "개");
 	}// 아이템사용_포켓볼 던졌을때. else if END
 	console.log("jiwoo.mint "+jiwoo.mint +"  jiwoo.pokeBall "+ jiwoo.pokeBall);
 } 
@@ -424,7 +418,6 @@ function winOrLose(){
 		}
 		newPokemon.hp = 0;
 		$(".whyEnemyTextHp").html( parseInt(newPokemon.hp*10)/10 + " / "+newPokemon.initHp);
-		yTextmsg(myMonid.name+ "의 승리!!");
 		expUp();
 		winOrLoseResult= true;
 		///########## 종원이형: 여기서 escape로 전투화면을 끝내는 화면연출.!!!
@@ -435,8 +428,6 @@ function winOrLose(){
 		$(".whyAllyTextHp").html( parseInt(myMonid.hp*10)/10  + " / "+myMonid.initHp);
 		myMonid.status = "Fainted";
 		winOrLoseResult= true;
-		yTextmsg(myMonid.name+ "의 패배!! " +
-				 "<br/>" + myMonid.name + "의 상태가 " + myMonid.status+ "가 되었다! (병원치료 요구)");
 		///########## 종원이형: 여기서 escape로 전투화면을 끝내는 화면연출.!!!
 	}
 }
@@ -463,7 +454,7 @@ function expUp(){
 	}
 	else{
 		myMonid.exp += winExp;
-		showMsg = myMonid.name+"가 "+ winExp+" / "+(60 + myMonid.lv*40)+ "만큼 경험치를 획득했다!!!";
+		showMsg = myMonid.name+"가"+ winExp+"만큼 경험치를 획득했다!!!";
 	}
 	yTextmsg(showMsg);
 }
