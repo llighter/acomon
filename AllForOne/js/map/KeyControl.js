@@ -1,8 +1,3 @@
-var upPressed = false;
-var downPressed = false;
-var leftPressed = false;
-var rightPressed = false;
-
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("keydown", keyDownHandler, false);
 

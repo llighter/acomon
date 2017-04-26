@@ -38,6 +38,11 @@ var village01 = new Image();
 var village02 = new Image();
 var currentVillage = new Image();
 
+var upPressed = false;
+var downPressed = false;
+var leftPressed = false;
+var rightPressed = false;
+
 // Charactor's direction
 var motionIdx = 0;
 
