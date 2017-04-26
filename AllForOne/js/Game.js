@@ -612,7 +612,7 @@ var update = setInterval(function fps(){
 		yEventBattle();
 		currentMode = 3;	// 대전 중
 		// clearInterval(update);
-	} else if(currentMode == 4 && currentMode==2) {
+	} else if(currentMode == 4) {
 		draw();
 	}
 	
