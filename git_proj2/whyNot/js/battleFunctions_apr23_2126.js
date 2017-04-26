@@ -327,16 +327,17 @@ function catchWildMon(){  // 몬스터볼 소모해서 상대몬스터를 포획
 	if((newPokemon.hp/newPokemon.initHp) < chanceToCatch){  // 포획에 성공하는경우.
 		pokemons.push(new MyPokemon(
 				pokemons.length,
-				worldMon.id,
-				worldMon.name,
-				worldMon.lv ,
-				worldMon.exp ,
-				worldMon.hp,
-				worldMon.att,
-				worldMon.shield,
-				worldMon.property,
+				newPokemon.id,
+				newPokemon.name,
+				newPokemon.lv ,
+				0 ,  //newPokemon.exp
+				newPokemon.hp,
+				newPokemon.att,
+				newPokemon.shield,
+				newPokemon.property,
 				"normal"  // status ="normal" // 정상.
 				));
+		
 		showItemMsg = "system- 새로운 몬스터 "+worldMon.name+"를 잡앗다!!";
 		winOrLoseResult = true;
 		newPokemon.hp = 0;
@@ -393,9 +394,9 @@ function useItem(item){
 			winOrLose();
 		} // jiwoo.pokeBall >0 END
 		console.log(showItemMsg);
+		yTextmsg(showItemMsg);
 	}// 아이템사용_포켓볼 던졌을때. else if END
 	console.log("jiwoo.mint "+jiwoo.mint +"  jiwoo.pokeBall "+ jiwoo.pokeBall);
-	yTextmsg(showItemMsg);
 } 
 
 function tagMyMon(bookNumber){	// 내가 소유한 몬스터와 태그하기.
@@ -410,7 +411,6 @@ function tagMyMon(bookNumber){	// 내가 소유한 몬스터와 태그하기.
 
 
 
-var winOrLoseResult = false;  //결과가 나올때까지 경기 속행. 둘중 죽거나, 도망치면 true.
 function winOrLose(){
 
 	if(newPokemon.hp <= 0){
@@ -453,13 +453,13 @@ function expUp(){
 		showMsg += "\n공격력 증가 (+4): \t" + myMonid.att;
 		myMonid.att += 4;
 		showMsg += " -> "+ myMonid.att;
-		
+
 	}
 	else{
 		myMonid.exp += winExp;
 		showMsg = myMonid.name+"가"+ winExp+"만큼 경험치를 획득했다!!!";
 	}
-	console.log(showMsg);
+	yTextmsg(showMsg);
 }
 
 
