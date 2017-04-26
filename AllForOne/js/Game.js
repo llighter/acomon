@@ -36,19 +36,18 @@ var currentMode = 2;
 
 
 var textOn=0;
-var onPokemonZone = false;
 var battleCountDown = 4;
 
 
 document.addEventListener('keyup', (event) => {
   if (event.keyCode === SPACE_BAR && textOn == 0) {
 	switch(npcDetection()) {
-		case 501:
+		case MAP_ACADEMY_YANG:
 			chat.style="block";
 			createDiag( temp[0] );
 			textOn=1;
 			break;
-		case 502:
+		case MAP_00_STORE_NPC:
 			chat.style="block";
 			createDiag( temp[1] );
 			option.style="block";
@@ -56,32 +55,32 @@ document.addEventListener('keyup', (event) => {
 			// 상점은 2번으로 별 방법을 다했는데 안되서 그냥 상점은 textOn을 2로배정
 			
 			break;
-		case 503:
+		case MAP_00_QUEST_NPC:
 			chat.style="block";
 			createDiag( temp[2] );
 			option.style="block";
 			textOn=3;
 			// 퀘스트는 textOn 3으로
 			break;
-		case 504:
+		case MAP_01_STORE_NPC:
 			chat.style="block";
 			createDiag( temp[3] );
 			option.style="block";
 			textOn=2;
 			break;
-		case 505:
+		case MAP_01_QUEST_NPC:
 			chat.style="block";
 			createDiag( temp[4] );
 			option.style="block";
 			textOn=3;
 			break;
-		case 506:
+		case MAP_02_STORE_NPC:
 			chat.style="block";
 			createDiag( temp[5] );
 			option.style="block";
 			textOn=2;
 			break;
-		case 507:
+		case MAP_02_QUEST_NPC:
 			chat.style="block";
 			createDiag( temp[6] );
 			option.style="block";
@@ -113,9 +112,9 @@ document.addEventListener('keyup', (event) => {
 // 예를 들어 스테이지 2퀘스트가 몬스터볼 보상으로 얻는건데 2번키계속누르면 무한으로 얻을수 있음  
   if(textOn==3 && event.keyCode == KEYBOARD_2 ){
 	  switch(npcDetection()){
-	  case 503: getQuest(1); $('#option').html("[1] ㅂㅂ"); break;
-	  case 505: getQuest(2); $('#option').html("[1] ㅂㅂ"); break;
-	  case 507: getQuest(3); $('#option').html("[1] ㅂㅂ"); break;
+	  case MAP_00_QUEST_NPC: getQuest(1); $('#option').html("[1] ㅂㅂ"); break;
+	  case MAP_01_QUEST_NPC: getQuest(2); $('#option').html("[1] ㅂㅂ"); break;
+	  case MAP_02_QUEST_NPC: getQuest(3); $('#option').html("[1] ㅂㅂ"); break;
 	  }
 	  
   }
@@ -169,36 +168,19 @@ function collisionDetection() {
 
 }
 
+// @return : NPC를 만났다면 NPC번호를 전달, 안만났다면 -1을 전달
 function npcDetection() {
-	let npcId = -1;
-	if(nowMap[Math.ceil(myPlayer.y/UNIT)-1][Math.ceil(myPlayer.x/UNIT)] == 501) {
-		npcId = 501;
-	} else if(nowMap[Math.ceil(myPlayer.y/UNIT)-1][Math.ceil(myPlayer.x/UNIT)] == 502) {
-		npcId = 502;
-	} else if(nowMap[Math.ceil(myPlayer.y/UNIT)-1][Math.ceil(myPlayer.x/UNIT)] == 503) {
-		npcId = 503;
-	} else if(nowMap[Math.ceil(myPlayer.y/UNIT)-1][Math.ceil(myPlayer.x/UNIT)] == 504) {
-		npcId = 504;
-	} else if(nowMap[Math.ceil(myPlayer.y/UNIT)-1][Math.ceil(myPlayer.x/UNIT)] == 505) {
-		npcId = 505;
-	} else if(nowMap[Math.ceil(myPlayer.y/UNIT)][Math.ceil(myPlayer.x/UNIT)+1] == 506) {
-		npcId = 506;
-	} else if(nowMap[Math.ceil(myPlayer.y/UNIT)-1][Math.ceil(myPlayer.x/UNIT)] == 507) {
-		npcId = 507;
-	}
+	let mapValue = nowMap[Math.ceil(myPlayer.y/UNIT)-1][Math.ceil(myPlayer.x/UNIT)];
 
-	return npcId;
+	return (mapValue >= 501 && mapValue <= 507) ? mapValue : -1	
 }
 
+
+// @return : 포켓몬을 만날 수 있는 지역에 있다면 포켓몬 번호를 전달, 일반 지역이면 -1을 전달
 function pokemonDetction() {
-	var currentValue = nowMap[Math.ceil(myPlayer.y/UNIT)][Math.ceil(myPlayer.x/UNIT)];
+	let mapValue = nowMap[Math.ceil(myPlayer.y/UNIT)][Math.ceil(myPlayer.x/UNIT)];
 	
-	if(currentValue >= 50 && currentValue < 60) {
-		onPokemonZone = true;
-	} else {
-		onPokemonZone = false;
-	}
-	return currentValue;
+	return (mapValue >= 50 && mapValue < 60) ? mapValue : -1;
 }
 
 
@@ -225,43 +207,44 @@ function move() {
 }
 
 function changeMap(){
+	let mapValue = nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)];
 
-	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==90 ){
+	if( mapValue == MAP_ACADEMY_TO_00 ){
 		nowMap=map00;
 		currentVillage = village00;
 		setPosition(5, 6);
 	}
-	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==91 ){
+	if( mapValue == MAP_00_TO_ACADEMY ){
 		nowMap=map_init;
 		currentVillage = academy;
 		setPosition(5, 8);
 	}
-	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==99 ){
+	if( mapValue == MAP_00_TO_01 ){
 		nowMap=map01;
 		currentVillage = village01;
 		setPosition(1, 16);
 	}
-	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==98 ){
+	if( mapValue == MAP_01_TO_00 ){
 		nowMap=map00;
 		currentVillage = village00;
 		setPosition(18, 12);
 	}
-	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==97 ){
+	if( mapValue == MAP_01_TO_02 ){
 		nowMap=map02;
 		currentVillage = village02;
 		setPosition(3, 18);
 	}
-	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==96 ){
+	if( mapValue == MAP_02_TO_01 ){
 		nowMap=map01;
 		currentVillage = village01;
 		setPosition(13, 1);
 	}
-	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==95 ){
+	if( mapValue == MAP_02_TO_BOSS ){
 		nowMap=map_boss;
 		currentVillage = bossmap;
 		setPosition(1, 8);
 	}
-	if( nowMap[Math.ceil(myPlayer.y / UNIT)][Math.ceil(myPlayer.x / UNIT)]==94 ){
+	if( mapValue == MAP_BOSS_TO_02 ){
 		nowMap=map02;
 		currentVillage = village02;
 		setPosition(18, 17);
@@ -282,12 +265,12 @@ function draw(){
 
 	// move();
 
-	if(onPokemonZone && battleCountDown >=0) {
+	if(pokemonDetction() > 0 && battleCountDown >=0) {
 		context.font="30px Comic Sans MS";
 		context.fillStyle = "red";
 		context.textAlign = "center";
 		context.fillText(battleCountDown, MAP_WIDTH/2, MAP_HEIGHT/2);
-	} else if(onPokemonZone && battleCountDown < 0) {
+	} else if(pokemonDetction() > 0 && battleCountDown < 0) {
 		// 현재 모드 전투 모드로 변경
 		currentMode = 1;
 	}
@@ -330,14 +313,14 @@ function createDiag ( dialog ) {
 	}
 
 	switch(npcDetection()) {
-		case 502:
-		case 504:
-		case 506:
+		case MAP_00_STORE_NPC:
+		case MAP_01_STORE_NPC:
+		case MAP_02_STORE_NPC:
 			$('#option').text($('#option').text()+market_talk);
 			break;
-		case 503:
-		case 505:
-		case 507:
+		case MAP_00_QUEST_NPC:
+		case MAP_01_QUEST_NPC:
+		case MAP_02_QUEST_NPC:
 			$('#option').text($('#option').text()+quest_choice);
 			break;
 	}
@@ -392,7 +375,7 @@ setInterval(function motionFps(){
 
 // 전투지역 카운트다운 활성화
 setInterval(function() {
-	if(onPokemonZone == true) {
+	if(pokemonDetction() > 0) {
 		battleCountDown--;
 	} else {
 		battleCountDown = 4;

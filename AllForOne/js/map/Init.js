@@ -1,14 +1,15 @@
+// 맵 기본 단위
 const UNIT = 64;
 const IMG_U = 96;
 const MAPIMG_U = 64;
 const MOVE_U = 16;
 
+// 키보드 코드 값 맵핑
 const ARROW_LEFT = 37;
 const ARROW_UP = 38;
 const ARROW_RIGHT = 39;
 const ARROW_DOWN = 40;
 const SPACE_BAR = 32;
-
 const KEYBOARD_A = 65;
 const KEYBOARD_1 = 49;
 const KEYBOARD_2 = 50;
@@ -16,11 +17,13 @@ const KEYBOARD_3 = 51;
 const KEYBOARD_4 = 52;
 const KEYBOARD_5 = 53;
 
+// 캐릭터 방향 값 맵핑
 const SOUTH_DIRECTION = 0;
 const WEST_DIRECTION = 1;
 const EAST_DIRECTION = 2;
 const NORTH_DIRECTION = 3;
 
+// 맵 크기 및 코드 값 맵핑
 const MAP_WIDTH = 640;
 const MAP_HEIGHT = 640;
 const MAP_GRASS = 0;
@@ -29,6 +32,21 @@ const MAP_STONE = 101;
 const MAP_SAND = 3;
 const MAP_SANDROAD01 = 4;
 const MAP_SANDSTONE = 102;
+const MAP_ACADEMY_YANG = 501;
+const MAP_00_STORE_NPC = 502;
+const MAP_00_QUEST_NPC = 503;
+const MAP_01_STORE_NPC = 504;
+const MAP_01_QUEST_NPC = 505;
+const MAP_02_STORE_NPC = 506;
+const MAP_02_QUEST_NPC = 507;
+const MAP_ACADEMY_TO_00 = 90;
+const MAP_00_TO_ACADEMY = 91;
+const MAP_00_TO_01 = 99;
+const MAP_01_TO_00 = 98;
+const MAP_01_TO_02 = 97;
+const MAP_02_TO_01 = 96;
+const MAP_02_TO_BOSS = 95;
+const MAP_BOSS_TO_02 = 94;
 
 var player = new Image();
 var bossmap = new Image();
