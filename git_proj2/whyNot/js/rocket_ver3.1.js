@@ -650,7 +650,7 @@ function yCmdSkillSelect(){
 	case 4:
 	      setTimeout(function (){      //공격 턴
 	         yTextmsg("<span style='color:#FF6961'>"+myMonid.name+"</span>몬이 <span style='color:#82b5f2'>"+
-						skillNames[myMonid.property]+"</span>를 시전했습니다.");
+						skill2Names[myMonid.property]+"</span>를 시전했습니다.");
 	         skillLv2Attack();            //공격 스크립트
 	         yAllyAttackEffect();   //공격 시각효과
 	          yEnemyhp();            //공격 hp시각효과
@@ -663,10 +663,10 @@ function yCmdSkillSelect(){
 	            yTextmsg("<span style='color:#FF6961'>"+myMonid.name+ "</span>몬이 <span style='color:#82b5f2'>"+
 	            		skill2Names[myMonid.property]+"</span> 상태입니다.");      
 	         else if(myMonid.property == 2)
-	            yTextmsg("<span style='color:#FF6961'>"+myMonid.name+ "</span>몬이 <span style='color:#82b5f2'>"+
+	            yTextmsg("<span style='color:#FF6961'>"+newPokemon.name+ "</span>몬이 <span style='color:#82b5f2'>"+
 	            		skill2Names[myMonid.property]+"</span> 상태입니다.");       
 	         else if(myMonid.property == 3)
-	            yTextmsg("<span style='color:#FF6961'>"+myMonid.name+ "</span>몬이 <span style='color:#82b5f2'>"+
+	            yTextmsg("<span style='color:#FF6961'>"+myMonewPokemonnid.name+ "</span>몬이 <span style='color:#82b5f2'>"+
 	            		skill2Names[myMonid.property]+"</span> 상태입니다.");      
 	         else if(myMonid.property == 4)
 	            yTextmsg("<span style='color:#FF6961'>"+myMonid.name+ "</span>몬이 <span style='color:#82b5f2'>"+

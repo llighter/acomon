@@ -207,19 +207,6 @@ function meditation(){  // 명상 체력 +13.
 	}
 	console.log(showMsg);
 	winOrLose();
-}
-
-function meditation(){  // 명상 체력 +13.
-	propertyBonus();
-	var showMsg = "명상을 할수없습니다. \n\t(설명: 명상하면 전체체력보다 많아질경우.)"
-	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
-		if((myMonid.hp +13) < myMonid.initHp){
-		myMonid.hp += 13;
-		showMsg = "체력회복 (+13)!" +myMonid.hp;
-		hpUp();
-		}
-	}
-	console.log(showMsg);
 	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
 		enemyRandAtt();
 		winOrLose();
