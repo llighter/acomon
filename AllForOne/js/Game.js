@@ -200,7 +200,6 @@ function npcDetection() {
 	
 	// TODO: return이 두개인것은 좋지 않지만 일단 이것 하나만 따로 해야하기 때문에 return을 사용함
 	let mapValue2 = nowMap.matrix[Math.ceil(myPlayer.y/UNIT)][Math.ceil(myPlayer.x/UNIT)+1];
-	console.log(mapValue2);
 	if(mapValue2 == MAP_02_STORE_NPC) {
 		return mapValue2;
 	}
