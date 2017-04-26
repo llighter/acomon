@@ -220,7 +220,23 @@ function pokemonDetction() {
 	let mapValue = nowMap.matrix[Math.ceil(myPlayer.y/UNIT)][Math.ceil(myPlayer.x/UNIT)];
 
 	// 전투에서 상대할 포켓몬 정하기
-	
+	switch(mapValue) {
+		case MAP_00_POKEMON:
+			battle_OpponentPokemon = 0;
+			break;
+		case MAP_01_POKEMON1:
+			battle_OpponentPokemon = 1;
+			break;
+		case MAP_01_POKEMON2:
+			battle_OpponentPokemon = 2;
+			break;
+		case MAP_02_POKEMON1:
+			battle_OpponentPokemon = 3;
+			break;
+		case MAP_02_POKEMON2:
+			battle_OpponentPokemon = 4;
+			break;
+	}
 	
 	return (mapValue >= 50 && mapValue < 60) ? mapValue : -1;
 }
@@ -378,7 +394,6 @@ var update = setInterval(function fps(){
 		changeMap();
 		pokemonDetction();
 	} else if(currentMode == 1) {
-		// encounter(0,0);
 		yEventBattle();
 		currentMode = 3;	// 대전 중
 	} else if(currentMode == 4) {
