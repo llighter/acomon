@@ -1,8 +1,8 @@
-/*ㅁㅁ ㅁㅁ
-* 학원에서....Apr27,2017
- * 			13:03
+/*ㅁㅁ ㅁㅁ 
+* 집에서....Apr28,2017
+ * 			00:02
  * 			dev by JB
- * MS969
+ * UTF-8
  * */
 $(document).ready(function(){
 
@@ -13,24 +13,24 @@ mapPokemons = [];
 
 //					    몬북고유번호지정,id,  name 	  	  ,lv,exp,hp,att,방어,상성    //@@//
 mapPokemons.push(new WorldPokemon(0, "HTML",		1, 0, 50, 13, 1, 0, "url('img/rd/myMon_01a.gif')","url('img/rd/myMon_01b.png')","url('img/rd/myMon_01c.png')" ));  // 세계 몬스터도감 id는 순서대로 넣어줄것.
-mapPokemons.push(new WorldPokemon(1, "CSS", 		1, 0, 52, 15, 2, 1, "url('img/rd/myMon_02a.gif')","url('img/rd/myMon_02b.png')","url('img/rd/myMon_02c.png')")); 
-mapPokemons.push(new WorldPokemon(2, "SQL", 		1, 0, 54, 17, 2, 2, "url('img/rd/myMon_03a.gif')","url('img/rd/myMon_03b.png')","url('img/rd/myMon_03c.png')")); 
-mapPokemons.push(new WorldPokemon(3, "Javascript",  1, 0, 56, 15, 3, 3, "url('img/rd/myMon_04a.gif')","url('img/rd/myMon_04b.png')","url('img/rd/myMon_04c.png')")); 
-mapPokemons.push(new WorldPokemon(4, "JAVA", 		1, 0, 58, 14, 3, 4, "url('img/rd/myMon_05a.gif')","url('img/rd/myMon_05b.png')","url('img/rd/myMon_05c.png')")); 	//property: "물","바람","풀","불","흙"
-mapPokemons.push(new WorldPokemon(5, "AJAX", 		1, 0, 68, 19, 3, 1, "url('img/rd/myMon_06a.gif')","url('img/rd/myMon_06b.png')","url('img/rd/myMon_06c.png')"));   
+mapPokemons.push(new WorldPokemon(1, "CSS", 		1, 0, 52, 15, 2, 1, "url('img/rd/myMon_02a.gif')","url('img/rd/myMon_02b.png')","url('img/rd/myMon_02c.png')" )); 
+mapPokemons.push(new WorldPokemon(2, "SQL", 		1, 0, 54, 17, 2, 2, "url('img/rd/myMon_03a.gif')","url('img/rd/myMon_03b.png')","url('img/rd/myMon_03c.png')" )); 
+mapPokemons.push(new WorldPokemon(3, "Javascript",  1, 0, 56, 15, 3, 3, "url('img/rd/myMon_04a.gif')","url('img/rd/myMon_04b.png')","url('img/rd/myMon_04c.png')" )); 
+mapPokemons.push(new WorldPokemon(4, "JAVA", 		1, 0, 58, 14, 3, 4, "url('img/rd/myMon_05a.gif')","url('img/rd/myMon_05b.png')","url('img/rd/myMon_05c.png')" )); 	//property: "물","바람","풀","불","흙"
+mapPokemons.push(new WorldPokemon(5, "AJAX", 		1, 0, 68, 19, 3, 1, "url('img/rd/myMon_06a.gif')","url('img/rd/myMon_06b.png')","url('img/rd/myMon_06c.png')" ));   
 		// ### 맵팀: 보스는 흙속성이니깐 물속성에 약함, 너무강해서 태그해야함. >> 퀘스트줄때 힌트제공?
 
 // 내포켓몬북에 있는 몬스터리스트.
 var pokemons =[];
-var propertyNames = ["물","바람","풀","불","흙"];  //###맵팀?? 이름??;;;
-var skillNames = ["물폭탄던지기!","바람베기!","덩쿨채찍!","화염폭탄!","지진일으키기!"]; //###맵팀?? 이름??;;;
+var propertyNames = ["물","바람","풀","불","흙"];  
+var skillNames = ["물폭탄던지기!","바람베기!","덩쿨채찍!","화염폭탄!","지진일으키기!"]; 
 var effectTimes;
 var skill2Names = ["reflect","sharpen","paralyze","burn","shieldOn"]; 
 var bookNumber = 0;
 
-//								몬북고유번호지정,id,  name 	  ,lv,exp,hp,att,방어,상성,현재상태
+//								몬북고유번호지정,id,  name 	  ,lv,exp,hp,att,방어,상성,현재상태  //@@//
 pokemons.push(new MyPokemon((bookNumber++), 2, "SQL",		2, 0, 54, 17, 2, 2 ,"normal", "url('img/rd/myMon_03a.gif')","url('img/rd/myMon_03b.png')","url('img/rd/myMon_03c.png')" ));  // 일반공격이 1이면 스킬1공격은 최소 1.2 최대1.7랜덤
-pokemons.push(new MyPokemon((bookNumber++), 3, "Javascript",2, 0, 56, 15, 3, 3 ,"normal", "url('img/rd/myMon_04a.gif')","url('img/rd/myMon_04b.png')","url('img/rd/myMon_04c.png')"));  // 
+pokemons.push(new MyPokemon((bookNumber++), 3, "Javascript",2, 0, 56, 15, 3, 3 ,"normal", "url('img/rd/myMon_04a.gif')","url('img/rd/myMon_04b.png')","url('img/rd/myMon_04c.png')" ));  // 
 pokemons.push(new MyPokemon((bookNumber++), 1, "CSS",		2, 0, 52, 15, 2, 1 ,"normal", "url('img/rd/myMon_02a.gif')","url('img/rd/myMon_02b.png')","url('img/rd/myMon_02c.png')" ));  // 포켓몬번호 이름 체력 기본공격력 기본방어력
 pokemons.push(new MyPokemon((bookNumber++), 4, "JAVA", 		2, 0, 58, 14, 3, 4 ,"normal", "url('img/rd/myMon_05a.gif')","url('img/rd/myMon_05b.png')","url('img/rd/myMon_05c.png')" ));  
 pokemons.push(new MyPokemon((bookNumber++), 0, "HTML", 		2, 0, 50, 13, 1, 0 ,"normal", "url('img/rd/myMon_01a.gif')","url('img/rd/myMon_01b.png')","url('img/rd/myMon_01c.png')" ));  
@@ -38,7 +38,7 @@ pokemons.push(new MyPokemon((bookNumber++), 0, "HTML", 		2, 0, 50, 13, 1, 0 ,"no
 // jb < yn < gy < jw < jh < jb  ... 먹이사슬 외에는 평범하게고우.
 
 
-// 지우상태.  //### 레벨이나 경험치 만들어야하나???
+// 지우상태.  
 var jiwoo = {name: "한지우", age: 16 , mint:5, pokeBall:4, golds:30000};
 $(".whyStatusNamebox").html("이름: "+jiwoo.name + "<br/> 나이: "+jiwoo.age )
 .css({"font-size": "30pt", "font-weight": "bolder"});
@@ -170,7 +170,7 @@ function store(wantedService){
 	}
 	else if(wantedService == "makeMonFree"){
 		var listNo =0 ;
-		for(bookNo in pokemons){  //### 맵팀: 대화창에 리스트 출력.
+		for(bookNo in pokemons){  //### 맵팀: 대화창에 리스트 출력.  //@@//
 			$("#dialog").html("보유 포켓몬: list"+ (++listNo) +" 몬스터이름: " + pokemons[bookNo].name);
 		}
 		var findListNo =0 ;
@@ -438,11 +438,14 @@ function quest0(meetingMonId){   // 맵팀: quest0(~~);함수의 위치: 고를�
 					getThisMon.exp ,
 					getThisMon.hp,
 					getThisMon.att,
+					getThisMon.shield,    //@@//
 					getThisMon.property,
 					"normal",  // status =0 // 정상.
 					getThisMon.img00,   //@@//
 					getThisMon.img01,
 					getThisMon.img02
+					//pokemons   몬북고유번호지정,id,  name 	      ,lv,exp,hp,att,방어,상성,현재상태
+					//mappokemon            ,id,  name 	  	  ,lv,exp,hp,att,방어,상성    //@@//
 			));
 			checkPokemonBook();
 			console.log(pokemons[pokemons.length-1]);  //### 확실히 받앗는지 확인.
