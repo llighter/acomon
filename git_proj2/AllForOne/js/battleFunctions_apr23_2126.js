@@ -131,9 +131,11 @@ function enemyRandAtt(){
 			        	(criticalAttack02- newPokemon.shield).toFixed(1)+"</span>만큼 피해를 받았습니다!!"),1000);   
 			}
 			yEnemyAttackEffect();	
-			yEnemyhp();		
+			setTimeout(function(){ 
+				yAllyAttackEffect();
+				yEnemyhp();	
+			},1000);
 			$(".whyEnemyTextHp").html(parseInt(newPokemon.hp*10)/10 + " / "+newPokemon.initHp);
-			yEnemyhp();	
 		}
 		else if(newPokemon.status == "paralyze"){  // 마비는 1턴 휴식.
 			console.log("마비... 이번턴 쉴께요~");
@@ -235,7 +237,7 @@ function meditation(){  // 명상 체력 +13.
 //var propertyNames = ["물","바람","풀","불","흙"];
 //var skillNames = ["물폭탄던지기!","바람베기!","덩쿨채찍!","화염폭탄!","지진일으키기!"];
 var effectTimes =0;
-var burning  = 2;
+var burning  = 4;
 //var skill2Names = ["reflect","sharpen","paralyze","burn","shieldOn"]; //
 function skillLv2Attack(){
 	var skillMsg = "적정레벨이 아닙니다. 현재레벨: " + myMonid.lv + "/ 요구레벨:2 "; 
@@ -259,13 +261,17 @@ function skillLv2Attack(){
 		case 2://paralyze - 상대몬스터 1회 마비; 공격불가.  // 근데 이거 좀 사긴데...??;;;
 			newPokemon.status = skill2Names[2];
 			effectTimes = (1+1); //## 상대방은 1턴을 그냥 공격 받아야한다.
+			yAllyAttackEffect();	//공격 시각효과
+	    	yEnemyhp();				//공격 hp시각효과
 			skillMsg ="<span style='color:#FF6961'>" +newPokemon.name+"</span>에게 <span style='color:#82b5f2'>"
 			+ skill2Names[2]+"</span>(마비)를 시전했습니다.";
 			
 			break;
 		case 3://burn - 화상걸린 상대몬스터가 총 3턴에 걸쳐 1차 화상은 5, 2차는 8, 3차는 11의 가중데미지를 받는다.
 			newPokemon.status = skill2Names[3];
-			effectTimes =(3 +1); //## 화상은 총 3회 공격으로 1차 화상은 5, 2차는 8, 3차는 11의 가중데미지를 준다.
+			effectTimes =(3 +1); //## 화상은 총 3회 공격으로 1차 화상은 7, 2차는 10, 3차는 13의 가중데미지를 준다.
+			yAllyAttackEffect();	//공격 시각효과
+	    	yEnemyhp();				//공격 hp시각효과
 			skillMsg ="<span style='color:#FF6961'>" +newPokemon.name+"</span>에게 <span style='color:#82b5f2'>"
 			+ skill2Names[3]+"</span>(마비)를 시전했습니다.";
 			break;
@@ -280,7 +286,6 @@ function skillLv2Attack(){
 		default:
 			break;
 		}
-		winOrLose();
 	}  // if - switch case:  END
 	else if(myMonid.lv > 1 && ( myMonid.status != "normal" )){
 		skillMsg ="<span style='color:#FF6961'>" +myMonid.name+"</span>에게 이미<span style='color:#82b5f2'>"
