@@ -41,6 +41,9 @@ var newPokemon = {   // 때려잡을 적 "몬스터 복사본", 몬볼로 잡는
 		shield: worldMon.shield, 
 		property: worldMon.property, 
 		status: "normal",
+		img00 : worldMon.img00,
+		img01 : worldMon.img01,
+		img02 : worldMon.img02,
 		
 		initHp: worldMon.hp
 		};
@@ -323,8 +326,11 @@ function catchWildMon(){  // 몬스터볼 소모해서 상대몬스터를 포획
 				newPokemon.att,
 				newPokemon.shield,
 				newPokemon.property,
+				"normal",  // status ="normal" // 정상.
+				newPokemon.img00,
+				newPokemon.img01,
+				newPokemon.img02
 				
-				"normal"  // status ="normal" // 정상.
 				));
 		
 		showItemMsg = "새로운 몬스터 <span style='color:#FF6961'>"+worldMon.name+"</span>를 잡앗다!!";
