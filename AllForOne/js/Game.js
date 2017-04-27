@@ -54,7 +54,7 @@ var currentMode = 2;
 
 var battleCountDown = 4;
 
-
+var giftMon=0;
 createOpening(temp[7]);
 
 
