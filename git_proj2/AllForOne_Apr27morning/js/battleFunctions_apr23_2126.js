@@ -260,12 +260,16 @@ function skillLv2Attack(){
 	}  // if - switch case:  END
 	else if(myMonid.lv > 1 && ( myMonid.status != "normal" )){
 		skillMsg ="<span style='color:#FF6961'>" +myMonid.name+"</span>에게 이미<span style='color:#82b5f2'>"
-		+ myMonid.status+"</span>가 걸려있습니다.";
+			+ myMonid.status+"</span>가 걸려있습니다.";
+		skillMsg  += "<br/><span style='color:#FF6961'>"+myMonid.name+"</span>몬이 스킬 <span style='color:#82b5f2'>"
+			+skillNames[myMonid.property]+"</span>로공격."
 		skillAttack();
 	}
 	else if(myMonid.lv > 1 && ( newPokemon.status !="normal" )){
 		skillMsg ="<span style='color:#FF6961'>" +newPokemon.name+"</span>에게 이미<span style='color:#82b5f2'>"
-		+ newPokemon.status+"</span>가 걸려있습니다.";
+			+ newPokemon.status+"</span>가 걸려있습니다.";
+		skillMsg  += "<br/><span style='color:#FF6961'>"+myMonid.name+"</span>몬이 스킬 <span style='color:#82b5f2'>"
+			+skillNames[myMonid.property]+"</span>로공격."
 		skillAttack();
 	}
 	 yTextmsg(skillMsg);
@@ -453,7 +457,7 @@ function winOrLose(){
 }
 
 function expUp(){  
-	var winExp = 40;  // 한판 승리때마다 얻는 경험치.
+	var winExp = 80;  // 한판 승리때마다 얻는 경험치.
 	var showMsg = "";   
 	if((myMonid.exp + winExp) >= (60 + myMonid.lv*40)){  //1렙 풀경치 100, 2렙은 140, 3렙은 180...
 		showMsg = "<span style='color:#FF6961'>" +myMonid.name+"</span>가 레벨업했다!!!";

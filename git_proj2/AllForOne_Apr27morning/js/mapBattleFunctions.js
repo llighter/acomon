@@ -26,12 +26,12 @@ function WorldPokemon(id, name, lv, exp, hp, att, shield, property, img00, img01
 mapPokemons = [];
 
 //					    몬북고유번호지정,id,  name 	  	  ,lv,exp,hp,att,방어,상성    //@@//
-mapPokemons.push(new WorldPokemon(0, "HTML",		1, 0, 50, 13, 1, 0, "url('img/rd/myMon_01a.png')","url('img/rd/myMon_01b.png')","url('img/rd/myMon_01c.png')" ));  // 세계 몬스터도감 id는 순서대로 넣어줄것.
-mapPokemons.push(new WorldPokemon(1, "CSS", 		1, 0, 52, 15, 2, 1, "url('img/rd/myMon_02a.png')","url('img/rd/myMon_02b.png')","url('img/rd/myMon_02c.png')")); 
-mapPokemons.push(new WorldPokemon(2, "SQL", 		1, 0, 54, 17, 2, 2, "url('img/rd/myMon_03a.png')","url('img/rd/myMon_03b.png')","url('img/rd/myMon_03c.png')")); 
-mapPokemons.push(new WorldPokemon(3, "Javascript",  1, 0, 56, 15, 3, 3, "url('img/rd/myMon_04a.png')","url('img/rd/myMon_04b.png')","url('img/rd/myMon_04c.png')")); 
-mapPokemons.push(new WorldPokemon(4, "JAVA", 		1, 0, 58, 14, 3, 4, "url('img/rd/myMon_05a.png')","url('img/rd/myMon_05b.png')","url('img/rd/myMon_05c.png')")); 	//property: "물","바람","풀","불","흙"
-mapPokemons.push(new WorldPokemon(5, "AJAX", 		1, 0, 68, 19, 3, 1, "url('img/rd/myMon_06a.png')","url('img/rd/myMon_06b.png')","url('img/rd/myMon_06c.png')"));   
+mapPokemons.push(new WorldPokemon(0, "HTML",		1, 0, 50, 13, 1, 0, "url('img/rd/myMon_01a.gif')","url('img/rd/myMon_01b.png')","url('img/rd/myMon_01c.png')" ));  // 세계 몬스터도감 id는 순서대로 넣어줄것.
+mapPokemons.push(new WorldPokemon(1, "CSS", 		1, 0, 52, 15, 2, 1, "url('img/rd/myMon_02a.gif')","url('img/rd/myMon_02b.png')","url('img/rd/myMon_02c.png')")); 
+mapPokemons.push(new WorldPokemon(2, "SQL", 		1, 0, 54, 17, 2, 2, "url('img/rd/myMon_03a.gif')","url('img/rd/myMon_03b.png')","url('img/rd/myMon_03c.png')")); 
+mapPokemons.push(new WorldPokemon(3, "Javascript",  1, 0, 56, 15, 3, 3, "url('img/rd/myMon_04a.gif')","url('img/rd/myMon_04b.png')","url('img/rd/myMon_04c.png')")); 
+mapPokemons.push(new WorldPokemon(4, "JAVA", 		1, 0, 58, 14, 3, 4, "url('img/rd/myMon_05a.gif')","url('img/rd/myMon_05b.png')","url('img/rd/myMon_05c.png')")); 	//property: "물","바람","풀","불","흙"
+mapPokemons.push(new WorldPokemon(5, "AJAX", 		1, 0, 68, 19, 3, 1, "url('img/rd/myMon_06a.gif')","url('img/rd/myMon_06b.png')","url('img/rd/myMon_06c.png')"));   
 		// ### 맵팀: 보스는 흙속성이니깐 물속성에 약함, 너무강해서 태그해야함. >> 퀘스트줄때 힌트제공?
 
 // 내포켓몬북에 있는 몬스터리스트.
@@ -61,11 +61,11 @@ function MyPokemon(bookNo, id, name, lv, exp, hp, att, shield, property, status,
 	this.initHp = hp;
 }
 //								몬북고유번호지정,id,  name 	  ,lv,exp,hp,att,방어,상성,현재상태
-pokemons.push(new MyPokemon((bookNumber++), 2, "SQL",		2, 0, 54, 17, 2, 2 ,"normal", "url('img/rd/myMon_03a.png')","url('img/rd/myMon_03b.png')","url('img/rd/myMon_03c.png')" ));  // 일반공격이 1이면 스킬1공격은 최소 1.2 최대1.7랜덤
-pokemons.push(new MyPokemon((bookNumber++), 3, "Javascript",2, 0, 56, 15, 3, 3 ,"normal", "url('img/rd/myMon_04a.png')","url('img/rd/myMon_04b.png')","url('img/rd/myMon_04c.png')"));  // 
-pokemons.push(new MyPokemon((bookNumber++), 1, "CSS",		2, 0, 52, 15, 2, 1 ,"normal", "url('img/rd/myMon_02a.png')","url('img/rd/myMon_02b.png')","url('img/rd/myMon_02c.png')" ));  // 포켓몬번호 이름 체력 기본공격력 기본방어력
-pokemons.push(new MyPokemon((bookNumber++), 4, "JAVA", 		2, 0, 58, 14, 3, 4 ,"normal", "url('img/rd/myMon_05a.png')","url('img/rd/myMon_05b.png')","url('img/rd/myMon_05c.png')" ));  
-pokemons.push(new MyPokemon((bookNumber++), 0, "HTML", 		2, 0, 50, 13, 1, 0 ,"normal", "url('img/rd/myMon_01a.png')","url('img/rd/myMon_01b.png')","url('img/rd/myMon_01c.png')" ));  
+pokemons.push(new MyPokemon((bookNumber++), 2, "SQL",		2, 0, 54, 17, 2, 2 ,"normal", "url('img/rd/myMon_03a.gif')","url('img/rd/myMon_03b.png')","url('img/rd/myMon_03c.png')" ));  // 일반공격이 1이면 스킬1공격은 최소 1.2 최대1.7랜덤
+pokemons.push(new MyPokemon((bookNumber++), 3, "Javascript",2, 0, 56, 15, 3, 3 ,"normal", "url('img/rd/myMon_04a.gif')","url('img/rd/myMon_04b.png')","url('img/rd/myMon_04c.png')"));  // 
+pokemons.push(new MyPokemon((bookNumber++), 1, "CSS",		2, 0, 52, 15, 2, 1 ,"normal", "url('img/rd/myMon_02a.gif')","url('img/rd/myMon_02b.png')","url('img/rd/myMon_02c.png')" ));  // 포켓몬번호 이름 체력 기본공격력 기본방어력
+pokemons.push(new MyPokemon((bookNumber++), 4, "JAVA", 		2, 0, 58, 14, 3, 4 ,"normal", "url('img/rd/myMon_05a.gif')","url('img/rd/myMon_05b.png')","url('img/rd/myMon_05c.png')" ));  
+pokemons.push(new MyPokemon((bookNumber++), 0, "HTML", 		2, 0, 50, 13, 1, 0 ,"normal", "url('img/rd/myMon_01a.gif')","url('img/rd/myMon_01b.png')","url('img/rd/myMon_01c.png')" ));  
 //mapPokemons    // id:0, name:"aa", lv:1, exp:0, hp: 50, att:13, property:"물"
 // jb < yn < gy < jw < jh < jb  ... 먹이사슬 외에는 평범하게고우.
 
