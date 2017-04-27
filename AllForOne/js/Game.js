@@ -15,7 +15,7 @@ var init_talk = ['Acorn 아카데미에 온 것을 환영하네.. 우리학원�
 				'엄청난 프로젝트몬을 수집했군. 이제 넌 쓸모가 없어졌다. 가지고 있는 프로젝트몬을 나에게 넘겨라!'
 				];
 // 상점 옵션
-var market_talk = ['[1] 다음에 올께요.', '[2] 민트 캔디 구입',  '[3] 몬스터볼 구입',  '[4] 몬스터 치료',  '[5] 몬스터 방생'];
+// var market_talk = ['[1] 다음에 올께요.', '[2] 민트 캔디 구입',  '[3] 몬스터볼 구입',  '[4] 몬스터 치료',  '[5] 몬스터 방생'];
 // 퀘스트 옵션
 var quest_choice = '[1] 싫어요! [2]그럴께요! ';
 var temp = [];
@@ -52,17 +52,6 @@ var option=document.getElementById("option");
 // 초기값 opening을 위해 2로 조정 opening멘트 끝나면 0으로 변경
 var currentMode = 2;
 
-/**
- * TODO: dialogMode 값이 어떤식으로 매핑되어있는지 추가 필요
- * Mode
- * 0 : 대화 창이 없는 일반 상태
- * 1 : 일반 대화 상태
- * 2 : 상점 거래
- * 3 : 퀘스트 상태
- * 4 :
- * 5 : 퀘스트 진행중
- */
-var dialogMode=0;
 var battleCountDown = 4;
 
 
@@ -359,7 +348,6 @@ function clearDiag() {
 	$("#opening").html("");
 	opening.style.display="none"
 		currentMode=0;	
-	dialogMode=0;
 }
 
 var update = setInterval(function fps(){
