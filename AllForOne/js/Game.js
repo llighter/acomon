@@ -89,7 +89,7 @@ document.addEventListener('keyup', (event) => {
 			option.style="block";
 			createDiag( temp[2] );
 			dialogMode=3;
-			currentMode=4;
+			// currentMode=4;
 			// 퀘스트는 dialogMode 3으로
 			break;
 		case MAP_01_STORE_NPC:
@@ -129,19 +129,19 @@ document.addEventListener('keyup', (event) => {
 		case MAP_MY_MON01:
 			chat.style="block";
 			option.style="block";
-			meetingMonId=0; quest0(0);
+			meetingMonId=0; quest0(meetingMonId);
 			dialogMode=4;
 			break;
 		case MAP_MY_MON02:
 			chat.style="block";
 			option.style="block";
-			meetingMonId=1; quest0(1);
+			meetingMonId=1; quest0(meetingMonId);
 			dialogMode=4;
 			break;
 		case MAP_MY_MON03:
 			chat.style="block";
 			option.style="block";
-			meetingMonId=2; quest0(2);
+			meetingMonId=2; quest0(meetingMonId);
 			dialogMode=4;
 			break;				
 			
@@ -159,10 +159,10 @@ document.addEventListener('keyup', (event) => {
 // *2키-민트 *3키-포켓볼 *4키-치료 *5키-방생 
   if(dialogMode == 2){
 	  switch(event.keyCode){
-	  case KEYBOARD_2: store("mint"); break;
-	  case KEYBOARD_3: store("pokeBall"); break;
-	  case KEYBOARD_4: store("heal"); break;
-	  case KEYBOARD_5: store("makeMonFree"); break;
+		case KEYBOARD_2: store("mint"); break;
+		case KEYBOARD_3: store("pokeBall"); break;
+		case KEYBOARD_4: store("heal"); break;
+		case KEYBOARD_5: store("makeMonFree"); break;
 		  
 	  }
   }
@@ -171,10 +171,10 @@ document.addEventListener('keyup', (event) => {
 // 예를 들어 스테이지 2퀘스트가 몬스터볼 보상으로 얻는건데 2번키계속누르면 무한으로 얻을수 있음
   if(dialogMode == 3 && event.keyCode == KEYBOARD_2 ){
 	  switch(npcDetection()){
-	  case MAP_ACADEMY_YANG: getQuest(0); break;
-	  case MAP_00_QUEST_NPC: getQuest(1); break;
-	  case MAP_01_QUEST_NPC: getQuest(2); break;
-	  case MAP_02_QUEST_NPC: getQuest(3); break;
+		case MAP_ACADEMY_YANG: getQuest(1); break;
+		case MAP_00_QUEST_NPC: getQuest(2); break;
+		case MAP_01_QUEST_NPC: getQuest(3); break;
+		case MAP_02_QUEST_NPC: getQuest(4); break;
 	  } 	  
   }
 }, false);

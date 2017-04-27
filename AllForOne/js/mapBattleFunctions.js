@@ -8,19 +8,6 @@ $(document).ready(function(){
 
  });
 
-function WorldPokemon(id, name, lv, exp, hp, att, shield, property, img00, img01, img02){  //@@//
-	this.id = id;
-	this.name = name; 
-	this.lv = lv; 
-	this.exp = exp; 
-	this.hp = hp;
-	this.att = att;
-	this.shield = shield;
-	this.property = property;
-	this.img00 = img00;  //@@//
-	this.img01 = img01;
-	this.img02 = img02;
-}
 // 포켓몬세계 전체 몬스터리스트.
 mapPokemons = [];
 
@@ -41,24 +28,6 @@ var effectTimes;
 var skill2Names = ["reflect","sharpen","paralyze","burn","shieldOn"]; 
 var bookNumber = 0;
 
-function MyPokemon(bookNo, id, name, lv, exp, hp, att, shield, property, status, img00, img01, img02){
-	this.bookNo = bookNo;
-	this.id = id;
-	this.name = name; 
-	this.lv = lv; 
-	this.exp = exp; 
-	this.hp = hp;
-	this.att = att;
-	this.shield = shield;
-	this.property = property;
-	this.status = status;
-	this.img00 = img00;  //@@//
-	this.img01 = img01;
-	this.img02 = img02;
-	
-	
-	this.initHp = hp;
-}
 //								몬북고유번호지정,id,  name 	  ,lv,exp,hp,att,방어,상성,현재상태
 pokemons.push(new MyPokemon((bookNumber++), 2, "SQL",		2, 0, 54, 17, 2, 2 ,"normal", "url('img/rd/myMon_03a.gif')","url('img/rd/myMon_03b.png')","url('img/rd/myMon_03c.png')" ));  // 일반공격이 1이면 스킬1공격은 최소 1.2 최대1.7랜덤
 pokemons.push(new MyPokemon((bookNumber++), 3, "Javascript",2, 0, 56, 15, 3, 3 ,"normal", "url('img/rd/myMon_04a.gif')","url('img/rd/myMon_04b.png')","url('img/rd/myMon_04c.png')"));  // 
@@ -249,13 +218,7 @@ function store(wantedService){
 ///////////////////////// ### 맵팀과 연동// 확인을 못해봐서 밑에부분 아마 버그덩어리.
 ////////////////////////
 
-function QuestList(questNo, questContent, questNeeds, questDone, reward){  // ## 주어진 시간?? 이런것도 해볼수잇나
-	this.questNo = questNo;
-	this.questContent = questContent;
-	this.questNeeds = questNeeds;
-	this.questDone = questDone;
-	this.reward = reward;
-}
+
 var quest = [];		//questNo, questContent, 		questNeeds, questDone, reward
 quest.push(new QuestList(0, "\"셋중 아무거나 골라보시게\" "			,1 , false, "고른 포켓몬을 소유."));
 quest.push(new QuestList(1, "\"불속성 몬스터를 2마리 쓰러트리시게.\" "	,2 , false, "4000골드."));  //###속성 random()?
