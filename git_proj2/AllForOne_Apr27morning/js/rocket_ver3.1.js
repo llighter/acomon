@@ -15,7 +15,6 @@ var yBlinkCondtion=true;
 //  깜빡임효과.
 var turnCount=0;
 var imgClass;
-var winOrLoseResult = false;  //@@//
 function yBlink(imgClass){
 	blinkCount=0;
 	yBlinkCondtion=false;
@@ -41,17 +40,13 @@ function yAllyHealEffect(){
 
 // 재현 태클이나,스킬공격에 넣으면됨.
 function yAllyAttackEffect(){
-
-	if(!winOrLoseResult){  //@@//
 	$('.whyAllyAttack').css({top:"260px",left:"220px",width:'60px',height:'60px'}).fadeIn();
 	$('.whyAllyAttack').animate({top:"80px",left:"250px",width:'380px',height:'200px'},1000);
 	$('.whyAllyAttack').fadeOut();
 	yBlink('.whyEnemyImg');
-	}
 }
 
 function yEnemyAttackEffect(){
-	if(!winOrLoseResult && newPokemon.status != "paralyze" ){  //@@//
 	$('.whyEnemyImg').css({'background-image':'url("img/rd/myMon_06d.gif")'});
 	setTimeout(function(){$('.whyEnemyImg').css({'background-image':'url("img/rd/myMon_06c.png")'})},2730);
 	$('.whyEnemyAttack').css({top:"120px",left:"450px",width:'60px',height:'60px'}).fadeIn();
@@ -59,7 +54,6 @@ function yEnemyAttackEffect(){
 	$('.whyEnemyAttack').fadeOut();
 // 깜빡임 효과(상대편이미지에 주기.적중시기준이지만 일단 전부 적용하는걸로.)
 	yBlink('.whyAllyImg');
-	}
 }
 
 
