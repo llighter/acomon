@@ -372,6 +372,28 @@ function questProcess(questId){  //### 맵팀: 퀘스트를 주는 npc
 		questShow = "자 이제 어서 출발하게..";
 		$('#option').html("[1] 알겠습니다!");
 	}
+	if(questId==4){
+		questShow = "넌 아직 나랑 싸울만한 실력이 안되! 3년 후 에 다시 와라ㅎㅎ";
+		function randomColor(){
+			var r = Math.floor(Math.random()*256);
+			var g = Math.floor(Math.random()*256);
+			var b = Math.floor(Math.random()*256);
+			return "rgb("+ r + "," + g + "," + b +")";
+		}
+		setTimeout(function(){
+			clearInterval(update);
+			$('#dialog').css('display','none');
+			$('#option').css('display','none')
+			$('#village').css('display','none');
+			$('#end').css('display','block');
+			setInterval(function(){
+				context2.font = "130px Comic Sans MS";
+				context2.fillStyle = randomColor();
+				context2.textAlign = "center";
+				context2.fillText("THE END", 320, 320); 
+			},250);
+		},2000);
+	}
 
 	$("#dialog").html(questShow);
 }
