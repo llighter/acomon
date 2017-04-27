@@ -6,93 +6,9 @@
  */
 $(function(){
 	yItemNum();
+	yDisappearEnemyMon();
+	yDisappearAllyMon();
 });
-
-
-var viewHp;
-var hpColor;
-var yBlinkCondtion=true;
-//  깜빡임효과.
-var turnCount=0;
-var imgClass;
-function yBlink(imgClass){
-	blinkCount=0;
-	yBlinkCondtion=false;
-	Blink = setInterval(function(){
-		blinkCount++;
-		if(blinkCount>5){
-			$(imgClass).toggle();
-		}
-		if(blinkCount==11){
-			clearInterval(Blink);
-			yBlinkCondtion=true
-		}
-	},250);
-}
-
-yBlink();
-
-//heal effect
-function yAllyHealEffect(){
-	$('.whyAllyHeal').fadeIn("slow","swing");
-	$('.whyAllyHeal').delay(500).fadeOut("fast","swing");
-}
-
-// 재현 태클이나,스킬공격에 넣으면됨.
-function yAllyAttackEffect(){
-	$('.whyAllyAttack').css({top:"260px",left:"220px",width:'60px',height:'60px'}).fadeIn();
-	$('.whyAllyAttack').animate({top:"80px",left:"250px",width:'380px',height:'200px'},1000);
-	$('.whyAllyAttack').fadeOut();
-	yBlink('.whyEnemyImg');
-}
-
-function yEnemyAttackEffect(){
-	$('.whyEnemyImg').css({'background-image':'url("img/monZ_01.gif")'});
-	setTimeout(function(){$('.whyEnemyImg').css({'background-image':'url("img/monZ_00.png")'})},2730);
-	$('.whyEnemyAttack').css({top:"120px",left:"450px",width:'60px',height:'60px'}).fadeIn();
-	$('.whyEnemyAttack').animate({top:"220px",left:"10px",width:'300px',height:'300px'},{duration:1000});
-	$('.whyEnemyAttack').fadeOut();
-// 깜빡임 효과(상대편이미지에 주기.적중시기준이지만 일단 전부 적용하는걸로.)
-	yBlink('.whyAllyImg');
-}
-
-
-//hp변경 -> 이미지 변화
-function yAllyhp(){
-	viewHp = (myMonid.hp/myMonid.initHp)*100;
-	if(viewHp>=50) hpColor = "green";
-	else if(viewHp<50 && viewHp>=25) hpColor = "gold";
-	else if(viewHp<25) hpColor = "red";
-	$('.whyAllyBarHp').css({width:viewHp+"%"});
-	$('.whyAllyBarHp').css("background", hpColor);
-}
-
-
-function yEnemyhp(){
-	viewHp = (newPokemon.hp/newPokemon.initHp)*100;
-	if(viewHp>=50) hpColor = "green";
-	else if(viewHp<50 && viewHp>=25) hpColor = "gold";
-	else if(viewHp<25) hpColor = "red";
-	$('.whyEnemyBarHp').css({width:viewHp+"%"});
-	$('.whyEnemyBarHp').css("background", hpColor);
-}
-
-//var yPause=false;
-function yTextmsg(msg){
-	if(yPreView == '.whyBattle'){
-		$('.whyCmdListbox').css('z-index','10');
-		$('.whyCmdSkillbox').css('z-index','10');
-		$('.whyTextbox').css('z-index','30');
-	}
-	else if(yPreView == '.whyAllMap' ){
-		$('.whyTextbox').css('z-index','30');
-	}
-	$('.whyText').html(msg);
-}
-
-
-
-
 
 var yPreView; //Undo하기 위한 저장값
 
@@ -122,33 +38,42 @@ var yListCount = 1; // 리스트번호, 초기값:첫번째.
 // 기본 키 설정  //	방향키, a키:메뉴, z키:확인, x키:뒤로가기
 document.addEventListener("keydown", ykeyRokect);
 
+
 function ykeyRokect(event){
 // 	if(event.keyCode)console.log(String.fromCharCode(event.keyCode)+":"+event.keyCode);*/
-
-	if(event.keyCode == 38){
-		yUpPressed();
-    }
-	else if(event.keyCode == 40){
-		yDownPressed();
-    }
-    if(event.keyCode == 37){
-    //	yLeftPressed();
-    }
-    else if(event.keyCode == 39){
-    //	yRightPressed();
-    }
-    else if(event.keyCode == 65){ 	//a키 : 메뉴키
-    	yAkeyPressed();
-    }
-    else if(event.keyCode == 32){ //z키 : 확인키 -> 스페이스로 바꿈.
-    	ySpacekeyPressed();
-    }
-    else if(event.keyCode == 88){ //x키 : 뒤로가기키
-    	yXkeyPressed();
-    }
-    else if(event.keyCode == 89){ //y키 : 뒤로가기키
-    	nextMsg=true;
-    }
+	if(yMenuControl){
+		
+		if(event.keyCode == 38){
+			yUpPressed();
+	    }
+		else if(event.keyCode == 40){
+			yDownPressed();
+	    }
+	    if(event.keyCode == 37){
+	    //	yLeftPressed();
+	    	if(yPreView == '.whyBattle'){
+	    	
+	    	}
+	    }
+	    else if(event.keyCode == 39){
+	    //	yRightPressed();
+	    	if(yPreView == '.whyBattle'){
+	    		yContactMon();
+	        	}
+	    }
+	    else if(event.keyCode == 65){ 	//a키 : 메뉴키
+	    	yAkeyPressed();
+	    }
+	    else if(event.keyCode == 32){ //z키 : 확인키 -> 스페이스로 바꿈.
+	    	ySpacekeyPressed();
+	    }
+	    else if(event.keyCode == 88){ //x키 : 뒤로가기키
+	    	yXkeyPressed();
+	    }
+	    else if(event.keyCode == 89){ //y키 : 뒤로가기키
+	    	nextMsg=true;
+	    }
+	}
 }
 /* 스크롤이동 일단보류1
 var moveScrollNum;
@@ -197,6 +122,9 @@ function yAkeyPressed(){
 	case "whyAllMap":	//맵화면상태
 		yMapMenu();
 		break;
+	case ".whyBattle":
+		console.log("지금은 a key사용불가!!")
+		break;
 	default:
 		console.log("ERROR!! [CODE: E10,000bY_4s_8U ]")
 		break;
@@ -209,10 +137,10 @@ function yXkeyPressed(){
 		yMapMenuOff();
 		break;
 	case "whyMyAcomon":
-		yMyAcomonOff();
+		yCmdList();
 		break;
 	case "whyMyItem":
-		yMyItemOff();
+		yCmdList();
 		break;
 	case "whyStatus":
 		yStatusOff();
@@ -328,55 +256,40 @@ function yMyAcomonSelectOff(){
 }
 
 function yMyAcomonMenuSelect(){
-	switch (yListCount) {
-	case 1:
 		if(yPreView == '.whyBattle'){
 			tagMyMon(yExListCount-1);//재현 1번째 포켓몬 // pokemons[0]
 			yAllyhp();
-			}
-			else{
-				yTextmsg("지금은 <span style='color:#82b5f2'>태그</span> 할 수 없습니다.")
-			}
-			yItemNum();
-		break;
+			yCmdList();
+			yChangeAllyMon();
+		}
+		else{
+			yTextmsg("지금은 <span style='color:#82b5f2'>태그</span> 할 수 없습니다.")
+		}
+		yItemNum();
 	// 나머지 준비 안됨.
-	default:
-		break;
-	}
 }
 
-function yMyAcomonOff(){
-	yPreCssFun();
-	yListCount = 1;
-	if(yPreView == '.whyAllMap'){
-		$('.whyAllMap').css('z-index','20');
-		$('.whyMenubox').css('z-index','30');
-		yLocClassFun("whyMenu");
-	}
-	else if(yPreView == '.whyBattle'){
-		$('.whyBattle').css('z-index','20');
-		$('.whyCmdListbox').css('z-index','30');
-		yLocClassFun("whyCmdList");
-	}
-	$('.whyMyAcomonbox').css('z-index','10');
-	$('.whyTextbox').css('z-index','10');
-	ySetCssFun();
+function yCmdList(time){ //이름 바꿈 <==yMyAcomonOff()
+	setTimeout(function(){
+		yPreCssFun();
+		yListCount = 1;
+		if(yPreView == '.whyAllMap'){
+			$('.whyAllMap').css('z-index','20');
+			$('.whyMenubox').css('z-index','30');
+			yLocClassFun("whyMenu");
+		}
+		else if(yPreView == '.whyBattle'){
+			$('.whyBattle').css('z-index','20');
+			$('.whyCmdListbox').css('z-index','30');
+			yLocClassFun("whyCmdList");
+		}
+		$('.whyMyAcomonbox').css('z-index','10');
+		$('.whyTextbox').css('z-index','10');
+		$('.whyMyItembox').css('z-index','10');
+		ySetCssFun();
+	},time);
 }
-
-function yMyItem(){
-	yPreCssFun();
-	yListCount = 1;
-	if(yPreView == '.whyAllMap'){
-		$('.whyMenubox').css('z-index','10');
-	}
-	else if(yPreView == '.whyBattle'){
-		$('.whyCmdListbox').css('z-index','10');
-	}
-	$('.whyTextbox').css('z-index','30');
-	$('.whyMyItembox').css('z-index','30');
-	yLocClassFun("whyMyItem");
-	ySetCssFun();
-}
+/*
 function yMyItemOff(){
 	yPreCssFun();
 	yListCount = 1;
@@ -393,6 +306,22 @@ function yMyItemOff(){
 	$('.whyMyItembox').css('z-index','10');
 	ySetCssFun();
 }
+*/
+function yMyItem(){
+	yPreCssFun();
+	yListCount = 1;
+	if(yPreView == '.whyAllMap'){
+		$('.whyMenubox').css('z-index','10');
+	}
+	else if(yPreView == '.whyBattle'){
+		$('.whyCmdListbox').css('z-index','10');
+	}
+	$('.whyTextbox').css('z-index','30');
+	$('.whyMyItembox').css('z-index','30');
+	yLocClassFun("whyMyItem");
+	ySetCssFun();
+}
+
 function yStatus(){
 	yPreCssFun();
 	if(yPreView == '.whyAllMap'){
@@ -439,7 +368,8 @@ function yReportOff(){
 	ySetCssFun();
 }
 
-/* 전투 시작 */
+/* 전투시작 */ 
+// 맵팀 => yEventBattle() => 
 //전투화면 호출 // 실제로 중간 대화창이나, 기타 설정을 위해서 좀 늘어질듯..
 function yEventBattle(){
 	yPreView = '.whyBattle';
@@ -454,6 +384,17 @@ function yEventBattle(){
 	yAllyhp();
 	yEnemyhp();
 	ySetCssFun();
+	
+	yMenuControl = false;
+	yAppearEnemyMon();
+	yTextmsg(newPokemon.name+"이 나왔다!",500);
+	setTimeout(function(){
+		yAppearAllyMon();
+	},2500);
+	yCmdList(3500);
+	setTimeout(function(){
+		yMenuControl = true;
+	},3500);
 }
 
 
@@ -532,8 +473,10 @@ function yCmdListSelect(){
 }
 
 
-function yMyAcomonTag(){
+
+	/*
 	switch (yListCount) {
+	
 	case 1:
 		break;
 	case 2:
@@ -561,7 +504,8 @@ function yMyAcomonTag(){
 	default:
 		break;
 	}
-}
+	*/
+
 
 
 function yMyItemSelect(){
@@ -733,6 +677,240 @@ function turnEnd(){
 	$('.whyCmdSkillbox').css('z-index','10');
 	ySetCssFun();
 }
+
+
+
+
+
+
+
+
+
+
+var yMenuControl=true;
+
+var viewHp;
+var hpColor;
+var yBlinkCondtion=true;
+//  깜빡임효과.
+var turnCount=0;
+var imgClass;
+function yBlink(imgClass){
+	blinkCount=0;
+	yBlinkCondtion=false;
+	Blink = setInterval(function(){
+		blinkCount++;
+		if(blinkCount>5){
+			$(imgClass).toggle();
+		}
+		if(blinkCount==11){
+			clearInterval(Blink);
+			yBlinkCondtion=true
+		}
+	},250);
+}
+
+yBlink();
+
+//heal effect
+function yAllyHealEffect(){
+	$('.whyAllyHeal').fadeIn("slow","swing");
+	$('.whyAllyHeal').delay(500).fadeOut("fast","swing");
+}
+
+// 재현 태클이나,스킬공격에 넣으면됨.
+function yAllyAttackEffect(){
+	$('.whyAllyAttack').css({top:"260px",left:"220px",width:'60px',height:'60px'}).fadeIn();
+	$('.whyAllyAttack').animate({top:"80px",left:"250px",width:'380px',height:'200px'},1000);
+	$('.whyAllyAttack').fadeOut();
+	yBlink('.whyEnemyImg');
+}
+
+function yEnemyAttackEffect(){
+/*	애니매이션 부족으로 일단 접어놓음.
+	$('.whyEnemyImg').css({'background-image':'url("img/rd/myMon_06d.gif")'});
+	setTimeout(function(){$('.whyEnemyImg').css({'background-image':'url("img/rd/myMon_06c.png")'})},2730);
+*/
+	$('.whyEnemyAttack').css({top:"120px",left:"450px",width:'60px',height:'60px'}).fadeIn();
+	$('.whyEnemyAttack').animate({top:"220px",left:"10px",width:'300px',height:'300px'},{duration:1000});
+	$('.whyEnemyAttack').fadeOut();
+// 깜빡임 효과(상대편이미지에 주기.적중시기준이지만 일단 전부 적용하는걸로.)
+	yBlink('.whyAllyImg');
+}
+
+
+//hp변경 -> 이미지 변화
+function yAllyhp(){
+	viewHp = (myMonid.hp/myMonid.initHp)*100;
+	if(viewHp>=50) hpColor = "green";
+	else if(viewHp<50 && viewHp>=25) hpColor = "gold";
+	else if(viewHp<25) hpColor = "red";
+	$('.whyAllyBarHp').css({width:viewHp+"%"});
+	$('.whyAllyBarHp').css("background", hpColor);
+}
+
+
+function yEnemyhp(){
+	viewHp = (newPokemon.hp/newPokemon.initHp)*100;
+	if(viewHp>=50) hpColor = "green";
+	else if(viewHp<50 && viewHp>=25) hpColor = "gold";
+	else if(viewHp<25) hpColor = "red";
+	$('.whyEnemyBarHp').css({width:viewHp+"%"});
+	$('.whyEnemyBarHp').css("background", hpColor);
+}
+
+
+
+function yAppearEnemyMon(){
+	setTimeout(function(){
+		$('.whyEnemyImg').css({'background-image':newPokemon.img02});
+		$('.whyEnemyImg').fadeIn();
+	},1500);
+	
+}	
+
+function yDisappearEnemyMon(){
+	$('.whyEnemyImg').fadeOut();
+}
+/*위에꺼 코드 버릴꺼
+	$('.whyEnemyImg').animate({left:'300px'},1000);
+	setTimeout(function(){$('.whyEnemyImg').css({'background-image':newPokemon.img02})},1000);
+	$('.whyEnemyImg').animate({left:'0px'},1000);
+	yTextmsg(newPokemon.name+"이 나왔다!",500);
+*/
+
+function yAppearAllyMon(){
+	$('.whyAllyImg').animate({left:'0px'},1000);
+	$('.whyAllyImg').css({'background-image':myMonid.img01});
+	yTextmsg("가라!!"+myMonid.name+"몬!!!",500);
+}
+function yDisappearAllyMon(){
+	$('.whyAllyImg').animate({left:'-300px'},1000);
+}
+
+function yChangeAllyMon(){
+	$('.whyAllyImg').animate({left:'-300px'},1000);
+	setTimeout(function(){$('.whyAllyImg').css({'background-image':myMonid.img01})},1000);
+	$('.whyAllyImg').animate({left:'0px'},1000);
+	yTextmsg("가라!!"+myMonid.name+"몬!!!",500);
+}
+
+
+
+
+
+
+
+//var yPause=false;
+function yTextmsg(msg,time){ //settime까지 줄까??,time
+	if(yPreView == '.whyBattle'){
+		$('.whyCmdListbox').css('z-index','10');
+		$('.whyCmdSkillbox').css('z-index','10');
+		$('.whyTextbox').css('z-index','30');
+	}
+	else if(yPreView == '.whyAllMap' ){
+		$('.whyTextbox').css('z-index','30');
+	}
+	$('.whyText').html("");
+	setTimeout(function(){$('.whyText').html(msg)},time);
+}
+
+
+
+
+
+
+
+
+
+
+function yUseBall(){
+	
+}
+
+function yBattleWin(){
+	
+}
+
+function yBattleLose(){
+	
+}
+
+
+//	yCmdList(3000);
+
+
+/*
+
+
+
+
+
+function yBattleEnd(){
+	//win or lose가 되면.
+	//win일때.
+	
+	//chach일때.
+	//lose일때.로 나뉜다.
+}
+	
+											/* 전체적인 전투화면 진행
+											A:	몬스터와 조우함 이벤트.
+												1. 몬스터를 만난다(맵팀 만난다 값 발생.)
+												2. 배틀화면 전환 적몬스터가 등장한다.
+													(index값에 따라 다른 몬스터 출현 함수적용)
+												3. 메세지를 띄운다.(ex : @@@이 출현함.)
+												4. 메세지를 띄운다.(ex : 가라~ @@@몬!!!)
+												5. (index 1번부터 dead상태가 아닌 몬스터를 호출한다.- 아마 없는 기능일듯. 그냥 없으면됨.)
+												5.2 아군 몬스터가 등장한다.
+														yCmdList(5000)
+B:	지금껏 봐왔던 배틀화면.
+	1.공격 명령을 선택한다.
+		- 마비 확인.
+		none:
+			1.메세지 : @@@몬 @@@ 스킬 시전!
+				(메세지가 오래 켜져있으면 다음 공격을 할 수없다 ==> 자동 키제어됨.)
+			2.아군 공격 애니메이션
+			3.메세지 : 적군몬이 @@@만큼 ~~~~
+		///	아군몬 마비:
+			 1. 메세지 : 적군이 마비상태입니다~
+			setTime~~
+	이제 적군턴~
+		여기 win,lose, 적군 마비상태 판단,none 해야할듯.
+		none:
+			1.적군 공격 애니메이션
+			2.메세지 : 아군몬이 @@@~~~
+			여기 win,lose,none 판단(아군은 선공이기때문에 다음 공격 전에 마비판단)
+		win:
+			전투승리 이벤트 호출
+		lose:
+			전투 패패 이벤트 호출
+		적군 마비:상태
+			1.메세지 : 적군이 마비상태입니다~ 
+	
+	
+	몬스터 포획이벤트
+		맵화면
+	승리이벤트
+		맵화면으로 간다.
+
+
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

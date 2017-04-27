@@ -171,15 +171,19 @@ function store(wantedService){
 		jiwoo.mint++;
 		jiwoo.golds -= 3000; 
 		storeMsg = "민트를 구입하셨습니다 :)" 
+
 					+"<br/>현재 소유한 민트수량: " + jiwoo.mint
 					+"<br/>현재 소유한 골드량: "+ jiwoo.golds;
+
 	}
 	else if(wantedService == "pokeBall" && jiwoo.golds >= 5000){
 		jiwoo.pokeBall++;
 		jiwoo.golds -= 5000; 
 		storeMsg = "몬스터볼을 구입하셨습니다 :)" 
+
 					+"<br/> 현재 소유한 몬스터볼 수량: " + jiwoo.pokeBall
 					+"<br/> 현재 소유한 골드량: "+ jiwoo.golds;
+
 	}
 	else if(wantedService == "heal" && jiwoo.golds >= 4000){
 		for(var inx =0; inx< pokemons.length; inx++){
