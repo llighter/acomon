@@ -71,68 +71,77 @@ document.addEventListener('keyup', (event) => {
 	switch(npcDetection()) {
 		case MAP_ACADEMY_YANG:
 			chat.style="block";
-			createDiag( temp[0] );
 			option.style="block";
+			createDiag( temp[0] );
 			dialogMode=3;
+			currentMode=4;
 			break;
 		case MAP_00_STORE_NPC:
 			chat.style="block";
-			createDiag( temp[1] );
 			option.style="block";
+			createDiag( temp[1] );
 			dialogMode=2;
+			currentMode=4;
 			// 상점은 2번으로 별 방법을 다했는데 안되서 그냥 상점은 dialogMode을 2로배정
-			
 			break;
 		case MAP_00_QUEST_NPC:
 			chat.style="block";
-			createDiag( temp[2] );
 			option.style="block";
+			createDiag( temp[2] );
 			dialogMode=3;
+			// currentMode=4;
 			// 퀘스트는 dialogMode 3으로
 			break;
 		case MAP_01_STORE_NPC:
 			chat.style="block";
-			createDiag( temp[3] );
 			option.style="block";
+			createDiag( temp[3] );
 			dialogMode=2;
+			currentMode=4;
 			break;
 		case MAP_01_QUEST_NPC:
 			chat.style="block";
-			createDiag( temp[4] );
 			option.style="block";
+			createDiag( temp[4] );
 			dialogMode=3;
+			currentMode=4;
 			break;
 		case MAP_02_STORE_NPC:
 			chat.style="block";
-			createDiag( temp[5] );
 			option.style="block";
+			createDiag( temp[5] );
 			dialogMode=2;
 			break;
 		case MAP_02_QUEST_NPC:
 			chat.style="block";
-			createDiag( temp[6] );
 			option.style="block";
+			createDiag( temp[6] );
 			dialogMode=3;
+			currentMode=4;
 			break;
 		case MAP_BOSS_NPC:
 			chat.style="block";
 			createDiag( temp[8] );
 			dialogMode=1;
+			currentMode=4;
 			break;
 		//	초기 몬스터 3마리 맵배열값 509~511 dialogMode=4로 배정	
 		case MAP_MY_MON01:
 			chat.style="block";
-			meetingMonId=0; quest0(0);
+			option.style="block";
+			meetingMonId=0; quest0(meetingMonId);
 			dialogMode=4;
 			break;
 		case MAP_MY_MON02:
 			chat.style="block";
-			meetingMonId=0; quest0(0);
+			option.style="block";
+			meetingMonId=1; quest0(meetingMonId);
 			dialogMode=4;
 			break;
 		case MAP_MY_MON03:
 			chat.style="block";
-			meetingMonId=0; quest0(0);
+			option.style="block";
+			meetingMonId=2; quest0(meetingMonId);
 			dialogMode=4;
 			break;				
 			
@@ -150,10 +159,10 @@ document.addEventListener('keyup', (event) => {
 // *2키-민트 *3키-포켓볼 *4키-치료 *5키-방생 
   if(dialogMode == 2){
 	  switch(event.keyCode){
-	  case KEYBOARD_2: store("mint"); break;
-	  case KEYBOARD_3: store("pokeBall"); break;
-	  case KEYBOARD_4: store("heal"); break;
-	  case KEYBOARD_5: store("makeMonFree"); break;
+		case KEYBOARD_2: store("mint"); break;
+		case KEYBOARD_3: store("pokeBall"); break;
+		case KEYBOARD_4: store("heal"); break;
+		case KEYBOARD_5: store("makeMonFree"); break;
 		  
 	  }
   }
@@ -162,10 +171,10 @@ document.addEventListener('keyup', (event) => {
 // 예를 들어 스테이지 2퀘스트가 몬스터볼 보상으로 얻는건데 2번키계속누르면 무한으로 얻을수 있음
   if(dialogMode == 3 && event.keyCode == KEYBOARD_2 ){
 	  switch(npcDetection()){
-	  case MAP_ACADEMY_YANG: getQuest(); break;
-	  case MAP_00_QUEST_NPC: getQuest(); break;
-	  case MAP_01_QUEST_NPC: getQuest(); break;
-	  case MAP_02_QUEST_NPC: getQuest(); break;
+		case MAP_ACADEMY_YANG: getQuest(1); break;
+		case MAP_00_QUEST_NPC: getQuest(2); break;
+		case MAP_01_QUEST_NPC: getQuest(3); break;
+		case MAP_02_QUEST_NPC: getQuest(4); break;
 	  } 	  
   }
 }, false);
@@ -399,7 +408,7 @@ function clearDiag() {
 	option.style.display="none"
 	$("#opening").html("");
 	opening.style.display="none"
-
+		currentMode=0;	
 	dialogMode=0;
 }
 
