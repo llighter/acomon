@@ -276,7 +276,6 @@ function questProcess(questId){  //### 맵팀: 퀘스트를 주는 npc
 				그렇다면 에이코몬들을 길러야하네. 프로그래밍 마을의 모든 임무를 완수해서 
 				에이코몬을 키우고 오게! 원한다면 에이코몬을 하나 줄 수 있는데 받을텐가?`;
 		// TODO: 무조건 퀘스트를 받아야 하는 상황으로 설정해놓았음
-		quest[questId].questStatus = BEFORE_QUEST;
 		$('#option').html("'[1] 싫어요! [2]그럴께요!");
 	} else if(questId == 0 && (quest[questId].questStatus == BEFORE_QUEST)) {
 		questShow = "다음의 내용을 해결해주면 되네!";
@@ -285,10 +284,10 @@ function questProcess(questId){  //### 맵팀: 퀘스트를 주는 npc
 		quest[questId].questStatus = ING_QUEST;
 		$('#option').html("[1] 알겠습니다!");
 	} else if(questId == 0 && (quest[questId].questStatus == ING_QUEST)) {
+		quest[questId].questStatus = quest[0].questNeeds ==0 ? DONE_QUEST : ING_QUEST; // 퀘스트 완료 여부 체크
 		questShow = "뭐하고 있나! 아직도 안하다니..";
 		questShow += "<br/> 퀘스트 내용: "+ quest[questId].questContent;
 		questShow += "<br/> 퀘스트 보상: "+ quest[questId].reward;
-		quest[questId].questStatus = pokemons[pokemons.length-1] ? DONE_QUEST : ING_QUEST; // 퀘스트 완료 여부 체크
 		$('#option').html("[1] 알겠습니다!");
 	} else if(questId == 0 && (quest[questId].questStatus == DONE_QUEST)) {
 		// TODO: 퀘스트 성공 시 처리 필요
@@ -453,6 +452,7 @@ function quest0(meetingMonId){   // 맵팀: quest0(~~);함수의 위치: 고를�
 			quest[0].questNeeds--;
 			if(quest[0].questNeeds ==0 ){ 
 				// console.log("다음 퀘스트를 받으려면 퀘스트npc에게 완료보고 하시게!! 하하하하!");
+				quest[0].questStatus == DONE_QUEST;
 				$("#dialog").html("다음 퀘스트를 받으려면 퀘스트npc에게 완료보고 하시게!! 하하하하!");
 				$('#option').html("[1] 알겠습니다!");
 				// 보상은 이미 받은상태이므로 패스.
