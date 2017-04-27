@@ -1,8 +1,8 @@
-/*ㅁㅁ ㅁㅁ 
+/*ㅁㅁ ㅁㅁ  
 * 집에서....Apr28,2017
- * 			00:02
+ * 			00:58
  * 			dev by JB
- * UTF-8
+ *utf-8
  * */
 $(document).ready(function(){
 
