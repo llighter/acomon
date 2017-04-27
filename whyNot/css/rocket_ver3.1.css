@@ -22,16 +22,44 @@ body{overflow:auto;background:#d2e0d1;}
 	회색 : #CFCFC4
 */
 /* 16*16(한칸 40px) */
-
-
-.whyMainBox{
-	z-index:0;
+.whyFullCover{
 	position:absolute;
-	top:0;
-	left:calc( ( 100% - 640px ) / 2); /* 센터 상자위치 */
+	z-index:0;
+	width:1480px;
+	height:827px;
+	top:100px;
+	left:calc( ( 100% - 1480px ) / 2);
+}
+.whyPSP{
+	z-index:1;
+	position:absolute;
+	width:1480px;
+	height:827px;
+	top:35px;
+	left:100px;
+/*
+	background:url("../img/back_player.png") no-repeat center;
+*/
+	background-size:contain;
+}
+.whyPSPinset{
+	z-index:3;
+	position:absolute;
+	top:100px;
+	left:525px;
 	width:640px;
 	height:640px;
-	margin:50px auto;
+	box-shadow:0px 8px 8px 0px rgba(0, 0, 0, 0.7) inset,
+		0px 8px 8px 0px rgba(255, 255, 255, 0.7);
+	
+}
+.whyMainBox{
+	z-index:2;
+	position:absolute;
+	top:100px;
+	left:525px;
+	width:640px;
+	height:640px;
 }
 /*	화면에 보이는것은 이제 z-index 20기준으로*/
 .whyBase{
@@ -41,7 +69,10 @@ body{overflow:auto;background:#d2e0d1;}
 	left:0;
 	width:100%;
 	height:100%;
+	background-color: #e6e6d5;
+	/* 안쓸꺼같음.
 	background-image:url(../img/background01.jpg);
+	*/
 	background-size:contain;
 }
 /*	전체 화면 시작	*/
@@ -63,8 +94,10 @@ body{overflow:auto;background:#d2e0d1;}
 		width:60%;
 		height:40%;
 		margin:auto;
-		border:10px solid #779ECB;
-		background:url("../img/loading01.gif")
+		border:5px solid #a8cbee;
+		background:url("../img/loading01.gif");
+		background-size:100% 100%;
+		box-shadow: 5px 5px 10px 0px #838383;
 	}
 	.whyLoding3{
 		width:100%;
@@ -110,7 +143,6 @@ body{overflow:auto;background:#d2e0d1;}
 	position:absolute;
 	width:100%;
 	height:100%;
-	background:rgba(30, 150, 30, 0.7);
 }
 
 /* 맵 - 메뉴 */
@@ -121,42 +153,52 @@ body{overflow:auto;background:#d2e0d1;}
 	left:calc(100% - 250px - 10px); /* 전체%, 너비px, 마진px */
 	height:calc(480px - 20px - 20px); /* 높이px, 탑마진px, 바텀마진px */
 	width:250px;
-	background:rgb(160, 214, 180);
+	background:#a0d6b4;
 	color:white;
 	text-align:center;
 	padding-top:30px;
+	border-radius:5px;
+	box-shadow: 5px 5px 10px 0px #6a6a6a;
 }
 	.whyMenu{
 		display:inline-block;
 		height:50px;
-		line-height:50px;
-		width:200px;
+		line-height:40px;
+		width:220px;
 		margin:5px;
 		font-size:25px;
-		font-weight:bold;
-		background:rgb(54, 125, 80);
+		border-radius:5px;
+		background:#367d50;
+		border:3px solid #47ab70;
+		box-shadow: 5px 5px 10px 0px #6a6a6a;
+		text-shadow: 1px 1px 3px #000000;
 	}
 .whyStorebox{
 	z-index:10;
 	position:absolute;
 	top:20px;
-	left:0px; /* 전체%, 너비px, 마진px */
+	left:calc(100% - 250px - 10px); /* 전체%, 너비px, 마진px */
 	height:calc(480px - 20px - 20px); /* 높이px, 탑마진px, 바텀마진px */
 	width:250px;
-	background:rgb(160, 214, 180);
+	background:#a0d6b4;
 	color:white;
 	text-align:center;
 	padding-top:30px;
+	border-radius:5px;
+	box-shadow: 5px 5px 10px 0px #6a6a6a;
 }
 	.whyStore{
 		display:inline-block;
 		height:50px;
-		line-height:50px;
+		line-height:40px;
 		width:200px;
 		margin:5px;
 		font-size:25px;
-		font-weight:bold;
-		background:rgb(54, 125, 80);
+		border-radius:5px;
+		background:#367d50;
+		border:3px solid #47ab70;
+		box-shadow: 5px 5px 10px 0px #6a6a6a;
+		text-shadow: 1px 1px 3px #000000;
 	}
 
 /* 전체 - 상태창 */
@@ -165,54 +207,146 @@ body{overflow:auto;background:#d2e0d1;}
 	position:absolute;
 	width:100%;
 	height:100%;
-	background:#b8cde4;
+	background:#bdd0e6;
 	color:white;
-	font-size: 40px;
 }
 	.whyStatus:NTH-CHILD(1){
-		height:60%;
+		height:40%;
 		background:#779ECB;
+		text-shadow: 1px 1px 3px #000000;
+		padding:10px;
+		margin:50px 70px 20px 70px;
+		background:#4376ad;
+		border-radius:5px;
+		border:3px solid #779ECB;
+		box-shadow: 0px 0px 60px 10px #779ECB inset,
+			5px 5px 10px 0px #6a6a6a;
+		text-shadow: 1px 1px 3px #000000;
+		
 	}
+		.whyClassCard{
+			width:100%;
+			height:20%;
+			font-size:30px;
+			font-weight:bold;
+			color:white;
+			text-align:center;
+			text-shadow:
+				0px 0px 0 #c0c0c0,
+				1px 1px 0 #808080,
+				2px 2px 1px rgba(0,0,0,0.7),
+				2px 2px 1px rgba(100,100,100,0.3),
+				0px 0px 1px rgba(150,150,150,0.9);
+		}
 		.whyStatusImgbox{
 			display:inline-block;
-			float:left;
-			height:calc(100% - 40px - 20px); /* 높이%, TOP.px, BOTTOM.px */
-			width:calc(40% - 10px - 10px); /* 너비%, LEFT.px, RIGHT.px */
+			float:left;	
+			height:80%;
+			width:calc(30% - 10px);
+			margin:0px 5px;
+			box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
+				0px 2px 2px 0px rgba(255, 255, 255, 0.5);
+		
+		/*		
 			margin:40px 10px 20px 10px;
-			background:#5593c2;
+			background:#487db9;
+			border-radius:5px;
+			border:3px solid #c4d5e8;
+			box-shadow: 5px 5px 10px 0px #6a6a6a;
+			text-shadow: 1px 1px 3px #000000;
+		*/
 		}
 			.whyStatusImg{
-				height:100%; 
+				height:100%;
+				width:100%;
+			/*
 				width:100%; 
 				background:url("../img/naong01.png") no-repeat center;
 				background-size:100% 70%;
+			*/
 			}
-		.whyStatusNamebox{
+		.whyStatusInfobox{
 			display:inline-block;
 			float:left;
-			height:calc(65% - 40px - 10px); /* 높이%,TOP>px, 바텀px */
-			width:calc(60% - 10px); /* 너비%, RIGHTpx*/
+			height:80%;
+			width:70%;
+			box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
+				0px 2px 2px 0px rgba(255, 255, 255, 0.5);
+			text-align:center;
+		/*
+			display:inline-block;
+			float:left;
 			margin:40px 10px 10px 0px;
-			background:#5593c2;
+			background:#68b4ff;
+			width:calc(60% - 10px); 
+		*/
 		}
-		.whyStatusMoneybox{
+			.whyStatusName{
+				display:inline-block;
+				float:left;
+				widows:50%;
+				height:25%;
+			}
+			.whyStatusMoney{
+							display:inline-block;
+				float:left;
+				widows:50%;
+				height:25%;
+			}
+			.whyStatusPlayTime{
+			
+			}
+			.whyStatusStartTime{
+			
+			}
+		
+	.whyStatus:NTH-CHILD(2){
+		height:60%;
+		text-shadow: 1px 1px 3px #000000;
+		padding:10px;
+		/*
+		background:#3e9eff;
+		border-radius:5px;
+		border:3px solid #68b4ff;
+		box-shadow: 5px 5px 10px 0px #6a6a6a;
+		text-shadow: 1px 1px 3px #000000;
+		*/
+	}
+		.whyStatusScorebox{
 			display:inline-block;
 			float:left;
-			height:calc(35% - 20px); /* 높이%, BOTTOM.px*/
-			width:calc(60% - 10px);	 /* 너비%, RIGHT.px*/
+			width:100%;
+			height:50%;
+			box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
+				0px 2px 2px 0px rgba(255, 255, 255, 0.5);
+		/*
+			display:inline-block;
+			float:left;
+			height:calc(35% - 20px); 
+			width:calc(60% - 10px);	 
 			margin:0px 10px 20px 0px;
-			background:#5593c2;
+			background:#68b4ff;
+		*/
 		}
-	.whyStatus:NTH-CHILD(2){
-		height:40%;
-		background:#5593c2;
-	}
+			.whyStatusScoreFind{
+			
+			}
+			.whyStatusScoreGet{
+			
+			}
+			.whyStatusScoreRanking{
+			
+			}
+		
 		.whyStatusBadge{
-			height:calc(100% - 20px - 20px); /* 높이%, R,L.px*/
-			width:calc(100% - 20px - 20px); /* 높이%, T,B.px*/
+		height:100%;
+		/*
+			height:calc(100% - 20px - 20px); 
+			width:calc(100% - 20px - 20px);
 			float:left;
 			margin:20px;
-			background:#779ECB;
+			background:#68b4ff;
+		*/
 		}
 
 /* 전체 - 리포트 */
@@ -238,6 +372,7 @@ body{overflow:auto;background:#d2e0d1;}
 		border:5px solid #bb0a00;
 		margin:20px 10px;
 		padding:10px;
+		border-radius: 15px;
 	}
 	.whyReportImg{
 		display:inline-block;
@@ -257,6 +392,7 @@ body{overflow:auto;background:#d2e0d1;}
 		border:5px solid #bb0a00;
 		margin:20px 0px 0px 0px;
 		padding:10px;
+		border-radius: 15px;
 	}
 /* (임시삭제:아래 BattleArea -> Battle로 변경)전투 화면용, 하단 자리확보용
 .whyBattle{ 
@@ -278,7 +414,19 @@ body{overflow:auto;background:#d2e0d1;}
 	left:0;
 	width:100%;
 	height:75%;
+	overflow:hidden;
 }	
+	.whyBattleBase{
+		position:absolute;
+		z-index:2;
+		top:0;
+		left:0;
+		width:100%;
+		height:100%;
+		background-image:url(../img/background_battle.gif);
+		background-size: cover;
+		transform: rotate(-23deg);
+	}
 	.whyBattleDiv{
 		position:relative;
 		top:0;
@@ -289,13 +437,14 @@ body{overflow:auto;background:#d2e0d1;}
 		height:100%;
 	}
 	.whyBattleHp{
+		color:white;
 		position:relative;
 		top:0;
 		left:0;
-		width:100%;
-		height:30%;
+		width:calc(100% - 40px);
+		height:calc(30% - 40px);
 		font-size:20px;
-		padding:20px;
+		border-radius:10px;
 	}
 	.whyBattleImg{
 		position:relative;
@@ -306,53 +455,59 @@ body{overflow:auto;background:#d2e0d1;}
 		font-size:60px;
 	}
 	.whyBattleEnemyhp{
-		background:#ffa8a4;
 		font-weight:bold;
 		text-align:center;
+		background:#ffa6a6;
+		margin:40px 0px 0px 30px;
+		box-shadow:5px 5px 10px 0px #6a6a6a;
+		border:3px solid #ffc1c1;
 	}
 		.whyEnemyName{
 			display:inline-block;
 			float:left;
 			width:100%;
-			height:40%;
-			background:#ff6f6f;
+			height:50%;
+			border-bottom:2px dashed #ffc1c1;
 			font-size:30px;
-			padding-left:20px;
+			text-shadow: 1px 1px 3px #000000;
 		}
 		.whyEnemyHpTitle{
 			display:inline-block;
 			float:left;
 			width:25%;
-			height:60%;
-			background:#6a6aff;
+			height:50%;
+			line-height:45px;
 			font-size:40px;
+			text-shadow: 1px 1px 3px #000000;
+
 		}
 		.whyEnemyBarMaxHp{
 			display:inline-block;
 			float:left;
-			width:75%;
-			height:30%;
+			width:65%;
+			height:18%;
+			margin-left:10px;
 			background:#e1e1e1;
-			border:5px solid black;
+			box-shadow:0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
+				0px 2px 2px 0px rgba(255, 255, 255, 0.5);
 		}
 		.whyEnemyBarHp{
 			display:inline-block;
 			float:left;
 			width:0%;
 			height:100%;
-			background:#00a800;
 			transition:width 2s ease, background 1s ease-in;
 			}
 		.whyEnemyTextHp{
 			display:inline-block;
 			float:left;
 			width:75%;
-			height:30%;
-			background:#fff09b;
+			height:32%;
+			line-height:30px;
 			font-size:20px;
+			color:#000000;
 		}
 	.whyBattleAllyimg{
-		background:#8ea3e8;
 		padding:0px 70px 0px 10px;
 	}
 		.whyAllyImg{
@@ -374,7 +529,6 @@ body{overflow:auto;background:#d2e0d1;}
 				opacity:0.55;
 			}
 	.whyBattleEnemyimg{
-		background:#ffa8a4;
 		padding:0px 10px 0px 70px;
 	}
 		.whyEnemyImg{
@@ -386,50 +540,56 @@ body{overflow:auto;background:#d2e0d1;}
 			background-size:contain;
 		}
 	.whyBattleAllyhp{
-		background:#8ea3e8;
 		font-weight:bold;
 		text-align:center;
+		background:#7eb3f1;
+		margin:0px 30px 40px 0px;
+		box-shadow:5px 5px 10px 0px #6a6a6a;
+		border:3px solid #84c1ff;
 	}
 		.whyAllyName{
 			display:inline-block;
 			float:left;
 			width:100%;
-			height:40%;
-			background:red;
+			height:50%;
+			border-bottom:2px dashed #84c1ff;
 			font-size:30px;
-			padding-left:20px;
+			text-shadow: 1px 1px 3px #000000;
 		}
 		.whyAllyHpTitle{
 			display:inline-block;
 			float:left;
 			width:25%;
-			height:60%;
-			background:blue;
+			height:50%;
+			line-height:45px;
 			font-size:40px;
+			text-shadow: 1px 1px 3px #000000;
 		}
 		.whyAllyBarMaxHp{
 			display:inline-block;
 			float:left;
-			width:75%;
-			height:30%;
-			background:white;
-			border:5px solid black;
+			width:65%;
+			height:18%;
+			margin-left:10px;
+			background:#e1e1e1;
+			box-shadow:0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
+				0px 2px 2px 0px rgba(255, 255, 255, 0.5);
 		}
 		.whyAllyBarHp{
 			display:inline-block;
 			float:left;
 			width:0%;
 			height:100%;
-			background:green;
 			transition:width 2s ease, background 1s ease-in;
 			}
 		.whyAllyTextHp{
 			display:inline-block;
 			float:left;
 			width:75%;
-			height:30%;
-			background:gold;
+			height:32%;
+			line-height:30px;
 			font-size:20px;
+			color:#000000;
 		}
 .whyEnemyAttack{
 	display:none;
@@ -476,20 +636,28 @@ body{overflow:auto;background:#d2e0d1;}
 	height:75%;
 	background:#A0D6B4;
 	color:white;
-	padding:15px;
+	padding:5px;
 }
 	.whyMyAcomon{
-		height:calc(16.666% - 5px); /* 겹치는 마진은 상쇄되는듯.*/
-		margin:5px 0px 5px 0px;
+		z-index:19;
+		position:relative;
+		top:0px;
+		left:0px;
+		height:calc(16.666% - 6px); /* 겹치는 마진은 상쇄되는듯.*/
+		margin:5px 20px 5px 20px;
 		background:#2b6240;
 		font-size:20px;
+		line-height:25px;
+		border:6px solid #47ab70;
+		box-shadow: 5px 5px 10px 0px #6a6a6a;
+		text-shadow: 1px 1px 3px #000000;
 	}
 	.whyMyAcomonImg{
 		display:inline-block;
 		float:left;
 		height:100%;
 		width:20%;
-		background-color:#2b6240;
+		background-color:rgba(0, 0, 0, 0.0);
 	}
 	.whyMyAcomonTag{
 		display:inline-block;
@@ -498,8 +666,18 @@ body{overflow:auto;background:#d2e0d1;}
 		width:calc(80% - 10px);
 		background:#3c8858;
 		margin:5px 10px 0px 0px;
-		padding:0 0 0 20px;	 
+		padding:0 0 0 20px;	
+		border-radius: 5px 5px 0px 0px;
 	}
+		.whyMyAcomonTagText{
+			display:inline-block;
+			float:left;
+			width:25%;
+			height:100%;
+			text-align:center;
+			font-weight:bold !important;
+			color:white !important;
+		}
 	.whyMyAcomonValue{
 		display:inline-block;
 		float:left;
@@ -507,27 +685,65 @@ body{overflow:auto;background:#d2e0d1;}
 		width:calc(80% - 10px);
 		background-color:#68bd88;
 		margin:0px 10px 5px 0px;
-		padding:0 0 0 20px;	 
+		padding:0 0 0 20px;	
+		border-radius: 0px 0px 5px 5px;
 	}
+		.whyMyAcomonValueText{
+			display:inline-block;
+			float:left;
+			width:25%;
+			height:100%;
+			text-align:center;
+		}
 		.whyMyAcomon:NTH-CHILD(1) .whyMyAcomonImg{
 			background:url("../img/pocketmon01.gif") no-repeat center;
+			background-size:contain;
 		}
 		.whyMyAcomon:NTH-CHILD(2) .whyMyAcomonImg{
 			background:url("../img/pocketmon02.gif") no-repeat center;
+			background-size:contain;
 		}
 		.whyMyAcomon:NTH-CHILD(3) .whyMyAcomonImg{
 			background:url("../img/pocketmon03.gif") no-repeat center;
+			background-size:contain;
 		}
 		.whyMyAcomon:NTH-CHILD(4) .whyMyAcomonImg{
 			background:url("../img/pocketmon04.gif") no-repeat center;
+			background-size:contain;
 		}
 		.whyMyAcomon:NTH-CHILD(5) .whyMyAcomonImg{
 			background:url("../img/pocketmon05.gif") no-repeat center;
+			background-size:contain;
 		}
-		.whyMyAcomon:NTH-CHILD(6) .whyMyAcomonImg{
-			background:url("../img/pocketmon06.gif") no-repeat center;
-		}
-		
+	
+.whyMyAcomonMenubox{
+	z-index:9;
+	position:absolute;
+	top:200px;
+	left:100px;; /* 전체%, 너비px, 마진px */
+	width:170px;
+	height:195px;
+	background:#a0d6b4;
+	color:white;
+	text-align:center;
+	padding:5px;
+	border:2px solid #e8f4ed;
+	border-radius:2px;
+	box-shadow: 2px 2px 4px 0px #6a6a6a;
+}
+	.whyMyAcomonMenu{
+		display:inline-block;
+		height:35px;
+		line-height:25px;
+		width:140px;
+		margin:5px;
+		font-size:20px;
+		border-radius:5px;
+		background:#367d50;
+		border:1px solid #47ab70;
+		box-shadow: 5px 5px 10px 0px #6a6a6a;
+		text-shadow: 1px 1px 3px #000000;
+	}
 		
 /* 상단 - 아이템 */
 .whyMyItembox{
@@ -539,27 +755,36 @@ body{overflow:auto;background:#d2e0d1;}
 	width:calc(40% - 10px - 10px);
 	padding:20px;
 	margin:10px;
-	background-color:rgba(175, 149, 131, 0.7);
+	background-color:#a0d6b4;
 	color:white;
 	font-size:20px;
 	font-weight:bold;
 	overflow:auto;
+	border-radius: 5px;
 }
 	/* 스크롤 디자인 */
 	.whyMyItembox::-webkit-scrollbar{	
 		width:5px;
-		background:rgba(175, 149, 131, 0.0);
+		background:rgba(0, 0, 0, 0.0);
 	}
 	
 	.whyMyItembox::-webkit-scrollbar-thumb{
-		background:#836953;
+		background:#a0d6b4;
 		-webkit-border-radius: 1ex;
 	}
 	.whyMyItem{
-		height:60px;
+		display:inline-block;
+		text-align:center;
+		height:50px;
+		line-height:40px;
 		width:calc(99.99% - 6px);
 		margin:3px;
-		background-color:#836953;
+		background:#367d50;
+		border:3px solid #47ab70;
+		box-shadow: 5px 5px 10px 0px #6a6a6a;
+		text-shadow: 1px 1px 3px #000000;
+		font-size:20px;
+		border-radius:5px;
 	}
 
 
@@ -570,15 +795,18 @@ body{overflow:auto;background:#d2e0d1;}
 .whyTextbox{
 	z-index:10;
 	position:absolute;
-	left:18px;
-	width:calc(100% - 18px - 18px);
-	height:calc(25% - 18px - 18px);
-	top:calc(75% + 18px);
+	left:10px;
+	width:calc(100% - 10px - 10px);
+	height:calc(25% - 10px);
+	top:75%;
 	border-radius: 5px;
-	box-shadow: 0 0 0 6px white, 0 0 0 12px black;
-	background: black;
+	background: #1f1f1f;
 	font-size:25px;
 	color:white;
+	border:2px solid #e1e1e1;
+	box-shadow: 5px 5px 10px 0px #838383;
+	font-weight: bold;
+	border-radius:5px;
 }
 	.whyText{
 		display:inline-block;
@@ -610,42 +838,71 @@ body{overflow:auto;background:#d2e0d1;}
 .whyCommand{
 	z-index:10;
 	position:absolute;
-	width:100%;
-	height:25%;
-	top:75%;
-	background:#FDFD96;
+	width:calc(100% - 20px);
+	height:calc(25% - 10px);
+	top:calc(75% - 10px);
+	background:#bbbbbb;
+	text-align:center;
+	border-radius:5px;
+	box-shadow: 5px 5px 10px 0px #6a6a6a;
+	margin:10px;
 }
 .whyCmdListbox{
 	z-index:10;
 	position:absolute;
-	width:100%;
-	height:25%;
+	width:calc(100% - 20px);
+	height:calc(25% - 10px);
 	top:75%;
-	font-size:25px;
-	font-weight:bold;
+	left:10px;
 	color:white;
+	font-size:30px;
+	font-weight:bold;
 	padding:5px;
+	border-radius:5px;
 }
 	.whyCmdList{
-		height:calc(25% - 2px);
-		background:#B19CD9;
-		margin:2px;
+		display:inline-block;
+		float:left;
+		width:calc(50% - 10px);
+		height:calc(50% - 10px);
+		margin:5px;
+		font-size:30px;
+		line-height:50px;
+		text-align:center;
+		border-radius:5px;
+		background:#999999;
+		box-shadow:0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
+				0px 2px 2px 0px rgba(255, 255, 255, 0.5);
+		text-shadow: 1px 1px 3px #000000;
 	}
 .whyCmdSkillbox{
 	z-index:10;
 	position:absolute;
-	width:100%;
-	height:25%;
+	width:calc(100% - 20px);
+	height:calc(25% - 10px);
 	top:75%;
-	font-size:25px;
-	font-weight:bold;
+	left:10px;
 	color:white;
+	font-size:30px;
+	font-weight:bold;
 	padding:5px;
+	border-radius:5px;
 }
 	.whyCmdSkill{
-		height:calc(25% - 2px);
-		background:#B19CD9;
-		margin:2px;
+		display:inline-block;
+		float:left;
+		width:calc(50% - 10px);
+		height:calc(50% - 10px);
+		margin:5px;
+		font-size:30px;
+		line-height:50px;
+		border-radius:5px;
+		text-align:center;
+		border-radius:5px;
+		background:#999999;
+		box-shadow:0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
+				0px 2px 2px 0px rgba(255, 255, 255, 0.5);
+		text-shadow: 1px 1px 3px #000000;
 	}
 .whyCmditem{
 }	
@@ -664,4 +921,5 @@ body{overflow:auto;background:#d2e0d1;}
 	
 	
 	
-	
+
+

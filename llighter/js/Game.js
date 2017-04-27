@@ -203,12 +203,14 @@ var chat=document.getElementById("dialog");
 var option=document.getElementById("option");
 
 // 현재 모드 (0 : 맵, 1 : 대전)
-var currentMode = 0;
+// 초기값 opening을 위해 2로 조정 opening멘트 끝나면 0으로 변경
+var currentMode = 2;
 
 var upPressed = false;
 var downPressed = false;
 var leftPressed = false;
 var rightPressed = false;
+
 
 var textOn=0;
 var onPokemonZone = false;
@@ -262,6 +264,10 @@ document.addEventListener('keyup', (event) => {
 	}
   } else if(event.keyCode === 49) {
 	  clearDiag();
+	  // currentMode값을 0으로 변경(opening에 사용)
+	  currentMode = 0;
+	  $("body").css("background","white");
+	  
   }
 }, false);
 
@@ -444,7 +450,7 @@ function setPosition(x, y) {
 }
 
 function draw(){
-
+	
 	var x = MAP_WIDTH/2 - myPlayer.x;
 	var y = MAP_HEIGHT/2 - myPlayer.y;
 	context.drawImage(currentVillage,0,0,1280,1280,x,y,1280,1280);
@@ -475,6 +481,7 @@ var init_talk = ['Acorn 아카데미에 온 것을 환영하네.. 자네는 이�
 				'여기는 CSS 마을이에요 ㅎㅎ',
 				'아저씨 뭐 줄까?',
 				'여기는 Javascript 마을이네.. 아주 위험하지..',
+				'오프닝 멘트입니다 아 귀찮다 귀찮아 워어어어어어엉어엉어어~~~',	// 오프닝멘트
 				];
 
 var market_talk = '[1] 다음에 올께요..		[2] 몬스터볼 1개 구입		  [3]민트 캔디 1개 구입';
@@ -517,6 +524,18 @@ function createDiag ( dialog ) {
 	}
 
 }
+//	오프닝 멘트 창 출력
+function createOpen ( dialog) {
+	for(k = 0; k < dialog.length; k++) {
+		(function(k){
+			setTimeout(function(){
+			// (2) 50*k시간 마다 글자 하나를 dialog에 표시하겠다. 	
+				$('#opening').text($('#opening').text()+dialog[k]);
+			}, 50*k);
+		}(k));
+	}
+}	
+	createOpen(temp[7]);
 
 function clearDiag() {
 	$("#dialog").html("");
@@ -525,6 +544,8 @@ function clearDiag() {
 
 	$("#option").html("");
 	option.style.display="none"
+	$("#opening").html("");
+	opening.style.display="none"
 }
 
 var update = setInterval(function fps(){
