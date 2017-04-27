@@ -354,6 +354,8 @@ var update = setInterval(function fps(){
 		changeMap();
 		pokemonDetction();
 	} else if(currentMode == 1) {
+		// encounter(1,1);
+		$(".whyEnemyName").html("[zzzzz"+ newPokemon.name +"] Lv."+ newPokemon.lv );
 		yEventBattle();
 		currentMode = 3;	// 대전 중
 	} else if(currentMode == 4 || currentMode == 5) {
