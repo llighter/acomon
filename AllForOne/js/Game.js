@@ -47,6 +47,7 @@ var option=document.getElementById("option");
  * 2 : 오프닝
  * 3 : 대전 중
  * 4 : 메뉴 창 오픈
+ * 5 : 대화 중
  */
 // 초기값 opening을 위해 2로 조정 opening멘트 끝나면 0으로 변경
 var currentMode = 2;
@@ -58,6 +59,8 @@ var currentMode = 2;
  * 1 : 일반 대화 상태
  * 2 : 상점 거래
  * 3 : 퀘스트 상태
+ * 4 :
+ * 5 : 퀘스트 진행중
  */
 var dialogMode=0;
 var battleCountDown = 4;
@@ -67,119 +70,66 @@ createOpening(temp[7]);
 
 
 document.addEventListener('keyup', (event) => {
-  if (event.keyCode === SPACE_BAR && dialogMode == 0) {
-	switch(npcDetection()) {
-		case MAP_ACADEMY_YANG:
-			chat.style="block";
-			option.style="block";
-			createDiag( temp[0] );
-			dialogMode=3;
-			currentMode=4;
-			break;
-		case MAP_00_STORE_NPC:
-			chat.style="block";
-			option.style="block";
-			createDiag( temp[1] );
-			dialogMode=2;
-			currentMode=4;
-			// 상점은 2번으로 별 방법을 다했는데 안되서 그냥 상점은 dialogMode을 2로배정
-			break;
-		case MAP_00_QUEST_NPC:
-			chat.style="block";
-			option.style="block";
-			createDiag( temp[2] );
-			dialogMode=3;
-			// currentMode=4;
-			// 퀘스트는 dialogMode 3으로
-			break;
-		case MAP_01_STORE_NPC:
-			chat.style="block";
-			option.style="block";
-			createDiag( temp[3] );
-			dialogMode=2;
-			currentMode=4;
-			break;
-		case MAP_01_QUEST_NPC:
-			chat.style="block";
-			option.style="block";
-			createDiag( temp[4] );
-			dialogMode=3;
-			currentMode=4;
-			break;
-		case MAP_02_STORE_NPC:
-			chat.style="block";
-			option.style="block";
-			createDiag( temp[5] );
-			dialogMode=2;
-			break;
-		case MAP_02_QUEST_NPC:
-			chat.style="block";
-			option.style="block";
-			createDiag( temp[6] );
-			dialogMode=3;
-			currentMode=4;
-			break;
-		case MAP_BOSS_NPC:
-			chat.style="block";
-			createDiag( temp[8] );
-			dialogMode=1;
-			currentMode=4;
-			break;
-		//	초기 몬스터 3마리 맵배열값 509~511 dialogMode=4로 배정	
-		case MAP_MY_MON01:
-			chat.style="block";
-			option.style="block";
-			meetingMonId=0; quest0(meetingMonId);
-			dialogMode=4;
-			break;
-		case MAP_MY_MON02:
-			chat.style="block";
-			option.style="block";
-			meetingMonId=1; quest0(meetingMonId);
-			dialogMode=4;
-			break;
-		case MAP_MY_MON03:
-			chat.style="block";
-			option.style="block";
-			meetingMonId=2; quest0(meetingMonId);
-			dialogMode=4;
-			break;				
-			
+	if (event.keyCode === SPACE_BAR && 
+  		(npcDetection() == MAP_ACADEMY_YANG
+		  || npcDetection() == MAP_00_QUEST_NPC
+		  || npcDetection() == MAP_01_QUEST_NPC
+		  || npcDetection() == MAP_02_QUEST_NPC)) {
+		chat.style="block";
+		option.style="block";
+		currentMode=5;	// 대화중에는 움직이지 않기
+		switch(npcDetection()) {
+			case MAP_ACADEMY_YANG:	questProcess(0);	break;
+			case MAP_00_QUEST_NPC:	questProcess(1);	break;
+			case MAP_01_QUEST_NPC:	questProcess(2);	break;
+			case MAP_02_QUEST_NPC:	questProcess(3);	break;
 
+			// TODO: 다른데로 옮겨야함	
+			case MAP_MY_MON01:	quest0(0);	break;
+			case MAP_MY_MON02:	quest0(1);	break;
+			case MAP_MY_MON03:	quest0(2);	break;
+		}
+	} else if(event.keyCode === KEYBOARD_1) {
+			clearDiag();
+			currentMode = 0;
+			$("body").css("background","white");	  
+	} else if(event.keyCode === KEYBOARD_2) {
+		switch(npcDetection()) {
+			case MAP_ACADEMY_YANG:	questProcess(0);	break;
+			case MAP_00_QUEST_NPC:	questProcess(1);	break;	
+			case MAP_01_QUEST_NPC:	questProcess(2);	break;
+			case MAP_02_QUEST_NPC:	questProcess(3);	break;
+		}
 	}
-  } else if(event.keyCode === KEYBOARD_1) {
-	  clearDiag();
-	  // currentMode값을 0으로 변경(opening에 사용)
-	  currentMode = 0;
-	  $("body").css("background","white");	  
-  }
-//상점은 2번으로 별 방법을 다했는데 안되서 그냥 상점은 dialogMode을 2로배정  
-// 상점.... 정리가 안되도 그냥 한다 작동이 되니까!
-// mapBattleFunctions.js에서 store()함수 끌고옴
-// *2키-민트 *3키-포켓볼 *4키-치료 *5키-방생 
-  if(dialogMode == 2){
-	  switch(event.keyCode){
+	
+	if (event.keyCode === SPACE_BAR && 
+  		(npcDetection() == MAP_00_STORE_NPC
+		  || npcDetection() == MAP_01_STORE_NPC
+		  || npcDetection() == MAP_02_STORE_NPC)) {
+		chat.style="block";
+		option.style="block";
+		currentMode=5;	// 대화중에는 움직이지 않기
+		switch(npcDetection()) {
+			case MAP_00_STORE_NPC:	storeProcess(0);	break;
+			case MAP_01_STORE_NPC:	storeProcess(1);	break;
+			case MAP_02_STORE_NPC:	storeProcess(2);	break;
+		}
+	}
+	
+	if(npcDetection() == MAP_00_STORE_NPC
+		|| npcDetection() == MAP_01_STORE_NPC
+		|| npcDetection() == MAP_02_STORE_NPC) {
+		switch(event.keyCode){
 		case KEYBOARD_2: store("mint"); break;
 		case KEYBOARD_3: store("pokeBall"); break;
 		case KEYBOARD_4: store("heal"); break;
 		case KEYBOARD_5: store("makeMonFree"); break;
 		  
 	  }
-  }
-// 퀘스트. dialogMode=3이고 2번 눌렀을때 퀘스트대화창발생 
-// 퀘스트는 심각한 오류가 있음. 2번키누르면 퀘스트 수락인데 이게 중복으로 계속 발생
-// 예를 들어 스테이지 2퀘스트가 몬스터볼 보상으로 얻는건데 2번키계속누르면 무한으로 얻을수 있음
-  if(dialogMode == 3 && event.keyCode == KEYBOARD_2 ){
-	  switch(npcDetection()){
-		case MAP_ACADEMY_YANG: getQuest(1); break;
-		case MAP_00_QUEST_NPC: getQuest(2); break;
-		case MAP_01_QUEST_NPC: getQuest(3); break;
-		case MAP_02_QUEST_NPC: getQuest(4); break;
-	  } 	  
-  }
+	}
+
 }, false);
 
-var meetingMonId=1;
 // A키 눌렀을 때
 document.addEventListener('keyup', (event) => {
   if (event.keyCode === KEYBOARD_A) {
@@ -423,7 +373,7 @@ var update = setInterval(function fps(){
 	} else if(currentMode == 1) {
 		yEventBattle();
 		currentMode = 3;	// 대전 중
-	} else if(currentMode == 4) {
+	} else if(currentMode == 4 || currentMode == 5) {
 		draw();
 	}
 	

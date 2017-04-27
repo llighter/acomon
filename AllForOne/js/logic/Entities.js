@@ -31,10 +31,19 @@ function MyPokemon(bookNo, id, name, lv, exp, hp, att, shield, property, status,
 	this.initHp = hp;
 }
 
-function QuestList(questNo, questContent, questNeeds, questDone, reward){  // ## 주어진 시간?? 이런것도 해볼수잇나
+// function QuestList(questNo, questContent, questNeeds, questDone, reward){  // ## 주어진 시간?? 이런것도 해볼수잇나
+// 	this.questNo = questNo;
+// 	this.questContent = questContent;
+// 	this.questNeeds = questNeeds;
+// 	this.questDone = questDone;
+// 	this.reward = reward;
+// }
+
+// questNeeds -> questStatus 로 변경
+function QuestList(questNo, questContent, questStatus, questDone, reward){  // ## 주어진 시간?? 이런것도 해볼수잇나
 	this.questNo = questNo;
 	this.questContent = questContent;
-	this.questNeeds = questNeeds;
+	this.questStatus = questStatus;
 	this.questDone = questDone;
 	this.reward = reward;
 }
