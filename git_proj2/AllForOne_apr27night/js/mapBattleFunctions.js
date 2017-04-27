@@ -1,8 +1,8 @@
 /*ㅁㅁ ㅁㅁ 
 * 집에서....Apr28,2017
- * 			00:02
+ * 			00:58
  * 			dev by JB
- * UTF-8
+ *utf-8
  * */
 $(document).ready(function(){
 
@@ -11,26 +11,26 @@ $(document).ready(function(){
 // 포켓몬세계 전체 몬스터리스트.
 mapPokemons = [];
 
-//					    몬북고유번호지정,id,  name 	  	  ,lv,exp,hp,att,방어,상성    //@@//
+//					    		 id,  name 	  	  ,lv,exp,hp,att,방어,상성    //@@//
 mapPokemons.push(new WorldPokemon(0, "HTML",		1, 0, 50, 13, 1, 0, "url('img/rd/myMon_01a.gif')","url('img/rd/myMon_01b.png')","url('img/rd/myMon_01c.png')" ));  // 세계 몬스터도감 id는 순서대로 넣어줄것.
-mapPokemons.push(new WorldPokemon(1, "CSS", 		1, 0, 52, 15, 2, 1, "url('img/rd/myMon_02a.gif')","url('img/rd/myMon_02b.png')","url('img/rd/myMon_02c.png')" )); 
-mapPokemons.push(new WorldPokemon(2, "SQL", 		1, 0, 54, 17, 2, 2, "url('img/rd/myMon_03a.gif')","url('img/rd/myMon_03b.png')","url('img/rd/myMon_03c.png')" )); 
-mapPokemons.push(new WorldPokemon(3, "Javascript",  1, 0, 56, 15, 3, 3, "url('img/rd/myMon_04a.gif')","url('img/rd/myMon_04b.png')","url('img/rd/myMon_04c.png')" )); 
-mapPokemons.push(new WorldPokemon(4, "JAVA", 		1, 0, 58, 14, 3, 4, "url('img/rd/myMon_05a.gif')","url('img/rd/myMon_05b.png')","url('img/rd/myMon_05c.png')" )); 	//property: "물","바람","풀","불","흙"
-mapPokemons.push(new WorldPokemon(5, "AJAX", 		1, 0, 68, 19, 3, 1, "url('img/rd/myMon_06a.gif')","url('img/rd/myMon_06b.png')","url('img/rd/myMon_06c.png')" ));   
+mapPokemons.push(new WorldPokemon(1, "CSS", 		1, 0, 52, 15, 2, 1, "url('img/rd/myMon_02a.gif')","url('img/rd/myMon_02b.png')","url('img/rd/myMon_02c.png')")); 
+mapPokemons.push(new WorldPokemon(2, "SQL", 		1, 0, 54, 17, 2, 2, "url('img/rd/myMon_03a.gif')","url('img/rd/myMon_03b.png')","url('img/rd/myMon_03c.png')")); 
+mapPokemons.push(new WorldPokemon(3, "Javascript",  1, 0, 56, 15, 3, 3, "url('img/rd/myMon_04a.gif')","url('img/rd/myMon_04b.png')","url('img/rd/myMon_04c.png')")); 
+mapPokemons.push(new WorldPokemon(4, "JAVA", 		1, 0, 58, 14, 3, 4, "url('img/rd/myMon_05a.gif')","url('img/rd/myMon_05b.png')","url('img/rd/myMon_05c.png')")); 	//property: "물","바람","풀","불","흙"
+mapPokemons.push(new WorldPokemon(5, "AJAX", 		1, 0, 68, 19, 3, 1, "url('img/rd/myMon_06a.gif')","url('img/rd/myMon_06b.png')","url('img/rd/myMon_06c.png')"));   
 		// ### 맵팀: 보스는 흙속성이니깐 물속성에 약함, 너무강해서 태그해야함. >> 퀘스트줄때 힌트제공?
 
 // 내포켓몬북에 있는 몬스터리스트.
 var pokemons =[];
-var propertyNames = ["물","바람","풀","불","흙"];  
-var skillNames = ["물폭탄던지기!","바람베기!","덩쿨채찍!","화염폭탄!","지진일으키기!"]; 
+var propertyNames = ["물","바람","풀","불","흙"];  //###맵팀?? 이름??;;;
+var skillNames = ["물폭탄던지기!","바람베기!","덩쿨채찍!","화염폭탄!","지진일으키기!"]; //###맵팀?? 이름??;;;
 var effectTimes;
 var skill2Names = ["reflect","sharpen","paralyze","burn","shieldOn"]; 
 var bookNumber = 0;
 
-//								몬북고유번호지정,id,  name 	  ,lv,exp,hp,att,방어,상성,현재상태  //@@//
+//								몬북고유번호지정,id,  name 	  ,lv,exp,hp,att,방어,상성,현재상태
 pokemons.push(new MyPokemon((bookNumber++), 2, "SQL",		2, 0, 54, 17, 2, 2 ,"normal", "url('img/rd/myMon_03a.gif')","url('img/rd/myMon_03b.png')","url('img/rd/myMon_03c.png')" ));  // 일반공격이 1이면 스킬1공격은 최소 1.2 최대1.7랜덤
-pokemons.push(new MyPokemon((bookNumber++), 3, "Javascript",2, 0, 56, 15, 3, 3 ,"normal", "url('img/rd/myMon_04a.gif')","url('img/rd/myMon_04b.png')","url('img/rd/myMon_04c.png')" ));  // 
+pokemons.push(new MyPokemon((bookNumber++), 3, "Javascript",2, 0, 56, 15, 3, 3 ,"normal", "url('img/rd/myMon_04a.gif')","url('img/rd/myMon_04b.png')","url('img/rd/myMon_04c.png')"));  // 
 pokemons.push(new MyPokemon((bookNumber++), 1, "CSS",		2, 0, 52, 15, 2, 1 ,"normal", "url('img/rd/myMon_02a.gif')","url('img/rd/myMon_02b.png')","url('img/rd/myMon_02c.png')" ));  // 포켓몬번호 이름 체력 기본공격력 기본방어력
 pokemons.push(new MyPokemon((bookNumber++), 4, "JAVA", 		2, 0, 58, 14, 3, 4 ,"normal", "url('img/rd/myMon_05a.gif')","url('img/rd/myMon_05b.png')","url('img/rd/myMon_05c.png')" ));  
 pokemons.push(new MyPokemon((bookNumber++), 0, "HTML", 		2, 0, 50, 13, 1, 0 ,"normal", "url('img/rd/myMon_01a.gif')","url('img/rd/myMon_01b.png')","url('img/rd/myMon_01c.png')" ));  
@@ -140,15 +140,19 @@ function store(wantedService){
 		jiwoo.mint++;
 		jiwoo.golds -= 3000; 
 		storeMsg = "민트를 구입하셨습니다 :)" 
+
 					+"<br/>현재 소유한 민트수량: " + jiwoo.mint
 					+"<br/>현재 소유한 골드량: "+ jiwoo.golds;
+
 	}
 	else if(wantedService == "pokeBall" && jiwoo.golds >= 5000){
 		jiwoo.pokeBall++;
 		jiwoo.golds -= 5000; 
 		storeMsg = "몬스터볼을 구입하셨습니다 :)" 
+
 					+"<br/> 현재 소유한 몬스터볼 수량: " + jiwoo.pokeBall
 					+"<br/> 현재 소유한 골드량: "+ jiwoo.golds;
+
 	}
 	else if(wantedService == "heal" && jiwoo.golds >= 4000){
 		for(var inx =0; inx< pokemons.length; inx++){
@@ -166,7 +170,7 @@ function store(wantedService){
 	}
 	else if(wantedService == "makeMonFree"){
 		var listNo =0 ;
-		for(bookNo in pokemons){  //### 맵팀: 대화창에 리스트 출력.  //@@//
+		for(bookNo in pokemons){  //### 맵팀: 대화창에 리스트 출력.
 			$("#dialog").html("보유 포켓몬: list"+ (++listNo) +" 몬스터이름: " + pokemons[bookNo].name);
 		}
 		var findListNo =0 ;
@@ -217,52 +221,53 @@ const DONE_QUEST = 3;
 const END_QUEST = 4;
 
 var quest = [];		//questNo, questContent, 		questNeeds, questDone, reward
-quest.push(new QuestList(0, "\"셋중 아무거나 골라보시게\" "			,FIRST_MEET , false, "고른 포켓몬을 소유.", 1));
-quest.push(new QuestList(1, "\"불속성 몬스터를 2마리 쓰러트리시게.\" "	,FIRST_MEET , false, "4000골드.", 2));  //###속성 random()?
-quest.push(new QuestList(2, "\"몬스터북에 3마리 이상 소유하시게.\" " 	,FIRST_MEET , false, "몬스터볼 3개.", 3));
-quest.push(new QuestList(3, "\"민트를 3개 가져다 주시게.\" "			,FIRST_MEET , false, "10000골드", 3)); 
+quest.push(new QuestList(0, "\"셋중 아무거나 골라보시게\" "			,1 , false, "고른 포켓몬을 소유."));
+quest.push(new QuestList(1, "\"불속성 몬스터를 2마리 쓰러트리시게.\" "	,2 , false, "4000골드."));  //###속성 random()?
+quest.push(new QuestList(2, "\"몬스터북에 3마리 이상 소유하시게.\" " 	,3 , false, "몬스터볼 3개." ));
+quest.push(new QuestList(3, "\"민트를 3개 가져다 주시게.\" "			,3 , false, "10000골드" )); 
 
-// 변경 하기 전 세이브
-// var questNow = 0;
-// function getQuest_old(questId){  //### 맵팀: 퀘스트를 주는 npc
-// 	var questShow = "";
-// 	if(questNow == 1 && quest[1].questNeeds <= 0){  // 퀘스트 1(불속성2마리잡기) 완료할시.
-// 		questShow = "오호.. 자네 생각보다 쓸만하구만!! 인물이야! 하하하하!!";
-// 		questShow += "<br/>받기전 골드: " + jiwoo.golds;
-// 		jiwoo.golds+= 4000;
-// 		questShow += "<br/>4000 골드를 받았다. 현재 골드: " + jiwoo.golds;
-// 		quest[1].questDone = true;
-// 		questNow++;
-// 		$('#option').html("[1] 감사합니다!");
-// 	}
-// 	if(questNow == 2 && pokemons.length >= quest[2].questNeeds){ // 퀘스트 2(소유몬스터 6마리) 완료할시.
-// 		questShow = "벌써 이렇게나!!! 자네 배우는게 빠르구만! 하하하하!!";
-// 		questShow += "<br/>받기전 몬볼수: " + jiwoo.pokeBall;
-// 		jiwoo.pokeBall += 3;
-// 		questShow += "<br/>몬볼 3개를 받았다. 현재 몬볼수: " + jiwoo.pokeBall;
-// 		quest[2].questDone = true;
-// 		questNow++;
-// 		$('#option').html("[1] 감사합니다!");
-// 	}
-// 	if(questNow == 3 && jiwoo.mint >= quest[3].questNeeds){ // 퀘스트 3(민드3개 헌납) 완료할시.
-// 		questShow = "벌써 이렇게나!!! 자네 배우는게 빠르구만! 하하하하!!";
-// 		questShow += "<br/>받기전 골드: " + jiwoo.golds;
-// 		jiwoo.mint -= 3;
-// 		jiwoo.golds+= 10000;
-// 		questShow += "<br/>4000 골드를 받았다. 현재 골드: " + jiwoo.golds;
-// 		quest[3].questDone = true;
-// 		questNow++;
-// 		$('#option').html("[1] 감사합니다!");
-// 	}
-// 	if(quest[questNow].questDone == false ){   // 완료 못할시 퀘스트 내용과 보상을 보여줄것.
-// 		questShow = "다음의 내용을 해결해주면 되네!";
-// 		questShow += "<br/> 퀘스트 내용: "+ quest[questNow].questContent;
-// 		questShow += "<br/> 퀘스트 보상: "+ quest[questNow].reward;
-// 		$('#option').html("[1] 알겠습니다!");
+/*
+var questNow = 0;
+function getQuest(questId){  //### 맵팀: 퀘스트를 주는 npc
+	var questShow = "";
+	if(questNow == 1 && quest[1].questNeeds <= 0){  // 퀘스트 1(불속성2마리잡기) 완료할시.
+		questShow = "오호.. 자네 생각보다 쓸만하구만!! 인물이야! 하하하하!!";
+		questShow += "<br/>받기전 골드: " + jiwoo.golds;
+		jiwoo.golds+= 4000;
+		questShow += "<br/>4000 골드를 받았다. 현재 골드: " + jiwoo.golds;
+		quest[1].questDone = true;
+		questNow++;
+		$('#option').html("[1] 감사합니다!");
+	}
+	if(questNow == 2 && pokemons.length >= quest[2].questNeeds){ // 퀘스트 2(소유몬스터 6마리) 완료할시.
+		questShow = "벌써 이렇게나!!! 자네 배우는게 빠르구만! 하하하하!!";
+		questShow += "<br/>받기전 몬볼수: " + jiwoo.pokeBall;
+		jiwoo.pokeBall += 3;
+		questShow += "<br/>몬볼 3개를 받았다. 현재 몬볼수: " + jiwoo.pokeBall;
+		quest[2].questDone = true;
+		questNow++;
+		$('#option').html("[1] 감사합니다!");
+	}
+	if(questNow == 3 && jiwoo.mint >= quest[3].questNeeds){ // 퀘스트 3(민드3개 헌납) 완료할시.
+		questShow = "벌써 이렇게나!!! 자네 배우는게 빠르구만! 하하하하!!";
+		questShow += "<br/>받기전 골드: " + jiwoo.golds;
+		jiwoo.mint -= 3;
+		jiwoo.golds+= 10000;
+		questShow += "<br/>4000 골드를 받았다. 현재 골드: " + jiwoo.golds;
+		quest[3].questDone = true;
+		questNow++;
+		$('#option').html("[1] 감사합니다!");
+	}
+	if(quest[questNow].questDone == false ){   // 완료 못할시 퀘스트 내용과 보상을 보여줄것.
+		questShow = "다음의 내용을 해결해주면 되네!";
+		questShow += "<br/> 퀘스트 내용: "+ quest[questNow].questContent;
+		questShow += "<br/> 퀘스트 보상: "+ quest[questNow].reward;
+		$('#option').html("[1] 알겠습니다!");
 
-// 	}
-// 	$("#dialog").html(questShow);
-// }
+	}
+	$("#dialog").html(questShow);
+}
+*/
 
 function questProcess(questId){  //### 맵팀: 퀘스트를 주는 npc
 	var questShow = "";
@@ -272,6 +277,7 @@ function questProcess(questId){  //### 맵팀: 퀘스트를 주는 npc
 				그렇다면 에이코몬들을 길러야하네. 프로그래밍 마을의 모든 임무를 완수해서 
 				에이코몬을 키우고 오게! 원한다면 에이코몬을 하나 줄 수 있는데 받을텐가?`;
 		// TODO: 무조건 퀘스트를 받아야 하는 상황으로 설정해놓았음
+		quest[questId].questStatus = BEFORE_QUEST;
 		$('#option').html("'[1] 싫어요! [2]그럴께요!");
 	} else if(questId == 0 && (quest[questId].questStatus == BEFORE_QUEST)) {
 		questShow = "다음의 내용을 해결해주면 되네!";
@@ -280,10 +286,10 @@ function questProcess(questId){  //### 맵팀: 퀘스트를 주는 npc
 		quest[questId].questStatus = ING_QUEST;
 		$('#option').html("[1] 알겠습니다!");
 	} else if(questId == 0 && (quest[questId].questStatus == ING_QUEST)) {
-		quest[questId].questStatus = quest[0].questNeeds ==0 ? DONE_QUEST : ING_QUEST; // 퀘스트 완료 여부 체크
 		questShow = "뭐하고 있나! 아직도 안하다니..";
 		questShow += "<br/> 퀘스트 내용: "+ quest[questId].questContent;
 		questShow += "<br/> 퀘스트 보상: "+ quest[questId].reward;
+		quest[questId].questStatus = pokemons[pokemons.length-1] ? DONE_QUEST : ING_QUEST; // 퀘스트 완료 여부 체크
 		$('#option').html("[1] 알겠습니다!");
 	} else if(questId == 0 && (quest[questId].questStatus == DONE_QUEST)) {
 		// TODO: 퀘스트 성공 시 처리 필요
@@ -435,9 +441,9 @@ function quest0(meetingMonId){   // 맵팀: quest0(~~);함수의 위치: 고를�
 					getThisMon.hp,
 					getThisMon.att,
 					getThisMon.shield,    //@@//
-					getThisMon.property,
+					getThisMon.property,  
 					"normal",  // status =0 // 정상.
-					getThisMon.img00,   //@@//
+					getThisMon.img00,  
 					getThisMon.img01,
 					getThisMon.img02
 					//pokemons   몬북고유번호지정,id,  name 	      ,lv,exp,hp,att,방어,상성,현재상태
@@ -448,12 +454,11 @@ function quest0(meetingMonId){   // 맵팀: quest0(~~);함수의 위치: 고를�
 			quest[0].questNeeds--;
 			if(quest[0].questNeeds ==0 ){ 
 				// console.log("다음 퀘스트를 받으려면 퀘스트npc에게 완료보고 하시게!! 하하하하!");
-				quest[0].questStatus == DONE_QUEST;
 				$("#dialog").html("다음 퀘스트를 받으려면 퀘스트npc에게 완료보고 하시게!! 하하하하!");
 				$('#option').html("[1] 알겠습니다!");
 				// 보상은 이미 받은상태이므로 패스.
 				quest[0].questDone = true;
-				questId++;
+				questNow++;
 			}
 		}
 		else{

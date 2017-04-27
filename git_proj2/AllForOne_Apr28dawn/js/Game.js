@@ -93,18 +93,10 @@ document.addEventListener('keyup', (event) => {
 			$("body").css("background","white");	  
 	} else if(event.keyCode === KEYBOARD_2) {
 		switch(npcDetection()) {
-			case MAP_ACADEMY_YANG:
-				quest[0].questStatus = BEFORE_QUEST;
-				questProcess(0);	break;
-			case MAP_00_QUEST_NPC:
-				quest[1].questStatus = BEFORE_QUEST;
-				questProcess(1);	break;	
-			case MAP_01_QUEST_NPC:
-				quest[2].questStatus = BEFORE_QUEST;
-				questProcess(2);	break;
-			case MAP_02_QUEST_NPC:
-				quest[3].questStatus = BEFORE_QUEST;
-				questProcess(3);	break;
+			case MAP_ACADEMY_YANG:	questProcess(0);	break;
+			case MAP_00_QUEST_NPC:	questProcess(1);	break;	
+			case MAP_01_QUEST_NPC:	questProcess(2);	break;
+			case MAP_02_QUEST_NPC:	questProcess(3);	break;
 		}
 	}
 	
@@ -362,8 +354,6 @@ var update = setInterval(function fps(){
 		changeMap();
 		pokemonDetction();
 	} else if(currentMode == 1) {
-		// encounter(1,1);
-		$(".whyEnemyName").html("[zzzzz"+ newPokemon.name +"] Lv."+ newPokemon.lv );
 		yEventBattle();
 		currentMode = 3;	// 대전 중
 	} else if(currentMode == 4 || currentMode == 5) {
