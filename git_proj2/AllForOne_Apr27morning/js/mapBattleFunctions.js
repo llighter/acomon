@@ -1,6 +1,6 @@
 /*ㅁㅁ ㅁㅁ
 * 학원에서....Apr27,2017
- * 			11:21
+ * 			13:03
  * 			dev by JB
  * MS969
  * */
@@ -334,7 +334,7 @@ function quest0(meetingMonId){   // 맵팀: quest0(~~);함수의 위치: 고를�
 					getThisMon.property,
 					getThisMon.img00,   //@@//
 					getThisMon.img01,
-					getThisMon.img02
+					getThisMon.img02,
 					"normal"  // status =0 // 정상.
 			));
 			checkPokemonBook();
