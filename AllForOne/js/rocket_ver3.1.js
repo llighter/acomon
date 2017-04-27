@@ -27,7 +27,7 @@ document.addEventListener("keydown", ykeyRokect);
 
 function ykeyRokect(event){
 // 	if(event.keyCode)console.log(String.fromCharCode(event.keyCode)+":"+event.keyCode);*/
-//	if(true){
+	if(true){
 		if(event.keyCode == 38){
 			yUpPressed();
 	    }
@@ -49,7 +49,7 @@ function ykeyRokect(event){
 	    else if(event.keyCode == 88){ //x키 : 뒤로가기키
 	    	yXkeyPressed();
 	    }
-//	}
+	}
 }
 
 function yUpPressed(){
@@ -674,9 +674,9 @@ function yEnemyAttackEffect(){
 //hp변경 -> 이미지 변화
 function yAllyhp(){
 	viewHp = (myMonid.hp/myMonid.initHp)*100;
-	if(viewHp>=50) hpColor = "green";
-	else if(viewHp<50 && viewHp>=25) hpColor = "gold";
-	else if(viewHp<25) hpColor = "red";
+	if(viewHp>=50) hpColor = "#27d364";
+	else if(viewHp<50 && viewHp>=25) hpColor = "#FFB347";
+	else if(viewHp<25) hpColor = "#ff4b42";
 	$('.whyAllyBarHp').css({width:viewHp+"%"});
 	$('.whyAllyBarHp').css("background", hpColor);
 }
@@ -684,9 +684,9 @@ function yAllyhp(){
 
 function yEnemyhp(){
 	viewHp = (newPokemon.hp/newPokemon.initHp)*100;
-	if(viewHp>=50) hpColor = "green";
-	else if(viewHp<50 && viewHp>=25) hpColor = "gold";
-	else if(viewHp<25) hpColor = "red";
+	if(viewHp>=50) hpColor = "#27d364";
+	else if(viewHp<50 && viewHp>=25) hpColor = "#FFB347";
+	else if(viewHp<25) hpColor = "#ff4b42";
 	$('.whyEnemyBarHp').css({width:viewHp+"%"});
 	$('.whyEnemyBarHp').css("background", hpColor);
 }
@@ -718,9 +718,6 @@ function yChangeAllyMon(){
 	$('.whyAllyImg').animate({left:'0px'},1000);
 	yTextmsg("가라!!"+myMonid.name+"몬!!!",500);
 }
-
-
-
 
 
 
