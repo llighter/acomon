@@ -112,6 +112,7 @@ function encounter( randID1 , randID2 ){
 }*/
 function checkPokemonBook(){  // bookNumber = listCount-1;
 	for(var idx =0; idx< pokemons.length; idx++){
+		$(".whyMyAcomonImg").eq(idx).css({'background-image':pokemons[idx].img00});
 		$(".whyMyAcomonValue:eq("+idx+") .whyMyAcomonValueText:eq(0)").html(pokemons[idx].name);
 		$(".whyMyAcomonValue:eq("+idx+") .whyMyAcomonValueText:eq(1)").html(pokemons[idx].lv);
 		$(".whyMyAcomonValue:eq("+idx+") .whyMyAcomonValueText:eq(2)").html(pokemons[idx].hp);
@@ -202,12 +203,7 @@ function store(wantedService){
 		for(bookNo in pokemons){  
 			console.log("보유 포켓몬: list"+ (++listNo) +" 몬스터이름: " + pokemons[bookNo].name);
 		} /////////
-		for(var idx =0; idx< pokemons.length; idx++){
-			$(".whyMyAcomonValue:eq("+idx+") .whyMyAcomonValueText:eq(0)").html(pokemons[idx].name);
-			$(".whyMyAcomonValue:eq("+idx+") .whyMyAcomonValueText:eq(1)").html(pokemons[idx].lv);
-			$(".whyMyAcomonValue:eq("+idx+") .whyMyAcomonValueText:eq(2)").html(pokemons[idx].hp);
-			$(".whyMyAcomonValue:eq("+idx+") .whyMyAcomonValueText:eq(3)").html(pokemons[idx].status);
-		}
+		checkPokemonBook();
 	}
 	$(".whyStatusMoneybox").html("소유 골드: "+ jiwoo.golds +"골드 "+"<br/> 민트: "+ jiwoo.mint +"개 <br/>몬스터볼: "+ jiwoo.pokeBall+ "개");
 	$("#dialog").html(storeMsg);

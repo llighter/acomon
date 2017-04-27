@@ -372,6 +372,7 @@ function yReportOff(){
 function yEventBattle(){
 	yPreView = '.whyBattle';
 	yListCount = 1;
+	$('.whyLodingbox').css('z-index','10'); // TODO 없어도되는거
 	$('.whyAllMap').css('z-index','10');
 	$('.whyMenubox').css('z-index','10');
 	$('.whyTextbox').css('z-index','10');
@@ -754,7 +755,7 @@ function yCatchFail(){
 // 재현 태클이나,스킬공격에 넣으면됨.
 function yAllyAttackEffect(){
 	$('.whyAllyAttack').css({top:"260px",left:"220px",width:'60px',height:'60px'}).fadeIn();
-	
+	$('.whyAllyAttack').animate({top:"80px",left:"250px",width:'380px',height:'200px'},1000);
 	$('.whyAllyAttack').fadeOut();
 	yBlink('.whyEnemyImg');
 }
