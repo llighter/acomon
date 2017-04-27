@@ -5,9 +5,7 @@
  * MS949
  */
 $(function(){
-	yItemNum();
-	$('.whyAllyImg').fadeOut();
-	$('.whyEnemyImg').fadeOut();
+	yItemNum(); // 재현이꺼 초기값 읽어오기
 });
 
 var yPreView; //Undo하기 위한 저장값
@@ -18,18 +16,6 @@ function yLocClassFun(loc){
 	yLocClass[0]=loc;		//class 제이쿼리형태로 선택
 	yLocClass[1]=$("."+loc);   //class이름 listCount-1번째
 	yLocClass[2]=$("."+loc+":nth-child("+yListCount+")");   //class이름 listCount-1번째
-/*	스크롤이동 일단보류0
-	yLocClass[3]=yLocClass[1].height();
-	yLocClass[11]=yLocClass[1].parent("div");  			 //부모 요소 class
-	yLocClass[13]=yLocClass[11].height();
-	console.log(yLocClass[3]+","+yLocClass[13]);
-*/
-	
-/*
-	yLocClass[10]=$(loc).children().attr("class");			// 돌아가기 저장하기 위한 class
-	yLocClass[11]=$("."+$("."+loc).children().attr("class"));	//부른 class의 자손 class이름
-	//부른 class의 자손의 리스트 순서에 있는 class
-*/
 }
 
 var yPreCss=[]; // 호버 효과를 위한 전상자 css 저장.
@@ -41,8 +27,7 @@ document.addEventListener("keydown", ykeyRokect);
 
 function ykeyRokect(event){
 // 	if(event.keyCode)console.log(String.fromCharCode(event.keyCode)+":"+event.keyCode);*/
-	if(yMenuControl){
-		
+//	if(true){
 		if(event.keyCode == 38){
 			yUpPressed();
 	    }
@@ -50,13 +35,10 @@ function ykeyRokect(event){
 			yDownPressed();
 	    }
 	    if(event.keyCode == 37){
-	    	if(yPreView == '.whyBattle'){
-	    	
-	    	}
-	    }
+	    	yCatchNice();
+	 	 }
 	    else if(event.keyCode == 39){
-	    	if(yPreView == '.whyBattle'){
-	        	}
+	    	yCatchFail();
 	    }
 	    else if(event.keyCode == 65){ 	//a키 : 메뉴키
 	    	yAkeyPressed();
@@ -67,15 +49,9 @@ function ykeyRokect(event){
 	    else if(event.keyCode == 88){ //x키 : 뒤로가기키
 	    	yXkeyPressed();
 	    }
-	    else if(event.keyCode == 89){ //y키 : 뒤로가기키
-	    	nextMsg=true;
-	    }
-	}
+//	}
 }
-/* 스크롤이동 일단보류1
-var moveScrollNum;
-moveScrollNum = (yLocClass[13]) / (yLocClass[3]);
-*/
+
 function yUpPressed(){
 	if (yListCount > 1){
 		yLocClass[2].css({'background-color':yPreCss[0],'color':yPreCss[1],'border':yPreCss[2],'font-weight':yPreCss[3]});
@@ -83,12 +59,6 @@ function yUpPressed(){
 		yLocClass[2]=$("."+yLocClass[0]+":nth-child("+yListCount+")");
 		ySetCssFun();
 	}
-/* 스크롤이동 일단보류2
-	if (moveScrollNum < (yListCount-1) ){
-		console.log("됨");
-		yLocClass[11].stop().animate( { scrollTop : '+='+yLocClass[3] } )
-	}
-*/
 }
 function yDownPressed(){
 	if (yListCount < yLocClass[1].length){
@@ -98,7 +68,7 @@ function yDownPressed(){
 		ySetCssFun();
 	}
 }
-//해당 divCSS 읽어오기
+
 function ySetCssFun(){
 	yPreCss[0] = yLocClass[2].css('background-color');
 	yPreCss[1] = yLocClass[2].css('color');
@@ -206,8 +176,7 @@ function yMapMenuOff(){
 	$('.whyMenubox').css('z-index','10');
 	$('.whyTextbox').css('z-index','10');
 	yLocClassFun("whyAllMap");
-
-	currentMode = 0;
+	currentMode=0;
 }
 
 
@@ -263,10 +232,9 @@ function yMyAcomonMenuSelect(){
 			yTextmsg("지금은 <span style='color:#82b5f2'>태그</span> 할 수 없습니다.")
 		}
 		yItemNum();
-	// 나머지 준비 안됨.
 }
 
-function yCmdList(time){ //이름 바꿈 <==yMyAcomonOff()
+function yCmdList(time){ 
 	setTimeout(function(){
 		yPreCssFun();
 		yListCount = 1;
@@ -287,24 +255,7 @@ function yCmdList(time){ //이름 바꿈 <==yMyAcomonOff()
 		ySetCssFun();
 	},time);
 }
-/*
-function yMyItemOff(){
-	yPreCssFun();
-	yListCount = 1;
-	if(yPreView == '.whyAllMap'){
-		$('.whyAllMap').css('z-index','20');
-		$('.whyMenubox').css('z-index','30');
-		yLocClassFun("whyMenu");
-	}
-	else if(yPreView == '.whyBattle'){
-		$('.whyCmdListbox').css('z-index','30');
-		yLocClassFun("whyCmdList");
-	}
-	$('.whyTextbox').css('z-index','10');
-	$('.whyMyItembox').css('z-index','10');
-	ySetCssFun();
-}
-*/
+
 function yMyItem(){
 	yPreCssFun();
 	yListCount = 1;
@@ -384,15 +335,15 @@ function yEventBattle(){
 	yEnemyhp();
 	ySetCssFun();
 	
-	yMenuControl = false;
+	yKeyPause = false;
 	yAppearEnemyMon();
-	yTextmsg(newPokemon.name+"이 나왔다!",500);
+	yTextmsg(newPokemon.name+"이 나왔다!",200);
 	setTimeout(function(){
 		yAppearAllyMon();
-	},2500);
+	},1500);
 	yCmdList(3500);
 	setTimeout(function(){
-		yMenuControl = true;
+		yKeyPause = true;
 	},3500);
 }
 
@@ -424,7 +375,6 @@ function yCmdRun(){
 	$('.whyAllMap').css('z-index','20');
 	yLocClassFun("whyAllMap");
 	yPreView = '.whyAllMap';
-
 	currentMode = 0;
 	battleCountDown = 4;
 }
@@ -473,67 +423,22 @@ function yCmdListSelect(){
 
 
 
-	/*
-	switch (yListCount) {
-	
-	case 1:
-		break;
-	case 2:
-		tagMyMon(yListCount-1);//재현 2번째 포켓몬// pokemons[1]
-		yAllyhp();
-		break;
-	case 3:
-		tagMyMon(yListCount-1);//재현 3번째 포켓몬// pokemons[2]
-		yAllyhp();
-		break;
-	case 4:
-		tagMyMon(yListCount-1);//재현 4번째 포켓몬// pokemons[3]
-		yAllyhp();
-		break;
-	case 5:
-		tagMyMon(yListCount-1);//재현 5번째 포켓몬// pokemons[4]
-		yAllyhp();
-		break;
-	case 6:
-		tagMyMon(yListCount-1);//재현 6번째 포켓몬
-			// pokemons[5]  << 처음엔 없음. 새로운 몬스터 포획하면 보일몬스터.
-		yAllyhp();
-		turnEnd();	//실행할 함수에 넣으면됨
-		break;
-	default:
-		break;
-	}
-	*/
-
-
 
 function yMyItemSelect(){
-	//## 종원이형에게 멘트// 3,4,5,6은 일단 잠시 상점이용으로 대체해놧어요.
-	
 	switch (yListCount) {
 	case 1:
-		useItem("mint");//재현 1번째 아이템
-//		yTextmsg(showItemMsg)
+		useItem("mint");
 		yItemNum();
 		break;
 	case 2:
 		if(yPreView == '.whyBattle'){
-		useItem("pokeBall");//재현 2번째 아이템
+			useItem("pokeBall");
 		}
 		else{
 			yTextmsg("지금은 <span style='color:#82b5f2'>몬스터볼</span>을 사용 할 수 없습니다.")
 		}
 		yItemNum();
 		break;
-	case 3:
-		break;
-	case 4:
-		break;
-	case 5:
-		break;
-	case 6:
-		break;
-	// 아이템 버그 및 수량 부족.. 방법 모색중.
 	default:
 		break;
 	}
@@ -686,14 +591,14 @@ function turnEnd(){
 
 
 
-var yMenuControl=true;
+var yKeyPause=true;
 
 var viewHp;
 var hpColor;
 var yBlinkCondtion=true;
 //  깜빡임효과.
-var turnCount=0;
-var imgClass;
+//var turnCount=0;
+// var imgClass;
 function yBlink(imgClass){
 	blinkCount=0;
 	yBlinkCondtion=false;
@@ -717,13 +622,6 @@ function yAllyHealEffect(){
 	$('.whyAllyHeal').delay(500).fadeOut("fast","swing");
 }
 
-var arc_params = {
-	    center: [285,185],  
-	    radius: 100,    
-	    start: 30,
-	    end: 200,
-	    dir: -1
-	};
 
 
 function yCatchNice(){
@@ -796,16 +694,10 @@ function yEnemyhp(){
 
 
 function yAppearEnemyMon(){
-	setTimeout(function(){
-		$('.whyEnemyImg').css({'background-image':newPokemon.img02});
-		$('.whyEnemyImg').fadeIn();
-	},1500);
-	
+		$('.whyEnemyImg').css({display:"block",left:'300px','background-image':newPokemon.img02});
+		$('.whyEnemyImg').animate({left:'0px'},1000);
 }	
 
-function yDisappearEnemyMon(){
-	$('.whyEnemyImg').fadeOut();
-}
 /*위에꺼 코드 버릴꺼
 	$('.whyEnemyImg').animate({left:'300px'},1000);
 	setTimeout(function(){$('.whyEnemyImg').css({'background-image':newPokemon.img02})},1000);
@@ -814,10 +706,8 @@ function yDisappearEnemyMon(){
 */
 
 function yAppearAllyMon(){
-	$('.whyAllyImg').css({display:"block"});
+	$('.whyAllyImg').css({display:"block",left:'-300px','background-image':myMonid.img01});
 	$('.whyAllyImg').animate({left:'0px'},1000);
-	$('.whyAllyImg').css({'background-image':myMonid.img01});
-	yTextmsg("가라!!"+myMonid.name+"몬!!!",0);
 }
 
 
