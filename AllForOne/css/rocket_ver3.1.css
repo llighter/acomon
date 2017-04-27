@@ -552,9 +552,25 @@ body{overflow:auto;background:#d2e0d1;}
 				position:absolute;
 				top:60px;
 				left:0px;
-				background:url("../img/rd/heal1.png") no-repeat center;
-				background-size:250% 200%;
-				opacity:0.55;
+				background-image:url("../img/rd/heal1.png");
+				background-repeat:no-repeat;
+				background-position: center;
+				background-size:120% 100%;
+				opacity:0.99;
+			}
+			.whyAllyHeal2{
+				display:none;
+				width:100%;
+				height:100%;
+				z-index:1;
+				position:absolute;
+				top:60px;
+				left:0px;
+				background-image:url("../img/rd/heal2.png");
+				background-repeat:no-repeat;
+				background-position: center;
+				background-size:50% 50%;
+				opacity:0.5;
 			}
 	.whyBattleEnemyimg{
 		padding:0px 10px 0px 70px;
@@ -566,7 +582,7 @@ body{overflow:auto;background:#d2e0d1;}
 			left:0px;
 			width:100%;
 			height:100%;
-			background-image:url('../img/rd/myMon_06c.png');
+/*			background-image:url('../img/rd/myMon_06c.png');	*/
 			background-repeat:no-repeat;
 			background-position:center;
 			background-size:contain;
@@ -863,7 +879,7 @@ body{overflow:auto;background:#d2e0d1;}
 		float:left;
 		width:calc(100% - 50px);
 		height:100%;
-		padding:12px;
+		padding:25px;
 /*		background:rgba(27,27,27,0.5);	*/
 	}
 	.whySkip{

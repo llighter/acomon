@@ -109,6 +109,7 @@ function propertyBonusRelease(){ // 상성 보너스 데미지 해제 - 안하�
 
 //shield
 function enemyRandAtt(){
+	// yKeyoff();
 	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
 		var enemyRand = Math.floor(Math.random()*2);
 		var criticalAttack02 = Number((newPokemon.att*(1+(Math.random()*0.3 + 0.2))).toFixed(1)); 
@@ -119,8 +120,8 @@ function enemyRandAtt(){
 				console.log(newPokemon.name+"몬이 공격력 ("+newPokemon.att+"-"+newPokemon.shield+")로공격.");
 				newPokemon.hp = Number((newPokemon.hp - (newPokemon.att - newPokemon.shield)).toFixed(1));
 				console.log(newPokemon.name + "몬의 체력 "+newPokemon.hp+" 남음.");
-			    setTimeout(yTextmsg("<span style='color:#FF6961'>"+newPokemon.name+"</span>몬이 <span style='color:#82b5f2'>"+
-			    		(newPokemon.att - newPokemon.shield).toFixed(1)+"</span>만큼 피해를 받았습니다!!"),1000);   
+			   yTextmsg("<span style='color:#FF6961'>"+newPokemon.name+"</span>몬이 <span style='color:#82b5f2'>"+
+			    		(newPokemon.att - newPokemon.shield).toFixed(1)+"</span>만큼 피해를 받았습니다!!",500); 
 			}
 			else{
 				console.log(newPokemon.name+"몬이 스킬 "+skillNames[newPokemon.property]+"로공격.");
@@ -128,19 +129,20 @@ function enemyRandAtt(){
 				newPokemon.hp = Number((newPokemon.hp - (criticalAttack02- newPokemon.shield)).toFixed(1));
 				console.log(newPokemon.name + "몬의 체력 "+newPokemon.hp+" 남음.");
 				setTimeout(yTextmsg("<span style='color:#FF6961'>"+newPokemon.name+"</span>몬이 <span style='color:#82b5f2'>"+
-			        	(criticalAttack02- newPokemon.shield).toFixed(1)+"</span>만큼 피해를 받았습니다!!"),1000);   
+			        	(criticalAttack02- newPokemon.shield).toFixed(1)+"</span>만큼 피해를 받았습니다!!"),500);   
 			}
+			//TODO ynot 반사 모션 쓰면 재밋을듯.
 			yEnemyAttackEffect();	
 			setTimeout(function(){ 
 				yAllyAttackEffect();
 				yEnemyhp();	
-			},1000);
+			},500);
 			$(".whyEnemyTextHp").html(parseInt(newPokemon.hp*10)/10 + " / "+newPokemon.initHp);
 		}
 		else if(newPokemon.status == "paralyze"){  // 마비는 1턴 휴식.
 			console.log("마비... 이번턴 쉴께요~");
 			yTextmsg("<span style='color:#FF6961'>"+newPokemon.name+ "</span>몬이 <span style='color:#82b5f2'>"+
-            		skill2Names[myMonid.property]+"</span>(마비) 상태입니다.");
+            		skill2Names[myMonid.property]+"</span>(마비) 상태입니다.",500);
 		}
 		else{ // 공격반사, 마비이외에는 평범한 랜덤형식 공격시전.
 			if(enemyRand == 0){
@@ -148,7 +150,7 @@ function enemyRandAtt(){
 				myMonid.hp = Number((myMonid.hp - (newPokemon.att - myMonid.shield)).toFixed(1));
 				console.log(myMonid.name + "몬의 체력 "+myMonid.hp+" 남음.");
 			        yTextmsg("<span style='color:#FF6961'>"+myMonid.name+"</span>몬이 <span style='color:#82b5f2'>"+
-			        		(newPokemon.att - myMonid.shield).toFixed(1)+"</span>만큼 피해를 받았습니다!!");   
+			        		(newPokemon.att - myMonid.shield).toFixed(1)+"</span>만큼 피해를 받았습니다!!",500);   
 			}
 			else{
 				console.log(newPokemon.name+"몬이 스킬 "+skillNames[newPokemon.property]+"로공격.");
@@ -157,7 +159,7 @@ function enemyRandAtt(){
 				myMonid.hp = Number((myMonid.hp - (criticalAttack02- myMonid.shield)).toFixed(1));
 				console.log(myMonid.name + "몬의 체력 "+myMonid.hp+" 남음.");
 			        yTextmsg("<span style='color:#FF6961'>"+myMonid.name+"</span>몬이 <span style='color:#82b5f2'>"+
-			        		(criticalAttack02- myMonid.shield).toFixed(1)+"</span>만큼 피해를 받았습니다!!");   
+			        		(criticalAttack02- myMonid.shield).toFixed(1)+"</span>만큼 피해를 받았습니다!!",500);   
 			}
 			yEnemyAttackEffect();	
 			yAllyhp();		
@@ -168,6 +170,7 @@ function enemyRandAtt(){
 }
 
 function tackle(){
+	// yKeyoff();
 	propertyBonus();  // 상성데미지 추가.
 	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
 		var showTackleMsg = "";
@@ -176,10 +179,11 @@ function tackle(){
 		console.log(newPokemon.name + "몬의 체력 "+newPokemon.hp+" 남음.");
 		
 		//yTextmsg("<span style='color:#FF6961'>"+myMonid.name+"</span>몬이 <span style='color:#82b5f2'>몸통박치기</span>를 시전했습니다.");
-		yAllyAttackEffect();	//공격 시각효과
+		yAllyTackleEffect();	//공격 시각효과
     	yEnemyhp();				//공격 hp시각효과
 		$(".whyEnemyTextHp").html( parseInt(newPokemon.hp*10)/10 + " / "+newPokemon.initHp);
-		showTackleMsg = "<span style='color:#FF6961'>"+myMonid.name+"</span>몬이 <span style='color:#82b5f2'>몸통박치기</span>를 시전했습니다.";
+		showTackleMsg = "<span style='color:#FF6961'>"+myMonid.name+
+			"</span>몬이 <span style='color:#82b5f2'>몸통박치기</span>를 시전했습니다.";
 		yTextmsg(showTackleMsg);
 		winOrLose();  // 자신/ 상대의 턴이 끝날때마다 hp <=0인지 체크 -> 승리판정
 	}
@@ -188,6 +192,7 @@ function tackle(){
 	
 
 function skillAttack(){
+	// yKeyoff();
 	var showSkill1Msg = "";
 	propertyBonus();
 	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
@@ -214,6 +219,7 @@ function skillAttack(){
 }
 
 function meditation(){  // 명상 체력 +13.
+	// yKeyoff();
 	var showMsg  = "";
 	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
 		if((myMonid.hp +13) < myMonid.initHp){
@@ -240,6 +246,7 @@ var effectTimes =0;
 var burning  = 4;
 //var skill2Names = ["reflect","sharpen","paralyze","burn","shieldOn"]; //
 function skillLv2Attack(){
+	// yKeyoff();
 	var skillMsg = "적정레벨이 아닙니다. 현재레벨: " + myMonid.lv + "/ 요구레벨:2 "; 
 	if( myMonid.lv > 1 && ( myMonid.status == "normal" && newPokemon.status =="normal" ) /*&& !winOrLoseResult*/){  //### 레벨 2이상 && winOrLoseResult 결과값이 안나왓을경우에 진행.
 		propertyBonus();
@@ -281,7 +288,6 @@ function skillLv2Attack(){
 			skillMsg ="<span style='color:#FF6961'>" + myMonid.name+"</span>몬이 <span style='color:#82b5f2'>"
 			+ skill2Names[4]+"</span>(방어증가)를 시전했습니다.";
 			myMonid.shield *= 3;
-			
 			break;
 		default:
 			break;
@@ -307,6 +313,7 @@ function skillLv2Attack(){
 }  //skillLv2Attack func END
 
 function skillLv2AttackRelease(){  // 상태이상 효과 해제. 
+	// yKeyoff();
 	effectTimes--;
 	if(effectTimes >0 ){
 		console.log("효과  " + effectTimes + "번 남았습니다.");
@@ -353,6 +360,7 @@ function skillLv2AttackRelease(){  // 상태이상 효과 해제.
 } //skillLv2AttackRelease END
 
 function catchWildMon(){  // 몬스터볼 소모해서 상대몬스터를 포획.
+	// yKeyoff();
 	var showItemMsg = "";
 	var chanceToCatch = Math.random() * 0.2 + 0.6; // 상대몬스터 체력비율 < 60~80% 확률로 포획.
 //	console.log(newPokemon.hp/newPokemon.initHp +"  ??  " + chanceToCatch);
@@ -371,25 +379,31 @@ function catchWildMon(){  // 몬스터볼 소모해서 상대몬스터를 포획
 				newPokemon.img00,
 				newPokemon.img01,
 				newPokemon.img02
-				
 				));
 		
 		showItemMsg = "새로운 몬스터 <span style='color:#FF6961'>"+worldMon.name+"</span>를 잡앗다!!";
-		winOrLoseResult = true;
-		newPokemon.hp = 0;
+//		winOrLoseResult = true;		//ynot 마무리작업위해서 바로 결과로 가는거 막아놈
+//		newPokemon.hp = 0;			//ynot 마무리작업위해서 결과가는거 막아놈
 		yEnemyhp();	
-		$(".whyEnemyTextHp").html( parseInt(newPokemon.hp*10)/10 + " / "+newPokemon.initHp);
+//		$(".whyEnemyTextHp").html( parseInt(newPokemon.hp*10)/10 + " / "+newPokemon.initHp);
 		console.log(pokemons[pokemons.length-1]);  // 포획한 몬스터, 몬스터북에서 확인.
 		//setTimeout(function(){ yCmdRun(); }, 8000); //@@// yText 없애야함.
 		//#### 종원이형: 여기서 전투모드 끝내고 맵으로 전환.
+//		yCmdMsg();
+		yCatchNice();
+		winOrLoseResult=true;
+		yBattleEnd("포획");
 	}
 	else{
-		showItemMsg = worldMon.name+"를 잡는데 실패했다!!";
+		showItemMsg ="<span style='color:#FF6961'>"+worldMon.name+"</span>를 잡는데 실패했다!!";
+//		yCmdMsg();
+		yCatchFail();
 	}
-	//yTextmsg(showItemMsg);
+	yTextmsg(showItemMsg,3000); //ynot 주석제거함.
 }
 
 function useItem(item){
+	// yKeyoff();
 	if(item == "mint"){  // 민트 아이템 소모. 체력+25. 턴소모X. 초기 5개 소유중.
 		var showItemMsg = "체력이 최대치입니다. <span style='color:#82b5f2'>mint</span>를 사용할 수 없습니다.";
 		if(jiwoo.mint ==0){
@@ -397,7 +411,7 @@ function useItem(item){
 		}
 		else if((jiwoo.mint >0) && (myMonid.hp == myMonid.initHp)){
 			showItemMsg ="<span style='color:#FF6961'>"+myMonid.name+
-				"</span>이미 체력이 풀상태입니다. <br>현재 HP는 <span style='color:#82b5f2'>"+myMonid.hp+"</span>입니다.";
+				"</span>이미 체력이 풀상태입니다. <br>현재 HP는 <span style='color:#82b5f2'>"+myMonid.hp+"</span>입니다.<br>상대방 턴으로 넘어갑니다.";
 			$(".whyAllyTextHp").html( parseInt(myMonid.hp*10)/10+ " / "+myMonid.initHp);
 		}
 		else if((jiwoo.mint >0) && ((myMonid.hp +25) < myMonid.initHp)){
@@ -408,6 +422,7 @@ function useItem(item){
 			showItemMsg += "<br><span style='color:#82b5f2'>"+ item +
 				"</span>(이)가 <span style='color:#82b5f2'>"+ jiwoo.mint + "</span>개 남았습니다.";
 			$(".whyAllyTextHp").html( parseInt(myMonid.hp*10)/10+ " / "+myMonid.initHp);
+			yAllyHealEffect2();
 			yAllyhp();
 		}
 		else if((jiwoo.mint >0) && ((myMonid.hp +25) >= myMonid.initHp)){
@@ -418,28 +433,36 @@ function useItem(item){
 			showItemMsg += "<br><span style='color:#82b5f2'>"+ item +
 				"</span>(이)가 <span style='color:#82b5f2'>"+ jiwoo.mint + "</span>개 남았습니다.";
 			$(".whyAllyTextHp").html( parseInt(myMonid.hp*10)/10 + " / "+myMonid.initHp);
+			yAllyHealEffect2();
 			yAllyhp();
 		}
-		setTimeout(yTextmsg(showItemMsg), 1500);
+		yCmdMsg();
+		yTextmsg(showItemMsg);
 		console.log(showItemMsg);
 		$(".whyStatusMoneybox").html("소유 골드: "+ jiwoo.golds +"골드 "+"<br/> 민트: "+ jiwoo.mint +"개 <br/>몬스터볼: "+ jiwoo.pokeBall+ "개");
 	}
 
 	if(item == "pokeBall"){ // 몬볼아이템 소모해서 포획시도. 턴소모X. 초기 3개 소유중.
+		yCmdMsg();
 		var showItemMsg = "";
 		if(jiwoo.pokeBall ==0){
 			showItemMsg ="포켓볼이 없습니다. 상점에서 구매 해주세요!";
+			yTextmsg(showItemMsg);
 		}
 		else if(jiwoo.pokeBall >0){
 			jiwoo.pokeBall--;
 			console.log("system- 포켓볼을 던졋다! \n"+ item +" " + jiwoo.pokeBall + "개 남았습니다.");
+			showItemMsg ="넌 이제 내꺼다. 받아라 몬스터볼~!"
+			yTextmsg(showItemMsg);
 			catchWildMon();  // 체력비율 60~80% 확률잡기.
-			winOrLose();
+		//	winOrLose();	//ynot 이걸 왜하는거임???
+		//	winOrLoseResult=true; //ynot주석처리 ??  내가 만든 줄인듯..?ㅋㅋ
 		} // jiwoo.pokeBall >0 END
 		console.log(showItemMsg);
 		$(".whyStatusMoneybox").html("소유 골드: "+ jiwoo.golds +"골드 "+"<br/> 민트: "+ jiwoo.mint +"개 <br/>몬스터볼: "+ jiwoo.pokeBall+ "개");
 	}// 아이템사용_포켓볼 던졌을때. else if END
 	console.log("jiwoo.mint "+jiwoo.mint +"  jiwoo.pokeBall "+ jiwoo.pokeBall);
+	
 } 
 
 function tagMyMon(bookNumber){	// 내가 소유한 몬스터와 태그하기.
@@ -450,6 +473,7 @@ function tagMyMon(bookNumber){	// 내가 소유한 몬스터와 태그하기.
 		$(".whyAllyTextHp").html( parseInt(pokemons[bookNumber].hp*10)/10 + " / "+pokemons[bookNumber].initHp);
 		$(".whyEnemyTextHp").html(parseInt(newPokemon.hp *10)/10 + " / "+newPokemon.initHp);
 		$(".whyEnemyName").html("["+ newPokemon.name +"] Lv."+ newPokemon.lv );
+		yCmdMsg();
 		// #### 맵팀: 여기서 몬스터태그하면서 화면전환 가능한지...
 	//}
 }
@@ -466,10 +490,11 @@ function winOrLose(){
 		}
 		newPokemon.hp = 0;
 		$(".whyEnemyTextHp").html( parseInt(newPokemon.hp*10)/10 + " / "+newPokemon.initHp);
-		yTextmsg(myMonid.name+ "의 승리!!");
-		expUp();
+//		yTextmsg(myMonid.name+ "의 승리!!");
+//		expUp();
 		winOrLoseResult= true;
-		setTimeout(function(){ yCmdRun(); }, 4000); //@@// yText 없애야함.
+		yBattleEnd("HP승리");
+//		setTimeout(function(){ yCmdRun(); }, 4000); //@@// yText 없애야함. //whynot 일단 주석처리
 	}
 	else if(myMonid.hp <= 0){
 		console.log("user loses.");
@@ -477,14 +502,15 @@ function winOrLose(){
 		$(".whyAllyTextHp").html( parseInt(myMonid.hp*10)/10  + " / "+myMonid.initHp);
 		myMonid.status = "Fainted";
 		winOrLoseResult= true;
-		setTimeout(function(){ yCmdRun(); }, 4000); //@@// yText 없애야함.
-		yTextmsg(myMonid.name+ "의 패배!! " +
-				 "<br/>" + myMonid.name + "의 상태가 " + myMonid.status+ "가 되었다!");
+		yBattleEnd("HP패배");
+//		setTimeout(function(){ yCmdRun(); }, 4000); //@@// yText 없애야함.  //whynot 일단 주석처리
+//		yTextmsg(myMonid.name+ "의 패배!! " +
+//				 "<br/>" + myMonid.name + "의 상태가 " + myMonid.status+ "가 되었다!");
 	}
 }
 
 function expUp(){  
-	var winExp = 80;  // 한판 승리때마다 얻는 경험치.
+	var winExp = 80;  // 한판 승리때마다 얻는 경험치. 
 	var showMsg = "";   
 	if((myMonid.exp + winExp) >= (60 + myMonid.lv*40)){  //1렙 풀경치 100, 2렙은 140, 3렙은 180...
 		showMsg = "<span style='color:#FF6961'>" +myMonid.name+"</span>가 레벨업했다!!!";
@@ -501,23 +527,29 @@ function expUp(){
 		showMsg += "<br/>공격력 증가 (+7): " + myMonid.att;
 		myMonid.att += 7;
 		showMsg += " -> "+ myMonid.att;
-
 	}
 	else{
 		myMonid.exp += winExp;
 		showMsg = myMonid.name+"가 "+ myMonid.exp+" / "+(60 + myMonid.lv*40)+ "만큼 경험치를 획득했다!!!";
 	}
-	yTextmsg(showMsg);
+	yTextmsg(showMsg,2000);
+	
 }
 
 
-function enemyTurn(){
-	propertyBonus();
-	if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
-		enemyRandAtt();
-		winOrLose(); // 자신/ 상대의 턴이 끝날때마다 hp <=0인지 체크 -> 승리판정
-	}
-	propertyBonusRelease();
+function enemyTurn(time){
+	setTimeout(function(){
+		propertyBonus();
+		if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
+			enemyRandAtt();
+			//winOrLose(); // 자신/ 상대의 턴이 끝날때마다 hp <=0인지 체크 -> 승리판정	//ynot 함수정리함.
+		}
+		//ynot 추가함.
+		else if(winOrLoseResult){
+			yBattleEnd("자멸");
+		}
+		propertyBonusRelease();
+	},time);
 }
 
 
