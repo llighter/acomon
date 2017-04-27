@@ -162,10 +162,10 @@ document.addEventListener('keyup', (event) => {
 // 예를 들어 스테이지 2퀘스트가 몬스터볼 보상으로 얻는건데 2번키계속누르면 무한으로 얻을수 있음
   if(dialogMode == 3 && event.keyCode == KEYBOARD_2 ){
 	  switch(npcDetection()){
-	  case MAP_ACADEMY_YANG: getQuest(); break;
-	  case MAP_00_QUEST_NPC: getQuest(); break;
-	  case MAP_01_QUEST_NPC: getQuest(); break;
-	  case MAP_02_QUEST_NPC: getQuest(); break;
+	  case MAP_ACADEMY_YANG: getQuest(0); break;
+	  case MAP_00_QUEST_NPC: getQuest(1); break;
+	  case MAP_01_QUEST_NPC: getQuest(2); break;
+	  case MAP_02_QUEST_NPC: getQuest(3); break;
 	  } 	  
   }
 }, false);
