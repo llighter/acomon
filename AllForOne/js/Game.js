@@ -63,7 +63,13 @@ document.addEventListener('keyup', (event) => {
   		(npcDetection() == MAP_ACADEMY_YANG
 		  || npcDetection() == MAP_00_QUEST_NPC
 		  || npcDetection() == MAP_01_QUEST_NPC
-		  || npcDetection() == MAP_02_QUEST_NPC)) {
+		  || npcDetection() == MAP_02_QUEST_NPC
+		  || npcDetection() == MAP_00_STORE_NPC
+		  || npcDetection() == MAP_01_STORE_NPC
+		  || npcDetection() == MAP_02_STORE_NPC
+		  || npcDetection() == MAP_MY_MON01
+		  || npcDetection() == MAP_MY_MON02
+		  || npcDetection() == MAP_MY_MON03)) {
 		chat.style="block";
 		option.style="block";
 		currentMode=5;	// 대화중에는 움직이지 않기
@@ -73,7 +79,10 @@ document.addEventListener('keyup', (event) => {
 			case MAP_01_QUEST_NPC:	questProcess(2);	break;
 			case MAP_02_QUEST_NPC:	questProcess(3);	break;
 
-			// TODO: 다른데로 옮겨야함	
+			case MAP_00_STORE_NPC:	storeProcess(0);	break;
+			case MAP_01_STORE_NPC:	storeProcess(1);	break;
+			case MAP_02_STORE_NPC:	storeProcess(2);	break;
+
 			case MAP_MY_MON01:	quest0(0);	break;
 			case MAP_MY_MON02:	quest0(1);	break;
 			case MAP_MY_MON03:	quest0(2);	break;
@@ -88,20 +97,6 @@ document.addEventListener('keyup', (event) => {
 			case MAP_00_QUEST_NPC:	questProcess(1);	break;	
 			case MAP_01_QUEST_NPC:	questProcess(2);	break;
 			case MAP_02_QUEST_NPC:	questProcess(3);	break;
-		}
-	}
-	
-	if (event.keyCode === SPACE_BAR && 
-  		(npcDetection() == MAP_00_STORE_NPC
-		  || npcDetection() == MAP_01_STORE_NPC
-		  || npcDetection() == MAP_02_STORE_NPC)) {
-		chat.style="block";
-		option.style="block";
-		currentMode=5;	// 대화중에는 움직이지 않기
-		switch(npcDetection()) {
-			case MAP_00_STORE_NPC:	storeProcess(0);	break;
-			case MAP_01_STORE_NPC:	storeProcess(1);	break;
-			case MAP_02_STORE_NPC:	storeProcess(2);	break;
 		}
 	}
 	
