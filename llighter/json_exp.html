@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <title>Get Acomon list</title>
+        <style>
+            * { padding: 0; margin:0 }
+        </style>
+    </head>
+    <body>
+        <h1>This is test for JSON</h1>
+        <div class="yunha"></div>
+        <div class="yunha"></div>
+        <div class="yunha"></div>
+
+        <script type="text/javascript" src="./js/mock-data.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                var champion = myHero;
+
+                $(".yunha").eq(0).html(champion.name);
+                $(".yunha").eq(1).html(champion.age);
+                $(".yunha").eq(2).html(`
+                    ${champion.pokemon[0].id},
+                    ${champion.pokemon[0].name},
+                    ${champion.pokemon[0].lv}, 
+                    ${champion.pokemon[0].exp},
+                    ${champion.pokemon[0].property}
+                    `);
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <title>Acomon start map</title>
+        <style>
+            * { padding: 0; margin:0 }
+            canvas {
+                background: #eee;
+                display: block;
+                margin: 0 auto;
+            }
+
+            /* dialog div css -yoda- */ 
+            #dialog {
+  				height: 170px;
+				background: black;
+				border-radius: 5px;
+				box-shadow: 0 0 0 6px white, 0 0 0 12px black;
+				color: white;
+				font-size: 18px;
+				font-weight: bold;
+				position: relative;
+				top:-200px;
+				width: 610px;
+				margin:0 auto;
+			}
+
+            body {
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <!--<canvas id="startVillage" width="1280px" height="640px"></canvas>-->
+        <canvas id="startVillage" width="1280px" height="1280px"></canvas>
+        <div id="dialog" style="display:none"></div>
+        <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+        <script type="text/javascript" src="./js/Game.js"></script>   
+    </body>
+</html>
