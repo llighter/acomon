@@ -205,8 +205,10 @@ function store(wantedService){
 		if( (confirmRemove == "yes") && (jiwoo.golds >= 12800) ){
 			pokemons.splice(findListNo,1);
 			storeMsg = "유기처리비용 12만 8천원/1마리 입니다! ";
+
 			storeMsg += "<br/>\t\t -통계청 자료, 2015년";
 			storeMsg += "<br/>지우씨는 특별히 90% 할인해줄게요!";
+
 			jiwoo.golds -= 12800;
 			storeMsg +="소유골드: " + jiwoo.golds;
 			for(var inx =0; inx <pokemons.length; inx++){
@@ -251,36 +253,36 @@ function getQuest(){  //### 맵팀: 퀘스트를 주는 npc
 	var questShow = "";
 	if(questNow ==1 && quest[1].questNeeds <= 0){  // 퀘스트 1(불속성2마리잡기) 완료할시.
 		questShow = "오호.. 자네 생각보다 쓸만하구만!! 인물이야! 하하하하!!";
-		questShow += "\n받기전 골드: " + jiwoo.golds;
+		questShow += "<br/>받기전 골드: " + jiwoo.golds;
 		jiwoo.golds+= 4000;
-		questShow += "\n4000 골드를 받았다. 현재 골드: " + jiwoo.golds;
+		questShow += "<br/>4000 골드를 받았다. 현재 골드: " + jiwoo.golds;
 		quest[1].questDone = true;
 		questNow++;
 	}
 	if(questNow ==2 && pokemons.length >= quest[2].questNeeds){ // 퀘스트 2(소유몬스터 6마리) 완료할시.
 		questShow = "벌써 이렇게나!!! 자네 배우는게 빠르구만! 하하하하!!";
-		questShow += "\n받기전 몬볼수: " + jiwoo.pokeBall;
+		questShow += "<br/>받기전 몬볼수: " + jiwoo.pokeBall;
 		jiwoo.pokeBall += 3;
-		questShow += "\n몬볼 3개를 받았다. 현재 몬볼수: " + jiwoo.pokeBall;
+		questShow += "<br/>몬볼 3개를 받았다. 현재 몬볼수: " + jiwoo.pokeBall;
 		quest[2].questDone = true;
 		questNow++;
 	}
 	if(questNow ==3 && jiwoo.mint >= quest[3].questNeeds){ // 퀘스트 3(민드3개 헌납) 완료할시.
 		questShow = "벌써 이렇게나!!! 자네 배우는게 빠르구만! 하하하하!!";
-		questShow += "\n받기전 골드: " + jiwoo.golds;
+		questShow += "<br/>받기전 골드: " + jiwoo.golds;
 		jiwoo.mint -= 3;
 		jiwoo.golds+= 10000;
-		questShow += "\n4000 골드를 받았다. 현재 골드: " + jiwoo.golds;
+		questShow += "<br/>4000 골드를 받았다. 현재 골드: " + jiwoo.golds;
 		quest[3].questDone = true;
 		questNow++;
 	}
 	if(quest[questNow].questDone == false ){   // 완료 못할시 퀘스트 내용과 보상을 보여줄것.
 		questShow = "안녕하신가?. 난 퀘스트 장인이네. 여기 퀘스트가 있다네!";
-		questShow += "\n 퀘스트 내용: "+ quest[questNow].questContent;
-		questShow += "\n 퀘스트 보상: "+ quest[questNow].reward;
+		questShow += "<br/> 퀘스트 내용: "+ quest[questNow].questContent;
+		questShow += "<br/> 퀘스트 보상: "+ quest[questNow].reward;
 
 	}
-	console.log(questShow);
+	$("#dialog").html(questShow);
 }
 
 function checkWorldBook(bookNumber){

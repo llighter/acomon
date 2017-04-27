@@ -7,7 +7,7 @@ canvas {
 
 /* dialog div css -yoda- */ 
 #opening {
-    height: 640px;
+    height: 340px;
     background: white;
     border-radius: 5px;
     box-shadow: 0 0 0 6px black, 0 0 0 12px white;
@@ -15,8 +15,8 @@ canvas {
     font-size: 18px;
     font-weight: bold;
     position: relative;
-    top:-640px;
-    width: 640px;
+    top:-400px;
+    width: 610px;
     margin:0 auto;
 }
 #dialog {
@@ -28,15 +28,15 @@ canvas {
     font-size: 18px;
     font-weight: bold;
     position: relative;
-    top:-180px;
+    top:-200px;
     width: 610px;
     margin:0 auto;
 }
 
 #option {
-    height: 50px;
-    background: black;
-    color: orange;
+    height: 30px;
+    background: grey;
+    color: white;
     font-size: 18px;
     font-weight: bold;
     position:relative;

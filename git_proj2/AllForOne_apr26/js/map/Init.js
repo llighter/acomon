@@ -39,7 +39,7 @@ const MAP_01_STORE_NPC = 504;
 const MAP_01_QUEST_NPC = 505;
 const MAP_02_STORE_NPC = 506;
 const MAP_02_QUEST_NPC = 507;
-const MAP_BOSS_NPC = 508;
+const MAP_BOSS_NPC = 303;
 const MAP_ACADEMY_TO_00 = 90;
 const MAP_00_TO_ACADEMY = 91;
 const MAP_00_TO_01 = 99;
@@ -48,17 +48,6 @@ const MAP_01_TO_02 = 97;
 const MAP_02_TO_01 = 96;
 const MAP_02_TO_BOSS = 95;
 const MAP_BOSS_TO_02 = 94;
-
-const MAP_00_POKEMON = 50;
-const MAP_01_POKEMON1 = 51;
-const MAP_01_POKEMON2 = 52;
-const MAP_02_POKEMON1 = 53;
-const MAP_02_POKEMON2 = 54;
-const MAP_BOSS_POKEMON = 508;
-
-// 전투 발생 시 나의 몬스터와 상대방 몬스터 ID 설정
-var battle_MyPokemon = 0;
-var battle_OpponentPokemon = 0;
 
 var player = new Image();
 var bossmap = new Image();
@@ -84,7 +73,7 @@ village02.src = './img/map/stage02_npc.png';
 
 
 var map_init = [
-    [   0,   0,   0,   509,   510,   511,   0,   0,   0, 210],
+    [   0,   0,   0,   0,   0,   0,   0,   0,   0, 210],
     [ 202, 203, 204,   0,   0,   0, 501,   0, 205,2101],
     [2021,2031,2041,   0,   0,   0,   0, 206, 206,2102],
     [   0,   0,   0,   0,   0,   0,   0,   0,   0, 211],
@@ -99,7 +88,7 @@ var map_init = [
 var map_boss = [
     [ 301, 301, 301, 301, 301, 301, 301, 301, 301, 301],
     [ 301, 301,	  0,   0,   0,   0,   0,   0, 301, 301],
-    [ 301, 301,   0,   0, 508,508,   0,   0, 301, 301],
+    [ 301, 301,   0,   0, 303,3021,   0,   0, 301, 301],
     [ 301, 301,   0,   0,   0,   0,   0,   0, 301, 301],
     [ 301, 301,   0,   0,   0,   0,   0,   0, 301, 301],
     [ 301, 301,   0,   0,   0,   0,   0,   0, 301, 301],
