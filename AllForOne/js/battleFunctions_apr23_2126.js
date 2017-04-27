@@ -1,9 +1,9 @@
 /*ㅁㅁzz
 <!-- 
-* 집에서....Apr27,2017
- * 			01:21
+* 학원에서....Apr27,2017
+ * 			11:21
  * 			dev by JB
- * UTF-8
+ * MS969
  * 
  *
  * ==============================
@@ -323,6 +323,7 @@ function catchWildMon(){  // 몬스터볼 소모해서 상대몬스터를 포획
 				newPokemon.att,
 				newPokemon.shield,
 				newPokemon.property,
+				
 				"normal"  // status ="normal" // 정상.
 				));
 		
