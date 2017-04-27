@@ -6,8 +6,8 @@
  */
 $(function(){
 	yItemNum();
-	yDisappearEnemyMon();
-	yDisappearAllyMon();
+	$('.whyAllyImg').fadeOut();
+	$('.whyEnemyImg').fadeOut();
 });
 
 var yPreView; //Undo하기 위한 저장값
@@ -50,15 +50,12 @@ function ykeyRokect(event){
 			yDownPressed();
 	    }
 	    if(event.keyCode == 37){
-	    //	yLeftPressed();
 	    	if(yPreView == '.whyBattle'){
 	    	
 	    	}
 	    }
 	    else if(event.keyCode == 39){
-	    //	yRightPressed();
 	    	if(yPreView == '.whyBattle'){
-	    		yContactMon();
 	        	}
 	    }
 	    else if(event.keyCode == 65){ 	//a키 : 메뉴키
@@ -283,6 +280,7 @@ function yCmdList(time){ //이름 바꿈 <==yMyAcomonOff()
 			$('.whyCmdListbox').css('z-index','30');
 			yLocClassFun("whyCmdList");
 		}
+		$('.whyMyAcomonMenubox').css('z-index','10');
 		$('.whyMyAcomonbox').css('z-index','10');
 		$('.whyTextbox').css('z-index','10');
 		$('.whyMyItembox').css('z-index','10');
@@ -374,6 +372,7 @@ function yReportOff(){
 function yEventBattle(){
 	yPreView = '.whyBattle';
 	yListCount = 1;
+	$('.whyLodingbox').css('z-index','10'); // TODO 없어도되는거
 	$('.whyAllMap').css('z-index','10');
 	$('.whyMenubox').css('z-index','10');
 	$('.whyTextbox').css('z-index','10');
@@ -718,6 +717,41 @@ function yAllyHealEffect(){
 	$('.whyAllyHeal').delay(500).fadeOut("fast","swing");
 }
 
+var arc_params = {
+	    center: [285,185],  
+	    radius: 100,    
+	    start: 30,
+	    end: 200,
+	    dir: -1
+	};
+
+
+function yCatchNice(){
+	$('.whyPocketBall').css({top:"350px",left:"-210px",width:'200px',height:'200px'}).fadeIn();
+	$('.whyPocketBall').animate({left:"470px",top:"120px",width:'80px',height:'80px'},1000);
+	setTimeout(function (){$('.whyEnemyImg').fadeOut()},1000);
+	$('.whyPocketBall').animate({left:"460px",top:"110px",width:'100px',height:'100px'},1000);
+	$('.whyPocketBall').animate({left:"475px",top:"125px",width:'70px',height:'70px'},1000);
+	$('.whyPocketBall').animate({left:"470px",top:"120px",width:'80px',height:'80px'},1000);
+	$('.whyPocketBall').animate({top:"200px"},200);
+	$('.whyPocketBall').animate({top:"150px"},100);
+	$('.whyPocketBall').animate({top:"200px"},200);
+	$('.whyPocketBall').animate({top:"180px"},100);
+	$('.whyPocketBall').animate({top:"200px"},200);
+	$('.whyPocketBall').animate({top:"190px"},100);
+	$('.whyPocketBall').animate({top:"200px"},200);
+}
+function yCatchFail(){
+	$('.whyPocketBall').css({top:"350px",left:"-210px",width:'200px',height:'200px'}).fadeIn();
+	$('.whyPocketBall').animate({left:"470px",top:"120px",width:'80px',height:'80px'},1000);
+	setTimeout(function (){$('.whyEnemyImg').fadeOut()},1000);
+	$('.whyPocketBall').animate({left:"460px",top:"110px",width:'100px',height:'100px'},1000);
+	$('.whyPocketBall').animate({left:"475px",top:"125px",width:'70px',height:'70px'},1000);
+	$('.whyPocketBall').animate({left:"470px",top:"120px",width:'80px',height:'80px'},1000);
+	setTimeout(function (){$('.whyEnemyImg').fadeIn()},4000);
+	$('.whyPocketBall').animate({left:"380px",top:"-60px",width:'60px',height:'60px'},500);
+}
+
 // 재현 태클이나,스킬공격에 넣으면됨.
 function yAllyAttackEffect(){
 	$('.whyAllyAttack').css({top:"260px",left:"220px",width:'60px',height:'60px'}).fadeIn();
@@ -780,15 +814,15 @@ function yDisappearEnemyMon(){
 */
 
 function yAppearAllyMon(){
+	$('.whyAllyImg').css({display:"block"});
 	$('.whyAllyImg').animate({left:'0px'},1000);
 	$('.whyAllyImg').css({'background-image':myMonid.img01});
-	yTextmsg("가라!!"+myMonid.name+"몬!!!",500);
-}
-function yDisappearAllyMon(){
-	$('.whyAllyImg').animate({left:'-300px'},1000);
+	yTextmsg("가라!!"+myMonid.name+"몬!!!",0);
 }
 
+
 function yChangeAllyMon(){
+	$('.whyAllyImg').css({display:"block"});
 	$('.whyAllyImg').animate({left:'-300px'},1000);
 	setTimeout(function(){$('.whyAllyImg').css({'background-image':myMonid.img01})},1000);
 	$('.whyAllyImg').animate({left:'0px'},1000);
@@ -816,25 +850,6 @@ function yTextmsg(msg,time){ //settime까지 줄까??,time
 }
 
 
-
-
-
-
-
-
-
-
-function yUseBall(){
-	
-}
-
-function yBattleWin(){
-	
-}
-
-function yBattleLose(){
-	
-}
 
 
 //	yCmdList(3000);
