@@ -55,9 +55,6 @@ const MAP_01_POKEMON2 = 52;
 const MAP_02_POKEMON1 = 53;
 const MAP_02_POKEMON2 = 54;
 const MAP_BOSS_POKEMON = 508;
-const MAP_MY_MON01 = 509;
-const MAP_MY_MON02 = 510;
-const MAP_MY_MON03 = 511;
 
 // 전투 발생 시 나의 몬스터와 상대방 몬스터 ID 설정
 var battle_MyPokemon = 0;
@@ -87,7 +84,7 @@ village02.src = './img/map/stage02_npc.png';
 
 
 var map_init = [
-    [   0,   0,   0,   509,   510,   511,   0,   0,   0, 210],
+    [   0,   0,   0,   0,   0,   0,   0,   0,   0, 210],
     [ 202, 203, 204,   0,   0,   0, 501,   0, 205,2101],
     [2021,2031,2041,   0,   0,   0,   0, 206, 206,2102],
     [   0,   0,   0,   0,   0,   0,   0,   0,   0, 211],

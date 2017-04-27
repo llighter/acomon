@@ -6,9 +6,9 @@ body{box-sizing:border-box;}
 
 .whyContain:after,
 .whyContain:before{content:"";display:table;clear:both;}
-
+/*
 *{border: 1px dotted red;}
-
+*/
 html,body{display:block;height:100%;}
 html{overflow:hidden;}
 body{overflow:auto;background:#d2e0d1;}
@@ -27,8 +27,8 @@ body{overflow:auto;background:#d2e0d1;}
 	z-index:0;
 	width:1480px;
 	height:827px;
-	top:40px;
-	left:calc( ( 100% - 1780px ) / 2);
+	top:100px;
+	left:calc( ( 100% - 1480px ) / 2);
 }
 .whyPSP{
 	z-index:1;
@@ -38,7 +38,7 @@ body{overflow:auto;background:#d2e0d1;}
 	top:35px;
 	left:100px;
 /*
-	background:url("../img/rd/psp.png") no-repeat center;
+	background:url("../img/back_player.png") no-repeat center;
 */
 	background-size:contain;
 }
@@ -95,7 +95,7 @@ body{overflow:auto;background:#d2e0d1;}
 		height:40%;
 		margin:auto;
 		border:5px solid #a8cbee;
-		background:url("../img/rd/loading.gif");
+		background:url("../img/loading01.gif");
 		background-size:100% 100%;
 		box-shadow: 5px 5px 10px 0px #838383;
 	}
@@ -151,7 +151,7 @@ body{overflow:auto;background:#d2e0d1;}
 	position:absolute;
 	top:20px;
 	left:calc(100% - 250px - 10px); /* 전체%, 너비px, 마진px */
-	height:calc(480px - 20px - 20px - 20px); /* 높이px, 탑마진px, 바텀마진px */
+	height:calc(480px - 20px - 20px); /* 높이px, 탑마진px, 바텀마진px */
 	width:250px;
 	background:#a0d6b4;
 	color:white;
@@ -211,7 +211,7 @@ body{overflow:auto;background:#d2e0d1;}
 	color:white;
 }
 	.whyStatus:NTH-CHILD(1){
-		height:calc(45% - 20px - 20px);
+		height:calc(40% - 30px - 20px);
 		text-shadow: 1px 1px 3px #000000;
 		padding:10px;
 		margin:30px 70px 20px 70px;
@@ -249,7 +249,7 @@ body{overflow:auto;background:#d2e0d1;}
 			.whyStatusImg{
 				height:100%;
 				width:100%;
-				background:url("../img/rd/jiwoo.png") no-repeat center;
+				background:url("../img/naong01.png") no-repeat center;
 				background-size:contain;
 			}
 		.whyStatusInfobox{
@@ -257,7 +257,7 @@ body{overflow:auto;background:#d2e0d1;}
 			float:left;
 			height:75%;
 			width:69%;
-			font-size:25px;
+			font-size:20px;
 			margin-left:1%;
 			box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
 				0px 2px 2px 0px rgba(255, 255, 255, 0.5);
@@ -265,11 +265,9 @@ body{overflow:auto;background:#d2e0d1;}
 		}
 		.whyStatusInfobox div:NTH-CHILD(2n+1){
 			width:40%;
-			text-align:right;
 		}
 		.whyStatusInfobox div:NTH-CHILD(2n+0){
 			width:60%;
-			padding-left:10px;
 			text-align:left;
 		}
 			.whyStatusName{
@@ -298,11 +296,11 @@ body{overflow:auto;background:#d2e0d1;}
 			}
 		
 	.whyStatus:NTH-CHILD(2){
-		height:calc(55% - 20px - 20px);
-		width:calc(100% - 140px);
+		height:calc(60% - 20px);
+		width:calc(100% - 40px);
 		background:#4376ad;
 		padding:20px;
-		margin:0px 70px 40px 70px;
+		margin:0px 20px 20px 20px;
 		border-radius:5px;
 		border:3px solid #779ECB;
 		box-shadow: 0px 0px 60px 10px #779ECB inset,
@@ -314,37 +312,37 @@ body{overflow:auto;background:#d2e0d1;}
 			float:left;
 			width:100%;
 			height:35%;
-			font-size:25px;
+			font-size:20px;
 			font-weight:bold;
 		}
 		.whyStatusScorebox div:NTH-CHILD(2n+1){
-			padding-left:10px;
-			width:20%;
+			padding-left:50px;
+			width:75%;
 			color:#A0D6B4;
 			text-align:right;
 		}
 		.whyStatusScorebox div:NTH-CHILD(2n+0){
-			padding-left:10px;
-			width:30%;
+			padding-left:30px;
+			width:25%;
 			color:#FF6961;
 		}
 			.whyStatusScoreFind{
 				display:inline-block;
 				float:left;
 				width:50%;
-				height:50%;
+				height:33.333%;
 			}
 			.whyStatusScoreGet{
 				display:inline-block;
 				float:left;
 				width:50%;
-				height:50%;
+				height:33.333%;
 			}
 			.whyStatusScoreRanking{
 				display:inline-block;
 				float:left;
 				width:50%;
-				height:50%;
+				height:33.333%;
 			}
 		
 		.whyStatusBadge{
@@ -355,23 +353,14 @@ body{overflow:auto;background:#d2e0d1;}
 			margin:10px 0px;
 			box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
 					0px 2px 2px 0px rgba(255, 255, 255, 0.5);
+		/*
+			height:calc(100% - 20px - 20px); 
+			width:calc(100% - 20px - 20px);
+			float:left;
+			margin:20px;
+			background:#68b4ff;
+		*/
 		}
-			.whyStatusBadgeList{
-				display:table;
-				float:left;
-				width:25%;
-				height:50%;
-				font-weight:bold;
-				font-size:30px;
-				text-align:center;
-				line-height:1;
-				padding-top:5px;
-			}
-			.whyStatusBadgeList div{
-			display:table-cell;
-			vertical-align: middle;
-			}
-		
 
 /* 전체 - 리포트 */
 .whyReportBox{
@@ -403,7 +392,7 @@ body{overflow:auto;background:#d2e0d1;}
 		float:left;
 		width: 100%;
 		height:55%;
-		background:url("../img/rd/saveImg.PNG") no-repeat center;
+		background:url("../img/saveimg.PNG") no-repeat center;
 		margin:0 auto;
 		padding:20px;
 	}
@@ -447,7 +436,7 @@ body{overflow:auto;background:#d2e0d1;}
 		left:0;
 		width:100%;
 		height:100%;
-		background-image:url(../img/rd/bg_battle.gif);
+		background-image:url(../img/background_battle.gif);
 		background-size: cover;
 		transform: rotate(-23deg);
 	}
@@ -535,12 +524,9 @@ body{overflow:auto;background:#d2e0d1;}
 		padding:0px 70px 0px 10px;
 	}
 		.whyAllyImg{
-			position:relative;
-			top:0px;
-			left:0px;
 			width:100%;
 			height:100%;
-			background:url("../img/rd/myMon_01b.gif") no-repeat bottom;
+			background:url("../img/monA_02.gif") no-repeat bottom;
 			background-size:contain;
 		}
 			.whyAllyHeal{
@@ -551,7 +537,7 @@ body{overflow:auto;background:#d2e0d1;}
 				position:absolute;
 				top:60px;
 				left:0px;
-				background:url("../img/rd/heal1.png") no-repeat center;
+				background:url("../img/heal1.png") no-repeat center;
 				background-size:250% 200%;
 				opacity:0.55;
 			}
@@ -559,12 +545,9 @@ body{overflow:auto;background:#d2e0d1;}
 		padding:0px 10px 0px 70px;
 	}
 		.whyEnemyImg{
-			position:relative;
-			top:0px;
-			left:0px;
 			width:100%;
 			height:100%;
-			background-image:url('../img/rd/myMon_06c.png');
+			background-image:url('../img/monZ_00.png');
 			background-repeat:no-repeat;
 			background-position:center;
 			background-size:contain;
@@ -629,7 +612,7 @@ body{overflow:auto;background:#d2e0d1;}
 	position:absolute;
 	top:120px;
 	left:450px;
-	background:url("../img/rd/skill_ball01.png") no-repeat center;
+	background:url("../img/attack_01.png") no-repeat center;
 	background-size:cover;
 	opacity:0.6;
 }
@@ -641,7 +624,7 @@ body{overflow:auto;background:#d2e0d1;}
 	position:absolute;
 	top:260px;
 	left:220px;
-	background:url("../img/rd/skill_fire01.png") no-repeat center;
+	background:url("../img/attack_fire01.png") no-repeat center;
 	background-size:100% 100%;
 	opacity:0.9;
 	transform: rotate(-23deg);
@@ -726,23 +709,23 @@ body{overflow:auto;background:#d2e0d1;}
 			text-align:center;
 		}
 		.whyMyAcomon:NTH-CHILD(1) .whyMyAcomonImg{
-			background:url("../img/rd/myMon_01a.gif") no-repeat center;
+			background:url("../img/pocketmon01.gif") no-repeat center;
 			background-size:contain;
 		}
 		.whyMyAcomon:NTH-CHILD(2) .whyMyAcomonImg{
-			background:url("../img/rd/myMon_02a.gif") no-repeat center;
+			background:url("../img/pocketmon02.gif") no-repeat center;
 			background-size:contain;
 		}
 		.whyMyAcomon:NTH-CHILD(3) .whyMyAcomonImg{
-			background:url("../img/rd/myMon_03a.gif") no-repeat center;
+			background:url("../img/pocketmon03.gif") no-repeat center;
 			background-size:contain;
 		}
 		.whyMyAcomon:NTH-CHILD(4) .whyMyAcomonImg{
-			background:url("../img/rd/myMon_04a.gif") no-repeat center;
+			background:url("../img/pocketmon04.gif") no-repeat center;
 			background-size:contain;
 		}
 		.whyMyAcomon:NTH-CHILD(5) .whyMyAcomonImg{
-			background:url("../img/rd/myMon_05a.gif") no-repeat center;
+			background:url("../img/pocketmon05.gif") no-repeat center;
 			background-size:contain;
 		}
 	
@@ -781,7 +764,7 @@ body{overflow:auto;background:#d2e0d1;}
 	position:absolute;
 	top:0px;
 	left:60%;		/* 아이템 박스 생성위치 */
-	height:calc(75% - 10px - 10px - 20px);
+	height:calc(75% - 10px - 10px);
 	width:calc(40% - 10px - 10px);
 	padding:20px;
 	margin:10px;
