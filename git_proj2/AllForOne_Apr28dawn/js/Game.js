@@ -1,7 +1,6 @@
 var canvas = document.getElementById("village");
-var ending = document.getElementById("end");
 var context = canvas.getContext("2d");
-var context2 = ending.getContext("2d");
+
 var myPlayer = new Player('player01', 'yunha', UNIT*4 ,UNIT*2, player, EAST_DIRECTION);
 var mapList = [];
 
@@ -13,7 +12,7 @@ var init_talk = ['Acorn 아카데미에 온 것을 환영하네.. 우리학원�
 				'아저씨 뭐 줄까?',
 				'여기는 Javascript 마을이네.. 아주 위험하지...부탁 좀 들어주겠나?',
 				'취준생 지우는 세계최고의 프로그래밍 개발자가 되고 싶어 한다. 부족한 프로그래밍 실력을 키우기 위해 에이콘아카데미에 등록하려고 찾아가는데.... ',	// 오프닝멘트
-				'내가 이 게임 보스 맞는데 오늘은 피곤하니까 다음에 다시 와라.'
+				'엄청난 프로젝트몬을 수집했군. 이제 넌 쓸모가 없어졌다. 가지고 있는 프로젝트몬을 나에게 넘겨라!'
 				];
 // 상점 옵션
 // var market_talk = ['[1] 다음에 올께요.', '[2] 민트 캔디 구입',  '[3] 몬스터볼 구입',  '[4] 몬스터 치료',  '[5] 몬스터 방생'];
@@ -55,7 +54,7 @@ var currentMode = 2;
 
 var battleCountDown = 4;
 
-var giftMon=0;
+
 createOpening(temp[7]);
 
 
@@ -70,8 +69,7 @@ document.addEventListener('keyup', (event) => {
 		  || npcDetection() == MAP_02_STORE_NPC
 		  || npcDetection() == MAP_MY_MON01
 		  || npcDetection() == MAP_MY_MON02
-		  || npcDetection() == MAP_MY_MON03
-		  || npcDetection() == MAP_BOSS_NPC)) {
+		  || npcDetection() == MAP_MY_MON03)) {
 		chat.style="block";
 		option.style="block";
 		currentMode=5;	// 대화중에는 움직이지 않기
@@ -80,7 +78,6 @@ document.addEventListener('keyup', (event) => {
 			case MAP_00_QUEST_NPC:	questProcess(1);	break;
 			case MAP_01_QUEST_NPC:	questProcess(2);	break;
 			case MAP_02_QUEST_NPC:	questProcess(3);	break;
-			case MAP_BOSS_NPC: 		questProcess(4);	break;
 
 			case MAP_00_STORE_NPC:	storeProcess(0);	break;
 			case MAP_01_STORE_NPC:	storeProcess(1);	break;
@@ -96,18 +93,10 @@ document.addEventListener('keyup', (event) => {
 			$("body").css("background","white");	  
 	} else if(event.keyCode === KEYBOARD_2) {
 		switch(npcDetection()) {
-			case MAP_ACADEMY_YANG:
-				quest[0].questStatus = BEFORE_QUEST;
-				questProcess(0);	break;
-			case MAP_00_QUEST_NPC:
-				quest[1].questStatus = BEFORE_QUEST;
-				questProcess(1);	break;	
-			case MAP_01_QUEST_NPC:
-				quest[2].questStatus = BEFORE_QUEST;
-				questProcess(2);	break;
-			case MAP_02_QUEST_NPC:
-				quest[3].questStatus = BEFORE_QUEST;
-				questProcess(3);	break;
+			case MAP_ACADEMY_YANG:	questProcess(0);	break;
+			case MAP_00_QUEST_NPC:	questProcess(1);	break;	
+			case MAP_01_QUEST_NPC:	questProcess(2);	break;
+			case MAP_02_QUEST_NPC:	questProcess(3);	break;
 		}
 	}
 	
