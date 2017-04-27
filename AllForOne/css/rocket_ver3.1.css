@@ -653,6 +653,7 @@ body{overflow:auto;background:#d2e0d1;}
 }
 
 .whyPocketBall{
+	display:block;
 	width:200px;
 	height:200px;
 	z-index:50;
