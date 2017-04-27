@@ -1,7 +1,7 @@
 /*ㅁㅁzz
 <!-- 
 * 학원에서....Apr27,2017
- * 			11:21
+ * 			13:03
  * 			dev by JB
  * MS969
  * 
@@ -205,7 +205,6 @@ function meditation(){  // 명상 체력 +13.
 	}
 	console.log(showMsg);
 	winOrLose();
-	propertyBonusRelease();
 }
 
 
@@ -259,6 +258,16 @@ function skillLv2Attack(){
 		}
 		winOrLose();
 	}  // if - switch case:  END
+	else if(myMonid.lv > 1 && ( myMonid.status != "normal" )){
+		skillMsg ="<span style='color:#FF6961'>" +myMonid.name+"</span>에게 이미<span style='color:#82b5f2'>"
+		+ myMonid.status+"</span>가 걸려있습니다.";
+		skillAttack();
+	}
+	else if(myMonid.lv > 1 && ( newPokemon.status !="normal" )){
+		skillMsg ="<span style='color:#FF6961'>" +newPokemon.name+"</span>에게 이미<span style='color:#82b5f2'>"
+		+ newPokemon.status+"</span>가 걸려있습니다.";
+		skillAttack();
+	}
 	 yTextmsg(skillMsg);
 	winOrLose();
 	propertyBonusRelease();
