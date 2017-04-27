@@ -334,7 +334,7 @@ function quest0(meetingMonId){   // 맵팀: quest0(~~);함수의 위치: 고를�
 					getThisMon.property,
 					getThisMon.img00,   //@@//
 					getThisMon.img01,
-					getThisMon.img02
+					getThisMon.img02,
 					"normal"  // status =0 // 정상.
 			));
 			checkPokemonBook();
