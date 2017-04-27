@@ -40,10 +40,11 @@ function MyPokemon(bookNo, id, name, lv, exp, hp, att, shield, property, status,
 // }
 
 // questNeeds -> questStatus 로 변경
-function QuestList(questNo, questContent, questStatus, questDone, reward){  // ## 주어진 시간?? 이런것도 해볼수잇나
+function QuestList(questNo, questContent, questStatus, questDone, reward, questNeeds){  // ## 주어진 시간?? 이런것도 해볼수잇나
 	this.questNo = questNo;
 	this.questContent = questContent;
 	this.questStatus = questStatus;
 	this.questDone = questDone;
 	this.reward = reward;
+	this.questNeeds = questNeeds;
 }

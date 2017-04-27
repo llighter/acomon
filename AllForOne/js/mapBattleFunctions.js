@@ -221,10 +221,10 @@ const DONE_QUEST = 3;
 const END_QUEST = 4;
 
 var quest = [];		//questNo, questContent, 		questNeeds, questDone, reward
-quest.push(new QuestList(0, "\"셋중 아무거나 골라보시게\" "			,FIRST_MEET , false, "고른 포켓몬을 소유."));
-quest.push(new QuestList(1, "\"불속성 몬스터를 2마리 쓰러트리시게.\" "	,FIRST_MEET , false, "4000골드."));  //###속성 random()?
-quest.push(new QuestList(2, "\"몬스터북에 3마리 이상 소유하시게.\" " 	,FIRST_MEET , false, "몬스터볼 3개." ));
-quest.push(new QuestList(3, "\"민트를 3개 가져다 주시게.\" "			,FIRST_MEET , false, "10000골드" )); 
+quest.push(new QuestList(0, "\"셋중 아무거나 골라보시게\" "			,FIRST_MEET , false, "고른 포켓몬을 소유.", 1));
+quest.push(new QuestList(1, "\"불속성 몬스터를 2마리 쓰러트리시게.\" "	,FIRST_MEET , false, "4000골드.", 2));  //###속성 random()?
+quest.push(new QuestList(2, "\"몬스터북에 3마리 이상 소유하시게.\" " 	,FIRST_MEET , false, "몬스터볼 3개.", 3));
+quest.push(new QuestList(3, "\"민트를 3개 가져다 주시게.\" "			,FIRST_MEET , false, "10000골드", 3)); 
 
 // 변경 하기 전 세이브
 // var questNow = 0;
@@ -310,7 +310,7 @@ function questProcess(questId){  //### 맵팀: 퀘스트를 주는 npc
 		questShow = "뭐하고 있나! 아직도 안하다니..";
 		questShow += "<br/> 퀘스트 내용: "+ quest[questId].questContent;
 		questShow += "<br/> 퀘스트 보상: "+ quest[questId].reward;
-		quest[questId].questStatus = (1 == 1) ? DONE_QUEST : ING_QUEST; // TODO: 일단 무조건 된다는 가정
+		quest[questId].questStatus = (quest[questId].questNeeds <= 0) ? DONE_QUEST : ING_QUEST;
 		$('#option').html("[1] 알겠습니다!");
 	} else if(questId == 1 && (quest[questId].questStatus == DONE_QUEST)) {
 		questShow = "오호.. 자네 생각보다 쓸만하구만!! 인물이야! 하하하하!!";
@@ -340,7 +340,7 @@ function questProcess(questId){  //### 맵팀: 퀘스트를 주는 npc
 		questShow = "뭐하고 있나! 아직도 안하다니..";
 		questShow += "<br/> 퀘스트 내용: "+ quest[questId].questContent;
 		questShow += "<br/> 퀘스트 보상: "+ quest[questId].reward;
-		quest[questId].questStatus = (1 == 1) ? DONE_QUEST : ING_QUEST; // TODO: 일단 무조건 된다는 가정
+		quest[questId].questStatus = (pokemons.length >= quest[questId].questNeeds) ? DONE_QUEST : ING_QUEST; // TODO: 일단 무조건 된다는 가정
 		$('#option').html("[1] 알겠습니다!");
 	} else if(questId == 2 && (quest[questId].questStatus == DONE_QUEST)) {
 		questShow = "벌써 이렇게나!!! 자네 배우는게 빠르구만! 하하하하!!";
@@ -358,7 +358,7 @@ function questProcess(questId){  //### 맵팀: 퀘스트를 주는 npc
 	if(questId == 3 && (quest[questId].questStatus == FIRST_MEET)) {
 		questShow = '여기는 Javascript 마을이네.. 아주 위험하지...부탁 좀 들어주겠나?';
 		quest[questId].questStatus = BEFORE_QUEST;
-		$('#option').html("'[1] 싫어요! [2]그럴께요!");
+		$('#option').html("[1] 싫어요! [2]그럴께요!");
 	} else if(questId == 3 && (quest[questId].questStatus == BEFORE_QUEST)) {
 		questShow = "다음의 내용을 해결해주면 되네!";
 		questShow += "<br/> 퀘스트 내용: "+ quest[questId].questContent;
@@ -369,7 +369,7 @@ function questProcess(questId){  //### 맵팀: 퀘스트를 주는 npc
 		questShow = "뭐하고 있나! 아직도 안하다니..";
 		questShow += "<br/> 퀘스트 내용: "+ quest[questId].questContent;
 		questShow += "<br/> 퀘스트 보상: "+ quest[questId].reward;
-		quest[questId].questStatus = true ? DONE_QUEST : ING_QUEST; // TODO: 일단 무조건 된다는 가정
+		quest[questId].questStatus = (jiwoo.mint >= quest[questId].questNeeds) ? DONE_QUEST : ING_QUEST; // TODO: 일단 무조건 된다는 가정
 		$('#option').html("[1] 알겠습니다!");
 	} else if(questId == 3 && (quest[questId].questStatus == DONE_QUEST)) {
 		questShow = "벌써 이렇게나!!! 자네 배우는게 빠르구만! 하하하하!!";
