@@ -71,47 +71,46 @@ document.addEventListener('keyup', (event) => {
 	switch(npcDetection()) {
 		case MAP_ACADEMY_YANG:
 			chat.style="block";
-			createDiag( temp[0] );
 			option.style="block";
+			createDiag( temp[0] );
 			dialogMode=3;
 			break;
 		case MAP_00_STORE_NPC:
 			chat.style="block";
-			createDiag( temp[1] );
 			option.style="block";
+			createDiag( temp[1] );
 			dialogMode=2;
 			// 상점은 2번으로 별 방법을 다했는데 안되서 그냥 상점은 dialogMode을 2로배정
-			
 			break;
 		case MAP_00_QUEST_NPC:
 			chat.style="block";
-			createDiag( temp[2] );
 			option.style="block";
+			createDiag( temp[2] );
 			dialogMode=3;
 			// 퀘스트는 dialogMode 3으로
 			break;
 		case MAP_01_STORE_NPC:
 			chat.style="block";
-			createDiag( temp[3] );
 			option.style="block";
+			createDiag( temp[3] );
 			dialogMode=2;
 			break;
 		case MAP_01_QUEST_NPC:
 			chat.style="block";
-			createDiag( temp[4] );
 			option.style="block";
+			createDiag( temp[4] );
 			dialogMode=3;
 			break;
 		case MAP_02_STORE_NPC:
 			chat.style="block";
-			createDiag( temp[5] );
 			option.style="block";
+			createDiag( temp[5] );
 			dialogMode=2;
 			break;
 		case MAP_02_QUEST_NPC:
 			chat.style="block";
-			createDiag( temp[6] );
 			option.style="block";
+			createDiag( temp[6] );
 			dialogMode=3;
 			break;
 		case MAP_BOSS_NPC:
@@ -122,16 +121,19 @@ document.addEventListener('keyup', (event) => {
 		//	초기 몬스터 3마리 맵배열값 509~511 dialogMode=4로 배정	
 		case MAP_MY_MON01:
 			chat.style="block";
+			option.style="block";
 			meetingMonId=0; quest0(0);
 			dialogMode=4;
 			break;
 		case MAP_MY_MON02:
 			chat.style="block";
+			option.style="block";
 			meetingMonId=1; quest0(1);
 			dialogMode=4;
 			break;
 		case MAP_MY_MON03:
 			chat.style="block";
+			option.style="block";
 			meetingMonId=2; quest0(2);
 			dialogMode=4;
 			break;				

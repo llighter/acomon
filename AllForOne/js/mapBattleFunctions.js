@@ -20,7 +20,6 @@ function WorldPokemon(id, name, lv, exp, hp, att, shield, property, img00, img01
 	this.img00 = img00;  //@@//
 	this.img01 = img01;
 	this.img02 = img02;
-	
 }
 // 포켓몬세계 전체 몬스터리스트.
 mapPokemons = [];
