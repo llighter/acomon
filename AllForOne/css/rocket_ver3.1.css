@@ -537,6 +537,7 @@ body{overflow:auto;background:#d2e0d1;}
 		padding:0px 70px 0px 10px;
 	}
 		.whyAllyImg{
+			display:none;
 			position:relative;
 			top:0px;
 			left:0px;
@@ -562,6 +563,7 @@ body{overflow:auto;background:#d2e0d1;}
 		padding:0px 10px 0px 70px;
 	}
 		.whyEnemyImg{
+			display:none;
 			position:relative;
 			top:0px;
 			left:0px;
@@ -651,6 +653,19 @@ body{overflow:auto;background:#d2e0d1;}
 	opacity:0.9;
 	transform: rotate(-23deg);
 }
+
+.whyPocketBall{
+	width:200px;
+	height:200px;
+	z-index:50;
+	position:absolute;
+	top:350px;
+	left:-210px;
+	background:url("../img/rd/pokeball_rocket.png") no-repeat center;
+	background-size:cover;
+	opacity:0.99;
+}
+
 /*
 	animation-name:yEnemyAttack;
 	animation-duration:2s;
@@ -693,6 +708,9 @@ body{overflow:auto;background:#d2e0d1;}
 		height:100%;
 		width:20%;
 		background-color:rgba(0, 0, 0, 0.0);
+		background-repeat: no-repeat;
+		background-position:center;
+		background-size:contain;
 	}
 	.whyMyAcomonTag{
 		display:inline-block;
@@ -730,9 +748,8 @@ body{overflow:auto;background:#d2e0d1;}
 			height:100%;
 			text-align:center;
 		}
+<!--		
 		.whyMyAcomon:NTH-CHILD(1) .whyMyAcomonImg{
-			background:url("../img/rd/myMon_01a.gif") no-repeat center;
-			background-size:contain;
 		}
 		.whyMyAcomon:NTH-CHILD(2) .whyMyAcomonImg{
 			background:url("../img/rd/myMon_02a.gif") no-repeat center;
@@ -750,7 +767,7 @@ body{overflow:auto;background:#d2e0d1;}
 			background:url("../img/rd/myMon_05a.gif") no-repeat center;
 			background-size:contain;
 		}
-	
+-->	
 .whyMyAcomonMenubox{
 	z-index:9;
 	position:absolute;
