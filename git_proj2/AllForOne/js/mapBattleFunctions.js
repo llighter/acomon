@@ -11,7 +11,7 @@ $(document).ready(function(){
 // 포켓몬세계 전체 몬스터리스트.
 mapPokemons = [];
 
-//					    몬북고유번호지정,id,  name 	  	  ,lv,exp,hp,att,방어,상성    //@@//
+//					    		 id,  name 	  	  ,lv,exp,hp,att,방어,상성    //@@//
 mapPokemons.push(new WorldPokemon(0, "HTML",		1, 0, 50, 13, 1, 0, "url('img/rd/myMon_01a.gif')","url('img/rd/myMon_01b.png')","url('img/rd/myMon_01c.png')" ));  // 세계 몬스터도감 id는 순서대로 넣어줄것.
 mapPokemons.push(new WorldPokemon(1, "CSS", 		1, 0, 52, 15, 2, 1, "url('img/rd/myMon_02a.gif')","url('img/rd/myMon_02b.png')","url('img/rd/myMon_02c.png')")); 
 mapPokemons.push(new WorldPokemon(2, "SQL", 		1, 0, 54, 17, 2, 2, "url('img/rd/myMon_03a.gif')","url('img/rd/myMon_03b.png')","url('img/rd/myMon_03c.png')")); 
@@ -293,11 +293,14 @@ function quest0(meetingMonId){   // 맵팀: quest0(~~);함수의 위치: 고를�
 					getThisMon.exp ,
 					getThisMon.hp,
 					getThisMon.att,
-					getThisMon.property,
+					getThisMon.shield,    //@@//
+					getThisMon.property,  
 					"normal",  // status =0 // 정상.
-					getThisMon.img00,   //@@//
+					getThisMon.img00,  
 					getThisMon.img01,
 					getThisMon.img02
+					//pokemons   몬북고유번호지정,id,  name 	      ,lv,exp,hp,att,방어,상성,현재상태
+					//mappokemon            ,id,  name 	  	  ,lv,exp,hp,att,방어,상성    //@@//
 			));
 			checkPokemonBook();
 			console.log(pokemons[pokemons.length-1]);  //### 확실히 받앗는지 확인.
