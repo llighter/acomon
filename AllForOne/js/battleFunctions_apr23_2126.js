@@ -481,7 +481,6 @@ function tagMyMon(bookNumber){	// 내가 소유한 몬스터와 태그하기.
 
 
 function winOrLose(){
-
 	if(newPokemon.hp <= 0){
 		console.log("enemy loses.");
 		if(quest[0].questDone && quest[1].questNeeds != 0 && newPokemon.property == 3){
@@ -522,17 +521,17 @@ function expUp(){
 		myMonid.lv += 1;  //#### 종원이형: 레벨 오를시에 생기는 이벤트. 레벨업연출은 여기서 수정해가면되욤.
 		showMsg += " -> "+ myMonid.lv;
 		myMonid.hp = Number((myMonid.initHp*1.2).toFixed(1));
-		showMsg += "<br/>체력증가율 (1.2배):"+ myMonid.initHp+ " -> " + (myMonid.initHp*1.2).toFixed(1);
+//		showMsg += "<br/>체력증가율 (1.2배):"+ myMonid.initHp+ " -> " + (myMonid.initHp*1.2).toFixed(1);
 		myMonid.initHp = myMonid.hp;
-		showMsg += "<br/>공격력 증가 (+7): " + myMonid.att;
+//		showMsg += "<br/>공격력 증가 (+7): " + myMonid.att;
 		myMonid.att += 7;
-		showMsg += " -> "+ myMonid.att;
+//		showMsg += " -> "+ myMonid.att;
 	}
 	else{
 		myMonid.exp += winExp;
 		showMsg = myMonid.name+"가 "+ myMonid.exp+" / "+(60 + myMonid.lv*40)+ "만큼 경험치를 획득했다!!!";
 	}
-	yTextmsg(showMsg,2000);
+	yTextmsg(showMsg,3000);
 	
 }
 
@@ -546,7 +545,7 @@ function enemyTurn(time){
 		}
 		//ynot 추가함.
 		else if(winOrLoseResult){
-			yBattleEnd("자멸");
+	//		yBattleEnd("자멸");
 		}
 		propertyBonusRelease();
 	},time);

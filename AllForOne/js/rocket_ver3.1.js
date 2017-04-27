@@ -35,10 +35,12 @@ function yKeyRokect(event){
 			yDownPressed();
 	    }
 	    if(event.keyCode == 37){
-	//    	yCatchNice();
+	    	newPokemon.hp=0;
+	    	yEnemyhp();
 	 	 }
 	    else if(event.keyCode == 39){
-	//    	yCatchFail();
+	    	myMonid.hp=0;
+	    	yAllyhp();
 	    }
 	    else if(event.keyCode == 65){ 	//a키 : 메뉴키
 	    	yAkeyPressed();
@@ -512,6 +514,7 @@ function yCmdSkillSelect(){
 	default:
 		break;
 	}
+	winOrLose();
 	yKeyoff();
 	enemyTurn(3500);
 	yTurnEnd(7000);
@@ -650,7 +653,6 @@ function yEnemyAttackEffect(){
 // 깜빡임 효과(상대편이미지에 주기.적중시기준이지만 일단 전부 적용하는걸로.)
 	yBlink('.whyAllyImg');
 }
-
 
 //hp변경 -> 이미지 변화
 function yAllyhp(){
