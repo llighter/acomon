@@ -127,12 +127,12 @@ document.addEventListener('keyup', (event) => {
 			break;
 		case MAP_MY_MON02:
 			chat.style="block";
-			meetingMonId=0; quest0(0);
+			meetingMonId=1; quest0(1);
 			dialogMode=4;
 			break;
 		case MAP_MY_MON03:
 			chat.style="block";
-			meetingMonId=0; quest0(0);
+			meetingMonId=2; quest0(2);
 			dialogMode=4;
 			break;				
 			
