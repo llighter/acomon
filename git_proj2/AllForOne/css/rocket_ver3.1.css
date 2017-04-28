@@ -1,0 +1,991 @@
+
+body{box-sizing:border-box;}
+*, *:after, *:before{box-sizing:inherit;}
+
+*{margin:0; padding:0;}
+
+.whyContain:after,
+.whyContain:before{content:"";display:table;clear:both;}
+/*
+*{border: 1px dotted red;}
+*/
+html,body{display:block;height:100%;}
+html{overflow:hidden;}
+body{overflow:auto;background:#d2e0d1;}
+/*	파랑 : #779ECB
+	빨강	: #FF6961
+	녹색 : #A0D6B4
+	주황 : #FFB347
+	보라 : #B19CD9
+	갈색 : #836953
+	노랑 : #FDFD96
+	회색 : #CFCFC4
+*/
+/* 16*16(한칸 40px) */
+.whyFullCover{
+	position:absolute;
+	z-index:0;
+	width:1480px;
+	height:827px;
+	top:40px;
+	left:calc( ( 100% - 1780px ) / 2);
+}
+.whyPSP{
+	z-index:-1;
+	position:absolute;
+	width:1480px;
+	height:827px;
+	top:35px;
+	left:100px;
+	background:url("../img/rd/psp.png") no-repeat center;
+	background-size:contain;
+}
+.whyPSPinset{
+	z-index:-3;
+	position:absolute;
+	top:100px;
+	left:525px;
+	width:640px;
+	height:640px;
+	box-shadow:0px 8px 8px 0px rgba(0, 0, 0, 0.7) inset,
+		0px 8px 8px 0px rgba(255, 255, 255, 0.7);
+	
+}
+.whyMainBox{
+	z-index:2;
+	position:absolute;
+	top:100px;
+	left:525px;
+	width:640px;
+	height:640px;
+}
+/*	화면에 보이는것은 이제 z-index 20기준으로*/
+.whyBase{
+	z-index:15;
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background-color: #e6e6d5;
+	background-image:url(../img/rd/battleload.png);
+
+	background-size:contain;
+}
+/*	전체 화면 시작	*/
+/* 전체 - 로딩 */
+.whyLodingbox{
+	z-index:20;
+	position:absolute;
+	width:100%;
+	height:100%;
+	background-color:#5593c2;
+	text-align:center;
+	color: white;
+}
+	/* 빈 블럭 상단 마진줌. */
+	.whyLoding1{
+		height:20%;
+	}
+	.whyLoding2{
+		width:60%;
+		height:40%;
+		margin:auto;
+		border:5px solid #a8cbee;
+		background:url("../img/rd/loading.gif");
+		background-size:100% 100%;
+		box-shadow: 5px 5px 10px 0px #838383;
+	}
+	.whyLoding3{
+		width:100%;
+		height:30%;
+		font-weight:bold;
+		font-size:100px;
+		text-shadow:
+			rgb(204, 204, 204) 0px 1px 0px,
+			rgb(201, 201, 201) 0px 2px 0px,
+			rgb(187, 187, 187) 0px 3px 0px,
+			rgb(185, 185, 185) 0px 4px 0px,
+			rgb(170, 170, 170) 0px 5px 0px,
+			rgba(0, 0, 0, 0.0980392) 0px 6px 1px,
+			rgba(0, 0, 0, 0.0980392) 0px 0px 5px,
+			rgba(0, 0, 0, 0.298039) 0px 1px 3px,
+			rgba(0, 0, 0, 0.14902) 0px 3px 5px,
+			rgba(0, 0, 0, 0.2) 0px 5px 10px,
+			rgba(0, 0, 0, 0.2) 0px 10px 10px,
+			rgba(0, 0, 0, 0.0980392) 0px 20px 20px;
+	}
+	.whyLoding4{
+		width:100%;
+		height:10%;
+		font-size:30px;
+		text-shadow:
+			rgb(204, 204, 204) 0px 0.5px 0px,
+			rgb(201, 201, 201) 0px 1px 0px,
+			rgb(187, 187, 187) 0px 1.5px 0px,
+			rgb(185, 185, 185) 0px 2px 0px,
+			rgb(170, 170, 170) 0px 2.5px 0px,
+			rgba(0, 0, 0, 0.0980392) 0px 3px 0.5px,
+			rgba(0, 0, 0, 0.0980392) 0px 0px 2.5px,
+			rgba(0, 0, 0, 0.298039) 0px 0.5px 1.5px,
+			rgba(0, 0, 0, 0.14902) 0px 1.5px 2.5px,
+			rgba(0, 0, 0, 0.2) 0px 2.5px 5px,
+			rgba(0, 0, 0, 0.2) 0px 5px 5px,
+			rgba(0, 0, 0, 0.0980392) 0px 10px 10px;
+	}
+
+/* 전체 - 맵 */
+.whyAllMap{
+	z-index:10;
+	position:absolute;
+	width:100%;
+	height:100%;
+}
+
+/* 맵 - 메뉴 */
+.whyMenubox{
+	z-index:10;
+	position:absolute;
+	top:20px;
+	left:calc(100% - 250px - 10px); /* 전체%, 너비px, 마진px */
+	height:calc(480px - 20px - 20px - 20px); /* 높이px, 탑마진px, 바텀마진px */
+	width:250px;
+	background:#a0d6b4;
+	color:white;
+	text-align:center;
+	padding-top:30px;
+	border-radius:5px;
+	box-shadow: 5px 5px 10px 0px #6a6a6a;
+}
+	.whyMenu{
+		display:inline-block;
+		height:50px;
+		line-height:40px;
+		width:220px;
+		margin:5px;
+		font-size:25px;
+		border-radius:5px;
+		background:#367d50;
+		border:3px solid #47ab70;
+		box-shadow: 5px 5px 10px 0px #6a6a6a;
+		text-shadow: 1px 1px 3px #000000;
+	}
+.whyStorebox{
+	z-index:10;
+	position:absolute;
+	top:20px;
+	left:calc(100% - 250px - 10px); /* 전체%, 너비px, 마진px */
+	height:calc(480px - 20px - 20px); /* 높이px, 탑마진px, 바텀마진px */
+	width:250px;
+	background:#a0d6b4;
+	color:white;
+	text-align:center;
+	padding-top:30px;
+	border-radius:5px;
+	box-shadow: 5px 5px 10px 0px #6a6a6a;
+}
+	.whyStore{
+		display:inline-block;
+		height:50px;
+		line-height:40px;
+		width:200px;
+		margin:5px;
+		font-size:25px;
+		border-radius:5px;
+		background:#367d50;
+		border:3px solid #47ab70;
+		box-shadow: 5px 5px 10px 0px #6a6a6a;
+		text-shadow: 1px 1px 3px #000000;
+	}
+
+/* 전체 - 상태창 */
+.whyStatusbox{
+	z-index:10;
+	position:absolute;
+	width:100%;
+	height:100%;
+	background:#bdd0e6;
+	color:white;
+}
+	.whyStatus:NTH-CHILD(1){
+		height:calc(45% - 20px - 20px);
+		text-shadow: 1px 1px 3px #000000;
+		padding:10px;
+		margin:30px 70px 20px 70px;
+		background:#4376ad;
+		border-radius:5px;
+		border:3px solid #779ECB;
+		box-shadow: 0px 0px 60px 10px #779ECB inset,
+			5px 5px 10px 0px #6a6a6a;
+		text-shadow: 1px 1px 3px #000000;
+		
+	}
+		.whyClassCard{
+			width:100%;
+			height:25%;
+			font-size:30px;
+			font-weight:bold;
+			color:white;
+			text-align:center;
+			text-shadow:
+				0px 0px 0 #c0c0c0,
+				1px 1px 0 #808080,
+				2px 2px 1px rgba(0,0,0,0.7),
+				2px 2px 1px rgba(100,100,100,0.3),
+				0px 0px 1px rgba(150,150,150,0.9);
+		}
+		.whyStatusImgbox{
+			display:inline-block;
+			float:left;	
+			height:75%;
+			width:calc(30% - 10px);
+			margin:0px 5px;
+			box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
+				0px 2px 2px 0px rgba(255, 255, 255, 0.5);
+		}
+			.whyStatusImg{
+				height:100%;
+				width:100%;
+				background:url("../img/rd/jiwoo.png") no-repeat center;
+				background-size:contain;
+			}
+		.whyStatusInfobox{
+			display:inline-block;
+			float:left;
+			height:75%;
+			width:69%;
+			font-size:25px;
+			margin-left:1%;
+			box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
+				0px 2px 2px 0px rgba(255, 255, 255, 0.5);
+			text-align:center;
+		}
+		.whyStatusInfobox div:NTH-CHILD(2n+1){
+			width:40%;
+			text-align:right;
+		}
+		.whyStatusInfobox div:NTH-CHILD(2n+0){
+			width:60%;
+			padding-left:10px;
+			text-align:left;
+		}
+			.whyStatusName{
+				display:inline-block;
+				float:left;
+				width:50%;
+				height:25%;
+			}
+			.whyStatusMoney{
+				display:inline-block;
+				float:left;
+				width:50%;
+				height:25%;
+			}
+			.whyStatusPlayTime{
+				display:inline-block;
+				float:left;
+				width:50%;
+				height:25%;
+			}
+			.whyStatusStartTime{
+				display:inline-block;
+				float:left;
+				width:50%;
+				height:25%;
+			}
+		
+	.whyStatus:NTH-CHILD(2){
+		height:calc(55% - 20px - 20px);
+		width:calc(100% - 140px);
+		background:#4376ad;
+		padding:20px;
+		margin:0px 70px 40px 70px;
+		border-radius:5px;
+		border:3px solid #779ECB;
+		box-shadow: 0px 0px 60px 10px #779ECB inset,
+			5px 5px 10px 0px #6a6a6a;
+		text-shadow: 1px 1px 3px #000000;
+	}
+		.whyStatusScorebox{
+			display:inline-block;
+			float:left;
+			width:100%;
+			height:35%;
+			font-size:25px;
+			font-weight:bold;
+		}
+		.whyStatusScorebox div:NTH-CHILD(2n+1){
+			padding-left:10px;
+			width:20%;
+			color:#A0D6B4;
+			text-align:right;
+		}
+		.whyStatusScorebox div:NTH-CHILD(2n+0){
+			padding-left:10px;
+			width:30%;
+			color:#FF6961;
+		}
+			.whyStatusScoreFind{
+				display:inline-block;
+				float:left;
+				width:50%;
+				height:50%;
+			}
+			.whyStatusScoreGet{
+				display:inline-block;
+				float:left;
+				width:50%;
+				height:50%;
+			}
+			.whyStatusScoreRanking{
+				display:inline-block;
+				float:left;
+				width:50%;
+				height:50%;
+			}
+		
+		.whyStatusBadge{
+			display:inline-block;
+			float:left;
+			height:calc(65% - 5px - 5px);
+			width:100%;
+			margin:10px 0px;
+			box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
+					0px 2px 2px 0px rgba(255, 255, 255, 0.5);
+		}
+			.whyStatusBadgeList{
+				display:table;
+				float:left;
+				width:25%;
+				height:50%;
+				font-weight:bold;
+				font-size:30px;
+				text-align:center;
+				line-height:1;
+				padding-top:5px;
+			}
+			.whyStatusBadgeList div{
+			display:table-cell;
+			vertical-align: middle;
+			}
+		
+
+/* 전체 - 리포트 */
+.whyReportBox{
+	z-index:10;
+	position:absolute;
+	top:0;
+	left:0;
+	height:100%;
+	width:100%;
+	background:#ffd2d0;
+	color:white;
+	font-size:30px;
+	font-weight:bold; 
+	padding:40px;
+}	
+	.whyReport{
+		display:inline-block;
+		float:left;
+		height:calc(25% - 20px - 20px);
+		width:calc(33% - 10px - 10px);
+		background:#FF6961;
+		border:5px solid #bb0a00;
+		margin:20px 10px;
+		padding:10px;
+		border-radius: 15px;
+	}
+	.whyReportImg{
+		display:inline-block;
+		float:left;
+		width: 100%;
+		height:55%;
+		background:url("../img/rd/saveImg.PNG") no-repeat center;
+		margin:0 auto;
+		padding:20px;
+	}
+	.whyReportText{
+		display:inline-block;
+		float:left;
+		width:100%;
+		height:calc(20% - 20px);
+		background:#FF6961;
+		border:5px solid #bb0a00;
+		margin:20px 0px 0px 0px;
+		padding:10px;
+		border-radius: 15px;
+	}
+/* (임시삭제:아래 BattleArea -> Battle로 변경)전투 화면용, 하단 자리확보용
+.whyBattle{ 
+	z-index:10;
+	position:absolute;
+	top:0;
+	left:0;
+	height:100%;
+	width:100%;
+	background-image:url(../img/background01.jpg);
+	background-size:contain;
+}
+*/	
+	
+/* 상단 - 전투 */
+.whyBattle{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:75%;
+	overflow:hidden;
+}	
+	.whyBattleBase{
+		position:absolute;
+		z-index:2;
+		top:0;
+		left:0;
+		width:100%;
+		height:100%;
+		background-image:url(../img/rd/bg_battle.gif);
+		background-size: cover;
+		transform: rotate(-23deg);
+	}
+	.whyBattleDiv{
+		position:relative;
+		top:0;
+		left:0;
+		display:inline-block;
+		float:left;
+		width:50%;
+		height:100%;
+	}
+	.whyBattleHp{
+		color:white;
+		position:relative;
+		top:0;
+		left:0;
+		width:calc(100% - 40px);
+		height:calc(30% - 40px);
+		font-size:20px;
+		border-radius:10px;
+	}
+	.whyBattleImg{
+		position:relative;
+		top:0;
+		left:0;
+		width:100%;
+		height:70%;
+		font-size:60px;
+	}
+	.whyBattleEnemyhp{
+		font-weight:bold;
+		text-align:center;
+		background:#ffa6a6;
+		margin:40px 0px 0px 30px;
+		box-shadow:5px 5px 10px 0px #6a6a6a;
+		border:3px solid #ffc1c1;
+	}
+		.whyEnemyName{
+			display:inline-block;
+			float:left;
+			width:100%;
+			height:50%;
+			border-bottom:2px dashed #ffc1c1;
+			font-size:30px;
+			text-shadow: 1px 1px 3px #000000;
+		}
+		.whyEnemyHpTitle{
+			display:inline-block;
+			float:left;
+			width:25%;
+			height:50%;
+			line-height:45px;
+			font-size:40px;
+			text-shadow: 1px 1px 3px #000000;
+
+		}
+		.whyEnemyBarMaxHp{
+			display:inline-block;
+			float:left;
+			width:65%;
+			height:18%;
+			margin-left:10px;
+			background:#e1e1e1;
+			box-shadow:0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
+				0px 2px 2px 0px rgba(255, 255, 255, 0.5);
+		}
+		.whyEnemyBarHp{
+			display:inline-block;
+			float:left;
+			width:0%;
+			height:100%;
+			transition:width 2s ease, background 1s ease-in;
+			box-shadow:0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
+				0px 2px 2px 0px rgba(255, 255, 255, 0.5);
+			}
+		.whyEnemyTextHp{
+			display:inline-block;
+			float:left;
+			width:75%;
+			height:32%;
+			line-height:30px;
+			font-size:20px;
+			color:#000000;
+		}
+	.whyBattleAllyimg{
+		padding:0px 70px 0px 10px;
+	}
+		.whyAllyImg{
+			display:none;
+			position:relative;
+			top:0px;
+			left:0px;
+			width:100%;
+			height:100%;
+			background-repeat:no-repeat;
+			background-position:bottom;
+			background-size:contain;
+		}
+			.whyAllyHeal{
+				display:none;
+				width:100%;
+				height:100%;
+				z-index:1;
+				position:absolute;
+				top:60px;
+				left:0px;
+				background-image:url("../img/rd/heal1.png");
+				background-repeat:no-repeat;
+				background-position: center;
+				background-size:120% 100%;
+				opacity:0.99;
+			}
+			.whyAllyHeal2{
+				display:none;
+				width:100%;
+				height:100%;
+				z-index:1;
+				position:absolute;
+				top:60px;
+				left:0px;
+				background-image:url("../img/rd/heal2.png");
+				background-repeat:no-repeat;
+				background-position: center;
+				background-size:50% 50%;
+				opacity:0.5;
+			}
+	.whyBattleEnemyimg{
+		padding:0px 10px 0px 70px;
+	}
+		.whyEnemyImg{
+			display:none;
+			position:relative;
+			top:0px;
+			left:0px;
+			width:100%;
+			height:100%;
+/*			background-image:url('../img/rd/myMon_06c.png');	*/
+			background-repeat:no-repeat;
+			background-position:center;
+			background-size:contain;
+		}
+	.whyBattleAllyhp{
+		font-weight:bold;
+		text-align:center;
+		background:#7eb3f1;
+		margin:0px 30px 40px 0px;
+		box-shadow:5px 5px 10px 0px #6a6a6a;
+		border:3px solid #84c1ff;
+	}
+		.whyAllyName{
+			display:inline-block;
+			float:left;
+			width:100%;
+			height:50%;
+			border-bottom:2px dashed #84c1ff;
+			font-size:30px;
+			text-shadow: 1px 1px 3px #000000;
+		}
+		.whyAllyHpTitle{
+			display:inline-block;
+			float:left;
+			width:25%;
+			height:50%;
+			line-height:45px;
+			font-size:40px;
+			text-shadow: 1px 1px 3px #000000;
+		}
+		.whyAllyBarMaxHp{
+			display:inline-block;
+			float:left;
+			width:65%;
+			height:18%;
+			margin-left:10px;
+			background:#e1e1e1;
+			box-shadow:0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
+				0px 2px 2px 0px rgba(255, 255, 255, 0.5);
+		}
+		.whyAllyBarHp{
+			display:inline-block;
+			float:left;
+			width:0%;
+			height:100%;
+			transition:width 2s ease, background 1s ease-in;
+			box-shadow:0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
+				0px 2px 2px 0px rgba(255, 255, 255, 0.5);
+			}
+		.whyAllyTextHp{
+			display:inline-block;
+			float:left;
+			width:75%;
+			height:32%;
+			line-height:30px;
+			font-size:20px;
+			color:#000000;
+		}
+.whyEnemyAttack{
+	display:none;
+	width:60px;
+	height:60px;
+	z-index:50;
+	position:absolute;
+	top:120px;
+	left:450px;
+	background:url("../img/rd/skill_ball01.png") no-repeat center;
+	background-size:cover;
+	opacity:0.6;
+}
+.whyAllyAttack{
+	display:none;
+	width:60px;
+	height:60px;
+	z-index:50;
+	position:absolute;
+	top:260px;
+	left:220px;
+	background:url("../img/rd/skill_fire01.png") no-repeat center;
+	background-size:100% 100%;
+	opacity:0.9;
+	transform: rotate(-23deg);
+}
+
+.whyPocketBall{
+	display:block;
+	width:200px;
+	height:200px;
+	z-index:50;
+	position:absolute;
+	top:350px;
+	left:-210px;
+	background:url("../img/rd/pokeball_rocket.png") no-repeat center;
+	background-size:cover;
+	opacity:0.99;
+}
+
+/*
+	animation-name:yEnemyAttack;
+	animation-duration:2s;
+
+@keyframes yEnemyAttack{
+    0%   {left:360px; top:50px;}
+    100% {left:360px; top:360px;}
+}
+*/
+
+/* 상단 포켓몬 */
+.whyMyAcomonbox{
+	z-index:10;
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:75%;
+	background:#A0D6B4;
+	color:white;
+	padding:5px;
+}
+	.whyMyAcomon{
+		z-index:19;
+		position:relative;
+		top:0px;
+		left:0px;
+		height:calc(16.666% - 6px); /* 겹치는 마진은 상쇄되는듯.*/
+		margin:5px 20px 5px 20px;
+		background:#2b6240;
+		font-size:20px;
+		line-height:25px;
+		border:6px solid #47ab70;
+		box-shadow: 5px 5px 10px 0px #6a6a6a;
+		text-shadow: 1px 1px 3px #000000;
+	}
+	.whyMyAcomonImg{
+		display:inline-block;
+		float:left;
+		height:100%;
+		width:20%;
+		background-color:rgba(0, 0, 0, 0.0);
+		background-repeat: no-repeat;
+		background-position:center;
+		background-size:contain;
+	}
+	.whyMyAcomonTag{
+		display:inline-block;
+		float:left;
+		height:calc(50% - 5px);
+		width:calc(80% - 10px);
+		background:#3c8858;
+		margin:5px 10px 0px 0px;
+		padding:0 0 0 20px;	
+		border-radius: 5px 5px 0px 0px;
+	}
+		.whyMyAcomonTagText{
+			display:inline-block;
+			float:left;
+			width:25%;
+			height:100%;
+			text-align:center;
+			font-weight:bold !important;
+			color:white !important;
+		}
+	.whyMyAcomonValue{
+		display:inline-block;
+		float:left;
+		height:calc(50% - 5px);
+		width:calc(80% - 10px);
+		background-color:#68bd88;
+		margin:0px 10px 5px 0px;
+		padding:0 0 0 20px;	
+		border-radius: 0px 0px 5px 5px;
+	}
+		.whyMyAcomonValueText{
+			display:inline-block;
+			float:left;
+			width:25%;
+			height:100%;
+			text-align:center;
+		}
+/*		
+		.whyMyAcomon:NTH-CHILD(1) .whyMyAcomonImg{
+		}
+		.whyMyAcomon:NTH-CHILD(2) .whyMyAcomonImg{
+			background:url("../img/rd/myMon_02a.gif") no-repeat center;
+			background-size:contain;
+		}
+		.whyMyAcomon:NTH-CHILD(3) .whyMyAcomonImg{
+			background:url("../img/rd/myMon_03a.gif") no-repeat center;
+			background-size:contain;
+		}
+		.whyMyAcomon:NTH-CHILD(4) .whyMyAcomonImg{
+			background:url("../img/rd/myMon_04a.gif") no-repeat center;
+			background-size:contain;
+		}
+		.whyMyAcomon:NTH-CHILD(5) .whyMyAcomonImg{
+			background:url("../img/rd/myMon_05a.gif") no-repeat center;
+			background-size:contain;
+		}
+*/
+.whyMyAcomonMenubox{
+	z-index:9;
+	position:absolute;
+	top:200px;
+	left:100px;; /* 전체%, 너비px, 마진px */
+	width:170px;
+	height:195px;
+	background:#a0d6b4;
+	color:white;
+	text-align:center;
+	padding:5px;
+	border:2px solid #e8f4ed;
+	border-radius:2px;
+	box-shadow: 2px 2px 4px 0px #6a6a6a;
+}
+	.whyMyAcomonMenu{
+		display:inline-block;
+		height:35px;
+		line-height:25px;
+		width:140px;
+		margin:5px;
+		font-size:20px;
+		border-radius:5px;
+		background:#367d50;
+		border:1px solid #47ab70;
+		box-shadow: 5px 5px 10px 0px #6a6a6a;
+		text-shadow: 1px 1px 3px #000000;
+	}
+		
+/* 상단 - 아이템 */
+.whyMyItembox{
+	z-index:10;
+	position:absolute;
+	top:0px;
+	left:60%;		/* 아이템 박스 생성위치 */
+	height:calc(75% - 10px - 10px - 20px);
+	width:calc(40% - 10px - 10px);
+	padding:20px;
+	margin:10px;
+	background-color:#a0d6b4;
+	color:white;
+	font-size:20px;
+	font-weight:bold;
+	overflow:auto;
+	border-radius: 5px;
+}
+	/* 스크롤 디자인 */
+	.whyMyItembox::-webkit-scrollbar{	
+		width:5px;
+		background:rgba(0, 0, 0, 0.0);
+	}
+	
+	.whyMyItembox::-webkit-scrollbar-thumb{
+		background:#a0d6b4;
+		-webkit-border-radius: 1ex;
+	}
+	.whyMyItem{
+		display:inline-block;
+		text-align:center;
+		height:50px;
+		line-height:40px;
+		width:calc(99.99% - 6px);
+		margin:3px;
+		background:#367d50;
+		border:3px solid #47ab70;
+		box-shadow: 5px 5px 10px 0px #6a6a6a;
+		text-shadow: 1px 1px 3px #000000;
+		font-size:20px;
+		border-radius:5px;
+	}
+
+
+/* BASE */
+
+
+/*	하단 - 대화창 */
+.whyTextbox{
+	z-index:10;
+	position:absolute;
+	left:10px;
+	width:calc(100% - 10px - 10px);
+	height:calc(25% - 10px);
+	top:75%;
+	border-radius: 5px;
+	background: #1f1f1f;
+	font-size:25px;
+	color:white;
+	border:2px solid #e1e1e1;
+	box-shadow: 5px 5px 10px 0px #838383;
+	font-weight: bold;
+	border-radius:5px;
+}
+	.whyText{
+		display:inline-block;
+		float:left;
+		width:calc(100% - 50px);
+		height:100%;
+		padding:25px;
+/*		background:rgba(27,27,27,0.5);	*/
+	}
+	.whySkip{
+		display:flex;
+		float:right;
+		width:50px;
+		height:100%;
+/*		background:rgba(27,27,27,0.5);
+*/
+	}
+	.whySkipBtn{
+		display:inline-block;
+	  	align-self:flex-end;
+		width:100%;
+		margin-bottom:10px;
+		padding:5px 0px;
+		font-size:18px;
+		font-weight:bold;
+	}
+
+/*	하단 전투화면 커멘드창 시작 */
+.whyCommand{
+	z-index:10;
+	position:absolute;
+	width:calc(100% - 20px);
+	height:calc(25% - 10px);
+	top:calc(75% - 10px);
+	background:#bbbbbb;
+	text-align:center;
+	border-radius:5px;
+	box-shadow: 5px 5px 10px 0px #6a6a6a;
+	margin:10px;
+}
+.whyCmdListbox{
+	z-index:10;
+	position:absolute;
+	width:calc(100% - 20px);
+	height:calc(25% - 10px);
+	top:75%;
+	left:10px;
+	color:white;
+	font-size:30px;
+	font-weight:bold;
+	padding:5px;
+	border-radius:5px;
+}
+	.whyCmdList{
+		display:inline-block;
+		float:left;
+		width:calc(50% - 10px);
+		height:calc(50% - 10px);
+		margin:5px;
+		font-size:30px;
+		line-height:50px;
+		text-align:center;
+		border-radius:5px;
+		background:#999999;
+		box-shadow:0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
+				0px 2px 2px 0px rgba(255, 255, 255, 0.5);
+		text-shadow: 1px 1px 3px #000000;
+	}
+.whyCmdSkillbox{
+	z-index:10;
+	position:absolute;
+	width:calc(100% - 20px);
+	height:calc(25% - 10px);
+	top:75%;
+	left:10px;
+	color:white;
+	font-size:30px;
+	font-weight:bold;
+	padding:5px;
+	border-radius:5px;
+}
+	.whyCmdSkill{
+		display:inline-block;
+		float:left;
+		width:calc(50% - 10px);
+		height:calc(50% - 10px);
+		margin:5px;
+		font-size:30px;
+		line-height:50px;
+		border-radius:5px;
+		text-align:center;
+		border-radius:5px;
+		background:#999999;
+		box-shadow:0px 2px 2px 0px rgba(0, 0, 0, 0.5) inset,
+				0px 2px 2px 0px rgba(255, 255, 255, 0.5);
+		text-shadow: 1px 1px 3px #000000;
+	}
+.whyCmditem{
+}	
+.whyCmdRun{
+}
+#whyMouse{
+	position:absolute;
+	top:20%;
+	left:220px;
+	margin:40px;
+	font-size:40px;
+	padding:10px;
+	color:white;
+	background:rgba(27,27,27,0.5);
+}	
+	
+	
+	
+
+

@@ -1,0 +1,415 @@
+<!-- zz
+ * 학원에서....Apr26,2017
+ * 			14:40
+ * 			dev by JB
+
+// 종원 : 19:44분 수정.
+ -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>♪RocketDAN2♪</title>
+	<link rel="stylesheet" type="text/css" href="css/rocket_ver3.1.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/map.css">
+</head>
+<body>
+	<div class="whyFullCover">
+		<!--0 메인 기본창전체 -->
+		<div class="whyMainBox whyContain ">
+			<!--2 로딩 -->
+			<div class="whyLodingbox ">
+				<div class="whyLoding1">
+				</div>
+				<div class="whyLoding2">
+				</div>
+				<div class="whyLoding3">
+					Aco rnon
+				</div>
+				<div class="whyLoding4">
+					Press A key
+				</div>
+			</div>
+			<!--2 맵 -->
+			<div class="whyAllMap whyContain">
+				<canvas id="village" width="640px" height="640px"></canvas>
+				<canvas id="end" width="640px" height="640px"></canvas>
+				<div>
+					<div id="opening" style="display:block"></div>
+					<div id="dialog" style="display:none"></div>
+					<div id="option" style="display:none"></div>
+				</div>
+			</div>
+			<!--2 맵메뉴  -->
+			<div class="whyMenubox whyContain">
+				<div class="whyMenu">포켓몬</div>
+				<div class="whyMenu">아이템</div>
+				<div class="whyMenu">상태</div>
+				<div class="whyMenu">리포트</div>
+			<!-- 미구현
+					<div class="whyMenu">옵션-맵</div>
+	 		-->
+			</div>
+			<!-- 재현: whyMyItembox에 있던 좌표 아래로 옮길것-->
+			<div class="whyStorebox">
+				<div class="whyStore">상점(민트)</div>
+				<div class="whyStore">상점(몬스터볼)</div>
+				<div class="whyStore">병원(치료)</div>
+				<div class="whyStore">병원(방생)</div>
+			</div>
+			<!--2 상태 -->
+			<div class="whyStatusbox whyContain ybox">
+				<div class="whyStatus">
+					<div class="whyClassCard">Acorn Academy Card</div>
+					<div class="whyStatusImgbox">
+						<div class="whyStatusImg"></div>					
+					</div>
+					<div class="whyStatusInfobox">
+						<div class="whyStatusName">이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;름 :</div>
+						<div class="whyStatusName">$ 지우</div>
+						<div class="whyStatusMoney">소 지 금&nbsp;&nbsp;:</div>
+						<div class="whyStatusMoney">$ 500원</div>
+						<div class="whyStatusPlayTime">경과시간 : </div>
+						<div class="whyStatusPlayTime">$ 00:13 79"</div>
+						<div class="whyStatusStartTime">등 록 일&nbsp;&nbsp;:</div>
+						<div class="whyStatusStartTime">$ 2017/04/01</div>
+					</div>
+				</div>
+				<div class="whyStatus">
+					<div class="whyStatusScorebox">
+						<div class="whyStatusScoreFind">Find :</div>
+						<div class="whyStatusScoreFind">$ 7마리</div>
+						<div class="whyStatusScoreGet">Get :</div>
+						<div class="whyStatusScoreGet">$ 5마리</div>
+						<div class="whyStatusScoreRanking">Fight :</div>
+						<div class="whyStatusScoreRanking">$0승0패</div>
+					</div>
+					<div class="whyStatusBadge">
+						<div class="whyStatusBadgeList">
+							<div>HTML</div>
+						</div>
+						<div class="whyStatusBadgeList">
+							<div>CSS</div>
+						</div>
+						<div class="whyStatusBadgeList">
+							<div>Java<br>script</div>
+						</div>
+						<div class="whyStatusBadgeList">
+							<div>SQL</div>
+						</div>
+						<div class="whyStatusBadgeList">
+							<div>JAVA</div>
+						</div>
+						<div class="whyStatusBadgeList">
+							<div>JSP</div>
+						</div>
+						<div class="whyStatusBadgeList">
+							<div>AJAX</div>
+						</div>
+						<div class="whyStatusBadgeList">
+							<div>Spring</div>
+						</div>
+<!-- //PASS 도장!					
+						<div class="whyStatusBadgeMark"></div>
+						<div class="whyStatusBadgeMark"></div>
+						<div class="whyStatusBadgeMark"></div>
+						<div class="whyStatusBadgeMark"></div>
+						<div class="whyStatusBadgeMark"></div>
+						<div class="whyStatusBadgeMark"></div>
+						<div class="whyStatusBadgeMark"></div>
+						<div class="whyStatusBadgeMark"></div>
+ -->
+					</div>
+				</div>
+			</div>
+			<!--2 리포트 -->
+			<div class="whyReportBox whyContain">
+				<div class="whyReport">SAVE 1</div>
+				<div class="whyReport">SAVE 2</div>
+				<div class="whyReport">LOAD</div>
+				<div class="whyReportImg">세이브이력사진</div>
+				<div class="whyReportText">대화창 // 저장내용알림창</div>
+			</div>
+	<!-- 예정
+					<div>옵션
+						<div>옵션1</div>
+						<div>옵션2</div>
+						<div>옵션3</div>
+						<div>옵션4</div>
+						<div>옵션5</div>
+					</div>
+	
+					<div>
+						추가확인창1
+					</div>
+		-->		
+		<!--2  전투화면  
+			<div class="whyBattle whyContain">
+		-->
+			<!-- 전투화면 -->
+			<div class="whyBattle whyContain"> 
+				<!-- 이미지 블록1 -->
+				<div class="whyBattleBase"></div>
+				<div class="whyBattleDiv">
+					<!-- 적군 Hp -->
+					<div class="whyBattleHp whyBattleEnemyhp">
+						<div class="whyEnemyName">[ NAME ] Lv.XX </div>
+						<div class="whyEnemyHpTitle">HP</div>
+						<div class="whyEnemyBarMaxHp">
+							<div class="whyEnemyBarHp"></div>
+						</div>
+						<div class="whyEnemyTextHp">HP/MAX_HP</div>
+					</div>
+					<!-- 아군이미지 -->
+					<div class="whyBattleImg whyBattleAllyimg">
+						<div class="whyAllyImg"></div>
+						<div class="whyAllyHeal"></div>
+						<div class="whyAllyHeal2"></div>
+					</div>
+				</div>
+				<!-- 이미지 블록2 -->
+				<div class="whyBattleDiv">
+					<!-- 적군이미지 -->
+					<div class="whyBattleImg whyBattleEnemyimg">
+						<div class="whyEnemyImg"></div>
+					</div>
+					<!-- 아군 Hp -->
+					<div class="whyBattleHp whyBattleAllyhp">
+						<div class="whyAllyName">[ NAME ] Lv.XX </div>
+						<div class="whyAllyHpTitle">HP</div>
+						<div class="whyAllyBarMaxHp">
+							<div class="whyAllyBarHp"></div>
+						</div>
+						<div class="whyAllyTextHp">HP/MAX_HP</div>
+					</div>
+				</div>
+				<div class="whyEnemyAttack"></div>
+				<div class="whyAllyAttack"></div>
+				<div class="whyPocketBall"></div>
+			</div>
+		<!-- 
+			</div>
+		 -->
+			<!--2 포켓몬 -->
+			<div class="whyMyAcomonbox">
+				<div class="whyMyAcomon">
+					<div class="whyMyAcomonImg">
+					</div>
+					<div class="whyMyAcomonTag">
+						<div class="whyMyAcomonTagText">이름</div>
+						<div class="whyMyAcomonTagText">레벨</div>
+						<div class="whyMyAcomonTagText">HP</div>
+						<div class="whyMyAcomonTagText">상태</div>
+					</div>
+					<div class="whyMyAcomonValue">
+						<div class="whyMyAcomonValueText"></div>
+						<div class="whyMyAcomonValueText"></div>
+						<div class="whyMyAcomonValueText"></div>
+						<div class="whyMyAcomonValueText"></div>
+					</div>
+				</div>
+				<div class="whyMyAcomon">
+					<div class="whyMyAcomonImg">
+					</div>
+					<div class="whyMyAcomonTag">
+						<div class="whyMyAcomonTagText">이름</div>
+						<div class="whyMyAcomonTagText">레벨</div>
+						<div class="whyMyAcomonTagText">HP</div>
+						<div class="whyMyAcomonTagText">상태</div>
+					</div>
+					<div class="whyMyAcomonValue">
+						<div class="whyMyAcomonValueText"></div>
+						<div class="whyMyAcomonValueText"></div>
+						<div class="whyMyAcomonValueText"></div>
+						<div class="whyMyAcomonValueText"></div>
+					</div>
+				</div>
+				<div class="whyMyAcomon">
+					<div class="whyMyAcomonImg">
+					</div>
+					<div class="whyMyAcomonTag">
+						<div class="whyMyAcomonTagText">이름</div>
+						<div class="whyMyAcomonTagText">레벨</div>
+						<div class="whyMyAcomonTagText">HP</div>
+						<div class="whyMyAcomonTagText">상태</div>
+					</div>
+					<div class="whyMyAcomonValue">
+						<div class="whyMyAcomonValueText"></div>
+						<div class="whyMyAcomonValueText"></div>
+						<div class="whyMyAcomonValueText"></div>
+						<div class="whyMyAcomonValueText"></div>
+					</div>
+				</div>
+				<div class="whyMyAcomon">
+					<div class="whyMyAcomonImg">
+					</div>
+					<div class="whyMyAcomonTag">
+						<div class="whyMyAcomonTagText">이름</div>
+						<div class="whyMyAcomonTagText">레벨</div>
+						<div class="whyMyAcomonTagText">HP</div>
+						<div class="whyMyAcomonTagText">상태</div>
+					</div>
+					<div class="whyMyAcomonValue">
+						<div class="whyMyAcomonValueText"></div>
+						<div class="whyMyAcomonValueText"></div>
+						<div class="whyMyAcomonValueText"></div>
+						<div class="whyMyAcomonValueText"></div>
+					</div>
+				</div>
+				<div class="whyMyAcomon">
+					<div class="whyMyAcomonImg">
+					</div>
+					<div class="whyMyAcomonTag">
+						<div class="whyMyAcomonTagText">이름</div>
+						<div class="whyMyAcomonTagText">레벨</div>
+						<div class="whyMyAcomonTagText">HP</div>
+						<div class="whyMyAcomonTagText">상태</div>
+					</div>
+					<div class="whyMyAcomonValue">
+						<div class="whyMyAcomonValueText"></div>
+						<div class="whyMyAcomonValueText"></div>
+						<div class="whyMyAcomonValueText"></div>
+						<div class="whyMyAcomonValueText"></div>
+					</div>
+				</div>
+
+				<div class="whyMyAcomon">
+					<div class="whyMyAcomonImg">
+					</div>
+					<div class="whyMyAcomonTag">
+						<div class="whyMyAcomonTagText">이름</div>
+						<div class="whyMyAcomonTagText">레벨</div>
+						<div class="whyMyAcomonTagText">HP</div>
+						<div class="whyMyAcomonTagText">상태</div>
+					</div>
+					<div class="whyMyAcomonValue">
+					</div>
+				</div>
+
+				<div class="whyMyAcomonMenubox">
+					<div class="whyMyAcomonMenu">태그</div>
+					<div class="whyMyAcomonMenu">상태보기</div>
+					<div class="whyMyAcomonMenu">스킬확인</div>
+					<div class="whyMyAcomonMenu">보관하기</div>
+				</div>
+			</div>
+			
+			
+			<!--2 아이템 -->
+			<!-- 아이템 선택창 push&삭제를 통해 아이템 채우고 비움-->					
+			<div class="whyMyItembox">
+				<div class="whyMyItem">민트</div>
+				<div class="whyMyItem">몬스터볼</div>
+				<div class="whyMyItem">빈슬롯	</div>
+				<div class="whyMyItem">빈슬롯</div>
+				<div class="whyMyItem">빈슬롯	</div>
+				<div class="whyMyItem">빈슬롯	</div>
+	<!-- 예정
+					<div>
+						사용하기
+						자세히보기
+						팔기 - 갯수ok//취소
+						버리기
+					</div>
+	 -->
+			</div>
+		<!-- 예정
+				<div>
+					맵열기
+				</div>				
+				<div>
+					추가확인창2
+				</div>
+				<div>
+					상점메뉴
+				</div>
+				<div>
+					병원메뉴
+				</div>
+				<div>
+					오박사메뉴
+				</div>
+				<div>
+					대전메뉴
+				</div>
+	-->		
+			<!--2 하단25% 텍스트 창-->
+			<div class="whyTextbox whyContain">
+				<div class="whyText">
+					여기는 대화 상자입니다.
+				</div>
+				<div class="whySkip whyContain">
+					<div class="whySkipBtn">Next</div>
+				</div>
+			</div>
+			
+			<!--2 전투화면 백그라운드. -->
+			<div class="whyCommand whyContain">
+			</div>
+			<!--2 전투 -->
+			<div class="whyCmdListbox whyContain">
+				<div class="whyCmdList">공격하기</div>
+				<div class="whyCmdList">몬스터</div>
+				<div class="whyCmdList">아이템</div>
+				<div class="whyCmdList">도망치기</div>
+			</div>
+			<div class="whyCmdSkillbox whyContain">
+				<div class="whyCmdSkill">
+					몸통박치기
+				</div>
+				<div class="whyCmdSkill">
+					스킬공격
+				</div>
+				<div class="whyCmdSkill">
+					명상하기
+				</div>
+				<div class="whyCmdSkill">
+					특수스킬
+				</div>
+			</div>
+			<div class="whyCmditem">
+				이창이 필요없을듯 바로 대화창으로~
+				텍스트창 띄우기로 대체
+			</div>
+			<!-- 도망가기 -->
+			<div class="whyCmdRun">
+				이창이 필요없을듯 바로 대화창으로~
+				function innerText"도망 쳤습니다.(확률주기?)"
+			</div>
+			
+	<!-- 예정
+				<div>
+					추가확인창3
+				</div>
+	 -->	<div class="whyBase"></div>
+		</div>
+		<div class="whyPSP"></div>
+		<div class="whyPSPinset"></div>
+ 	<!-- 	
+		<div id="whyMouse" onclick="yEventBattle()">
+			<div>[MAP ON]</div>
+			<div>------------</div>
+			<div>클릭: 전투</div>
+			<div>A키 : 메뉴</div>
+			<div>X키 : 취소</div>
+			<div>------------</div>
+		</div>
+ -->
+	</div>
+	
+
+		<script src="js/jquery-3.2.1.js"></script>
+		<script src="js/rocket_ver3.1.js"></script>
+		<script type="text/javascript" src="./js/logic/Entities.js"></script>
+		<script src="js/mapBattlefunctions.js"></script>
+		<script src="js/battleFunctions_apr23_2126.js"></script>
+		<script type="text/javascript" src="./js/map/Init.js"></script> 
+		<script type="text/javascript" src="./js/map/Entities.js"></script>
+		<script type="text/javascript" src="./js/map/KeyControl.js"></script>
+		<script type="text/javascript" src="./js/Game.js"></script>
+	
+	
+	
+</body>
+</html>
