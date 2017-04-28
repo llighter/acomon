@@ -35,12 +35,8 @@ function yKeyRokect(event){
 			yDownPressed();
 	    }
 	    if(event.keyCode == 37){
-	    	newPokemon.hp=0;
-	    	yEnemyhp();
 	 	 }
 	    else if(event.keyCode == 39){
-	    	myMonid.hp=0;
-	    	yAllyhp();
 	    }
 	    else if(event.keyCode == 65){ 	//a키 : 메뉴키
 	    	yAkeyPressed();
@@ -169,7 +165,7 @@ function yStartGame(){
 function yMapMenu(){
 	yListCount = 1;
 	$('.whyMenubox').css('z-index','30');
-	$('.whyTextbox').css('z-index','30');
+	$('.whyTextbox').css('z-index','10');
 	yLocClassFun("whyMenu");
 	ySetCssFun();
 }
