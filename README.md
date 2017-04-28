@@ -1,5 +1,5 @@
 # acomon
 mini project : Homepage for Pokemon
 
-Run
-[AllForOne]-[index.html]
+# Run
+**[AllForOne]-[index.html]**
