@@ -545,6 +545,7 @@ function yTurnEnd(time){
 			$('.whyMyItembox').css('z-index','10');
 			$('.whyCmdSkillbox').css('z-index','10');
 			ySetCssFun();
+			winOrLose();
 			yKeyon(100);
 		}
 	},time);
@@ -744,8 +745,10 @@ function yBattleEnd(value){
 		$('.whyBattle').css('z-index','10');
 		$('.whyCmdListbox').css('z-index','10');
 		$('.whyAllMap').css('z-index','20');
+		$('.whyTextbox').css('z-index','10');
 		yLocClassFun("whyAllMap");
 		yPreView = '.whyAllMap';
+		yKeyon(100);
 		currentMode = 0;
 		battleCountDown = 4;
 	},4000);

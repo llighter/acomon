@@ -539,6 +539,7 @@ function expUp(){
 function enemyTurn(time){
 	setTimeout(function(){
 		propertyBonus();
+		
 		if(!winOrLoseResult){  // winOrLoseResult 결과값이 안나왓을경우에 진행.
 			enemyRandAtt();
 			//winOrLose(); // 자신/ 상대의 턴이 끝날때마다 hp <=0인지 체크 -> 승리판정	//ynot 함수정리함.
