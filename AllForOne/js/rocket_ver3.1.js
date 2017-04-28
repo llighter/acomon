@@ -8,7 +8,7 @@ $(function(){
 	yItemNum(); // 재현이꺼 초기값 읽어오기
 });
 
-var yPreView; //Undo하기 위한 저장값
+var yPreView =".whyLodingbox"; //Undo하기 위한 저장값
 
 var yLocClass = [];	//menuLocClass class이름 받기 위한 배열
 yLocClass[0]="whyLodingbox"
@@ -22,12 +22,12 @@ var yPreCss=[]; // 호버 효과를 위한 전상자 css 저장.
 
 var yListCount = 1; // 리스트번호, 초기값:첫번째.
 // 기본 키 설정  //	방향키, a키:메뉴, z키:확인, x키:뒤로가기
-document.addEventListener("keydown", ykeyRokect);
+document.addEventListener("keydown", yKeyRokect);
 
 
-function ykeyRokect(event){
+function yKeyRokect(event){
 // 	if(event.keyCode)console.log(String.fromCharCode(event.keyCode)+":"+event.keyCode);*/
-	if(true){
+	if(yKey){
 		if(event.keyCode == 38){
 			yUpPressed();
 	    }
@@ -35,10 +35,8 @@ function ykeyRokect(event){
 			yDownPressed();
 	    }
 	    if(event.keyCode == 37){
-	    	yCatchNice();
 	 	 }
 	    else if(event.keyCode == 39){
-	    	yCatchFail();
 	    }
 	    else if(event.keyCode == 65){ 	//a키 : 메뉴키
 	    	yAkeyPressed();
@@ -82,15 +80,15 @@ function yRightPressed(){
 }
 // a키 발생시 함수
 function yAkeyPressed(){
-	switch (yLocClass[0]) {
-	case "whyLodingbox":
+	switch (yPreView) {
+	case ".whyLodingbox":
 		yStartGame();
 		break;
-	case "whyAllMap":	//맵화면상태
+	case ".whyAllMap":	//맵화면상태
 		yMapMenu();
 		break;
-	case ".whyBattle":
-		console.log("지금은 a key사용불가!!")
+	case '.whyBattle':
+		console.log("배틀중에는 메뉴버튼을 사용할 수 없습니다.")
 		break;
 	default:
 		console.log("ERROR!! [CODE: E10,000bY_4s_8U ]")
@@ -167,7 +165,7 @@ function yStartGame(){
 function yMapMenu(){
 	yListCount = 1;
 	$('.whyMenubox').css('z-index','30');
-	$('.whyTextbox').css('z-index','30');
+	$('.whyTextbox').css('z-index','10');
 	yLocClassFun("whyMenu");
 	ySetCssFun();
 }
@@ -221,7 +219,9 @@ function yMyAcomonSelectOff(){
 	ySetCssFun();
 }
 
+//	TODO 태그라인인데,, 다른거 눌러도 다 태그로됨.;;
 function yMyAcomonMenuSelect(){
+	
 		if(yPreView == '.whyBattle'){
 			tagMyMon(yExListCount-1);//재현 1번째 포켓몬 // pokemons[0]
 			yAllyhp();
@@ -256,6 +256,30 @@ function yCmdList(time){
 	},time);
 }
 
+function yCmdMsg(time){ 
+	setTimeout(function(){
+		yPreCssFun();
+		yListCount = 1;
+		if(yPreView == '.whyAllMap'){
+			$('.whyAllMap').css('z-index','20');
+			$('.whyMenubox').css('z-index','30');
+			$('.whyTextbox').css('z-index','10');
+			yLocClassFun("whyMenu");
+		}
+		else if(yPreView == '.whyBattle'){
+			$('.whyBattle').css('z-index','20');
+			$('.whyCmdListbox').css('z-index','25');
+			$('.whyTextbox').css('z-index','30');
+			yLocClassFun("whyCmdList");
+		}
+		$('.whyMyAcomonMenubox').css('z-index','10');
+		$('.whyMyAcomonbox').css('z-index','10');
+		$('.whyMyItembox').css('z-index','10');
+		ySetCssFun();
+	},time);
+}
+
+
 function yMyItem(){
 	yPreCssFun();
 	yListCount = 1;
@@ -267,6 +291,7 @@ function yMyItem(){
 	}
 	$('.whyTextbox').css('z-index','30');
 	$('.whyMyItembox').css('z-index','30');
+	yTextmsg("");
 	yLocClassFun("whyMyItem");
 	ySetCssFun();
 }
@@ -335,16 +360,31 @@ function yEventBattle(){
 	yEnemyhp();
 	ySetCssFun();
 	
-	yKeyPause = false;
+	yKey = false;
+//	$(".whyEnemyImg, .whyAllyImg").fadeIn();
 	yAppearEnemyMon();
-	yTextmsg(newPokemon.name+"이 나왔다!",200);
+	yTextmsg("수풀에서 <span style='color:#FF6961'>"+newPokemon.name+"</span>(이)가 나왔다!!",100);
 	setTimeout(function(){
 		yAppearAllyMon();
-	},1500);
-	yCmdList(3500);
+		yTextmsg("가라~ <span style='color:#FF6961'>"+myMonid.name+"</span>몬!!<br>이번 프로젝트는 너로 정했다!!",100);
+	},2000);
+	yCmdList(4000);
+	yKeyon(4000);
+}
+
+
+
+function yKeyon(time){
 	setTimeout(function(){
-		yKeyPause = true;
-	},3500);
+		yKey=true;
+		console.log("** 가능 *********************\t키 입력!")
+	},time);
+}
+function yKeyoff(time){
+	setTimeout(function(){
+		yKey=false;
+		console.log("** 불가능 *********************\t키 입력!")
+	},time);
 }
 
 
@@ -367,6 +407,7 @@ function yCmdSkillOff(){
 
 //도망치기 현재 100%확률로 도망. 바로화면전환. 확률을 준다면,
 // 위 커멘드 셀렉터와 아래 함수 사이에 끼어넣으면 될듯.
+/*
 function yCmdRun(){
 	yPreCssFun();
 	$('.whyCommand').css('z-index','10');
@@ -378,7 +419,7 @@ function yCmdRun(){
 	currentMode = 0;
 	battleCountDown = 4;
 }
-
+*/
 
 // 리스트상태에서 선택~
 
@@ -414,7 +455,7 @@ function yCmdListSelect(){
 		yMyItem();
 		break;
 	case 4:
-		yCmdRun();
+		yBattleEnd("도망");
 		break;
 	default:
 		break;
@@ -424,12 +465,22 @@ function yCmdListSelect(){
 function yMyItemSelect(){
 	switch (yListCount) {
 	case 1:
-		useItem("mint");
-		yItemNum();
+		if(yPreView == '.whyBattle'){
+			yKeyoff();
+			useItem("mint");
+			enemyTurn(3500);
+			yTurnEnd(7000);
+		}
+		else{
+			useItem("mint");
+		}
 		break;
 	case 2:
 		if(yPreView == '.whyBattle'){
+			yKeyoff();
 			useItem("pokeBall");
+			enemyTurn(4500);
+			yTurnEnd(7000);
 		}
 		else{
 			yTextmsg("지금은 <span style='color:#82b5f2'>몬스터볼</span>을 사용 할 수 없습니다.")
@@ -445,72 +496,60 @@ function yMyItemSelect(){
 function yCmdSkillSelect(){
 	switch (yListCount) {
 	case 1:
-		setTimeout(function (){	
 		tackle();
-		},200);
-		setTimeout(function (){	//방어 턴
-		enemyTurn();
-		},4000);
-		setTimeout(function (){ turnEnd(); },7000);
 		break;
 	case 2:
-		setTimeout(function (){		//공격 턴
-			skillAttack();				//공격 스크립트
-		},200)
-		setTimeout(function (){	//방어 턴
-			enemyTurn();
-		},4000)
-		setTimeout(function (){ turnEnd(); },7000);  //실행할 함수에 넣으면됨
+		skillAttack();				//공격 스크립트
 		break;
 	case 3:
-		setTimeout(function (){		//공격 턴
-			meditation();				//공격 스크립트
-		},200)
-		setTimeout(function (){	//방어 턴
-			enemyTurn();
-		},4000)
-		setTimeout(function (){turnEnd();},7000);  //실행할 함수에 넣으면됨
+		meditation();				//공격 스크립트
 		break;
 	case 4:
-		setTimeout(function (){  
-			skillLv2Attack();
-		},200);
-		setTimeout(function (){	//방어 턴
-			enemyTurn();
-		},4000);
-	      setTimeout(function (){turnEnd();},7000);  //실행할 함수에 넣으면됨
-	      break;
+		skillLv2Attack();
+		break;
 	default:
 		break;
 	}
+	winOrLose();
+	yKeyoff();
+	enemyTurn(3500);
+	yTurnEnd(7000);
 }
+
 
 function yItemNum(){
 	$('.whyMyItem').eq(0).html("민트 x <span style='color:#82b5f2'>"+jiwoo.mint+"</span>");
 	$('.whyMyItem').eq(1).html("몬스터볼 x <span style='color:#82b5f2'>"+jiwoo.pokeBall+"</span>");
 }
 
-function turnEnd(){
+function yTurnEnd(time){
 	//console.log(yLocClass[0]+"의 "+yListCount+"번째함수")
-	yPreCssFun();
-	yListCount = 1;
-	if(yPreView == '.whyAllMap'){
-		$('.whyAllMap').css('z-index','20');
-		$('.whyMenubox').css('z-index','30');
-		$('.whyTextbox').css('z-index','30');
-		yLocClassFun("whyMenu");
-	}
-	else if(yPreView == '.whyBattle'){
-		$('.whyBattle').css('z-index','20');
-		$('.whyCommand').css('z-index','20');
-		$('.whyCmdListbox').css('z-index','30');
-		$('.whyTextbox').css('z-index','10');
-		yLocClassFun("whyCmdList");
-	}
-	$('.whyMyAcomonbox').css('z-index','10');
-	$('.whyMyItembox').css('z-index','10');
-	$('.whyCmdSkillbox').css('z-index','10');
-	ySetCssFun();
+	setTimeout(function (){
+		if(!winOrLoseResult){
+			yPreCssFun();
+			yListCount = 1;
+			if(yPreView == '.whyAllMap'){
+				$('.whyAllMap').css('z-index','20');
+				$('.whyMenubox').css('z-index','30');
+				$('.whyTextbox').css('z-index','30');
+				yLocClassFun("whyMenu");
+			}
+			else if(yPreView == '.whyBattle'){
+				$('.whyBattle').css('z-index','20');
+				$('.whyCommand').css('z-index','20');
+				$('.whyCmdListbox').css('z-index','30');
+				$('.whyTextbox').css('z-index','10');
+				yLocClassFun("whyCmdList");
+			}
+			$('.whyMyAcomonbox').css('z-index','10');
+			$('.whyMyItembox').css('z-index','10');
+			$('.whyCmdSkillbox').css('z-index','10');
+			ySetCssFun();
+			winOrLose();
+			checkPokemonBook();
+			yKeyon(100);
+		}
+	},time);
 }
 
 
@@ -522,7 +561,7 @@ function turnEnd(){
 
 
 
-var yKeyPause=true;
+var yKey=true;
 
 var viewHp;
 var hpColor;
@@ -552,36 +591,48 @@ function yAllyHealEffect(){
 	$('.whyAllyHeal').fadeIn("slow","swing");
 	$('.whyAllyHeal').delay(500).fadeOut("fast","swing");
 }
-
+function yAllyHealEffect2(){
+	$('.whyAllyHeal2').fadeIn("slow","swing");
+	$('.whyAllyHeal2').delay(500).fadeOut("fast","swing");
+}
 
 
 function yCatchNice(){
 	$('.whyPocketBall').css({top:"350px",left:"-210px",width:'200px',height:'200px'}).fadeIn();
-	$('.whyPocketBall').animate({left:"470px",top:"120px",width:'80px',height:'80px'},1000);
-	setTimeout(function (){$('.whyEnemyImg').fadeOut()},1000);
-	$('.whyPocketBall').animate({left:"460px",top:"110px",width:'100px',height:'100px'},1000);
-	$('.whyPocketBall').animate({left:"475px",top:"125px",width:'70px',height:'70px'},1000);
-	$('.whyPocketBall').animate({left:"470px",top:"120px",width:'80px',height:'80px'},1000);
-	$('.whyPocketBall').animate({top:"200px"},200);
-	$('.whyPocketBall').animate({top:"150px"},100);
-	$('.whyPocketBall').animate({top:"200px"},200);
-	$('.whyPocketBall').animate({top:"180px"},100);
-	$('.whyPocketBall').animate({top:"200px"},200);
-	$('.whyPocketBall').animate({top:"190px"},100);
-	$('.whyPocketBall').animate({top:"200px"},200);
+	$('.whyPocketBall').animate({left:"470px",top:"120px",width:'80px',height:'80px'},700);
+	setTimeout(function (){$('.whyEnemyImg').fadeOut()},700);
+	$('.whyPocketBall').animate({left:"460px",top:"110px",width:'100px',height:'100px'},700);
+	$('.whyPocketBall').animate({left:"475px",top:"125px",width:'70px',height:'70px'},700);
+	$('.whyPocketBall').animate({left:"470px",top:"120px",width:'80px',height:'80px'},700);
+	$('.whyPocketBall').animate({top:"200px"},150);
+	$('.whyPocketBall').animate({top:"150px"},80);
+	$('.whyPocketBall').animate({top:"200px"},150);
+	$('.whyPocketBall').animate({top:"180px"},80);
+	$('.whyPocketBall').animate({top:"200px"},150);
+	$('.whyPocketBall').animate({top:"190px"},80);
+	$('.whyPocketBall').animate({top:"200px"},150);
 }
 function yCatchFail(){
 	$('.whyPocketBall').css({top:"350px",left:"-210px",width:'200px',height:'200px'}).fadeIn();
-	$('.whyPocketBall').animate({left:"470px",top:"120px",width:'80px',height:'80px'},1000);
-	setTimeout(function (){$('.whyEnemyImg').fadeOut()},1000);
-	$('.whyPocketBall').animate({left:"460px",top:"110px",width:'100px',height:'100px'},1000);
-	$('.whyPocketBall').animate({left:"475px",top:"125px",width:'70px',height:'70px'},1000);
-	$('.whyPocketBall').animate({left:"470px",top:"120px",width:'80px',height:'80px'},1000);
-	setTimeout(function (){$('.whyEnemyImg').fadeIn()},4000);
-	$('.whyPocketBall').animate({left:"380px",top:"-60px",width:'60px',height:'60px'},500);
+	$('.whyPocketBall').animate({left:"470px",top:"120px",width:'80px',height:'80px'},700);
+	setTimeout(function (){$('.whyEnemyImg').fadeOut()},700);
+	$('.whyPocketBall').animate({left:"460px",top:"110px",width:'100px',height:'100px'},700);
+	$('.whyPocketBall').animate({left:"475px",top:"125px",width:'70px',height:'70px'},700);
+	$('.whyPocketBall').animate({left:"470px",top:"120px",width:'80px',height:'80px'},700);
+	setTimeout(function (){$('.whyEnemyImg').fadeIn()},2800);
+	$('.whyPocketBall').animate({left:"380px",top:"-60px",width:'60px',height:'60px'},300);
 }
 
 // 재현 태클이나,스킬공격에 넣으면됨.
+
+function yAllyTackleEffect(){
+	$('.whyAllyImg').animate({left:"-30px"},300);
+	$('.whyAllyImg').animate({left:"150px"},300);
+	$('.whyAllyImg').animate({left:"140px"},100);
+	$('.whyAllyImg').animate({left:"150px"},100);
+	$('.whyAllyImg').animate({left:"0px"},800);
+}
+
 function yAllyAttackEffect(){
 	$('.whyAllyAttack').css({top:"260px",left:"220px",width:'60px',height:'60px'}).fadeIn();
 	$('.whyAllyAttack').animate({top:"80px",left:"250px",width:'380px',height:'200px'},1000);
@@ -600,7 +651,6 @@ function yEnemyAttackEffect(){
 // 깜빡임 효과(상대편이미지에 주기.적중시기준이지만 일단 전부 적용하는걸로.)
 	yBlink('.whyAllyImg');
 }
-
 
 //hp변경 -> 이미지 변화
 function yAllyhp(){
@@ -629,13 +679,6 @@ function yAppearEnemyMon(){
 		$('.whyEnemyImg').animate({left:'0px'},1000);
 }	
 
-/*위에꺼 코드 버릴꺼
-	$('.whyEnemyImg').animate({left:'300px'},1000);
-	setTimeout(function(){$('.whyEnemyImg').css({'background-image':newPokemon.img02})},1000);
-	$('.whyEnemyImg').animate({left:'0px'},1000);
-	yTextmsg(newPokemon.name+"이 나왔다!",500);
-*/
-
 function yAppearAllyMon(){
 	$('.whyAllyImg').css({display:"block",left:'-300px','background-image':myMonid.img01});
 	$('.whyAllyImg').animate({left:'0px'},1000);
@@ -651,9 +694,6 @@ function yChangeAllyMon(){
 }
 
 
-
-
-//var yPause=false;
 function yTextmsg(msg,time){ //settime까지 줄까??,time
 	if(yPreView == '.whyBattle'){
 		$('.whyCmdListbox').css('z-index','10');
@@ -663,76 +703,57 @@ function yTextmsg(msg,time){ //settime까지 줄까??,time
 	else if(yPreView == '.whyAllMap' ){
 		$('.whyTextbox').css('z-index','30');
 	}
-	$('.whyText').html("");
+//	$('.whyText').html("");
 	setTimeout(function(){$('.whyText').html(msg)},time);
 }
 
 
 
-
-//	yCmdList(3000);
-
-
-/*
-
-
-
-
-
-function yBattleEnd(){
-	//win or lose가 되면.
-	//win일때.
-	
-	//chach일때.
-	//lose일때.로 나뉜다.
+function yBattleEnd(value){
+	console.log("전투끝!!")
+	switch (value) {
+	case "HP승리":
+		$(".whyEnemyImg").fadeIn();
+		yTextmsg("<span style='color:#FF6961'>"+myMonid.name+
+				"</span>(이)가 <span style='color:#FF6961'>"+newPokemon.name+"(을)를 처치했습니다!");
+		expUp();
+		break;
+	case "HP패배":
+		$(".whyAllyImg").fadeIn();
+		yTextmsg("<span style='color:#FF6961'>"+newPokemon.name+
+				"</span>에게 <span style='color:#FF6961'>"+myMonid.name+"(이)가 당했습니다.");
+		yTextmsg("재시험 준비하세요.",2000);
+		break;
+	case "포획":
+		yTextmsg("좋아~! 이제 최종 프로젝트와 싸울 준비를 해야겠군.",5000);
+		break;
+	case "도망":
+		$('.whyAllyImg').animate({left:'-300px'},1000);
+		yTextmsg("<span style='color:#FF6961'>"+newPokemon.name+
+				"</span>은(는) 너무 어렵잖아...<br>다음 기회를 노리자.",2000);
+		break;
+	case "자멸":
+		$(".whyEnemyImg").fadeIn();
+		$(".whyAllyImg").fadeIn();
+		yTextmsg("......",2000); //일단 주석처리해놓음.
+		break;
+	default:
+		break;
+	}
+	setTimeout(function(){
+		yPreCssFun();
+		$('.whyCommand').css('z-index','10');
+		$('.whyBattle').css('z-index','10');
+		$('.whyCmdListbox').css('z-index','10');
+		$('.whyAllMap').css('z-index','20');
+		$('.whyTextbox').css('z-index','10');
+		yLocClassFun("whyAllMap");
+		yPreView = '.whyAllMap';
+		yKeyon(100);
+		currentMode = 0;
+		battleCountDown = 4;
+	},4000);
 }
-	
-											/* 전체적인 전투화면 진행
-											A:	몬스터와 조우함 이벤트.
-												1. 몬스터를 만난다(맵팀 만난다 값 발생.)
-												2. 배틀화면 전환 적몬스터가 등장한다.
-													(index값에 따라 다른 몬스터 출현 함수적용)
-												3. 메세지를 띄운다.(ex : @@@이 출현함.)
-												4. 메세지를 띄운다.(ex : 가라~ @@@몬!!!)
-												5. (index 1번부터 dead상태가 아닌 몬스터를 호출한다.- 아마 없는 기능일듯. 그냥 없으면됨.)
-												5.2 아군 몬스터가 등장한다.
-														yCmdList(5000)
-B:	지금껏 봐왔던 배틀화면.
-	1.공격 명령을 선택한다.
-		- 마비 확인.
-		none:
-			1.메세지 : @@@몬 @@@ 스킬 시전!
-				(메세지가 오래 켜져있으면 다음 공격을 할 수없다 ==> 자동 키제어됨.)
-			2.아군 공격 애니메이션
-			3.메세지 : 적군몬이 @@@만큼 ~~~~
-		///	아군몬 마비:
-			 1. 메세지 : 적군이 마비상태입니다~
-			setTime~~
-	이제 적군턴~
-		여기 win,lose, 적군 마비상태 판단,none 해야할듯.
-		none:
-			1.적군 공격 애니메이션
-			2.메세지 : 아군몬이 @@@~~~
-			여기 win,lose,none 판단(아군은 선공이기때문에 다음 공격 전에 마비판단)
-		win:
-			전투승리 이벤트 호출
-		lose:
-			전투 패패 이벤트 호출
-		적군 마비:상태
-			1.메세지 : 적군이 마비상태입니다~ 
-	
-	
-	몬스터 포획이벤트
-		맵화면
-	승리이벤트
-		맵화면으로 간다.
-
-
-
-
-*/
-
-
 
 
 

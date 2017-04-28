@@ -93,7 +93,7 @@ document.addEventListener('keyup', (event) => {
 	} else if(event.keyCode === KEYBOARD_1) {
 			clearDiag();
 			currentMode = 0;
-			$("body").css("background","white");	  
+			$("body").css({'background-image':"url('img/rd/aaa.jpg')"});	  
 	} else if(event.keyCode === KEYBOARD_2) {
 		switch(npcDetection()) {
 			case MAP_ACADEMY_YANG:

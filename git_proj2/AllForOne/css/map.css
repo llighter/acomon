@@ -1,0 +1,54 @@
+* { padding: 0; margin:0 }
+canvas {
+    background: black;
+    display: block;
+    margin: 0 0;
+}
+
+/* dialog div css -yoda- */ 
+#opening {
+    height: 640px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 0 0 6px black, 0 0 0 12px white;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+    top:-640px;
+    width: 640px;
+    margin:0 auto;
+}
+#dialog {
+    height: 170px;
+    background: black;
+    border-radius: 5px;
+    box-shadow: 0 0 0 6px white, 0 0 0 12px black;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+    top:-180px;
+    width: 610px;
+    margin:0 auto;
+}
+
+#option {
+    height: 50px;
+    background: black;
+    color: orange;
+    font-size: 18px;
+    font-weight: bold;
+    position:relative;
+    z-index: 2;
+    top:-250px;
+    width: 610px;
+    margin:0 auto;
+}
+body {
+    background:black;
+    overflow: hidden;
+}
+#end{
+	display:none;
+}
