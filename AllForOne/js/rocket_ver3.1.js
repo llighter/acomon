@@ -546,6 +546,7 @@ function yTurnEnd(time){
 			$('.whyCmdSkillbox').css('z-index','10');
 			ySetCssFun();
 			winOrLose();
+			checkPokemonBook();
 			yKeyon(100);
 		}
 	},time);
